@@ -11,7 +11,7 @@
   var yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
 
   /* ---------- Scroll: header state, progress bar, gentle parallax ---------- */
-  var hdr = $('#hdr'), hero = $('.hero'), ridge = $('.ridge'), pano = $('.pano');
+  var hdr = $('#hdr'), hero = $('.hero, .phero'), ridge = $('.ridge'), pano = $('.pano');
   var ticking = false;
   function update() {
     ticking = false;
@@ -88,7 +88,7 @@
   /* ---------- Phone action bar: slides in after the hero buttons scroll away, steps aside at the form ---------- */
   var mbar = $('.mobile-bar');
   if (mbar && 'IntersectionObserver' in window) {
-    var heroCta = $('.hero .cta-row'), formSec = $('#contact'), pastHero = !heroCta, atForm = false;
+    var heroCta = $('.hero .cta-row, .phero .cta-row'), formSec = $('#contact'), pastHero = !heroCta, atForm = false;
     var syncBar = function () { mbar.classList.toggle('on', pastHero && !atForm); };
     mbar.classList.add('auto');
     if (heroCta) {
@@ -117,7 +117,7 @@
     mbtn.addEventListener('click', function () { setMenu(mnav.hidden); });
     mnav.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
     doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !mnav.hidden) { setMenu(false); mbtn.focus(); } });
-    window.addEventListener('resize', function () { if (window.innerWidth > 1080 && !mnav.hidden) setMenu(false); });
+    window.addEventListener('resize', function () { if (window.innerWidth > 1160 && !mnav.hidden) setMenu(false); });
   }
 
   /* ---------- Scroll-spy for the desktop nav ---------- */
@@ -140,7 +140,8 @@
   /* ---------- "What matters most?" picker ---------- */
   var picker = $('.picker');
   if (picker) {
-    var btns = $$('.picker-opts button', picker), out = $('#picker-out'), cards = $$('.path');
+    var btns = $$('.picker-opts button', picker), out = $('#picker-out'), cards = $$('.path, .opt-sec');
+    var linkBase = picker.getAttribute('data-href') || '#path-';
     var idle = out ? out.textContent : '';
     var msgs = {
       direct: 'If speed matters most, selling directly can close in 7–14 days, as-is, with no repairs, showings, or commission.',
@@ -156,7 +157,7 @@
       if (next) {
         out.textContent = msgs[next] + ' ';
         var a = doc.createElement('a');
-        a.href = '#path-' + next; a.textContent = 'See the details';
+        a.href = linkBase + next; a.textContent = 'See the details';
         a.style.cssText = 'font-weight:700;color:var(--green-700);text-underline-offset:3px';
         out.appendChild(a);
       } else { out.textContent = idle; }

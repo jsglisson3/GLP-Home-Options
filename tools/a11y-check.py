@@ -17,7 +17,7 @@ import asyncio, functools, http.server, pathlib, socketserver, sys, tempfile, th
 from playwright.async_api import async_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = sys.argv[1:] or ["index.html", "privacy-policy.html", "terms-of-service.html"]
+PAGES = sys.argv[1:] or ["index.html", "options.html", "about.html", "new-homes.html", "contact.html", "privacy-policy.html", "terms-of-service.html"]
 OUT = pathlib.Path(tempfile.mkdtemp(prefix="glp-check-"))
 AXE_PATH = pathlib.Path("node_modules/axe-core/axe.min.js")
 AXE = AXE_PATH.read_text()
