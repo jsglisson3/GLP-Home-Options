@@ -100,15 +100,12 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .nav a{position:relative;padding:11px 12px;border-radius:999px;font:650 .93rem/1 var(--f);color:var(--navy-700);text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
 .nav a:hover{background:var(--green-50);color:var(--green-700)}
 .nav a.active{background:var(--green-100);color:var(--green-800)}
-.hdr-phone{display:none;flex:none;align-items:center;gap:10px;padding:7px 16px 7px 7px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--navy-800);font:750 .95rem/1 var(--f);text-decoration:none;white-space:nowrap;min-height:46px;transition:border-color .2s,box-shadow .2s}
-.hdr-phone .i{width:32px;height:32px;padding:7px;border-radius:50%;background:var(--grad);color:#fff}
-.hdr-phone:hover{border-color:var(--green-400);box-shadow:var(--sh-1)}
+.hdr-phone{display:none;flex:none;align-items:center;gap:9px;padding:0 12px;border-radius:999px;color:var(--navy-800);font:750 .95rem/1 var(--f);text-decoration:none;white-space:nowrap;min-height:46px;transition:color .2s,background .2s}
+.hdr-phone .i{width:20px;height:20px;flex:none;color:var(--green-700)}
+.hdr-phone:hover{color:var(--green-700);background:var(--cream-100)}
 .hdr-cta{flex:none;white-space:nowrap}
 .menu-btn{display:none;align-items:center;gap:8px;margin-left:auto;min-height:46px;padding:0 18px;border-radius:999px;border:1.5px solid var(--navy-200);background:#fff;color:var(--navy-800);font:700 .95rem/1 var(--f);cursor:pointer}
 .menu-btn[aria-expanded="true"]{background:var(--navy-800);border-color:var(--navy-800);color:#fff}
-.progress{position:absolute;left:0;right:0;bottom:-1px;height:3px;pointer-events:none;opacity:0;transition:opacity .3s}
-.hdr.scrolled .progress{opacity:1}
-.progress i{display:block;height:100%;background:var(--grad);transform-origin:0 50%;transform:scaleX(var(--sp,0))}
 .mnav{position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--line);box-shadow:0 24px 40px rgba(26,50,61,.14);padding:6px max(18px,env(safe-area-inset-left,0px)) 22px;max-height:calc(100vh - 70px);max-height:calc(100svh - 70px);overflow:auto}
 .mnav nav a{display:flex;align-items:center;justify-content:space-between;min-height:56px;border-bottom:1px solid var(--line);font:700 1.06rem/1 var(--f);color:var(--navy-800);text-decoration:none}
 .mnav nav a::after{content:"";width:8px;height:8px;border-top:2px solid var(--green-600);border-right:2px solid var(--green-600);transform:rotate(45deg);margin-right:6px}
@@ -149,9 +146,11 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .hero-visual{position:relative;width:min(100%,540px);margin-inline:auto;padding:6px 0 26px}
 .gable{position:relative;margin:0;aspect-ratio:560/620;filter:drop-shadow(0 32px 40px rgba(26,50,61,.22))}
 .gable .g1{position:absolute;inset:0;background:var(--grad);clip-path:url(#gable)}
-.gable .g2{position:absolute;inset:9px;background:#fff;clip-path:url(#gable)}
-.gable .g3{position:absolute;inset:17px;overflow:hidden;clip-path:url(#gable);background:var(--navy-100)}
+.gable .g2{position:absolute;inset:7px;background:#fff;clip-path:url(#gable)}
+.gable .g3{position:absolute;inset:14px;overflow:hidden;clip-path:url(#gable);background:var(--navy-100)}
+/* keep the line above; the shade below grounds the photo and the name plate */
 .gable .g3 img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 20%;transform-origin:50% 40%}
+.gable .g3::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,50,61,0) 58%,rgba(26,50,61,.20) 100%);pointer-events:none}
 .gable-cap{position:absolute;right:11%;bottom:5.5%;display:grid;gap:2px;padding:10px 16px;border-radius:14px;background:#fff;box-shadow:var(--sh-2);text-align:left}
 .gable-cap b{font:800 .98rem/1.1 var(--f);color:var(--navy-800)}
 .gable-cap span{font:700 .68rem/1.2 var(--f);letter-spacing:.1em;text-transform:uppercase;color:var(--green-700)}
@@ -566,9 +565,9 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 
 /* ---------- Facebook logo (draws its own colors, so it reads as the real logo on any background) ---------- */
 .fb-logo{width:1.6em;height:1.6em;flex:none;display:block}
-.hdr-fb{display:none;flex:none;place-items:center;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:#fff;transition:border-color .2s,box-shadow .2s,transform .2s}
+.hdr-fb{display:none;flex:none;place-items:center;width:46px;height:46px;border-radius:50%;transition:background .2s}
 .hdr-fb .fb-logo{width:28px;height:28px}
-.hdr-fb:hover{border-color:#0866ff;box-shadow:var(--sh-1);transform:translateY(-1px)}
+.hdr-fb:hover{background:var(--cream-100)}
 @media (min-width:1161px){.hdr-fb{display:grid}}
 .fb-btn{display:inline-flex;align-items:center;gap:12px;min-height:56px;padding:9px 22px 9px 11px;border-radius:999px;background:#fff;border:1.5px solid var(--line);box-shadow:var(--sh-1);color:var(--navy-800);text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .2s}
 .fb-btn .fb-logo{width:36px;height:36px}

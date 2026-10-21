@@ -10,7 +10,7 @@
   /* ---------- Year ---------- */
   var yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
 
-  /* ---------- Scroll: header state, progress bar, ridge parallax ---------- */
+  /* ---------- Scroll: header state, ridge parallax ---------- */
   var hdr = $('#hdr'), hero = $('.hero, .phero'), ridge = $('.ridge');
   var ticking = false;
   function update() {
@@ -19,8 +19,6 @@
     var vh = window.innerHeight || 800;
     if (hdr) {
       hdr.classList.toggle('scrolled', y > 8);
-      var max = Math.max(1, doc.documentElement.scrollHeight - vh);
-      hdr.style.setProperty('--sp', clamp(y / max, 0, 1).toFixed(4));
     }
     if (reduce) return;
     if (hero && ridge) {

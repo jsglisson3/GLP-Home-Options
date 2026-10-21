@@ -39,7 +39,8 @@ PHONE_TEL, PHONE_SMS, PHONE = "tel:+14234515707", "sms:+14234515707", "(423) 451
 EMAIL = "info@glphomeoptions.com"
 BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 FORM_ID = "c36UOOc2pkosxfvRfjZJ"
-CSS_V, JS_V = 26, 8
+CSS_V, JS_V = 27, 9
+HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
 NEW_HOMES = "new-homes.html"
@@ -208,7 +209,7 @@ def contact_href(pg):
 def head(pg):
     url = SITE if is_home(pg) else SITE + pg["file"]
     real = REAL + "/" + ("" if is_home(pg) else pg["file"])
-    pre = "".join(f'<link rel="preload" href="{u}" as="image" fetchpriority="high">\n' for u in pg["preload"][:1])
+    pre = "".join(f'<link rel="preload" href="{u}" as="image" fetchpriority="high"{HERO_SET if u.endswith("joey-ethan-bridge.jpg") else ""}>\n' for u in pg["preload"][:1])
     ital = "" if pg["legal"] else '<link rel="preload" href="fonts/fraunces-latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>\n'
     og = ""
     if not pg["legal"]:
@@ -326,7 +327,6 @@ def header(pg):
       <a class="btn btn-ghost" href="{PHONE_SMS}">{ICON("sms")}Text</a>
     </div>
   </div>
-  <div class="progress" aria-hidden="true"><i></i></div>
 </header>'''
 
 
