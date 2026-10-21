@@ -1,14 +1,14 @@
 # Session handoff
 
-**Written:** Oct 21, 2026, at the end of Session 2 (accuracy patch), Checkpoint 2.
+**Written:** Oct 21, 2026, at the end of Session 2 (accuracy patch, then Jeremy's answers applied), Checkpoint 3.
 **Replace this file at the end of every session.** It always describes exactly one next session. The long-term plan is in `ROADMAP.md`; the full state is in `PROJECT_STATUS.md`.
 
 ## Where the project is
 
-- **Session 2 is done.** The six unverified claims were replaced with Joey's own wording or pulled (`CONTENT_CLAIMS.md` shows each one, before and after). **No visual change.** `python tools/checkpoint.py` is clean at Checkpoint 2: a fresh build reproduces all 7 pages, 340 links resolve, axe is all clear at 4 viewports.
-- **Is Checkpoint 2 live yet?** It goes live when Jeremy commits and syncs. Check by fetching the Home page: if the footer says "Serving Chattanooga, TN", it is live (the old text said "Serving Chattanooga and the surrounding counties"). Update the "Deployed state" line in `PROJECT_STATUS.md` either way.
+- **Session 2 is done.** The six unverified claims were first replaced with Joey's own wording or pulled. Then Jeremy answered the questions for Joey (Oct 21, about 9:30 AM: yes to all) and five claims went back on the site, each tagged **J** in `CONTENT_CLAIMS.md` (Jeremy's word, not yet Joey's). **No visual change.** `python tools/checkpoint.py` is clean at Checkpoint 3: a fresh build reproduces all 7 pages, 340 links resolve, axe is all clear at 4 viewports.
+- **Are Checkpoints 2 and 3 live yet?** They go live when Jeremy commits and syncs. Check by fetching the Contact page: if the address block reads "GLP Home Options (Legal entity: GL Partners LLC)", they are live (the 8:34 AM version said "doing business as"). Update the "Deployed state" line in `PROJECT_STATUS.md` either way.
 - **Jeremy approved on Oct 21:** D1 (navy leads, green is the accent; hex values locked), D4 (build both hero prototypes and he picks), D5 (a restrained set of glass and motion, as a direction), and "Joey's own words now" for claims. D2 (one warm surface, tested only in the prototypes), D3 (keep the fonts) and D6 (keep the five pages) proceed by default.
-- **Waiting on Joey** (list in `PROJECT_STATUS.md`, open question 1): seller financing and lease options, counties and towns, free consultation, hours and texts, a registered trade name, the example offer. None of these blocks Session 3.
+- **Waiting on Joey:** his confirmation of every claim tagged **J** (seller financing and lease options, the service area, free consultation, "anytime", texting, the example offer), a lawyer's look at how seller financing and lease options are described, and the rest of `PROJECT_STATUS.md` open question 1. None of this blocks Session 3.
 
 ## Next session: Session 3, hero prototypes (30 to 45 minutes)
 
@@ -16,7 +16,7 @@
 
 ### Needed from Jeremy (ask in the first message)
 
-1. **Did you commit and sync Checkpoint 2?** (If not, do that first; message below.)
+1. **Did you commit and sync Checkpoints 2 and 3?** (If not, do that first; message below.)
 2. **Anything Joey has answered** since Oct 21. If not, nothing is needed to start.
 3. At the end: **pick A or B**, and **cool or warm** (use AskUserQuestion, with the screenshots sent first).
 
@@ -25,7 +25,7 @@
 1. Read `PROJECT_STATUS.md`, this file, `ROADMAP.md` (Session 3) and `DESIGN_SYSTEM.md` (color, motion, glass, and the P3 note).
 2. Get the project from Jeremy's folder, not from memory: `C:\Users\jsgli\Documents\GLP-Home-Options` (list it, then stage the files into a working folder; about 70 files, at most 50 per staging call, so two calls; stage everything, including `images/`, `fonts/` and `research/photos/`, or the link check and checkpoint report missing files).
 3. Run `python tools/checkpoint.py`. **Expected: clean.** If it reports differences, stop and find out why before editing (the folder was edited elsewhere, or a sync is pending), and tell Jeremy.
-4. Read the newest line of `.git/logs/HEAD` in his folder, and fetch the live Home page (see "Is Checkpoint 2 live yet?" above).
+4. Read the newest line of `.git/logs/HEAD` in his folder, and fetch the live Home page (see "Are Checkpoints 2 and 3 live yet?" above).
 
 ### The two prototypes
 
@@ -80,12 +80,12 @@ python tools/checkpoint.py --write "label"      # end of session, after everythi
 python -m http.server 8000                      # preview at http://localhost:8000
 ```
 
-## Suggested commit message for Checkpoint 2 (Jeremy)
+## Suggested commit message for Checkpoints 2 and 3 (Jeremy)
 
 ```
-Session 2: accuracy patch and decisions recorded
+Session 2: accuracy patch, plus the claims Jeremy confirmed
 
-Replace six unverified claims with Joey's own wording or remove them: seller financing and lease options, surrounding counties, "doing business as", "free" and "no obligation, ever", "anytime", and the example-offer label. Record decisions D1, D4, D5 and the claims approach. No visual change.
+Rework six unverified claims to Joey's own wording, then restore the ones Jeremy confirmed (seller financing and lease options, service area within about an hour of Chattanooga, free consultation, anytime, example offer), each tagged J in CONTENT_CLAIMS.md until Joey confirms. Use Joey's "Legal entity" wording instead of "doing business as". Record decisions D1, D4, D5. No visual change.
 ```
 
 ## If something looks wrong

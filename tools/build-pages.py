@@ -52,13 +52,13 @@ PAGES = [
     dict(slug="index", file="index.html", crumb=None, ghl=True, preload=["images/joey-ethan-bridge.jpg"],
          title="GLP Home Options | Real Home Options for Chattanooga Homeowners",
          desc="Joey and Ethan help Chattanooga homeowners compare every real option: sell as-is in as little as 7 days, list for top dollar, "
-              "keep the home, or explore creative solutions. Local, honest, no pressure. Call or text (423) 451-5707.",
+              "keep the home, or explore creative options like seller financing and lease options. Local, honest, no pressure. Call or text (423) 451-5707.",
          og_title="GLP Home Options | Real home options. Clear next steps.",
          og_desc="Sell as-is, list for top dollar, or keep it. Joey and Ethan lay out the real numbers in plain English. No pressure, just solutions.",
          ld=["business", "faq:home"]),
     dict(slug="options", file="options.html", crumb="Your options", preload=[],
          title="Your Home Options in Chattanooga | GLP Home Options",
-         desc="Sell directly as-is in 7–14 days, list with an agent, keep your home, or explore creative solutions. Every Chattanooga option side by side, in plain English.",
+         desc="Sell directly as-is in 7–14 days, list with an agent, keep your home, or explore seller financing and lease options. Every Chattanooga option side by side, in plain English.",
          og_title="Every real option for your home, side by side | GLP Home Options",
          og_desc="Sell as-is, list for top dollar, keep the home, or get creative. What each path costs, how long it takes, and who it fits.",
          ld=["faq:options", "crumbs"]),
@@ -97,9 +97,9 @@ LINK_FB = f'<a href="{FB}" target="_blank" rel="noopener">our Facebook page{NEWT
 FAQ = {
     "home": [
         ("Do I have to sell to you if I reach out?",
-         "No. There's no obligation. We'll show you every realistic option, including listing with an agent or keeping the home, and you decide what's right."),
+         "No. The first conversation is free and there's no obligation. We'll show you every realistic option, including listing with an agent or keeping the home, and you decide what's right."),
         ("How do I know GLP is legit?",
-         f'Fair question. You deal directly with Joey or Ethan, and you can reach us at <a href="{PHONE_TEL}">{PHONE}</a> or <a href="mailto:{EMAIL}">{EMAIL}</a>. '
+         f'Fair question. You deal directly with Joey or Ethan, and you can reach us anytime at <a href="{PHONE_TEL}">{PHONE}</a> or <a href="mailto:{EMAIL}">{EMAIL}</a>. '
          f"You can see our recent closing and the home we're building on {LINK_FB}, and you're always free to have your own attorney or title company review anything before you sign."),
         ("How fast can you close if I sell directly?",
          "As little as 7 days, and usually 7 to 14. You pick the closing date, so if you need more time to move, that works too."),
@@ -111,12 +111,12 @@ FAQ = {
          "If your home is move-in ready and you aren't in a hurry, listing on the open market usually nets the most money. We'll tell you plainly if that's your best move."),
         ("What if I want to keep my home but I'm struggling?",
          "We can help you think through refinancing, renting the property out, or other ways to get past short-term financial trouble so you can stay."),
-        ("What if my situation doesn't fit a standard path?",
-         'Tell us what\'s going on. For unique situations where the standard paths don\'t feel like a fit, we explore structured options together. <a href="options.html#creative">See how it works.</a>'),
+        ("Do you offer seller financing or lease options?",
+         'Yes. For unique situations where the standard paths don\'t feel like a fit, we explore structured options together, including seller financing and lease options. <a href="options.html#creative">See how they work.</a>'),
         ("Can you help me figure out where to go next?",
          "Often, yes. In a recent sale the owners needed a place to move, so we worked around their timeline and helped them find a rental."),
         ("What areas do you serve?",
-         "We work in Chattanooga, TN, and we're based in Hixson. Not sure whether your address is in our area? Call or text us and we'll tell you."),
+         "We work in Chattanooga and the surrounding counties, generally within about an hour of the city, in Tennessee and Georgia. We're based in Hixson. Not sure whether your address is in our area? Call or text us and we'll tell you."),
         ("Do you build homes too?",
          'Yes. We build affordable new homes in Chattanooga for first-time buyers and families. Ask us what\'s coming up next. <a href="[[new-homes-href]]">See what we\'re building.</a>'),
     ],
@@ -128,10 +128,14 @@ FAQ = {
          'Once commission, closing costs, and those costs come out, the gap can be smaller than it first looks. Run your own numbers on <a href="[[home]]#netsheet">the net sheet</a>.'),
         ("How do I know which option is right for me?",
          "Start with what matters most: speed, price, or staying put. Then talk to us. We'll go over the numbers together and tell you what we'd do in your position."),
-        ("What if my situation doesn't fit a standard path?",
-         "Tell us what's going on. For unique situations where the standard paths don't feel like a fit, we explore structured options together."),
+        ("What is seller financing?",
+         "With seller financing, the seller carries the loan instead of the buyer getting one from a bank. The buyer makes payments to the seller over time under agreed terms. "
+         "It can help when a standard sale doesn't fit. Terms vary, so have your own attorney or title company review any agreement."),
+        ("What is a lease option?",
+         "A lease option lets a buyer rent the home with the right, but not the obligation, to buy it later at an agreed price. "
+         "The details depend on the deal, so have your own attorney or title company review anything before you sign."),
         ("Do I have to decide on the first call?",
-         "No. There's no obligation, so take the time you need."),
+         "No. The first conversation is free, with no obligation. Take the time you need."),
     ],
     "homes": [
         ("Is the home available yet?",
@@ -250,11 +254,11 @@ def ld_blocks(pg):
         if key == "business":
             out.append({
                 "@context": "https://schema.org", "@type": "LocalBusiness", "name": "GLP Home Options", "legalName": "GL Partners LLC",
-                "description": "Chattanooga home solutions: sell directly as-is, list with an agent, keep your home, or explore creative solutions. Plus affordable new construction.",
+                "description": "Chattanooga home solutions: sell directly as-is, list with an agent, keep your home, or a creative structure like seller financing or a lease option. Plus affordable new construction.",
                 "telephone": "+1-423-451-5707", "email": EMAIL, "url": REAL,
                 "image": SITE + "images/joey-ethan-bridge.jpg", "logo": SITE + "images/glp-mark.png",
                 "address": {"@type": "PostalAddress", "postOfficeBoxNumber": "55", "addressLocality": "Hixson", "addressRegion": "TN", "addressCountry": "US"},
-                "areaServed": [{"@type": "City", "name": "Chattanooga, TN"}],
+                "areaServed": [{"@type": "City", "name": "Chattanooga, TN"}, "Counties within about an hour of Chattanooga, in Tennessee and Georgia"],
                 "founder": [{"@type": "Person", "name": "Joey"}, {"@type": "Person", "name": "Ethan"}],
                 "sameAs": [FB]})
         elif key.startswith("faq:"):
@@ -343,7 +347,7 @@ def footer(pg):
       <a href="{PHONE_TEL}">{PHONE}</a>
       <a href="mailto:{EMAIL}">{EMAIL}</a>
       <span>PO Box 55, Hixson, TN</span>
-      <span>Serving Chattanooga, TN</span>
+      <span>Serving Chattanooga &amp; surrounding counties</span>
     </div>
     <nav class="ftr-col" aria-label="Legal">
       <h2>Legal</h2>
@@ -447,7 +451,7 @@ def contact_section(pg, page=False):
       <div class="contact-copy">
         <div class="rv">
           {top}
-          <p class="lede">Call or text, or send a few details and we'll follow up. You'll talk to Joey or Ethan, and your information stays confidential.</p>
+          <p class="lede">Call or text anytime, or send a few details and we'll follow up. You'll talk to Joey or Ethan, and your information stays confidential.</p>
         </div>
         {reach()}
         <div class="next rv">

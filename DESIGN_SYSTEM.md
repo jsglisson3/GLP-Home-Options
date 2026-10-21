@@ -29,7 +29,7 @@ Nothing below has been signed off as a complete package yet. The system was buil
 9. **D1: navy leads, green is the accent.** The color tokens in section 2 are locked.
 10. **D4: build two homepage hero prototypes** (A people-led, B numbers-led) and compare before choosing (Session 3).
 11. **D5: a restrained set of glass and motion.** Keep header glass, small overlays on photos and the ridge and contour touches; drop the floating blobs and photo parallax (exact glass list set in Session 4, applied in Session 5).
-12. **Claims:** copy says only what Joey's own materials support (`CONTENT_CLAIMS.md`).
+12. **Claims:** copy says only what Joey's own materials support, or what Jeremy has confirmed and `CONTENT_CLAIMS.md` tags **J** until Joey confirms it.
 
 **Proceeding by default (Jeremy told, no objection):** D2 test one warm neutral inside the hero prototypes only; D3 keep Plus Jakarta Sans and the Fraunces italic accent; D6 keep the five-page structure (the gallery's placement is decided later).
 

@@ -31,7 +31,7 @@ Verified the live site and repo, audited code, design tokens, claims and weights
 - **Do:** fix the six "Fix first" rows in `CONTENT_CLAIMS.md`. Where Joey hasn't answered, use Joey's own wording or the conservative option: seller financing/lease options (remove or neutralize; affects the FAQ list in `tools/build-pages.py`, `tools/pages/options.html`, `index.html`, `about.html`, page descriptions, JSON-LD), "surrounding counties" (use "Chattanooga, TN"), "doing business as", "free"/"ever", "anytime", example offer.
 - **Success:** every "??" row resolved or softened; pages rebuilt; `python tools/checkpoint.py --write` passes; Jeremy publishes.
 - **Postponing:** any visual change.
-- **Result:** all six rows fixed with Joey's own wording or pulled (see `CONTENT_CLAIMS.md`); 7 pages rebuilt; links, axe and screenshots checked; Checkpoint 2 written. Restoring any pulled claim waits for Joey's answers.
+- **Result:** all six rows reworked to Joey's own wording or pulled, then (Jeremy's answers, about 9:30 AM) five restored and tagged J; 7 pages rebuilt; links, axe and screenshots checked; Checkpoints 2 and 3 written. Joey still has to confirm every J claim.
 
 ### Session 3: Phase 1, hero exploration
 - **Goal:** compare two meaningfully different hero compositions as isolated prototypes (not touching the live hero): **A, people-led** (Joey and Ethan in the gable frame, as built) and **B, numbers-led** (net sheet or compare table in the hero, smaller photo). Also test one warm neutral surface (P3).
@@ -69,7 +69,7 @@ Verified the live site and repo, audited code, design tokens, claims and weights
 - Walk every journey end to end: call, text, email, book, form, Facebook.
 
 ### Session 12: Phase 6, accessibility, responsive, performance
-- Lighthouse baseline and fixes; responsive images (`srcset`, WebP/AVIF) once originals exist (P6); font loading; 320px width; keyboard-only and screen-reader walkthrough; 44px touch targets (P5); console errors; print.
+- Lighthouse baseline and fixes; responsive images (`srcset`, WebP/AVIF) once originals exist (P6); font loading; 320px width (known wraps: the email link in the Contact and Our story tiles, the Home hero button); keyboard-only and screen-reader walkthrough; 44px touch targets (P5); console errors; print.
 
 ### Session 13: Phase 7, launch QA and deployment
 - Remove `noindex` (one line in `head()` of `tools/build-pages.py`); un-comment the canonical line there and set the real domain (`SITE`, which also drives og:url and og:image); `sitemap.xml`, `robots.txt`; analytics and form-conversion tracking (and confirm the Privacy page's "we respect Do Not Track" stays true once analytics is added); point glphomeoptions.com at the site (GitHub Pages custom domain + DNS, with Joey) keeping `/privacy-policy` and `/terms-of-service`; lawyer-reviewed Privacy and Terms (remove the "Draft for review" note in `tools/legal_text.py`); share-card check; final live verification of every page and link.
@@ -81,7 +81,7 @@ Situation pages (inherited home, divorce, relocation, needs repairs, financial s
 
 | Task | Waits on |
 |---|---|
-| Restoring any claim pulled in Session 2 | Joey's answers (`CONTENT_CLAIMS.md`, rows 1 to 6 and 41) |
+| Launch with the J-tagged claims | Joey's confirmation of each (`CONTENT_CLAIMS.md`, rows 1, 2, 4, 5, 6, 41) and a lawyer's look at seller financing and lease options |
 | Session 4 | Jeremy's decisions D1 to D6 and the Session 3 hero choice |
 | Session 5 | Session 4 (we consolidate the approved system) |
 | Session 10 gallery | Joey's photos and answers; D6 |
@@ -90,7 +90,7 @@ Situation pages (inherited home, divorce, relocation, needs repairs, financial s
 
 ## Risks
 
-- Joey's answers arrive slowly: mitigated by conservative wording in the meantime.
+- Joey's answers arrive slowly: mitigated by the J tags in `CONTENT_CLAIMS.md` (we always know whose word a claim rests on) and by keeping the site `noindex` until he confirms.
 - Source photos are ~800px and one may be AI-generated (the bridge photo): real originals are the biggest trust upgrade.
 - The GHL form can't be exercised from our workspace: needs a human test on a phone after every change.
 - The construction business may split off: `NEW_HOMES` in `tools/build-pages.py` is the one-line switch.
