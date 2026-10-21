@@ -38,6 +38,8 @@ All decisions (D1 to D6) and their status are in `PROJECT_STATUS.md`, section C.
 
 **Built into the live site at Checkpoint 5 (Session 3b):** D2's warm cream is the Home hero surface (`--cream`, `.hero .hero-bg` in `css/site.css`; page heroes stay cool), and D5's removal of the floating blobs, photo drift, hero photo zoom and tag bobbing. The hero A/B choice is still not applied (Session 6).
 
+**Checkpoints 6 and 7 (Session 6a):** hero A (people-led, chosen by Joey) is the live Home hero. The header has a constant 80px height with a 50px logo and, on Home only, takes the hero's cream at the top of the page (white glass once you scroll). On phones a "Joey & Ethan" chip with two small portraits shows their faces in the first screen. Headlines use `text-wrap:balance` and intros `text-wrap:pretty`. From 981 to 1100px the photo tags and caption are slightly smaller so they never overlap.
+
 ## 1. Brand personality (from the master plan)
 
 Premium and sophisticated; trustworthy and transparent; warm, local, human; modern, clear, easy to use. The message: **You have options. We will help you understand them. The decision is yours.** No pressure-driven design, no stock real-estate look, no decoration without a job.
@@ -149,7 +151,7 @@ Reduced motion: all animations and transitions are removed; reveals show immedia
 | Buttons | `.btn .btn-primary .btn-ghost .btn-lg .btn-sm` | Pill shape; min-height 52 (lg 60, sm 46). |
 | Facebook | `.fb-btn .fb-logo` | The logo is a white disc with the `#0866FF` mark. Don't use the line-icon class on it. |
 
-### Hero tag system (APPROVED with hero A, Oct 21; built in `css/proto.css`, moves into `css/site.css` in Session 6)
+### Hero tag system (APPROVED with hero A, Oct 21; now in `css/site.css` since Checkpoint 6; the prototype CSS is retired)
 
 Jeremy's feedback: the floating tags on the photo "look random". The old tags sat at three different overhangs and heights; on phones the speed tag covered Ethan's eyes and the caption ran under the call tag. They now follow five rules:
 

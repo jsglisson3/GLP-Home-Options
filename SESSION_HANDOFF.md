@@ -1,6 +1,6 @@
 # Session handoff
 
-**Written:** Oct 21, 2026, at the end of Session 3b (polish pass after the hero prototypes), Checkpoint 5.
+**Written:** Oct 21, 2026, at the end of Session 6a (the landing page's top half), Checkpoint 7.
 **Replace this file at the end of every session.** It always describes exactly one next session. The long-term plan is in `ROADMAP.md`; the full state is in `PROJECT_STATUS.md`.
 
 ## Where the project is
@@ -9,6 +9,7 @@
 - **Live site = commit `73b0b53`** (Checkpoints 2 and 3). **Checkpoint 4 goes live with Jeremy's next commit.** It is additive: `proto-hero-a.html`, `proto-hero-b.html`, `css/proto.css`, `js/proto.js`, `tools/build-prototypes.py`, two avatar images and the docs. No real page changed. After he syncs, the prototypes are at `https://jsglisson3.github.io/GLP-Home-Options/proto-hero-a.html` and `proto-hero-b.html` (add `?surface=warm` for the warm state), so he can show Joey. Check with a cache-busting query (`?cb=...`); the fetch tool caches 15 minutes.
 - **Session 3b polish (Checkpoint 5) changed real pages:** the Home hero is now warm cream; the floating blobs, photo drift, hero photo zoom and tag bobbing are gone; the 320px header is fixed (icon-only Menu at 350px and narrower). Checkpoints 4 and 5 go live together with Jeremy's next commit if 4 is not yet pushed. The hero A/B choice is still NOT applied to the live Home page (Joey is picking; Session 6).
 - **Jeremy said he really likes the cream ("classy").** D2 approved it for the hero only; in Session 4 ask whether to try it on one or two more sections.
+- **Session 6a (Checkpoints 6 and 7):** Joey chose hero A (people-led). It is live on the Home page (in the next commit) with a refined header; on phones a Joey & Ethan chip puts their faces in the first screen. Hero B is retired: `proto-hero-a.html` and `proto-hero-b.html` are redirect pages. **Jeremy can delete these in VS Code whenever convenient:** `proto-hero-a.html`, `proto-hero-b.html`, `css/proto.css`, `js/proto.js`, `tools/build-prototypes.py` (nothing uses them).
 - **Approved by Jeremy:** D1 (navy leads, green accent), D2 (warm cream, hero only), D4 (hero A), D5 (restrained glass and motion, as a direction), and "Joey's own words now" for claims. D3 and D6 proceed by default.
 - **Waiting on Joey:** his confirmation of every claim tagged **J** (seller financing and lease options, the service area, free consultation, "anytime", texting, the example offer); a lawyer's look at how seller financing and lease options are described; where the bridge photo came from (open question 3).
 - **Fixed in Session 3b:** the 320px header overflow (icon-only Menu at 350px and narrower; no overflow at 320, 340 or 360 on any page). The 320px hero button wrap is still to be re-checked in Session 12.
@@ -87,3 +88,15 @@ Body:
 - Menu button is icon-only at 350px and narrower, so the header fits at 320px
 - Breadcrumb links are 44px on touch screens; the email link fits on one line at 320px
 - Hero prototypes A and B (not linked from the site) and the project notes updated
+
+## Suggested commit message for Checkpoints 6 and 7 (Session 6a)
+
+Subject: Landing page: hero A (people-led) live, seamless header, phone faces
+
+Body:
+- Joey picked hero A: it is now the live Home hero (retire the numbers version)
+- Header keeps one height (no jump when you scroll) and blends into the cream hero
+- Phones: a Joey & Ethan chip with portraits in the first screen
+- Balanced headline and intro line breaks
+- Tags and caption no longer overlap on 981 to 1100px wide screens
+- Old prototype pages now redirect to the home page; project notes updated

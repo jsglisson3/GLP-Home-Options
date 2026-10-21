@@ -87,11 +87,12 @@ main:focus{outline:none}
 /* ---------- Header ---------- */
 .hdr{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.74);-webkit-backdrop-filter:saturate(1.8) blur(16px);backdrop-filter:saturate(1.8) blur(16px);transition:background .3s ease,box-shadow .3s ease}
 .hdr.scrolled{background:rgba(255,255,255,.95);box-shadow:0 1px 0 var(--line),0 10px 30px rgba(26,50,61,.06)}
-.hdr-row{display:flex;align-items:center;gap:18px;min-height:82px;transition:min-height .3s ease}
-.hdr.scrolled .hdr-row{min-height:68px}
+/* Home: at the top of the page the header takes the hero's cream, so there is no seam; it turns to white glass once you scroll */
+body:has(.hero) .hdr:not(.scrolled){background:#fdfbf6}
+/* constant header height: the old shrink-on-scroll pulled the whole page up by 14px the moment you started to scroll */
+.hdr-row{display:flex;align-items:center;gap:18px;min-height:80px}
 .brand{display:inline-flex;flex:none;align-items:center;gap:12px;text-decoration:none;min-height:44px;color:var(--navy-700)}
-.brand img{height:46px;width:auto;display:block;transition:height .3s ease}
-.hdr.scrolled .brand img{height:40px}
+.brand img{height:50px;width:auto;display:block}
 .wordmark{display:inline-flex;align-items:center;gap:9px;line-height:1}
 .wordmark b{font:800 1.95rem/1 var(--f);letter-spacing:-.035em;color:var(--navy-700)}
 .wm-sub{display:grid;gap:4px;font:700 .66rem/1 var(--f);letter-spacing:.17em}
@@ -166,25 +167,104 @@ main:focus{outline:none}
 .fc .ico .i{width:22px;height:22px}
 .fc small{display:block;font:800 .66rem/1.2 var(--f);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .fc b{display:block;font:800 1.1rem/1.2 var(--f);letter-spacing:-.02em;color:var(--navy-800);white-space:nowrap}
-.fc-call{left:-9%;bottom:19%}
-.fc-fast{right:-8%;top:2%}
-.fc-free{left:-5%;top:36%}
 a.fc-call:hover{box-shadow:var(--sh-3),0 0 0 2px var(--green-400)}
+
+/* ---------- Home hero: tag system (hero A, locked Oct 21) ----------
+   One overhang (--hang), one tag size, two groups (speed tag on the roof's right; price and call tags in a left stack),
+   one bottom line (--edge) shared with the Joey & Ethan caption, and nothing above the chins so faces stay clear. */
+.hero .hero-visual{--hang:40px;--tag-gap:12px;--edge:28px;--tag-h:62px}
+.hero .fc{width:14rem;height:var(--tag-h);padding:0 14px 0 10px;gap:12px;border-radius:18px}
+.hero .fc .ico{width:40px;height:40px;border-radius:13px}
+.hero .fc .ico .i{width:20px;height:20px}
+.hero .fc small{font-size:.64rem;letter-spacing:.1em}
+.hero .fc b{font-size:1rem}
+.hero .fc-fast{top:6px;right:calc(var(--hang) * -1)}
+.hero .fc-call{left:calc(var(--hang) * -1);bottom:calc(26px + var(--edge))}
+.hero .fc-free{left:calc(var(--hang) * -1);bottom:calc(26px + var(--edge) + var(--tag-h) + var(--tag-gap))}
+.hero .gable-cap{right:20px;bottom:var(--edge);padding:9px 14px;border-radius:14px}
+.hero .gable-cap b{font-size:.95rem}
+.hero .gable-cap span{font-size:.64rem}
+
+/* staging: a still pool of light behind the photo lifts it off the cream */
+.hero .hero-visual::before{content:"";position:absolute;z-index:-1;inset:-8% -16% -4%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.9),rgba(255,255,255,.5) 48%,rgba(255,255,255,0) 74%);pointer-events:none}
+
+/* the three paths, as quick-read chips (wide screens; phones keep the paths inside the sentence) */
+.paths-row{display:none;flex-wrap:wrap;gap:10px;margin:-4px 0 0;padding:0;list-style:none}
+.paths-row a{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 20px 0 9px;border-radius:999px;background:rgba(255,255,255,.84);border:1px solid var(--line);box-shadow:var(--sh-1);color:var(--navy-800);font:700 .95rem/1 var(--f);text-decoration:none;transition:transform .2s ease,box-shadow .25s ease,border-color .25s ease,background .25s ease}
+.paths-row a:hover{transform:translateY(-2px);background:#fff;border-color:var(--green-400);box-shadow:var(--sh-2)}
+.paths-row .i{flex:none;box-sizing:content-box;width:18px;height:18px;padding:7px;border-radius:50%;background:var(--green-100);color:var(--green-800)}
+@media (min-width:768px){.paths-row{display:flex}.lede-paths{display:none}}
+
+/* a calm entrance: copy rises in order, the photo settles, the three tags arrive last (switched off by reduced motion) */
+@keyframes enter{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes enter-photo{from{opacity:0;transform:translateY(26px) scale(.975)}to{opacity:1;transform:none}}
+.hero .hero-copy>.pill{animation:enter .7s cubic-bezier(.2,.7,.2,1) both}
+.hero .hero-copy>.lede{animation:enter .8s cubic-bezier(.2,.7,.2,1) .5s both}
+.hero .hero-copy>.paths-row{animation:enter .8s cubic-bezier(.2,.7,.2,1) .62s both}
+.hero .hero-copy>.cta-row{animation:enter .8s cubic-bezier(.2,.7,.2,1) .74s both}
+.hero .hero-copy>.micro{animation:enter .8s cubic-bezier(.2,.7,.2,1) .86s both}
+.hero .gable{animation:enter-photo .9s cubic-bezier(.2,.7,.2,1) .08s both}
+.hero .fc{animation:enter .7s cubic-bezier(.2,.7,.2,1) both}
+.hero .fc-free{animation-delay:.85s}.hero .fc-call{animation-delay:1s}.hero .fc-fast{animation-delay:1.15s}
 
 @media (max-width:980px){
   .hero-grid{grid-template-columns:minmax(0,1fr)}
   .hero-visual{width:min(100%,470px)}
-  .fc-call{left:-3%}.fc-fast{right:-3%}.fc-free{left:-2%}
 }
 @media (max-width:520px){
   .hero-visual{width:min(100%,400px);padding-bottom:14px}
   .fc{padding:9px 14px 9px 9px;gap:10px}
   .fc .ico{width:38px;height:38px;border-radius:12px}.fc .ico .i{width:18px;height:18px}
   .fc b{font-size:.95rem}.fc small{font-size:.6rem}
-  .fc-call{left:-4%;bottom:15%}.fc-fast{right:-4%;top:13%}.fc-free{display:none}
   .gable-cap{right:9%;bottom:4%;padding:8px 12px}
   .cta-row .btn-lg{width:100%}
 }
+@media (min-width:981px){.hero{padding-bottom:calc(var(--pull) + clamp(36px,4.2vw,64px))}}  /* the numbers strip rises into the first screen on desktop */
+@media (max-width:980px){.hero .hero-visual{--hang:min(40px,calc((100vw - 470px) / 2 - 12px))}}
+@media (max-width:520px){
+  .hero-copy{gap:20px}
+  .hero{padding-top:24px}
+  .hero-lede{font-size:1rem;line-height:1.58}
+  .hero .cta-row .btn-lg{min-height:56px}
+  .hero .hero-visual{--hang:14px;--edge:56px;padding-bottom:34px}
+  .hero .fc{width:12.6rem;height:54px;padding:0 12px 0 8px;gap:10px;border-radius:16px}
+  .hero .fc .ico{width:36px;height:36px;border-radius:12px}
+  .hero .fc .ico .i{width:18px;height:18px}
+  .hero .fc b{font-size:.95rem}
+  .hero .fc small{font-size:.6rem}
+  .hero .fc-call{bottom:calc(34px + var(--edge))}
+  .hero .gable-cap{left:50%;right:auto;bottom:-24px;transform:translateX(-50%);white-space:nowrap}
+}
+
+/* laptops and small desktops (981 to 1100px): the photo column is narrower, so the tags and the caption shrink to stay clear of each other */
+@media (min-width:981px) and (max-width:1100px){
+  .hero .hero-visual{--hang:26px;--tag-h:56px}
+  .hero .fc{width:13.2rem;padding:0 12px 0 8px;gap:10px}
+  .hero .fc small{letter-spacing:.06em;white-space:nowrap}
+  .hero .fc .ico{width:36px;height:36px;border-radius:12px}
+  .hero .fc .ico .i{width:18px;height:18px}
+  .hero .fc b{font-size:.92rem}
+  .hero .fc small{font-size:.6rem}
+  .hero .gable-cap{right:14px;padding:7px 11px}
+  .hero .gable-cap b{font-size:.86rem}
+  .hero .gable-cap span{font-size:.58rem;letter-spacing:.08em}
+}
+@media (min-width:981px) and (max-width:1010px){.hero .gable-cap span{display:none}}  /* narrowest laptops: the caption keeps the names only, so it clears the call tag */
+
+/* phones: Joey and Ethan's faces in the very first screen (the photo itself sits below the fold) */
+.hero-people{display:none}
+.hero-people .avs{display:flex;flex:none}
+.hero-people img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2.5px solid #fff;box-shadow:var(--sh-1);background:var(--navy-100)}
+.hero-people img+img{margin-left:-14px}
+.hero-people b{display:block;font:800 .95rem/1.15 var(--f);color:var(--navy-800)}
+.hero-people small{display:block;margin-top:2px;font:700 .76rem/1.25 var(--f);letter-spacing:.02em;color:var(--green-700)}
+@media (max-width:767px){
+  .hero .hero-copy>.pill{display:none}
+  .hero .hero-copy>.hero-people{display:inline-flex;align-items:center;gap:12px;max-width:100%;padding:7px 18px 7px 7px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:var(--sh-1);animation:enter .7s cubic-bezier(.2,.7,.2,1) both}
+}
+/* tidy line breaks: balanced headline, no one-word last lines in the intro */
+.hero .h1{text-wrap:balance}
+.hero-lede{text-wrap:pretty}
 
 /* ---------- Stats + situations ---------- */
 .after-hero{position:relative;display:flow-root;background:var(--mist)}

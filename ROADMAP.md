@@ -49,7 +49,7 @@ Verified the live site and repo, audited code, design tokens, claims and weights
 - **Success:** screenshots before and after match; axe still 0; checkpoint.
 
 ### Sessions 6 to 9: Phase 3/4, section-by-section refinement (one session each)
-- 6: header, navigation, hero (applies the chosen hero: **A, people-led**, with the tag system and the warm cream hero surface moved from `css/proto.css` into `css/site.css` and `tools/pages/index.html`; then delete `proto-hero-a.html`, `proto-hero-b.html`, `css/proto.css`, `js/proto.js`, `tools/build-prototypes.py` and the two avatar images). (Update, Session 3b: the warm cream hero surface is already in `css/site.css`; only the tag system and the chosen hero markup remain to move.)
+- 6: header, navigation, hero (applies the chosen hero: **A, people-led**, with the tag system and the warm cream hero surface moved from `css/proto.css` into `css/site.css` and `tools/pages/index.html`; then delete `proto-hero-a.html`, `proto-hero-b.html`, `css/proto.css`, `js/proto.js`, `tools/build-prototypes.py` and the two avatar images). (Update, Session 3b: the warm cream hero surface is already in `css/site.css`; only the tag system and the chosen hero markup remain to move.) (Update, Session 6a, Oct 21: hero A is applied to the live Home page, the header is refined and the prototypes are retired at Checkpoint 6; navigation wording and the other pages' headers remain.)
 - 7: problem, options, trust sections (vary the repeated card grids, P7).
 - 8: September story, compare table, net sheet (copy and layout, not formulas).
 - 9: About, New homes, FAQ, contact section, footer.
