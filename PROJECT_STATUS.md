@@ -2,7 +2,7 @@
 
 **Start here every session.** This file is the map. The code is the truth. If they disagree, believe the code, then fix this file.
 
-_Last updated: Oct 21, 2026, Session 1 (Phase 0), Checkpoint 1._
+_Last updated: Oct 21, 2026, Session 2 (decisions intake and accuracy patch), Checkpoint 2._
 
 ## Which documents are authoritative
 
@@ -37,7 +37,7 @@ Workflow: one focused session, one verified checkpoint, updated documentation, o
 - **Facebook:** https://www.facebook.com/profile.php?id=61588492362641
 - **Repository (verified Oct 21 from `.git/config`):** https://github.com/jsglisson3/GLP-Home-Options.git, branch `main`, GitHub Pages deploys `main` / root. **The repository is public.**
 - **Working directory and source of truth:** `C:\Users\jsgli\Documents\GLP-Home-Options` on Jeremy's computer. An AI session works on a temporary copy in a cloud workspace (which may also hold its own stale `.git`; ignore it).
-- **Deployed state (checked Oct 21, after the 8:34 AM publish):** GitHub Pages serves the site from commit **`b6cc372` "Full refresh"** (committed 8:34 AM CDT; it is the last commit in the saved git log). Fetching `/` and `/contact.html` returned the new multi-page site: nav, H1s ("Real home options. Clear next steps." and "Let's talk about your home. No pressure, no scripts."), the Facebook links and `noindex, nofollow`; the Contact page shows the corrected heading order. This is a page-level check by reading the fetched text. A byte-for-byte comparison is not possible from the workspace (its shell can't reach github.io).
+- **Deployed state (checked Oct 21):** GitHub Pages serves the site from commit **`b6cc372` "Full refresh"** (8:34 AM CDT, the last commit that changed a page). Commit **`5091df7` "Checkpoint 1: Phase 0 audit and project record"** (9:08 AM CDT) added only the notes and the checkpoint tool. After the 8:34 AM publish, fetching `/` and `/contact.html` returned the new multi-page site: nav, H1s ("Real home options. Clear next steps." and "Let's talk about your home. No pressure, no scripts."), the Facebook links and `noindex, nofollow`. That is a page-level check by reading the fetched text; a byte-for-byte comparison is not possible from the workspace (its shell can't reach github.io). **Checkpoint 2 (the Session 2 accuracy patch) is the next commit.** At the start of Session 3, check whether it is live: once it is, the footer reads "Serving Chattanooga, TN" (it used to say "Serving Chattanooga and the surrounding counties").
 - **Stack:** plain HTML, CSS and vanilla JavaScript; no framework; no server. A small Python script (`tools/build-pages.py`) generates the 7 pages from shared parts, and the output is plain files. Fonts are self-hosted. The contact form and booking are GoHighLevel embeds (form `c36UOOc2pkosxfvRfjZJ`, booking `cM59fR3vJlAVRy08Depz`, host `links.voiseai.com`).
 
 **Technical constraints that shape how sessions work**
@@ -59,26 +59,27 @@ Workflow: one focused session, one verified checkpoint, updated documentation, o
 
 Full detail and the DIRECTED / BUILT / PROPOSAL labels are in **`DESIGN_SYSTEM.md`**. Summary: navy `#2d4855` leads and green `#3c7a66` supports (both from the logo) on white and mist surfaces; Plus Jakarta Sans with a Fraunces italic accent; a gable-shaped photo frame; restrained scroll, ridge and contour motion that switches off for reduced motion; no dark mode.
 
-**Approval status:** Jeremy has *directed* the direction (light, logo colors, back off the green, classy and alive, mobile first, Facebook logo, no invented claims). He has **not yet formally approved the system as a package.** Everything in code is BUILT, pending the decisions below.
+**Approval status (updated Oct 21, Session 2):** Jeremy has *directed* the overall direction (light, logo colors, back off the green, classy and alive, mobile first, Facebook logo, no invented claims) and, on Oct 21, **explicitly approved D1, D4, D5 and the claims approach** below. D2, D3 and D6 proceed by default: he was told the plan on Oct 21 and did not object, and he sees the result in the Session 3 prototypes. Everything else in the code is BUILT, pending Session 4's formal lock.
 
-### Decisions needing Jeremy's approval (Phase 1)
+### Decisions (Phase 1)
 
-| # | Decision | Recommendation |
+| # | Decision | Status |
 |---|---|---|
-| **D1** | **Color hierarchy.** Keep navy-led with green as the accent (as built; matches "back off the green"), or move to a deep-green-led palette (the master plan lists deep greens first). | Keep navy-led. Lock the hex values in `DESIGN_SYSTEM.md` as tokens. |
-| **D2** | **Warmth.** The palette is cool and clean; "warm, local, human" comes mostly from photos and the italic accent. Test one warm neutral (sand/cream) on a few surfaces? | Yes, but only inside the hero prototypes (Session 3), not site-wide. |
-| **D3** | **Typography.** Keep Plus Jakarta Sans + Fraunces italic accent, or evaluate an editorial serif for headlines? | Keep. Try a serif headline only in one hero prototype. |
-| **D4** | **Hero.** Approve building two prototypes to compare: **A, people-led** (Joey and Ethan in the gable frame, as built) and **B, numbers-led** (net sheet or compare table in the hero, smaller photo). | Approve. Pick after seeing both (Session 3). |
-| **D5** | **Glass and motion.** Glass blur is used in 7 places; motion includes ridge and photo parallax, blobs, count-up and view transitions. Keep all, or trim to header, small overlays and the ridge/contour signature? | Trim to the restrained set, then define motion tokens. |
-| **D6** | **Architecture and gallery.** Confirm the 5-page structure built this morning (Home, Your options, Our story, New homes, Contact) with New homes staying a light teaser. Where should the homes gallery go: inside New homes, its own "Our work" page, or the future construction site? | Confirm the structure. Decide gallery placement after Joey sends photos and answers. |
+| **D1** | **Color hierarchy.** Navy leads, green is the accent (as built), versus a deep-green-led palette. | **APPROVED Oct 21: navy leads, green accent.** The hex values in `DESIGN_SYSTEM.md` section 2 are now locked tokens; changing one needs Jeremy's approval. |
+| **D2** | **Warmth.** Test one warm neutral (sand/cream) surface beside the cool palette. | Proceeding by default: test it **only inside the hero prototypes** (Session 3), not site-wide. Jeremy confirms when he sees them. |
+| **D3** | **Typography.** Plus Jakarta Sans plus the Fraunces italic accent. | Proceeding by default: keep. A serif headline may appear in at most one hero prototype. |
+| **D4** | **Hero.** Build two prototypes to compare: **A, people-led** (Joey and Ethan in the gable frame, as built) and **B, numbers-led** (net sheet or compare table in the hero, smaller photo). | **APPROVED Oct 21: build both.** Jeremy picks after seeing them (Session 3). |
+| **D5** | **Glass and motion.** Glass blur is used in 7 places; motion includes ridge and photo parallax, blobs, count-up and view transitions. | **APPROVED Oct 21 as a direction: restrained set.** Keep header glass, small overlays on photos, and the ridge and contour touches; drop the floating blobs and photo parallax. Session 4 sets the exact list of the 7 glass uses that stay; Session 5 applies it. |
+| **D6** | **Architecture and gallery.** Five pages (Home, Your options, Our story, New homes, Contact), New homes a light teaser; where the homes gallery goes. | Structure: proceeding by default (Jeremy published it on Oct 21). Gallery placement (inside New homes, its own "Our work" page, or the future construction site) is decided after Joey sends photos and answers (Session 10). |
+| **Claims** | How to treat the six unverified claims (`CONTENT_CLAIMS.md`, "Fixed in Session 2"). | **APPROVED Oct 21: "Joey's own words now."** Replace with his wording and pull what isn't verified; restore a claim only when Joey confirms it. Done in Session 2 (see the session log). |
 
 ## D. Roadmap summary, open questions and risks
 
-Roadmap: see **`ROADMAP.md`** (13 sessions to launch). Phase status: 0 done; 1 re-opened as review and approval; 2 to 6 built but need review, consolidation or validation; 7 not started. **Next: Session 2** (see `SESSION_HANDOFF.md`).
+Roadmap: see **`ROADMAP.md`** (13 sessions to launch). Phase status: 0 done; 1 partly approved (D1, D4, D5 approved; the hero choice is pending); 2 to 6 built but need review, consolidation or validation; 7 not started. **Next: Session 3, hero prototypes A and B** (see `SESSION_HANDOFF.md`).
 
 ### Open questions (ask Joey; claim-related ones are in `CONTENT_CLAIMS.md`)
 
-1. The six "fix first" claims: seller financing and lease options; counties served; "doing business as"; "free" and "no obligation, ever"; "anytime"; the example $255,000 offer.
+1. **The six claims patched in Session 2 need Joey's real answers before any of them can come back** (`CONTENT_CLAIMS.md`, rows 1 to 6 and 41): does GLP actually offer seller financing or lease options; which counties and towns; is the consultation free; is he reachable at all hours, and does (423) 451-5707 take texts; is there a registered trade name (DBA); is he comfortable with the example $255,000 (85%) offer.
 2. Which phone number is primary? (Earlier notes mention a second number on older Facebook posts.)
 3. Are `joey-ethan-bridge.jpg` and `kitchen-table.jpg` original photographs of Joey and Ethan, and do we have the rights? (They look heavily retouched; an original is the biggest trust upgrade.)
 4. May we use the September closing story, the closing photo (it shows a title company's branded prop), and quotes from his Facebook posts?
@@ -94,7 +95,7 @@ Roadmap: see **`ROADMAP.md`** (13 sessions to launch). Phase status: 0 done; 1 r
 
 | Risk | Detail | Mitigation |
 |---|---|---|
-| Unverified claims live on the draft | See `CONTENT_CLAIMS.md` "Fix first" | Session 2; site is `noindex` meanwhile |
+| Unconfirmed claims on the draft | The six "fix first" claims were pulled or reworded to Joey's own words in Session 2. What is left (marked OURS or FB in `CONTENT_CLAIMS.md`) still needs Joey's OK | Joey's answers; site is `noindex` meanwhile |
 | **Public repository** | The repo is public and the preview serves every file in the repo root, so these notes, `research/` (source photos) and `tools/` are visible to anyone with the link. A keyword scan of the text files on Oct 21 found no passwords, keys or private data (only the public phone, email, form and booking ids that are already on the live pages). The claims register is candid. | Jeremy's call: keep as is, or move the notes to a separate private repo, or deploy only a site subfolder before launch (needs approval; changes the Pages setting). Not urgent. |
 | GoHighLevel form | Consent text has `[BUSINESS NAME]`, `[USE_CASE_FROM_CAMPAIGN_DESCRIPTION]` and example.com links; styling set only inside GHL; unverifiable by AI | Session 11, with Joey |
 | Photo quality and provenance | ~800px sources; raster logo (240×132); provenance of two photos unconfirmed | Joey's originals; vector logo |
@@ -168,7 +169,7 @@ Every inner page ends with a call-to-action band, so there is always a next step
 | Net sheet | Working | Formulas read from `js/site.js` on Oct 21; **not yet validated against test cases** (Session 11) |
 | Compare table, FAQ, picker, menu, action bar | Working | axe scans and visual checks at 4 viewports |
 | GHL form + booking | Embedded | **Unverified** (cannot load in the workspace); live fetch shows the iframe link only |
-| Structured data | LocalBusiness with the two founders (home, contact), FAQPage (home, options, new homes), BreadcrumbList (options, our story, new homes, contact) | Every block parsed as valid JSON on Oct 21; no reviews, ratings, price range, hours or awards (none invented). `areaServed` needs real places (claim 2). |
+| Structured data | LocalBusiness with the two founders (home, contact), FAQPage (home, options, new homes), BreadcrumbList (options, our story, new homes, contact) | Every block parsed as valid JSON on Oct 21; no reviews, ratings, price range, hours or awards (none invented). `areaServed` is the single city "Chattanooga, TN" until Joey lists real counties and towns (claim 2). |
 | Facebook integration | Working | Live fetch of Home, Options and Contact reports the header, footer and in-page links. The phone-menu row (`mnav-fb`) is in the page source, but the fetch summary did not list it, so it is not confirmed live; check it on a phone |
 | Legal pages | Draft | Not lawyer-reviewed |
 | Homes gallery | **Not built** (Jeremy's idea Oct 21) | See Session 10 |
@@ -189,7 +190,7 @@ Every inner page ends with a call-to-action band, so there is always a next step
 
 **Strongest elements today:** a clear story and one action per page; an honest compare table and net sheet that never claim one path is always better; real project photos (a closing, a build in progress); light pages (a first view is roughly 80 to 400 KB; New homes is the heaviest at about 560 KB because of its four build photos); a clean accessibility baseline; a one-source builder that prevents drift; Facebook integrated; structured data with nothing invented.
 
-**Weaknesses:** claims not in Joey's materials (`CONTENT_CLAIMS.md`); no social proof to show; ~800px photos, a 240×132 raster logo, and a 900×225 riverfront panorama that is soft when shown full width; GHL form consent placeholders, and its look is set inside GoHighLevel so we could not check it; 19 breakpoints, no spacing scale, no motion tokens; only one hero composition explored; a long home page that repeats tile-card grids; cool palette with little explicit warmth; no analytics, sitemap or canonical; no manual keyboard or screen-reader pass; Chromium only.
+**Weaknesses:** some claims still need Joey's OK (`CONTENT_CLAIMS.md`; the six worst were fixed in Session 2); no social proof to show; ~800px photos, a 240×132 raster logo, and a 900×225 riverfront panorama that is soft when shown full width; GHL form consent placeholders, and its look is set inside GoHighLevel so we could not check it; 19 breakpoints, no spacing scale, no motion tokens; only one hero composition explored; a long home page that repeats tile-card grids; cool palette with little explicit warmth; no analytics, sitemap or canonical; no manual keyboard or screen-reader pass; Chromium only.
 
 **Opportunities:** the homes gallery; real photos and a short video of Joey and Ethan; Google Business Profile and real reviews; situation and city pages for local search; GHL follow-up automation; the custom domain; responsive images and a Lighthouse pass; a downloadable seller checklist.
 
@@ -197,15 +198,16 @@ Every inner page ends with a call-to-action band, so there is always a next step
 
 | Check | Result |
 |---|---|
-| `python tools/check-links.py` | 7 pages, 339 links, all resolve, no duplicate ids |
+| `python tools/check-links.py` | 7 pages, 340 links, all resolve, no duplicate ids (re-run after the Session 2 patch) |
 | `python tools/checkpoint.py` | Fresh build reproduces all 7 saved pages exactly |
-| axe-core (`tools/a11y-check.py`) | 0 violations on all 7 pages at 1440, 820, 390 (touch) and 390 reduced motion; phone menu open and picker pressed also 0 |
+| axe-core (`tools/a11y-check.py`) | 0 violations on all 7 pages at 1440, 820, 390 (touch) and 390 reduced motion; phone menu open and picker pressed also 0. **Re-run after the Session 2 patch: "all clear", same result.** |
 | Contrast scan, 4 new pages, desktop and phone | All text meets 4.5:1 (3:1 large) |
 | Page weight (measured in Chromium against a local copy: gzip-compressed text + fonts + the images that load without scrolling) | Files: HTML 14 to 52 KB each; CSS 61 KB (13 KB gzip); JS 13 KB (4.5 KB gzip); two fonts 73 KB. **First view, desktop / phone:** Home 298 / 196 KB; Options 126; Our story 403 / 326; New homes 560; Contact 123; Privacy and Terms about 78. Photos are the main cost (JPEG, ~800px); Session 12 adds responsive images and a modern format. |
 | Tap-target sizes (non-inline links, buttons, inputs, FAQ rows; all 7 pages) | Nothing is under WCAG 2.2 AA's 24px minimum. Buttons, inputs and FAQ rows are 46px or taller. Desktop footer links are 36px tall and header/breadcrumb links 32px; on phones, breadcrumb links are 32px and the phone-number text link on Our story is 40px. The 44px best-practice target is not fully met (P5, Session 12). |
 | Live site | Home, Options and Contact fetched Oct 21: robots tag, H1s, nav, Facebook links and the corrected Contact headings match the repo. (Page-level read of the fetched text, not a byte comparison.) |
 | Joey's live site, re-read Oct 21 | Home sections, four path cards that jump to the form, no statistics or reviews; Calculator inputs and the $127,000 sample with its one-line disclaimer; Terms and Privacy naming "GLP Home Options (Legal entity: GL Partners LLC)"; legal URLs `/privacy-policy` and `/terms-of-service`. |
 | Contact details vs. Joey's site and Facebook | Phone, email, entity and PO Box verified (the PO Box is on Facebook only; see `CONTENT_CLAIMS.md`) |
+| **Session 2 patch checks** | A search of all pages, the builder, the legal text and the scripts finds none of the removed wording (seller financing, lease options, surrounding counties, doing business as, free consultation, "no obligation, ever", anytime). A text diff of the rebuilt pages shows only the planned changes. Every JSON-LD block parses, and the FAQ items in the structured data match the visible FAQ lists. 24 screenshots of every changed area at 1440 and 390 (touch) show no wrapping or layout problems. At the net sheet's defaults, read in a browser, listing nets $112,000 and the $255,000 example offer nets $105,000 (verdict: "Listing nets about $7,000 more."). |
 
 **Not verified:** the GHL form and booking; real phones; Safari/Firefox; keyboard-only and screen-reader walkthrough; Lighthouse; 320px width; print; net sheet against test cases.
 
@@ -230,7 +232,23 @@ See the risk table above and `CONTENT_CLAIMS.md`. No known broken links, console
 - **Outstanding:** D1 to D6 await approval; six "fix first" claims; Joey's answers; GHL form fix; the gallery.
 - **Exact next task:** Session 2, see `SESSION_HANDOFF.md`.
 
+### Session 2: Oct 21, 2026, decisions intake and accuracy patch
+
+- **Objective:** record Jeremy's decisions and take the six unverified claims off the draft. No visual change.
+- **Decisions Jeremy made (about 9:10 AM):** claims, **"Joey's own words now"**; D1, navy leads with green as the accent (approved, hex values locked); D4, build both hero prototypes (A people-led, B numbers-led) and he picks; D5, a restrained set of glass and motion (approved as a direction). D2, D3 and D6 proceed by default. Recorded in section C, `DESIGN_SYSTEM.md` and `ROADMAP.md`.
+- **Work completed:** the six claims were replaced with Joey's own wording or pulled, in the page copy, FAQs, structured data, footer, page descriptions and the legal pages' mailing address. In plain words:
+  - Seller financing and lease options are no longer mentioned anywhere (the "Yes" FAQ and both explainers are gone). Joey's sentence, "For unique situations where the standard paths don't feel like a fit, we explore structured options together," is used instead, and the Options page shows a plain three-step "How it works".
+  - "Chattanooga and the surrounding counties" is now "Chattanooga, TN"; the structured data lists the city only.
+  - "Doing business as" is now Joey's own "GLP Home Options (Legal entity: GL Partners LLC)".
+  - "Free consultation" and "no obligation, ever" are now "Request a consultation" and "No obligation, no spam. Your information is kept confidential."
+  - "Call or text anytime" is now "Call or text."
+  - The $255,000 example offer stays, with a clearer label. "Takes about a minute" came off the contact-form pitch (it stays for our own net sheet).
+- **Files changed:** `tools/build-pages.py`, `tools/legal_text.py`, `tools/pages/index.html`, `options.html`, `about.html`, `contact.html`; all 7 generated pages (rebuilt, not hand-edited); `CONTENT_CLAIMS.md`, `PROJECT_STATUS.md`, `DESIGN_SYSTEM.md`, `ROADMAP.md`, `SESSION_HANDOFF.md`, `CHECKPOINT.json`. No CSS or JavaScript changed (`CSS_V` and `JS_V` stay at 18 and 7).
+- **Tests:** see E6 (rebuild reproduces the pages, 340 links, axe all clear at 4 viewports, no old wording left, JSON-LD parses, 24 screenshots reviewed).
+- **Outstanding:** Joey's answers (see open question 1 and the rest of that list); the GHL form; the hero choice (Session 3).
+- **Exact next task:** Session 3, hero prototypes A and B, see `SESSION_HANDOFF.md`.
+
 ## G. Immediate handoff
 
-- **Current phase and status:** Phase 0 complete at Checkpoint 1. Phase 1 is re-opened as review and approval.
-- **Next task:** Session 2, decisions intake and accuracy patch. Full instructions, where to start in the code, what not to change, and how to verify completion are in **`SESSION_HANDOFF.md`**.
+- **Current phase and status:** Phase 0 complete. Phase 1 is partly approved (D1, D4, D5); the accuracy patch is done and recorded at Checkpoint 2. The hero choice (D4) is pending.
+- **Next task:** Session 3, two hero prototypes (A people-led, B numbers-led) built in isolation, plus the one warm-surface test (D2). Full instructions, where to start in the code, what not to change, and how to verify completion are in **`SESSION_HANDOFF.md`**.

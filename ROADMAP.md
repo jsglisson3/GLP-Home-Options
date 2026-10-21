@@ -11,10 +11,10 @@ The master plan assumes a clean start. This project did not start clean: earlier
 | Phase | What exists today | Status |
 |---|---|---|
 | 0 Audit and safe foundation | Audit done, project record created, checkpoint tool added | **Done in Session 1** |
-| 1 Creative direction and visual design | A complete direction is *built* (light, navy and green from the logo, Plus Jakarta Sans + Fraunces italic accent, gable photo frame). One hero composition only. No formal approval. | **Re-opened as review and approval** |
+| 1 Creative direction and visual design | A complete direction is *built* (light, navy and green from the logo, Plus Jakarta Sans + Fraunces italic accent, gable photo frame). One hero composition only. No formal approval. | **Partly approved Oct 21** (D1, D4, D5); D2, D3, D6 proceed by default; hero choice pending (Session 3) |
 | 2 Design system and foundation | Tokens and components exist in `css/site.css` (19 breakpoints, no spacing scale, no motion tokens) | Built, needs consolidation |
 | 3 Homepage structure | Five pages built and published (Home, Your options, Our story, New homes, Contact) | Built, needs approval |
-| 4 Section refinement | Sections exist; several need a review for repetition and accuracy | Partly done |
+| 4 Section refinement | Sections exist; several need a review for repetition. The accuracy patch is done (Session 2). | Partly done |
 | 5 Function and integration | Net sheet works but is not validated against test cases. GHL form embedded but unverified and its consent text has placeholders. | Partly done |
 | 6 Accessibility, responsive, performance | Accessibility baseline is clean (axe: 0 violations). Performance never measured with Lighthouse. No manual keyboard or screen-reader pass. | Partly done |
 | 7 Final QA and deployment | Draft is live on GitHub Pages as `noindex`. Not launch-ready. | Not started |
@@ -26,11 +26,12 @@ Each session is sized for 30 to 40 minutes. "Postponing" lists what we deliberat
 ### Session 1: Phase 0 audit (done, Oct 21)
 Verified the live site and repo, audited code, design tokens, claims and weights, wrote the project record, added `tools/checkpoint.py`. No site changes.
 
-### Session 2: Decisions intake and accuracy patch (Phase 4, content accuracy)
-- **Goal:** record Jeremy's answers to D1 to D6 (see `PROJECT_STATUS.md` section C), then make the site match what Joey has actually confirmed.
+### Session 2: Decisions intake and accuracy patch (Phase 4, content accuracy) (done, Oct 21)
+- **Goal:** record Jeremy's answers to D1 to D6 (see `PROJECT_STATUS.md` section C; recorded Oct 21), then make the site match what Joey has actually confirmed. Jeremy chose "Joey's own words now": use his wording and pull what isn't verified.
 - **Do:** fix the six "Fix first" rows in `CONTENT_CLAIMS.md`. Where Joey hasn't answered, use Joey's own wording or the conservative option: seller financing/lease options (remove or neutralize; affects the FAQ list in `tools/build-pages.py`, `tools/pages/options.html`, `index.html`, `about.html`, page descriptions, JSON-LD), "surrounding counties" (use "Chattanooga, TN"), "doing business as", "free"/"ever", "anytime", example offer.
 - **Success:** every "??" row resolved or softened; pages rebuilt; `python tools/checkpoint.py --write` passes; Jeremy publishes.
 - **Postponing:** any visual change.
+- **Result:** all six rows fixed with Joey's own wording or pulled (see `CONTENT_CLAIMS.md`); 7 pages rebuilt; links, axe and screenshots checked; Checkpoint 2 written. Restoring any pulled claim waits for Joey's answers.
 
 ### Session 3: Phase 1, hero exploration
 - **Goal:** compare two meaningfully different hero compositions as isolated prototypes (not touching the live hero): **A, people-led** (Joey and Ethan in the gable frame, as built) and **B, numbers-led** (net sheet or compare table in the hero, smaller photo). Also test one warm neutral surface (P3).
@@ -38,11 +39,11 @@ Verified the live site and repo, audited code, design tokens, claims and weights
 - **Postponing:** applying the choice to the live pages.
 
 ### Session 4: Phase 1, direction lock
-- **Goal:** turn D1 to D6 plus the hero choice into the approved design system (`DESIGN_SYSTEM.md` marks items APPROVED).
+- **Goal:** turn D1 to D6 plus the hero choice into the approved design system (`DESIGN_SYSTEM.md` marks items APPROVED). Also set the exact list of the 7 glass uses that stay (D5).
 - **Success:** every token and rule is labeled DIRECTED or APPROVED; open items listed.
 
 ### Session 5: Phase 2, design system consolidation
-- **Goal:** tokens and conventions only, **no intended visual change**: 4 breakpoints (P1), spacing and type scales (P2), motion tokens (P4).
+- **Goal:** tokens and conventions: 4 breakpoints (P1), spacing and type scales (P2), motion tokens (P4). **No intended visual change except the approved D5 trims** (remove the floating blobs and photo parallax; reduce glass to the list set in Session 4), shown as before and after screenshots.
 - **Success:** screenshots before and after match; axe still 0; checkpoint.
 
 ### Sessions 6 to 9: Phase 3/4, section-by-section refinement (one session each)
@@ -80,7 +81,7 @@ Situation pages (inherited home, divorce, relocation, needs repairs, financial s
 
 | Task | Waits on |
 |---|---|
-| Session 2 content fixes | Joey's answers (or we use the conservative wording) |
+| Restoring any claim pulled in Session 2 | Joey's answers (`CONTENT_CLAIMS.md`, rows 1 to 6 and 41) |
 | Session 4 | Jeremy's decisions D1 to D6 and the Session 3 hero choice |
 | Session 5 | Session 4 (we consolidate the approved system) |
 | Session 10 gallery | Joey's photos and answers; D6 |

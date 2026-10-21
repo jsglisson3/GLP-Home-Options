@@ -10,7 +10,8 @@ Nothing below has been signed off as a complete package yet. The system was buil
 
 | Level | Meaning |
 |---|---|
-| **DIRECTED** | Jeremy asked for this explicitly. Treat as approved; don't undo without asking. |
+| **APPROVED** | Jeremy approved this explicitly (date given). Locked: changing it needs his approval. |
+| **DIRECTED** | Jeremy asked for this explicitly in conversation. Treat as approved; don't undo without asking. |
 | **BUILT** | In the code today. Not yet formally approved. Keep, but it can still change through the approval process. |
 | **PROPOSAL** | Our suggestion. Not built. Needs approval. |
 
@@ -24,13 +25,21 @@ Nothing below has been signed off as a complete package yet. The system was buil
 7. Never invent reviews, licenses, years in business, or awards.
 8. (Oct 21) A separate construction site may follow; this site stays about **home buying/selling options**, and New homes remains a light teaser.
 
-Open design decisions for approval (**D1 to D6**) are listed in `PROJECT_STATUS.md`, section C.
+**APPROVED by Jeremy on Oct 21, 2026:**
+9. **D1: navy leads, green is the accent.** The color tokens in section 2 are locked.
+10. **D4: build two homepage hero prototypes** (A people-led, B numbers-led) and compare before choosing (Session 3).
+11. **D5: a restrained set of glass and motion.** Keep header glass, small overlays on photos and the ridge and contour touches; drop the floating blobs and photo parallax (exact glass list set in Session 4, applied in Session 5).
+12. **Claims:** copy says only what Joey's own materials support (`CONTENT_CLAIMS.md`).
+
+**Proceeding by default (Jeremy told, no objection):** D2 test one warm neutral inside the hero prototypes only; D3 keep Plus Jakarta Sans and the Fraunces italic accent; D6 keep the five-page structure (the gallery's placement is decided later).
+
+All decisions (D1 to D6) and their status are in `PROJECT_STATUS.md`, section C.
 
 ## 1. Brand personality (from the master plan)
 
 Premium and sophisticated; trustworthy and transparent; warm, local, human; modern, clear, easy to use. The message: **You have options. We will help you understand them. The decision is yours.** No pressure-driven design, no stock real-estate look, no decoration without a job.
 
-## 2. Color (BUILT; all tokens are CSS variables in `:root`)
+## 2. Color (BUILT; hierarchy and hex values APPROVED Oct 21; all tokens are CSS variables in `:root`)
 
 | Token | Hex | Use |
 |---|---|---|
@@ -94,7 +103,7 @@ Headings use `text-wrap: balance`. Do not add a third font.
 - Radii: `--r-s 12px`, `--r-m 20px`, `--r-l 28px`; buttons, nav pills and chips are fully round (`999px`).
 - Shadows: `--sh-1` (hairline lift), `--sh-2` (cards, open FAQ), `--sh-3` (floating UI), all tinted navy.
 - Borders: 1px `--line`; cards often `--line` plus `--sh-1`.
-- **Glass (translucent white + blur)** is used in 7 places: the sticky header (`.74` white, blur 16, saturate 1.8, `.95` once scrolled), photo caption chip (`.gable-cap`), floating cards (`.fc`), founder captions, contact reach tiles (on the dark band), the phone action bar, and the "Jump to an option" panel on the Options page (`.jump`). Text on every glass surface passes AA. **D5** asks whether to keep all seven.
+- **Glass (translucent white + blur)** is used in 7 places: the sticky header (`.74` white, blur 16, saturate 1.8, `.95` once scrolled), photo caption chip (`.gable-cap`), floating cards (`.fc`), founder captions, contact reach tiles (on the dark band), the phone action bar, and the "Jump to an option" panel on the Options page (`.jump`). Text on every glass surface passes AA. **D5 (approved Oct 21)** keeps the header glass and small overlays on photos; Session 4 decides, for each of the seven, whether it stays (the contact reach tiles, the "Jump to" panel and the phone action bar are the ones to review).
 
 ## 6. Motion (BUILT)
 
@@ -111,7 +120,7 @@ Principles: motion explains or rewards, never decorates; everything is off for `
 | Buttons | Lift 2px on hover, sheen sweep `.8s`; arrow nudges 3px. |
 | Page changes | `@view-transition` soft fade where supported. |
 
-Reduced motion: all animations and transitions are removed; reveals show immediately; parallax and count-up are skipped. **PROPOSAL P4:** define motion tokens (durations, easings) in Phase 2.
+Reduced motion: all animations and transitions are removed; reveals show immediately; parallax and count-up are skipped. **Approved Oct 21 (D5):** drop the background blobs (`drift`) and the photo parallax; keep scroll reveal, the ridge and contour touches, count-up, button hover and the page fade. **PROPOSAL P4:** define motion tokens (durations, easings) in Phase 2.
 
 ## 7. Components (BUILT; class names in `css/site.css`)
 
@@ -156,7 +165,7 @@ Photos are real project/people photos in the gable frame, with descriptive alt t
 |---|---|---|
 | P1 | Consolidate 19 breakpoints into 4 | 2 |
 | P2 | Add a spacing scale (`--space-1..8`) and a type scale as tokens | 2 |
-| P3 | Test **one warm neutral** (sand/cream surface) beside the cool navy and green, to express "warm, local, human" | 1 (hero prototypes) |
+| P3 | Test **one warm neutral** (sand/cream surface) beside the cool navy and green, to express "warm, local, human". Proceeding by default (D2), inside the hero prototypes only. | 1 (hero prototypes) |
 | P4 | Motion tokens (durations, easings) | 2 |
 | P5 | 44px touch targets for footer/inline links on touch devices | 6 |
 | P6 | Responsive images (`srcset`, WebP/AVIF) once originals exist | 6 |

@@ -1,7 +1,7 @@
 """Wording for the legal pages (data only). tools/build-pages.py turns this into privacy-policy.html and terms-of-service.html.
 
 The text follows the structure and promises of the policy that was on the old glphomeoptions.com site (updated February 2026),
-rewritten in plain words. It has NOT been reviewed by a lawyer. See PICKUP.md ("Before launch").
+rewritten in plain words. It has NOT been reviewed by a lawyer. See ROADMAP.md (Session 13).
 """
 
 UPDATED = "October 21, 2026"
@@ -55,7 +55,7 @@ PRIVACY = {
           "the date at the top.</p>"]),
         ("9. Contact us",
          ["<p>Questions or concerns about this policy? Email <a href=\"mailto:info@glphomeoptions.com\">info@glphomeoptions.com</a>. "
-          "Mailing address: GL Partners LLC, doing business as GLP Home Options, PO Box 55, Hixson, TN.</p>"]),
+          "Mailing address: GLP Home Options (Legal entity: GL Partners LLC), PO Box 55, Hixson, TN.</p>"]),
     ],
 }
 
