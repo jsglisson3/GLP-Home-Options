@@ -25,7 +25,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "index.html"
-PROTO_CSS = "css/proto.css?v=1"
+PROTO_CSS = "css/proto.css?v=2"
 PROTO_JS = "js/proto.js?v=1"
 
 # Square crops (left, top, right, bottom) of the two portraits that already sit on the Our story page, saved as small avatars.
@@ -94,9 +94,10 @@ def split_page():
 
 
 def hero_a(hero):
+    # Since Checkpoint 5 the live hero has no blob elements, so this usually changes nothing; it stays as a guard.
     out = re.sub(r'[ \t]*(?:<i class="blob b\d"></i>)+[ \t]*\n', "", hero)
-    if "blob" in out or out == hero:
-        die("could not remove the three blob elements from the hero")
+    if "blob" in out:
+        die("a blob element is still in the hero")
     return out
 
 

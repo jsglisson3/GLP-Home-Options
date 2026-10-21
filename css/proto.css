@@ -1,10 +1,9 @@
 /* GLP Home Options: hero PROTOTYPES only (Session 3). Loaded by proto-hero-a.html and proto-hero-b.html, never by the live pages.
    Delete this file when the hero is chosen and applied (Session 6). Nothing here touches css/site.css. */
 
-:root{
-  /* PROPOSAL (D2/P3): one warm neutral, tested only behind the hero. It lives here until Jeremy approves it. */
-  --cream:#f6f0e3;
-}
+/* D2/P3 was APPROVED: --cream and the warm hero now live in css/site.css (Checkpoint 5). The Cool button restores the old cool surface,
+   so A and B can still be compared both ways until this file is deleted in Session 6. */
+html:not([data-surface="warm"]) .hero .hero-bg{background:linear-gradient(180deg,#f8fbfa 0%,#eef6f3 52%,var(--mist) 100%)}
 
 /* ---------- Warm surface (toggle sets html[data-surface="warm"]) ---------- */
 html[data-surface="warm"] .hero-bg{background:linear-gradient(180deg,#fdfbf6 0%,var(--cream) 55%,#efe8d8 100%)}

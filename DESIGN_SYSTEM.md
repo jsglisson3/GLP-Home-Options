@@ -29,12 +29,14 @@ Nothing below has been signed off as a complete package yet. The system was buil
 9. **D1: navy leads, green is the accent.** The color tokens in section 2 are locked.
 10. **D4: the homepage hero is A, people-led** (approved Oct 21, Session 3). B (numbers-led) was prototyped and not chosen.
 11. **D2: a warm cream surface behind the hero only** (approved Oct 21, Session 3; see P3).
-11. **D5: a restrained set of glass and motion.** Keep header glass, small overlays on photos and the ridge and contour touches; drop the floating blobs and photo parallax (exact glass list set in Session 4, applied in Session 5).
+11. **D5: a restrained set of glass and motion.** Keep header glass, small overlays on photos and the ridge and contour touches; drop the floating blobs and photo parallax (exact glass list set in Session 4, applied in Session 5). **Built at Checkpoint 5 (Session 3b):** the floating blobs, the photo drift, the hero photo's slow zoom and the tags' bobbing are gone from `css/site.css` and `js/site.js`; only the glass reduction to the 7 listed uses is left for Session 5.
 12. **Claims:** copy says only what Joey's own materials support, or what Jeremy has confirmed and `CONTENT_CLAIMS.md` tags **J** until Joey confirms it.
 
 **Proceeding by default (Jeremy told, no objection):** D3 keep Plus Jakarta Sans and the Fraunces italic accent; D6 keep the five-page structure (the gallery's placement is decided later).
 
 All decisions (D1 to D6) and their status are in `PROJECT_STATUS.md`, section C.
+
+**Built into the live site at Checkpoint 5 (Session 3b):** D2's warm cream is the Home hero surface (`--cream`, `.hero .hero-bg` in `css/site.css`; page heroes stay cool), and D5's removal of the floating blobs, photo drift, hero photo zoom and tag bobbing. The hero A/B choice is still not applied (Session 6).
 
 ## 1. Brand personality (from the master plan)
 
@@ -113,8 +115,8 @@ Principles: motion explains or rewards, never decorates; everything is off for `
 | Motion | Spec |
 |---|---|
 | Scroll reveal (`.rv`) | `reveal` keyframes, `.85s cubic-bezier(.2,.7,.2,1)`, 28px rise, stagger `--d × 90ms`. Content stays visible without JS or IntersectionObserver. |
-| Hero ridge + riverfront parallax | Scroll position drives CSS variables (`--p`, `--py`) via `requestAnimationFrame`; a few px only. |
-| Background blobs | `drift` keyframes, 20–30s, alternate. |
+| Hero ridge parallax | Scroll position drives one CSS variable (`--p`) via `requestAnimationFrame`; a few px only. The riverfront photo parallax (`--py`) was removed at Checkpoint 5 (D5). |
+| Background blobs | Removed at Checkpoint 5 (D5). |
 | Topographic contours | Canvas, drawn once per size (static lines; 16 rings around two peaks). |
 | Header | Height and background ease in `.3s`; scroll-progress bar fills with scroll. |
 | Count-up (stats strip) | 1.2s ease-out cubic; 8s failsafe shows final numbers. |

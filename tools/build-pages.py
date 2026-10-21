@@ -39,7 +39,7 @@ PHONE_TEL, PHONE_SMS, PHONE = "tel:+14234515707", "sms:+14234515707", "(423) 451
 EMAIL = "info@glphomeoptions.com"
 BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 FORM_ID = "c36UOOc2pkosxfvRfjZJ"
-CSS_V, JS_V = 18, 7
+CSS_V, JS_V = 19, 8
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
 NEW_HOMES = "new-homes.html"
@@ -372,7 +372,6 @@ def bar(pg):
 
 def herobg():
     return f'''<div class="hero-bg" aria-hidden="true">
-      <i class="blob b1"></i><i class="blob b2"></i>
       <canvas class="topo" data-tone="dark"></canvas>
       {RIDGE}
     </div>'''
@@ -393,7 +392,7 @@ def faq_list(pg, key):
 def cta_band(pg, key):
     eyebrow, h2, lede = CTAS[key]
     return f'''<section class="cta-band" aria-labelledby="cta-h">
-    <div class="cta-bg" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><canvas class="topo" data-tone="light"></canvas></div>
+    <div class="cta-bg" aria-hidden="true"><canvas class="topo" data-tone="light"></canvas></div>
     <div class="wrap cta-grid">
       <div class="cta-copy rv">
         <span class="eyebrow on-dark">{eyebrow}</span>
@@ -446,7 +445,7 @@ def contact_section(pg, page=False):
     # (looks identical: the .h3 class carries the H3 styling). On the home page the section title is an H2, so H3 is right.
     hx = "h2" if page else "h3"
     return f'''<section class="contact{" contact-page" if page else ""}" id="contact" aria-labelledby="contact-h">
-    <div class="contact-bg" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><canvas class="topo" data-tone="light"></canvas></div>
+    <div class="contact-bg" aria-hidden="true"><canvas class="topo" data-tone="light"></canvas></div>
     <div class="wrap contact-grid">
       <div class="contact-copy">
         <div class="rv">

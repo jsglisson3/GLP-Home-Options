@@ -10,8 +10,8 @@
   /* ---------- Year ---------- */
   var yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
 
-  /* ---------- Scroll: header state, progress bar, gentle parallax ---------- */
-  var hdr = $('#hdr'), hero = $('.hero, .phero'), ridge = $('.ridge'), pano = $('.pano');
+  /* ---------- Scroll: header state, progress bar, ridge parallax ---------- */
+  var hdr = $('#hdr'), hero = $('.hero, .phero'), ridge = $('.ridge');
   var ticking = false;
   function update() {
     ticking = false;
@@ -26,13 +26,6 @@
     if (hero && ridge) {
       var hh = hero.offsetHeight || 1;
       ridge.style.setProperty('--p', clamp(y / hh, 0, 1).toFixed(3));
-    }
-    if (pano) {
-      var r = pano.getBoundingClientRect();
-      if (r.bottom > -100 && r.top < vh + 100) {
-        var rel = (r.top + r.height / 2 - vh / 2) / vh;
-        pano.style.setProperty('--py', clamp(-rel * 34, -30, 30).toFixed(1) + 'px');
-      }
     }
   }
   function onScroll() { if (!ticking) { ticking = true; window.requestAnimationFrame(update); } }

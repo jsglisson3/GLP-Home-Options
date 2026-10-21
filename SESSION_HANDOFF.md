@@ -1,15 +1,17 @@
 # Session handoff
 
-**Written:** Oct 21, 2026, at the end of Session 3 (hero prototypes; hero chosen), Checkpoint 4.
+**Written:** Oct 21, 2026, at the end of Session 3b (polish pass after the hero prototypes), Checkpoint 5.
 **Replace this file at the end of every session.** It always describes exactly one next session. The long-term plan is in `ROADMAP.md`; the full state is in `PROJECT_STATUS.md`.
 
 ## Where the project is
 
 - **Session 3 is done.** Two hero prototypes were built and checked (A people-led, B numbers-led). Jeremy chose **A, people-led** and the **warm cream surface behind the hero only** (about 10:20 AM, Oct 21). His note on A, that the floating tags looked random, produced a five-rule tag system (`DESIGN_SYSTEM.md`, "Hero tag system"); it also fixed two phone defects in the live hero.
 - **Live site = commit `73b0b53`** (Checkpoints 2 and 3). **Checkpoint 4 goes live with Jeremy's next commit.** It is additive: `proto-hero-a.html`, `proto-hero-b.html`, `css/proto.css`, `js/proto.js`, `tools/build-prototypes.py`, two avatar images and the docs. No real page changed. After he syncs, the prototypes are at `https://jsglisson3.github.io/GLP-Home-Options/proto-hero-a.html` and `proto-hero-b.html` (add `?surface=warm` for the warm state), so he can show Joey. Check with a cache-busting query (`?cb=...`); the fetch tool caches 15 minutes.
+- **Session 3b polish (Checkpoint 5) changed real pages:** the Home hero is now warm cream; the floating blobs, photo drift, hero photo zoom and tag bobbing are gone; the 320px header is fixed (icon-only Menu at 350px and narrower). Checkpoints 4 and 5 go live together with Jeremy's next commit if 4 is not yet pushed. The hero A/B choice is still NOT applied to the live Home page (Joey is picking; Session 6).
+- **Jeremy said he really likes the cream ("classy").** D2 approved it for the hero only; in Session 4 ask whether to try it on one or two more sections.
 - **Approved by Jeremy:** D1 (navy leads, green accent), D2 (warm cream, hero only), D4 (hero A), D5 (restrained glass and motion, as a direction), and "Joey's own words now" for claims. D3 and D6 proceed by default.
 - **Waiting on Joey:** his confirmation of every claim tagged **J** (seller financing and lease options, the service area, free consultation, "anytime", texting, the example offer); a lawyer's look at how seller financing and lease options are described; where the bridge photo came from (open question 3).
-- **New finding:** at 320px the header's Menu button is clipped by about 23px (logo and button need about 343px). Logged for Session 12.
+- **Fixed in Session 3b:** the 320px header overflow (icon-only Menu at 350px and narrower; no overflow at 320, 340 or 360 on any page). The 320px hero button wrap is still to be re-checked in Session 12.
 
 ## Next session: Session 4, direction lock (30 to 45 minutes)
 
@@ -74,3 +76,14 @@ Add two isolated hero prototypes, proto-hero-a.html and proto-hero-b.html, with 
 - **The GoHighLevel form looks wrong live:** it cannot be tested from the workspace. Record what Jeremy sees and defer to Session 11.
 - **Facebook shows only one post:** expected when logged out. Never sign in; ask Joey for photos instead.
 - **The prototypes look stale or wrong after a Home change:** re-run `python tools/build-prototypes.py` (it reads the built `index.html`, and stops with a message if the live comparison-table wording changed). They are deleted in Session 6.
+
+## Suggested commit message for Checkpoint 5 (Session 3b)
+
+Subject: Polish: warm cream home hero, calmer motion, 320px header fix
+
+Body:
+- Warm cream behind the Home hero (page heroes stay cool)
+- Remove floating blobs, photo drift, hero photo zoom and tag bobbing
+- Menu button is icon-only at 350px and narrower, so the header fits at 320px
+- Breadcrumb links are 44px on touch screens; the email link fits on one line at 320px
+- Hero prototypes A and B (not linked from the site) and the project notes updated
