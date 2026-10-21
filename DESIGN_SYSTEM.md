@@ -28,7 +28,7 @@ Nothing below has been signed off as a complete package yet. The system was buil
 **APPROVED by Jeremy on Oct 21, 2026:**
 9. **D1: navy leads, green is the accent.** The color tokens in section 2 are locked.
 10. **D4: the homepage hero is A, people-led** (approved Oct 21, Session 3). B (numbers-led) was prototyped and not chosen.
-11. **D2: a warm cream surface behind the hero only** (approved Oct 21, Session 3; see P3).
+11. **D2: cream is the site's one tint** (hero approved Oct 21, Session 3; extended by Jeremy on Oct 21, Session 6b, to every hero, the alternate sections and the footer; see P3).
 11. **D5: a restrained set of glass and motion.** Keep header glass, small overlays on photos and the ridge and contour touches; drop the floating blobs and photo parallax (exact glass list set in Session 4, applied in Session 5). **Built at Checkpoint 5 (Session 3b):** the floating blobs, the photo drift, the hero photo's slow zoom and the tags' bobbing are gone from `css/site.css` and `js/site.js`; only the glass reduction to the 7 listed uses is left for Session 5.
 12. **Claims:** copy says only what Joey's own materials support, or what Jeremy has confirmed and `CONTENT_CLAIMS.md` tags **J** until Joey confirms it.
 
@@ -39,6 +39,8 @@ All decisions (D1 to D6) and their status are in `PROJECT_STATUS.md`, section C.
 **Built into the live site at Checkpoint 5 (Session 3b):** D2's warm cream is the Home hero surface (`--cream`, `.hero .hero-bg` in `css/site.css`; page heroes stay cool), and D5's removal of the floating blobs, photo drift, hero photo zoom and tag bobbing. The hero A/B choice is still not applied (Session 6).
 
 **Checkpoints 6 and 7 (Session 6a):** hero A (people-led, chosen by Joey) is the live Home hero. The header has a constant 80px height with a 50px logo and, on Home only, takes the hero's cream at the top of the page (white glass once you scroll). On phones a "Joey & Ethan" chip with two small portraits shows their faces in the first screen. Headlines use `text-wrap:balance` and intros `text-wrap:pretty`. From 981 to 1100px the photo tags and caption are slightly smaller so they never overlap.
+
+**Checkpoint 8 (Session 6b):** Jeremy approved cream beyond the hero, so cream is the site's one tint: every hero, the alternate sections (white and cream alternate), the footer and the small tinted controls; mist and mint are retired (`--cream-100 #f8f3e7` for bands). The header takes the hero's cream at the top of every page. For a more professional look, the floating hero tags, the pulsing location pill, the path chips and the button shine sweep were removed, and the primary-button shadow is softer. Cream contrast (computed): on `#f8f3e7` and `#f6f0e3`, `--text` 7.1 and 6.9, `--muted` 5.8 and 5.7, `--navy-800` 10.8 and 10.6, `--green-700` 6.0 and 5.9; on the darkest hero end `#efe8d8`, `--muted` 5.3 and `--green-700` 5.5. `--green-600` (4.4 on `#f6f0e3`) is used only for large headline text, icons, the header wordmark and the numbers strip on white, where it measures above 4.5. The numbers strip on Home no longer counts up; it shows the final numbers at once.
 
 ## 1. Brand personality (from the master plan)
 
@@ -57,12 +59,12 @@ Premium and sophisticated; trustworthy and transparent; warm, local, human; mode
 | `--green-600` | `#3c7a66` | **Primary brand green** (logo roof): italic accent, links, icons |
 | `--green-500` / `-400` | `#4e9279` / `#6faa93` | Hover states, decorative |
 | `--green-300` / `-200` / `-100` / `-50` | `#9fc8b8` / `#c9e0d6` / `#e4f0eb` / `#f2f8f5` | Tints, active nav pill, soft backgrounds |
-| `--mist` | `#f3f7f6` | Alternate section background (`.sec-mist`) |
+| `--cream-100` | `#f8f3e7` | Section bands (`.sec-cream`), the strip under the Home hero, the footer and small tinted controls. The cool `--mist` and the mint gradient were retired on Oct 21 (Session 6b). |
 | `--text` | `#3d5560` | Body text |
 | `--muted` | `#4a626d` | Secondary text (still passes AA) |
 | `--line` / `--line-2` | `#dce6e6` / `#cbd8d8` | Hairlines and card borders |
 | `--grad` | `135deg, #2d4855 → #37625c (52%) → #3c7a66` | Signature gradient: eyebrow bar, icon tiles, dark bands, progress bar |
-| Page background | `#fff` | Default. `.sec-mint` uses a soft `#edf6f2 → #f7fbf9` gradient. |
+| Page background | `#fff` | Default. White and cream (`.sec-cream`) sections alternate, and no section sits on the same surface as its neighbor. |
 | Facebook blue | `#0866FF` | **Only** inside the Facebook logo symbol. Never a theme color. |
 
 Primary button: `linear-gradient(135deg, #3a7a66, #316656)` with white text (measured 5.3:1).
@@ -133,7 +135,7 @@ Reduced motion: all animations and transitions are removed; reveals show immedia
 |---|---|---|
 | Header + nav | `.hdr .nav .hdr-phone .hdr-cta .hdr-fb .menu-btn .mnav` | Contact is last in the nav. Facebook logo button in the header at ≥1161px; phone menu has a "Follow us on Facebook" row. |
 | Phone action bar | `.mobile-bar` | Appears after the hero buttons scroll away; steps aside at the form. |
-| Hero (home) | `.hero .hero-grid .gable .fc .pill .micro` | One H1, one primary action, a human photo, three floating facts that follow the tag system below. |
+| Hero (home) | `.hero .hero-grid .gable .eyebrow .micro` | One H1, one primary action, one human photo with a single name plate. No floating tags (removed Oct 21, Session 6b). |
 | Page hero (inner pages) | `.phero .crumbs` | Breadcrumb, H1, lede, one primary action. |
 | Photo frame | `.gable` (`.g1 .g2 .g3`, `clipPath#gable`) | The roofline of the logo as a photo mask. Use for people and homes. |
 | Section heading | `.head .eyebrow .ital` | Eyebrow + H2 with italic accent + optional lede. |
@@ -151,7 +153,9 @@ Reduced motion: all animations and transitions are removed; reveals show immedia
 | Buttons | `.btn .btn-primary .btn-ghost .btn-lg .btn-sm` | Pill shape; min-height 52 (lg 60, sm 46). |
 | Facebook | `.fb-btn .fb-logo` | The logo is a white disc with the `#0866FF` mark. Don't use the line-icon class on it. |
 
-### Hero tag system (APPROVED with hero A, Oct 21; now in `css/site.css` since Checkpoint 6; the prototype CSS is retired)
+### Hero tag system (RETIRED Oct 21, Session 6b; kept as history)
+
+**Retired:** Jeremy said the floating tags on the photo "look tacky". They are removed from the Home and New homes heroes and the CSS is deleted. The photo carries one solid white name plate; the numbers live in the strip below it. Do not bring floating tags back without Jeremy's approval. The five rules below are kept only so the reasoning is not lost.
 
 Jeremy's feedback: the floating tags on the photo "look random". The old tags sat at three different overhangs and heights; on phones the speed tag covered Ethan's eyes and the caption ran under the call tag. They now follow five rules:
 
@@ -182,7 +186,7 @@ Photos are real project/people photos in the gable frame, with descriptive alt t
 |---|---|---|
 | P1 | Consolidate 19 breakpoints into 4 | 2 |
 | P2 | Add a spacing scale (`--space-1..8`) and a type scale as tokens | 2 |
-| P3 | Warm neutral (cream) surface. **APPROVED for the hero only (Oct 21, Session 3):** `--cream: #f6f0e3`; hero background `linear-gradient(180deg,#fdfbf6 0%,var(--cream) 55%,#efe8d8 100%)`; the ridge's front layer stays `--mist`. Contrast on the darkest stop `#efe8d8`: body text 6.45:1, `--muted` 5.28:1, navy-800 9.83:1, green-700 5.47:1; the green-600 italic accent is 4.13:1, so on cream it is for large type only. Any other section: not decided. Built in `css/proto.css`; applied in Session 6. | done (1); apply in 6 |
+| P3 | Warm neutral (cream) surface. **APPROVED for the hero (Oct 21, Session 3) and extended to the whole site (Oct 21, Session 6b):** `--cream: #f6f0e3`; hero background `linear-gradient(180deg,#fdfbf6 0%,var(--cream) 55%,#efe8d8 100%)`; the ridge's front layer stays `--mist`. Contrast on the darkest stop `#efe8d8`: body text 6.45:1, `--muted` 5.28:1, navy-800 9.83:1, green-700 5.47:1; the green-600 italic accent is 4.13:1, so on cream it is for large type only. Any other section: not decided. Built in `css/proto.css`; applied in Session 6. | done (1); apply in 6 |
 | P4 | Motion tokens (durations, easings) | 2 |
 | P5 | 44px touch targets for footer/inline links on touch devices | 6 |
 | P6 | Responsive images (`srcset`, WebP/AVIF) once originals exist | 6 |

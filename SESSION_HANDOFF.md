@@ -1,6 +1,6 @@
 # Session handoff
 
-**Written:** Oct 21, 2026, at the end of Session 6a (the landing page's top half), Checkpoint 7.
+**Written:** Oct 21, 2026, at the end of Session 6b (cream across the site, a more professional hero), Checkpoint 8.
 **Replace this file at the end of every session.** It always describes exactly one next session. The long-term plan is in `ROADMAP.md`; the full state is in `PROJECT_STATUS.md`.
 
 ## Where the project is
@@ -10,9 +10,10 @@
 - **Session 3b polish (Checkpoint 5) changed real pages:** the Home hero is now warm cream; the floating blobs, photo drift, hero photo zoom and tag bobbing are gone; the 320px header is fixed (icon-only Menu at 350px and narrower). Checkpoints 4 and 5 go live together with Jeremy's next commit if 4 is not yet pushed. The hero A/B choice is still NOT applied to the live Home page (Joey is picking; Session 6).
 - **Jeremy said he really likes the cream ("classy").** D2 approved it for the hero only; in Session 4 ask whether to try it on one or two more sections.
 - **Session 6a (Checkpoints 6 and 7):** Joey chose hero A (people-led). It is live on the Home page (in the next commit) with a refined header; on phones a Joey & Ethan chip puts their faces in the first screen. Hero B is retired: `proto-hero-a.html` and `proto-hero-b.html` are redirect pages. **Jeremy can delete these in VS Code whenever convenient:** `proto-hero-a.html`, `proto-hero-b.html`, `css/proto.css`, `js/proto.js`, `tools/build-prototypes.py` (nothing uses them).
-- **Approved by Jeremy:** D1 (navy leads, green accent), D2 (warm cream, hero only), D4 (hero A), D5 (restrained glass and motion, as a direction), and "Joey's own words now" for claims. D3 and D6 proceed by default.
+- **Approved by Jeremy:** D1 (navy leads, green accent), D2 (warm cream: the hero first, then the whole site on Oct 21 at 4:35 PM), D4 (hero A), D5 (restrained glass and motion, as a direction), and "Joey's own words now" for claims. D3 and D6 proceed by default.
 - **Waiting on Joey:** his confirmation of every claim tagged **J** (seller financing and lease options, the service area, free consultation, "anytime", texting, the example offer); a lawyer's look at how seller financing and lease options are described; where the bridge photo came from (open question 3).
 - **Fixed in Session 3b:** the 320px header overflow (icon-only Menu at 350px and narrower; no overflow at 320, 340 or 360 on any page). The 320px hero button wrap is still to be re-checked in Session 12.
+- **Session 6b (Checkpoint 8):** cream is now the site's one tint (every hero, the alternate sections, the footer; mist and mint are gone). At 4:39 PM Jeremy sent a picture of the hero: the floating tags "look tacky" and "some other header options look a little gimmicky, I need to look professional". The tags (Home and New homes), the pulsing pill, the path chips, the button shine and the numbers count-up are removed; the photo keeps one name plate (the count-up code in `js/site.js` is now unused; remove it in Session 5). **I do not know exactly what "other header options" meant, so ask him.** The picture he sent shows an older hero than the one saved here, so he has probably not synced Checkpoints 6 to 8 yet.
 
 ## Next session: Session 4, direction lock (30 to 45 minutes)
 
@@ -20,18 +21,18 @@
 
 ### Needed from Jeremy (ask in the first message, at most two questions)
 
-1. Should any other section use the warm cream, or stay cool (D2 was approved for the hero only)?
-2. Approve the glass list you propose (below). Send a short list, not a document.
+1. Approve the glass list you propose (below). Send a short list, not a document.
+2. What else at the top of the page looked gimmicky to him (the header, the phone pill, the Facebook icon, the "Get my options" button)? One short question, with a screenshot of the current page if he has synced.
 
 ### Start protocol (5 minutes)
 
 1. Read `PROJECT_STATUS.md`, this file, `ROADMAP.md` (Sessions 4 and 5) and `DESIGN_SYSTEM.md`.
-2. Get the project from Jeremy's folder, not from memory: `C:\Users\jsgli\Documents\GLP-Home-Options` (stage everything, including `images/`, `fonts/` and `research/photos/`; at most 50 files per staging call). Run `python tools/checkpoint.py`. **Expected: clean at Checkpoint 4.** If it is not, stop and find out why.
+2. Get the project from Jeremy's folder, not from memory: `C:\Users\jsgli\Documents\GLP-Home-Options` (stage everything, including `images/`, `fonts/` and `research/photos/`; at most 50 files per staging call). Run `python tools/checkpoint.py`. **Expected: clean at Checkpoint 8.** If it is not, stop and find out why.
 3. Read the newest line of `.git/logs/HEAD` in his folder; if he has pushed, fetch the live Home page with a cache-busting query.
 
 ### What to do
 
-1. **Inventory the glass:** `grep -n "backdrop-filter" css/site.css`. List every use with what it sits on. Propose the 7 to keep (the header glass is one; the hero tags and the caption count) and which to drop. Remember D5: header glass, small overlays on photos, and the ridge and contour touches stay; floating blobs and photo parallax go (Session 5 removes them).
+1. **Inventory the glass:** `grep -n "backdrop-filter" css/site.css`. List every use with what it sits on. Propose the 7 to keep (the header glass is one; the hero tags were removed in 6b and the caption is now solid white) and which to drop. Remember D5: header glass, small overlays on photos, and the ridge and contour touches stay; floating blobs and photo parallax go (Session 5 removes them).
 2. **Label `DESIGN_SYSTEM.md`:** every token and rule is DIRECTED, APPROVED or PROPOSED. Items already approved: color hierarchy and hex values (D1), the hero (A), the warm cream hero surface (P3), the hero tag system, D5 as a direction. Leave P1, P2, P4, P5, P6 as proposals for Session 5 unless Jeremy decides now.
 3. **Check the docs agree** with each other (decisions, dates, next session).
 
@@ -100,3 +101,18 @@ Body:
 - Balanced headline and intro line breaks
 - Tags and caption no longer overlap on 981 to 1100px wide screens
 - Old prototype pages now redirect to the home page; project notes updated
+
+## Suggested commit message for Checkpoints 6, 7 and 8 (Sessions 6a and 6b) (Jeremy)
+
+Use this one message if Checkpoints 6 and 7 are not pushed yet; it covers all three.
+
+Subject: Landing page: cream across the site, cleaner hero, hero A live
+
+Body:
+- Cream is now the one warm tint: every page hero, the alternate sections and the footer
+- Removed the floating tags on the hero photos, the location pill and the path chips; the photo keeps one name plate
+- Buttons: softer shadow and no shine sweep; the "coming soon" dot no longer pulses
+- Header takes the hero's cream on every page and keeps one height when you scroll
+- Phones: a Joey & Ethan byline with portraits in the first screen; balanced headline breaks
+- Joey picked hero A: it is the live Home hero (numbers version retired; old prototype pages redirect home)
+- Project notes updated
