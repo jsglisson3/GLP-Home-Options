@@ -1,6 +1,6 @@
 # Session handoff
 
-**Written:** Oct 21, 2026, at the end of Session 6c (the hero photo and the header), Checkpoint 9.
+**Written:** Oct 21, 2026, at the end of Session 6d (the header and the hero photo's headroom), Checkpoint 10.
 **Replace this file at the end of every session.** It always describes exactly one next session. The long-term plan is in `ROADMAP.md`; the full state is in `PROJECT_STATUS.md`.
 
 ## Where the project is
@@ -15,6 +15,7 @@
 - **Fixed in Session 3b:** the 320px header overflow (icon-only Menu at 350px and narrower; no overflow at 320, 340 or 360 on any page). The 320px hero button wrap is still to be re-checked in Session 12.
 - **Session 6b (Checkpoint 8):** cream is now the site's one tint (every hero, the alternate sections, the footer; mist and mint are gone). At 4:39 PM Jeremy sent a picture of the hero: the floating tags "look tacky" and "some other header options look a little gimmicky, I need to look professional". The tags (Home and New homes), the pulsing pill, the path chips, the button shine and the numbers count-up are removed; the photo keeps one name plate (the count-up code in `js/site.js` is now unused; remove it in Session 5). **I do not know exactly what "other header options" meant, so ask him.** The picture he sent shows an older hero than the one saved here, so he has probably not synced Checkpoints 6 to 8 yet.
 - **Session 6c (Checkpoint 9):** Jeremy asked for "all your energy" on the top half and the header (so the next section was not started). The hero photo is sharper and warmer (resampled; `images/joey-ethan-bridge-2x.jpg` added), the frame is slimmer, and the header is simpler (plain phone number and Facebook logo, no scroll line). **The 800 px source photo is the limit: ask Joey for the original file or a new portrait.** The picture Jeremy sent at 4:39 PM was a stale tab; the new version "looks better" to him.
+- **Session 6d (Checkpoint 10):** Jeremy gave 5 more minutes for the header and the faces. The hero photo has a little more headroom so the roofline no longer clips their heads; on tablets and small laptops (641 to 1160px) the "Get my options" button now shows beside Menu. Nothing else changed.
 
 ## Next session: Session 4, direction lock (30 to 45 minutes)
 
@@ -28,7 +29,7 @@
 ### Start protocol (5 minutes)
 
 1. Read `PROJECT_STATUS.md`, this file, `ROADMAP.md` (Sessions 4 and 5) and `DESIGN_SYSTEM.md`.
-2. Get the project from Jeremy's folder, not from memory: `C:\Users\jsgli\Documents\GLP-Home-Options` (stage everything, including `images/`, `fonts/` and `research/photos/`; at most 50 files per staging call). Run `python tools/checkpoint.py`. **Expected: clean at Checkpoint 9.** If it is not, stop and find out why.
+2. Get the project from Jeremy's folder, not from memory: `C:\Users\jsgli\Documents\GLP-Home-Options` (stage everything, including `images/`, `fonts/` and `research/photos/`; at most 50 files per staging call). Run `python tools/checkpoint.py`. **Expected: clean at Checkpoint 10.** If it is not, stop and find out why.
 3. Read the newest line of `.git/logs/HEAD` in his folder; if he has pushed, fetch the live Home page with a cache-busting query.
 
 ### What to do
@@ -102,9 +103,9 @@ Body:
 - Tags and caption no longer overlap on 981 to 1100px wide screens
 - Old prototype pages now redirect to the home page; project notes updated
 
-## Suggested commit message for Checkpoints 6 to 9 (Sessions 6a to 6c) (Jeremy)
+## Suggested commit message for Checkpoints 6 to 10 (Sessions 6a to 6d) (Jeremy)
 
-Use this one message if Checkpoints 6, 7 and 8 are not pushed yet; it covers all four.
+Use this one message if Checkpoints 6 to 9 are not pushed yet; it covers all five. If Checkpoint 9 is already pushed, use the short message right after it.
 
 Subject: Landing page: cream across the site, cleaner hero, hero A live
 
@@ -116,5 +117,15 @@ Body:
 - Phones: a Joey & Ethan byline with portraits in the first screen; balanced headline breaks
 - Joey picked hero A: it is the live Home hero (numbers version retired)
 - Hero photo sharpened and warmed (with a sharper copy for high-resolution screens); the picture frame is slimmer
-- Header: plain phone number and Facebook logo; the scroll-progress line is removed
+- Header: plain phone number and Facebook logo; the scroll-progress line is removed; on tablets and small laptops the Get my options button now sits beside Menu
+- Hero photo has a little more room above their heads so the roofline no longer clips them
 - Dead prototype files deleted; project notes updated
+
+## Commit message if Checkpoint 9 is already pushed (Session 6d only) (Jeremy)
+
+Subject: Header: Get my options button on tablets; more room above the heads in the hero photo
+
+Body:
+- The Get my options button now sits beside Menu on tablets and small laptops (it was hidden there)
+- Hero photo has a little more room above their heads so the roofline no longer clips them
+- Project notes updated

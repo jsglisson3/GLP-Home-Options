@@ -2,7 +2,7 @@
 
 **Start here every session.** This file is the map. The code is the truth. If they disagree, believe the code, then fix this file.
 
-_Last updated: Oct 21, 2026, Session 6c (the top half and the header: sharper, warmer hero photo, slimmer frame, simpler header; the dead prototype files are gone), Checkpoint 9._
+_Last updated: Oct 21, 2026, Session 6d (the header and the hero photo's headroom), Checkpoint 10._
 
 ## Which documents are authoritative
 
@@ -213,6 +213,7 @@ Every inner page ends with a call-to-action band, so there is always a next step
 | **Session 6a checks (Checkpoints 6 and 7)** | Pages rebuilt clean; 345 links, anchors, images and scripts resolve (9 pages including the 2 redirect pages); axe 0 violations in all 28 page scans (7 pages at 1440, 820, 390 touch and 390 reduced motion) and in the phone menu and the picker (Home scanned again after round two); speed on Home (local; the phone run has the CPU slowed 4 times): largest paint 204 ms on desktop and on phone, layout shift 0 on load and while scrolling (0.0003 on desktop before the constant-height header); screenshots reviewed at 1920, 1440, 1366, 1280, 1160, 1100, 1024, 990, 820, 600, 390 and 320; no tag or caption overlaps at 981, 1024, 1060, 1100, 1160, 1280 or 1440. **Not verified:** a real phone; Joey's own look at the final page. |
 | **Session 6b checks (Checkpoint 8)** | Pages rebuilt clean (CSS v26); 341 links, anchors, images and scripts resolve (9 pages including the 2 redirect pages; 4 fewer links than at Checkpoint 7 because the three path chips and the call tag were removed); axe 0 violations in all 28 page scans (7 pages at 1440, 820, 390 touch and 390 reduced motion) and in the phone menu and the picker; no sideways scrolling, broken images or script errors (the small-target notes are the same 28 informational ones as before); text contrast on cream computed for every text color in use (numbers in `DESIGN_SYSTEM.md`); the numbers strip shows its final numbers at 0.3 s after load; screenshots reviewed: the Home top at 1440, 1193 (the width of Jeremy's picture), 1024 and 390, full-page views of Home, About, Options, New homes and Contact at 1440, and the New homes top. **Not verified:** a real phone; Joey's own look; Home and the other pages between 520 and 980px wide below the first screen (only colors changed there); the 320px hero. |
 | **Session 6c checks (Checkpoint 9)** | Pages rebuilt clean (CSS v27, JS v9); 339 links, anchors, images and scripts resolve (7 pages; 2 fewer than at Checkpoint 8 because the two old redirect pages were deleted); axe 0 violations in all 28 page scans (7 pages at 1440, 820, 390 touch and 390 reduced motion) and in the phone menu and the picker; the small-target notes are the same informational ones as before (desktop menu links at 36 to 37px; the phone and tablet targets are 44px or more); the build reproduces all 7 saved pages exactly; the hero photo, frame and header were reviewed at 1440 (full view, a 2x close-up of the right side, and the scrolled header). **Not verified:** a real phone; the new photo on a high-resolution screen other than by the 2x close-up; Joey's look at the result. |
+| **Session 6d checks (Checkpoint 10)** | Pages rebuilt clean (CSS v28, JS v9); 339 links, anchors, images and scripts resolve (7 pages); axe 0 violations on Home in all 4 views (1440, 820, 390 touch, 390 reduced motion); no sideways scrolling at 1440, 1160, 1000, 700, 641 and 390; the header was reviewed at each of those widths and the photo close-up at 1440 at 2x. **Not verified:** a real phone or tablet; the other six pages in axe (their markup is unchanged; the header rule is shared by all seven). |
 
 **Not verified:** the GHL form and booking; real phones; Safari/Firefox; keyboard-only and screen-reader walkthrough; Lighthouse; 320px width; print; net sheet against test cases.
 
@@ -289,6 +290,14 @@ See the risk table above and `CONTENT_CLAIMS.md`. No known broken links, console
 - **Not changed:** copy, claims, layout of the hero, the numbers strip, the other sections.
 - **Checks:** see E6, "Session 6c checks".
 - **Outstanding:** ask Joey for the original photo file or a new portrait shot (at least 1600px tall, ideally the two of them from the waist up with space above their heads); Jeremy's answer on what else looked gimmicky; Session 4's glass list; the earlier open items.
+- **Exact next task:** see `SESSION_HANDOFF.md`.
+
+### Session 6d: Oct 21, 2026 (evening, bonus 5 minutes), the header and the faces (Checkpoint 10)
+- **Decisions from Jeremy:** 5:09 PM, "focus exclusively on the header at the top ... make it so good", and the faces "cut off ... fractionally, very small adjustments" (the roofline clipped the tops of their heads).
+- **Done:** (1) The hero photo got 6% of extra headroom at the top (a soft mirrored and blurred extension of the background; the faces are untouched): `images/joey-ethan-bridge.jpg` is now 800 x 636 and `-2x.jpg` 1600 x 1272, and the `width` and `height` in the Home template match. Both heads now clear the roofline; the faces are about 6% smaller. (2) The header: from 641 to 1160px wide (tablets and small laptops) the "Get my options" button now shows beside Menu; before, only a bare Menu pill showed there. Phones (640px and below) and the full desktop header (above 1160px) are unchanged.
+- **Not changed:** copy, claims, the desktop header, the hero layout.
+- **Checks:** see E6, "Session 6d checks".
+- **Outstanding:** unchanged (the original photo from Joey, what else Jeremy found gimmicky in the header, Session 4's glass list, the earlier open items).
 - **Exact next task:** see `SESSION_HANDOFF.md`.
 
 ## G. Immediate handoff

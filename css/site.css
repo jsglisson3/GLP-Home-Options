@@ -112,7 +112,8 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .mnav nav a.active{color:var(--green-700)}
 .mnav-cta{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:18px}
 @media (min-width:1360px){.hdr-phone{display:inline-flex}}
-@media (max-width:1160px){.nav,.hdr-cta{display:none}.menu-btn{display:inline-flex}}
+@media (max-width:1160px){.nav{display:none}.hdr-cta{margin-left:auto}.menu-btn{display:inline-flex;margin-left:0}}
+@media (max-width:640px){.hdr-cta{display:none}.menu-btn{margin-left:auto}}
 @media (min-width:1161px){.mnav{display:none!important}}
 @media (max-width:420px){.wordmark b{font-size:1.6rem}.wm-sub{font-size:.58rem}.brand img{height:38px}.hdr-row{min-height:70px}}
 /* narrowest phones (320 to 350px): the Menu button shows only its icon; the word stays as its accessible name */

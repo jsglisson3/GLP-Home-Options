@@ -44,6 +44,8 @@ All decisions (D1 to D6) and their status are in `PROJECT_STATUS.md`, section C.
 
 **Checkpoint 9 (Session 6c):** the Home hero photo was re-processed, not re-shot: the source is 800 x 600, so it was resampled with Lanczos, lightly sharpened and warmed (`images/joey-ethan-bridge.jpg` for normal screens and `images/joey-ethan-bridge-2x.jpg`, 1600 x 1200, for sharp screens, chosen by `srcset`); the original is kept in `research/photos/from-old-build/`. The gable frame is slimmer on every page (7px line, 7px white mat; was 9 and 8) and the photo has a soft shade at the bottom behind the name plate. The header's phone number is plain text with a small green phone glyph and the Facebook logo has no circle; the scroll-progress line was removed. **The photo is the limit: ask Joey for the original file or a new portrait (at least 1600px tall).**
 
+**Checkpoint 10 (Session 6d):** the hero photo has 6% extra headroom (a mirrored, blurred extension of the top of the background; the faces are untouched) so the roofline no longer clips the heads: `joey-ethan-bridge.jpg` is 800 x 636 and `-2x.jpg` 1600 x 1272. The header shows the "Get my options" button beside Menu from 641 to 1160px wide (it was hidden there); below 641px only Menu shows, and above 1160px the full desktop header shows.
+
 ## 1. Brand personality (from the master plan)
 
 Premium and sophisticated; trustworthy and transparent; warm, local, human; modern, clear, easy to use. The message: **You have options. We will help you understand them. The decision is yours.** No pressure-driven design, no stock real-estate look, no decoration without a job.
