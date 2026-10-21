@@ -1,0 +1,135 @@
+/* GLP Home Options: hero PROTOTYPES only (Session 3). Loaded by proto-hero-a.html and proto-hero-b.html, never by the live pages.
+   Delete this file when the hero is chosen and applied (Session 6). Nothing here touches css/site.css. */
+
+:root{
+  /* PROPOSAL (D2/P3): one warm neutral, tested only behind the hero. It lives here until Jeremy approves it. */
+  --cream:#f6f0e3;
+}
+
+/* ---------- Warm surface (toggle sets html[data-surface="warm"]) ---------- */
+html[data-surface="warm"] .hero-bg{background:linear-gradient(180deg,#fdfbf6 0%,var(--cream) 55%,#efe8d8 100%)}
+
+/* ---------- Prototype bar (normal flow, above the sticky header; deliberately off-palette so nobody mistakes it for the design) ---------- */
+.proto-bar{position:relative;z-index:70;background:var(--navy-900);color:#fff;font:600 .84rem/1.3 var(--f)}
+.proto-bar :focus-visible{outline-color:#fff}
+.proto-in{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding-block:7px;min-height:46px}
+.proto-tag{margin:0;padding:6px 10px;border-radius:6px;background:#f3d27a;color:#3b2f06;font:800 .7rem/1 var(--f);letter-spacing:.14em;text-transform:uppercase}
+.proto-note{margin:0;color:#dbe6ea}
+.proto-nav{display:flex;flex-wrap:wrap;gap:6px;margin:0 auto 0 0;padding:0;list-style:none}
+.proto-nav a{display:inline-flex;align-items:center;min-height:32px;padding:0 13px;border-radius:999px;border:1px solid rgba(255,255,255,.34);color:#fff;font-weight:700;text-decoration:none;white-space:nowrap}
+.proto-nav a:hover{border-color:#fff;background:rgba(255,255,255,.12)}
+.proto-nav a[aria-current="page"]{background:#fff;border-color:#fff;color:var(--navy-900)}
+.proto-seg{display:inline-flex;align-items:center;gap:8px}
+.proto-lab{color:#dbe6ea;font-weight:700}
+.proto-seg button{min-height:32px;padding:0 15px;border:1px solid rgba(255,255,255,.34);background:transparent;color:#fff;font:700 .84rem/1 var(--f);cursor:pointer}
+.proto-seg .proto-lab+button{border-radius:999px 0 0 999px}
+.proto-seg button+button{margin-left:-9px;border-radius:0 999px 999px 0}
+.proto-seg button[aria-pressed="true"]{position:relative;background:#fff;border-color:#fff;color:var(--navy-900)}
+@media (max-width:760px){.proto-note{display:none}}
+@media (max-width:520px){
+  .proto-in{gap:8px 12px;padding-block:8px}
+  .proto-tag{order:1}
+  .proto-seg{order:2;margin-left:auto}
+  .proto-lab{display:none}
+  .proto-seg button:first-of-type{border-radius:999px 0 0 999px}
+  .proto-nav{order:3;flex:0 0 100%;margin:0;gap:6px}
+  .proto-nav a{padding:0 9px;font-size:.78rem}
+}
+
+/* ---------- Trims shared by both (D5): nothing floats or drifts; the ridge and the contours stay ---------- */
+.proto-a .fc,.proto-b .fc{animation:none}
+.proto-a .gable .g3 img{animation:none;transform:none}
+
+/* ---------- A: the tag system (Jeremy: "the tags look random") ----------
+   The old tags sat at three different overhangs and heights, one covered Ethan's face on phones, and on phones the caption
+   ran under the call tag. They now follow five rules, so every position has a reason:
+   1. One overhang: every tag hangs the same distance (--hang) past the photo frame, left or right.
+   2. One size: the tags share a width and a height, so edges and gaps line up.
+   3. Two groups: the SPEED tag hangs off the roof's right side with its top on the roof peak; the PRICE and CALL tags form a
+      left stack with one left edge and one gap (--tag-gap).
+   4. One bottom line: the bottom of the call tag and the bottom of the Joey & Ethan caption sit on the same line (--edge).
+   5. Faces stay clear: nothing sits above the chins, so every position can be checked by looking at the photo. */
+.proto-a .hero-visual{--hang:40px;--tag-gap:12px;--edge:28px;--tag-h:62px}
+.proto-a .fc{width:14rem;height:var(--tag-h);padding:0 14px 0 10px;gap:12px;border-radius:18px}
+.proto-a .fc .ico{width:40px;height:40px;border-radius:13px}
+.proto-a .fc .ico .i{width:20px;height:20px}
+.proto-a .fc small{font-size:.64rem;letter-spacing:.1em}
+.proto-a .fc b{font-size:1rem}
+.proto-a .fc-fast{top:6px;right:calc(var(--hang) * -1);left:auto;bottom:auto}
+.proto-a .fc-call{left:calc(var(--hang) * -1);right:auto;top:auto;bottom:calc(26px + var(--edge))}
+.proto-a .fc-free{left:calc(var(--hang) * -1);right:auto;top:auto;bottom:calc(26px + var(--edge) + var(--tag-h) + var(--tag-gap))}
+.proto-a .gable-cap{right:20px;bottom:var(--edge);padding:9px 14px;border-radius:14px}
+.proto-a .gable-cap b{font-size:.95rem}
+.proto-a .gable-cap span{font-size:.64rem}
+@media (max-width:980px){
+  /* single column: the frame is centred with room at the sides; keep the overhang inside the screen */
+  .proto-a .hero-visual{--hang:min(40px,calc((100vw - 470px) / 2 - 12px))}
+}
+@media (max-width:520px){
+  .proto-a .hero-visual{--hang:14px;--edge:56px;padding-bottom:34px}
+  .proto-a .fc{width:12.6rem;height:54px;padding:0 12px 0 8px;gap:10px;border-radius:16px}
+  .proto-a .fc .ico{width:36px;height:36px;border-radius:12px}
+  .proto-a .fc .ico .i{width:18px;height:18px}
+  .proto-a .fc b{font-size:.95rem}
+  .proto-a .fc small{font-size:.6rem}
+  .proto-a .fc-call{bottom:calc(34px + var(--edge))}
+  /* the caption becomes a nameplate centred on the bottom edge, so it never meets the call tag */
+  .proto-a .gable-cap{left:50%;right:auto;bottom:-24px;transform:translateX(-50%);white-space:nowrap}
+}
+
+/* ---------- B: numbers-led hero ---------- */
+.hero-b{padding-bottom:clamp(88px,10vw,150px)}
+.hero-b .hero-grid{grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);align-items:center}
+.hero-b .h1{font-size:clamp(2.35rem,4.35vw,3.9rem)}
+.hero-b .hb-visual{justify-self:end;width:min(100%,580px);margin:0;padding:0}
+@media (max-width:980px){
+  .hero-b .hero-grid{grid-template-columns:minmax(0,1fr)}
+  .hero-b .hb-visual{justify-self:center;width:min(100%,640px)}
+}
+/* B carries the numbers, so the stats strip would only repeat them */
+.proto-b .stats-wrap{display:none}
+
+.hb-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-3);overflow:hidden}
+.hb-head{display:grid;gap:12px;padding:24px 28px 18px}
+.hb-title{font-size:clamp(1.3rem,2vw,1.55rem);line-height:1.18;letter-spacing:-.03em}
+.hb-title .ital{display:inline;font-size:1.02em}
+
+.hb-table{width:100%;border-collapse:separate;border-spacing:0;font-size:.95rem;line-height:1.4}
+.hb-table th,.hb-table td{padding:11px 14px;text-align:left;vertical-align:top;border-top:1px solid var(--line)}
+.hb-table th:first-child{padding-left:24px}
+.hb-table th:last-child,.hb-table td:last-child{padding-right:24px}
+.hb-table thead th{padding-block:15px;vertical-align:bottom;background:var(--mist);font:800 .86rem/1.25 var(--f);color:var(--navy-800)}
+.hb-table thead .us-badge{display:block;width:max-content;margin:0 0 7px}
+.hb-table thead th.us{background:var(--grad);color:#fff;border-top-color:transparent}
+.hb-table tbody th{width:27%;font:750 .9rem/1.35 var(--f);color:var(--navy-800)}
+.hb-table td{color:var(--text)}
+.hb-table td strong{font-weight:800;color:var(--navy-800);letter-spacing:-.01em}
+.hb-table td.us{background:var(--green-50);font-weight:650;color:var(--navy-800)}
+
+.hb-foot{display:grid;gap:12px;padding:15px 28px 18px;border-top:1px solid var(--line)}
+.hb-note{margin:0;font-size:.9rem;line-height:1.5;color:var(--muted)}
+.hb-people{display:flex;align-items:center;gap:12px}
+.hb-avs{display:flex;flex:none}
+.hb-avs img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:var(--sh-1);background:var(--navy-100)}
+.hb-avs img+img{margin-left:-13px}
+.hb-people p{margin:0;display:grid;gap:2px}
+.hb-people b{font:800 .98rem/1.1 var(--f);color:var(--navy-800)}
+.hb-people span{font:700 .68rem/1.2 var(--f);letter-spacing:.1em;text-transform:uppercase;color:var(--green-700)}
+.hb-note a{color:var(--green-700);font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.hb-note a:hover{color:var(--green-800)}
+
+/* phones: the table stacks, same pattern as the full comparison further down the page */
+@media (max-width:600px){
+  .hb-head{padding:20px 18px 14px}
+  .hb-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .hb-table,.hb-table tbody,.hb-table tr,.hb-table th,.hb-table td{display:block;width:auto}
+  .hb-table tbody tr{border-top:1px solid var(--line);padding:2px 0 10px}
+  .hb-table th,.hb-table td{border-top:0}
+  .hb-table th,.hb-table td{padding-inline:18px}
+  .hb-table tbody th{width:auto;padding-block:14px 4px;font:800 .74rem/1.2 var(--f);letter-spacing:.12em;text-transform:uppercase;color:var(--green-700)}
+  .hb-table td{display:grid;grid-template-columns:100px minmax(0,1fr);gap:10px;padding-block:6px}
+  .hb-table td::before{content:attr(data-label);font:700 .76rem/1.6 var(--f);color:var(--muted)}
+  .hb-table td.us{margin:2px 10px;padding:8px;border-radius:12px}
+  .hb-table td.us::before{color:var(--green-700)}
+  .hb-foot{padding:16px 18px 18px}
+}

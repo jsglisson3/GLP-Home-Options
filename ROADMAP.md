@@ -11,7 +11,7 @@ The master plan assumes a clean start. This project did not start clean: earlier
 | Phase | What exists today | Status |
 |---|---|---|
 | 0 Audit and safe foundation | Audit done, project record created, checkpoint tool added | **Done in Session 1** |
-| 1 Creative direction and visual design | A complete direction is *built* (light, navy and green from the logo, Plus Jakarta Sans + Fraunces italic accent, gable photo frame). One hero composition only. No formal approval. | **Partly approved Oct 21** (D1, D4, D5); D2, D3, D6 proceed by default; hero choice pending (Session 3) |
+| 1 Creative direction and visual design | A complete direction is *built* (light, navy and green from the logo, Plus Jakarta Sans + Fraunces italic accent, gable photo frame). One hero composition only. No formal approval. | **Partly approved Oct 21** (D1, D2, D4, D5); D3, D6 proceed by default; hero A (people-led) chosen with a warm cream hero surface (Session 3); the formal lock is Session 4 |
 | 2 Design system and foundation | Tokens and components exist in `css/site.css` (19 breakpoints, no spacing scale, no motion tokens) | Built, needs consolidation |
 | 3 Homepage structure | Five pages built and published (Home, Your options, Our story, New homes, Contact) | Built, needs approval |
 | 4 Section refinement | Sections exist; several need a review for repetition. The accuracy patch is done (Session 2). | Partly done |
@@ -37,17 +37,19 @@ Verified the live site and repo, audited code, design tokens, claims and weights
 - **Goal:** compare two meaningfully different hero compositions as isolated prototypes (not touching the live hero): **A, people-led** (Joey and Ethan in the gable frame, as built) and **B, numbers-led** (net sheet or compare table in the hero, smaller photo). Also test one warm neutral surface (P3).
 - **Success:** both prototypes viewable at desktop and phone; Jeremy picks one (D4).
 - **Postponing:** applying the choice to the live pages.
+- **Result (Oct 21, done):** both prototypes built and checked (`PROJECT_STATUS.md`, E6 and the Session 3 log). Jeremy chose **A, people-led** and the **warm cream hero surface**. His feedback turned the floating tags into a five-rule system (`DESIGN_SYSTEM.md`). B is deleted in Session 6.
 
 ### Session 4: Phase 1, direction lock
 - **Goal:** turn D1 to D6 plus the hero choice into the approved design system (`DESIGN_SYSTEM.md` marks items APPROVED). Also set the exact list of the 7 glass uses that stay (D5).
 - **Success:** every token and rule is labeled DIRECTED or APPROVED; open items listed.
+- **Inputs from Session 3:** hero A, the warm cream hero surface and the tag system are decided. Session 4 also asks whether any other section gets a warm neutral, and counts the hero tags and caption among the glass uses.
 
 ### Session 5: Phase 2, design system consolidation
 - **Goal:** tokens and conventions: 4 breakpoints (P1), spacing and type scales (P2), motion tokens (P4). **No intended visual change except the approved D5 trims** (remove the floating blobs and photo parallax; reduce glass to the list set in Session 4), shown as before and after screenshots.
 - **Success:** screenshots before and after match; axe still 0; checkpoint.
 
 ### Sessions 6 to 9: Phase 3/4, section-by-section refinement (one session each)
-- 6: header, navigation, hero (applies the chosen hero).
+- 6: header, navigation, hero (applies the chosen hero: **A, people-led**, with the tag system and the warm cream hero surface moved from `css/proto.css` into `css/site.css` and `tools/pages/index.html`; then delete `proto-hero-a.html`, `proto-hero-b.html`, `css/proto.css`, `js/proto.js`, `tools/build-prototypes.py` and the two avatar images).
 - 7: problem, options, trust sections (vary the repeated card grids, P7).
 - 8: September story, compare table, net sheet (copy and layout, not formulas).
 - 9: About, New homes, FAQ, contact section, footer.
@@ -69,7 +71,7 @@ Verified the live site and repo, audited code, design tokens, claims and weights
 - Walk every journey end to end: call, text, email, book, form, Facebook.
 
 ### Session 12: Phase 6, accessibility, responsive, performance
-- Lighthouse baseline and fixes; responsive images (`srcset`, WebP/AVIF) once originals exist (P6); font loading; 320px width (known wraps: the email link in the Contact and Our story tiles, the Home hero button); keyboard-only and screen-reader walkthrough; 44px touch targets (P5); console errors; print.
+- Lighthouse baseline and fixes; responsive images (`srcset`, WebP/AVIF) once originals exist (P6); font loading; 320px width (known wraps: the email link in the Contact and Our story tiles, the Home hero button; and the header, whose logo and Menu button need about 343px, so the Menu button is clipped by about 23px at 320px); keyboard-only and screen-reader walkthrough; 44px touch targets (P5); console errors; print.
 
 ### Session 13: Phase 7, launch QA and deployment
 - Remove `noindex` (one line in `head()` of `tools/build-pages.py`); un-comment the canonical line there and set the real domain (`SITE`, which also drives og:url and og:image); `sitemap.xml`, `robots.txt`; analytics and form-conversion tracking (and confirm the Privacy page's "we respect Do Not Track" stays true once analytics is added); point glphomeoptions.com at the site (GitHub Pages custom domain + DNS, with Joey) keeping `/privacy-policy` and `/terms-of-service`; lawyer-reviewed Privacy and Terms (remove the "Draft for review" note in `tools/legal_text.py`); share-card check; final live verification of every page and link.
@@ -82,7 +84,7 @@ Situation pages (inherited home, divorce, relocation, needs repairs, financial s
 | Task | Waits on |
 |---|---|
 | Launch with the J-tagged claims | Joey's confirmation of each (`CONTENT_CLAIMS.md`, rows 1, 2, 4, 5, 6, 41) and a lawyer's look at seller financing and lease options |
-| Session 4 | Jeremy's decisions D1 to D6 and the Session 3 hero choice |
+| Session 4 | Jeremy's decisions D1 to D6 and the Session 3 hero choice (made: A, people-led, warm cream hero) |
 | Session 5 | Session 4 (we consolidate the approved system) |
 | Session 10 gallery | Joey's photos and answers; D6 |
 | Session 11 form fix | GoHighLevel access (Joey or Jeremy); registered text-message campaign wording |

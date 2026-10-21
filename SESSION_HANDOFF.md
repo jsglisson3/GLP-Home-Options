@@ -1,72 +1,49 @@
 # Session handoff
 
-**Written:** Oct 21, 2026, at the end of Session 2 (accuracy patch, then Jeremy's answers applied), Checkpoint 3.
+**Written:** Oct 21, 2026, at the end of Session 3 (hero prototypes; hero chosen), Checkpoint 4.
 **Replace this file at the end of every session.** It always describes exactly one next session. The long-term plan is in `ROADMAP.md`; the full state is in `PROJECT_STATUS.md`.
 
 ## Where the project is
 
-- **Session 2 is done.** The six unverified claims were first replaced with Joey's own wording or pulled. Then Jeremy answered the questions for Joey (Oct 21, about 9:30 AM: yes to all) and five claims went back on the site, each tagged **J** in `CONTENT_CLAIMS.md` (Jeremy's word, not yet Joey's). **No visual change.** `python tools/checkpoint.py` is clean at Checkpoint 3: a fresh build reproduces all 7 pages, 340 links resolve, axe is all clear at 4 viewports.
-- **Are Checkpoints 2 and 3 live yet?** They go live when Jeremy commits and syncs. Check by fetching the Contact page: if the address block reads "GLP Home Options (Legal entity: GL Partners LLC)", they are live (the 8:34 AM version said "doing business as"). Update the "Deployed state" line in `PROJECT_STATUS.md` either way.
-- **Jeremy approved on Oct 21:** D1 (navy leads, green is the accent; hex values locked), D4 (build both hero prototypes and he picks), D5 (a restrained set of glass and motion, as a direction), and "Joey's own words now" for claims. D2 (one warm surface, tested only in the prototypes), D3 (keep the fonts) and D6 (keep the five pages) proceed by default.
-- **Waiting on Joey:** his confirmation of every claim tagged **J** (seller financing and lease options, the service area, free consultation, "anytime", texting, the example offer), a lawyer's look at how seller financing and lease options are described, and the rest of `PROJECT_STATUS.md` open question 1. None of this blocks Session 3.
+- **Session 3 is done.** Two hero prototypes were built and checked (A people-led, B numbers-led). Jeremy chose **A, people-led** and the **warm cream surface behind the hero only** (about 10:20 AM, Oct 21). His note on A, that the floating tags looked random, produced a five-rule tag system (`DESIGN_SYSTEM.md`, "Hero tag system"); it also fixed two phone defects in the live hero.
+- **Live site = commit `73b0b53`** (Checkpoints 2 and 3). **Checkpoint 4 goes live with Jeremy's next commit.** It is additive: `proto-hero-a.html`, `proto-hero-b.html`, `css/proto.css`, `js/proto.js`, `tools/build-prototypes.py`, two avatar images and the docs. No real page changed. After he syncs, the prototypes are at `https://jsglisson3.github.io/GLP-Home-Options/proto-hero-a.html` and `proto-hero-b.html` (add `?surface=warm` for the warm state), so he can show Joey. Check with a cache-busting query (`?cb=...`); the fetch tool caches 15 minutes.
+- **Approved by Jeremy:** D1 (navy leads, green accent), D2 (warm cream, hero only), D4 (hero A), D5 (restrained glass and motion, as a direction), and "Joey's own words now" for claims. D3 and D6 proceed by default.
+- **Waiting on Joey:** his confirmation of every claim tagged **J** (seller financing and lease options, the service area, free consultation, "anytime", texting, the example offer); a lawyer's look at how seller financing and lease options are described; where the bridge photo came from (open question 3).
+- **New finding:** at 320px the header's Menu button is clipped by about 23px (logo and button need about 343px). Logged for Session 12.
 
-## Next session: Session 3, hero prototypes (30 to 45 minutes)
+## Next session: Session 4, direction lock (30 to 45 minutes)
 
-**One objective:** build **two isolated hero prototypes** so Jeremy can compare and pick (D4), and test **one warm surface** (D2). **The live hero does not change.** Applying the chosen hero to the real Home page is Session 6.
+**Objective:** turn the approved decisions into the formal design system, and set the exact list of the 7 glass uses (D5). **No change to any real page.**
 
-### Needed from Jeremy (ask in the first message)
+### Needed from Jeremy (ask in the first message, at most two questions)
 
-1. **Did you commit and sync Checkpoints 2 and 3?** (If not, do that first; message below.)
-2. **Anything Joey has answered** since Oct 21. If not, nothing is needed to start.
-3. At the end: **pick A or B**, and **cool or warm** (use AskUserQuestion, with the screenshots sent first).
+1. Should any other section use the warm cream, or stay cool (D2 was approved for the hero only)?
+2. Approve the glass list you propose (below). Send a short list, not a document.
 
-### Start protocol (5 minutes, in this order)
+### Start protocol (5 minutes)
 
-1. Read `PROJECT_STATUS.md`, this file, `ROADMAP.md` (Session 3) and `DESIGN_SYSTEM.md` (color, motion, glass, and the P3 note).
-2. Get the project from Jeremy's folder, not from memory: `C:\Users\jsgli\Documents\GLP-Home-Options` (list it, then stage the files into a working folder; about 70 files, at most 50 per staging call, so two calls; stage everything, including `images/`, `fonts/` and `research/photos/`, or the link check and checkpoint report missing files).
-3. Run `python tools/checkpoint.py`. **Expected: clean.** If it reports differences, stop and find out why before editing (the folder was edited elsewhere, or a sync is pending), and tell Jeremy.
-4. Read the newest line of `.git/logs/HEAD` in his folder, and fetch the live Home page (see "Are Checkpoints 2 and 3 live yet?" above).
+1. Read `PROJECT_STATUS.md`, this file, `ROADMAP.md` (Sessions 4 and 5) and `DESIGN_SYSTEM.md`.
+2. Get the project from Jeremy's folder, not from memory: `C:\Users\jsgli\Documents\GLP-Home-Options` (stage everything, including `images/`, `fonts/` and `research/photos/`; at most 50 files per staging call). Run `python tools/checkpoint.py`. **Expected: clean at Checkpoint 4.** If it is not, stop and find out why.
+3. Read the newest line of `.git/logs/HEAD` in his folder; if he has pushed, fetch the live Home page with a cache-busting query.
 
-### The two prototypes
+### What to do
 
-| | **A: people-led** | **B: numbers-led** |
-|---|---|---|
-| Idea | Joey and Ethan are the first trust signal | The honest numbers are the first trust signal |
-| Composition | The hero as built: copy left, gable photo right, three small floating facts (call, 7-14 days, $0 commission) | Headline, one line of lede and the one action on the left. On the right, a compact side-by-side of the paths (sell direct, list with an agent, keep it). A small photo of Joey and Ethan beside the headline or under it. |
-| Numbers allowed | None new | Only Joey's, from `CONTENT_CLAIMS.md` rows 14, 15, 20, 21: 7-14 days, $0 commission and we pay closing costs, 45-90+ days, about 6% commission, "usually nets the most", keep the home. **No net-sheet figures in the hero** (those are our examples). |
-| Photo | `images/joey-ethan-bridge.jpg`, as live. Its provenance is unconfirmed (open question 3). If it comes out, test `images/joey.jpg` and `images/ethan.jpg` (the Our story headshots). | Same files, smaller |
-
-**Rules for both**
-
-- **Same words and facts as the live hero** wherever possible (H1 "Real home options. Clear next steps."; button "Request a consultation"; the phone number; "No obligation, no spam. Your information is kept confidential."). Any new wording must come from rows marked **V** in `CONTENT_CLAIMS.md`, or be a plain label that makes no claim. Never invent a review, license, award, number or photo. Use only the photos already in `images/`.
-- **Same tokens:** navy `#2d4855` leads, green `#3c7a66` is the accent; same fonts; one primary action per hero.
-- **D5 trims already applied inside the prototypes:** no floating blobs and no photo parallax. Keep the ridge and contour touches, header glass and small overlays on photos. Respect `prefers-reduced-motion`.
-- **D2, the warm surface:** add **one** warm neutral (sand or cream) as a single, clearly named token in the prototype stylesheet, with a small "cool / warm" toggle on the prototype pages, so each hero can be seen both ways. Pick the value, record it in `DESIGN_SYSTEM.md` as a PROPOSAL, and check that every text color on it keeps 4.5:1 (3:1 for large text).
-- **Light first view:** no new image heavier than the existing hero photo. Report each prototype's first-view weight next to the live Home hero (the whole Home first view is 298 KB desktop, 196 KB phone).
-- Both must work at **1440, 820, 390 (touch)** and be checked at **320**, and with reduced motion.
-
-**Recommended technique** (it keeps the live pages and the real CSS and JavaScript untouched):
-
-- Create `tools/build-prototypes.py`. It reads the generated `index.html`, replaces only the `<section class="hero">...</section>` block with the prototype's markup, adds `<link rel="stylesheet" href="css/proto.css">` after `css/site.css`, marks the title "PROTOTYPE", adds the cool/warm toggle, and writes `proto-hero-a.html` and `proto-hero-b.html` **at the site root**. The existing header, footer and icons then stay identical.
-- Put prototype-only styles in a new `css/proto.css`. **Do not edit `css/site.css`, `js/site.js`, `tools/build-pages.py` or `tools/pages/*.html`.**
-- Use the root, not a subfolder, and **do not use a `<base>` tag**: the page's inline icon sprite is referenced as `<use href="#i-...">`, which a `<base>` tag can break in some browsers.
-- The checkpoint tool already tracks root `*.html`, `css/*.css` and `tools/*.py`; `tools/check-links.py` already checks every root `*.html`, so the prototypes are covered. The rebuild check only compares the 7 real pages, so the prototypes do not disturb it. The prototypes stay `noindex` like the rest of the draft; delete them after the chosen hero is applied (Session 6).
+1. **Inventory the glass:** `grep -n "backdrop-filter" css/site.css`. List every use with what it sits on. Propose the 7 to keep (the header glass is one; the hero tags and the caption count) and which to drop. Remember D5: header glass, small overlays on photos, and the ridge and contour touches stay; floating blobs and photo parallax go (Session 5 removes them).
+2. **Label `DESIGN_SYSTEM.md`:** every token and rule is DIRECTED, APPROVED or PROPOSED. Items already approved: color hierarchy and hex values (D1), the hero (A), the warm cream hero surface (P3), the hero tag system, D5 as a direction. Leave P1, P2, P4, P5, P6 as proposals for Session 5 unless Jeremy decides now.
+3. **Check the docs agree** with each other (decisions, dates, next session).
 
 ### Do not change
 
-The live hero and every other part of the real pages; `css/site.css`; `js/site.js`; `tools/build-pages.py`; the phone, email, Facebook URL, form id and booking id; the net sheet; the `noindex` tag; the Facebook placements; page structure and URLs; the claims (the wording from Session 2 stays).
+Every real page, `css/site.css`, `js/site.js`, `tools/build-pages.py`, `tools/pages/*`; the claims; the phone, email, Facebook URL, form id and booking id; the `noindex` tag. Leave the prototypes alone until Session 6 deletes them.
 
 ### Done means
 
-- Both prototypes load with no console errors and no broken images; `python tools/check-links.py` passes.
-- `python /path/to/tools/a11y-check.py proto-hero-a.html proto-hero-b.html` (run from the folder that has `node_modules`) shows **0 violations at all 4 viewports**, in the cool state and the warm state.
-- Screenshots of **A and B, cool and warm, at 1440 and 390** (8 images) are looked at, and any wrap or layout problem is fixed. Send Jeremy the key ones.
-- Jeremy has picked A or B and cool or warm. Record it: `PROJECT_STATUS.md` section C (D4 and D2 as APPROVED with the date), `DESIGN_SYSTEM.md` (the hero decision; P3 resolved), `ROADMAP.md` (Session 3 done; Session 6 applies the chosen hero). **If Jeremy is not there to pick,** leave both prototypes in place and record "pick pending": Session 4 can lock everything else but not the hero.
-- `PROJECT_STATUS.md` updated (session log, section G, E6 results, "Last updated"); this file replaced with the Session 4 handoff; `python tools/checkpoint.py --write "Session 3: hero prototypes"` run last.
+- `DESIGN_SYSTEM.md` has no unlabeled token or rule; the glass list is written down and Jeremy has approved it (or "pending" is recorded).
+- `PROJECT_STATUS.md` (session log, section G, "Last updated") and `ROADMAP.md` updated; this file replaced with the Session 5 handoff; `python tools/checkpoint.py --write "Session 4: direction lock"` run last.
 
 ### End-of-session protocol (every session)
 
-1. Verify (above). 2. Update the docs. 3. Write the checkpoint. 4. In **one** step stage every changed file (new and changed pages, sources, docs, `CHECKPOINT.json`) into the outputs folder; in a **separate, later** step copy them to Jeremy's folder; list the folder to confirm sizes. 5. Give Jeremy the commit message. He stages (+), commits and syncs in VS Code Source Control. 6. Fetch the live site after he syncs, if he says he has.
+1. Verify. 2. Update the docs. 3. Write the checkpoint. 4. In **one** step stage every changed file into the outputs folder; in a **separate, later** step copy them to Jeremy's folder; read them back and compare hashes (images gain an invisible provenance tag when saved, so compare their pixels). 5. Give Jeremy the commit message. He stages (+), commits and syncs in VS Code Source Control. 6. Fetch the live site after he syncs, if he says he has.
 
 ## Commands
 
@@ -80,12 +57,12 @@ python tools/checkpoint.py --write "label"      # end of session, after everythi
 python -m http.server 8000                      # preview at http://localhost:8000
 ```
 
-## Suggested commit message for Checkpoints 2 and 3 (Jeremy)
+## Suggested commit message for Checkpoint 4 (Jeremy)
 
 ```
-Session 2: accuracy patch, plus the claims Jeremy confirmed
+Session 3: hero prototypes (A, people-led, chosen) and project record
 
-Rework six unverified claims to Joey's own wording, then restore the ones Jeremy confirmed (seller financing and lease options, service area within about an hour of Chattanooga, free consultation, anytime, example offer), each tagged J in CONTENT_CLAIMS.md until Joey confirms. Use Joey's "Legal entity" wording instead of "doing business as". Record decisions D1, D4, D5. No visual change.
+Add two isolated hero prototypes, proto-hero-a.html and proto-hero-b.html, with a cool/warm surface toggle, built from the live Home page by tools/build-prototypes.py. Jeremy chose A with a warm cream hero surface. Record the decisions, the five-rule tag system and the findings. No real page changed.
 ```
 
 ## If something looks wrong
@@ -96,3 +73,4 @@ Rework six unverified claims to Joey's own wording, then restore the ones Jeremy
 - **The Contact page's FAQ is chosen by exact question text** (`FAQ["contact"]` in `tools/build-pages.py`): "Do I have to sell to you if I reach out?", "How do I know GLP is legit?" and "What areas do you serve?". If a later session rewords one of those three questions, it silently drops off the Contact page. Change the filter at the same time.
 - **The GoHighLevel form looks wrong live:** it cannot be tested from the workspace. Record what Jeremy sees and defer to Session 11.
 - **Facebook shows only one post:** expected when logged out. Never sign in; ask Joey for photos instead.
+- **The prototypes look stale or wrong after a Home change:** re-run `python tools/build-prototypes.py` (it reads the built `index.html`, and stops with a message if the live comparison-table wording changed). They are deleted in Session 6.

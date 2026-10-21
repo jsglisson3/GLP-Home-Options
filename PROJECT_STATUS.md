@@ -2,7 +2,7 @@
 
 **Start here every session.** This file is the map. The code is the truth. If they disagree, believe the code, then fix this file.
 
-_Last updated: Oct 21, 2026, Session 2 and its second pass (accuracy patch, then Jeremy's answers applied), Checkpoint 3._
+_Last updated: Oct 21, 2026, Session 3 (hero prototypes built; Jeremy chose A, people-led, with a warm cream hero surface), Checkpoint 4._
 
 ## Which documents are authoritative
 
@@ -37,7 +37,7 @@ Workflow: one focused session, one verified checkpoint, updated documentation, o
 - **Facebook:** https://www.facebook.com/profile.php?id=61588492362641
 - **Repository (verified Oct 21 from `.git/config`):** https://github.com/jsglisson3/GLP-Home-Options.git, branch `main`, GitHub Pages deploys `main` / root. **The repository is public.**
 - **Working directory and source of truth:** `C:\Users\jsgli\Documents\GLP-Home-Options` on Jeremy's computer. An AI session works on a temporary copy in a cloud workspace (which may also hold its own stale `.git`; ignore it).
-- **Deployed state (checked Oct 21):** GitHub Pages serves the site from commit **`b6cc372` "Full refresh"** (8:34 AM CDT, the last commit that changed a page). Commit **`5091df7` "Checkpoint 1: Phase 0 audit and project record"** (9:08 AM CDT) added only the notes and the checkpoint tool. After the 8:34 AM publish, fetching `/` and `/contact.html` returned the new multi-page site: nav, H1s ("Real home options. Clear next steps." and "Let's talk about your home. No pressure, no scripts."), the Facebook links and `noindex, nofollow`. That is a page-level check by reading the fetched text; a byte-for-byte comparison is not possible from the workspace (its shell can't reach github.io). **Checkpoints 2 and 3 (the Session 2 accuracy patch, then Jeremy's answers applied) are saved on Jeremy's computer and go live with his next commit.** At the start of Session 3, check whether they are live: the Contact page's address block then reads "GLP Home Options (Legal entity: GL Partners LLC)" (the 8:34 AM version said "GL Partners LLC, doing business as GLP Home Options").
+- **Deployed state (checked Oct 21):** GitHub Pages serves the site from commit **`b6cc372` "Full refresh"** (8:34 AM CDT, the last commit that changed a page). Commit **`5091df7` "Checkpoint 1: Phase 0 audit and project record"** (9:08 AM CDT) added only the notes and the checkpoint tool. After the 8:34 AM publish, fetching `/` and `/contact.html` returned the new multi-page site: nav, H1s ("Real home options. Clear next steps." and "Let's talk about your home. No pressure, no scripts."), the Facebook links and `noindex, nofollow`. That is a page-level check by reading the fetched text; a byte-for-byte comparison is not possible from the workspace (its shell can't reach github.io). **Checkpoint 2 (`8124c77` "Text changes", 9:28 AM) and Checkpoint 3 (`73b0b53` "Updated wording and countys", 9:46 AM) are live** (confirmed Oct 21 by fetching the Contact page with a cache-busting query: the address block reads "GLP Home Options (Legal entity: GL Partners LLC)"). **Checkpoint 4 (Session 3: `proto-hero-a.html`, `proto-hero-b.html`, `css/proto.css`, `js/proto.js`, `tools/build-prototypes.py`, two small avatar images, and the docs) is saved on Jeremy's computer and goes live with his next commit.** It is additive and `noindex`; no real page changed.
 - **Stack:** plain HTML, CSS and vanilla JavaScript; no framework; no server. A small Python script (`tools/build-pages.py`) generates the 7 pages from shared parts, and the output is plain files. Fonts are self-hosted. The contact form and booking are GoHighLevel embeds (form `c36UOOc2pkosxfvRfjZJ`, booking `cM59fR3vJlAVRy08Depz`, host `links.voiseai.com`).
 
 **Technical constraints that shape how sessions work**
@@ -59,23 +59,23 @@ Workflow: one focused session, one verified checkpoint, updated documentation, o
 
 Full detail and the DIRECTED / BUILT / PROPOSAL labels are in **`DESIGN_SYSTEM.md`**. Summary: navy `#2d4855` leads and green `#3c7a66` supports (both from the logo) on white and mist surfaces; Plus Jakarta Sans with a Fraunces italic accent; a gable-shaped photo frame; restrained scroll, ridge and contour motion that switches off for reduced motion; no dark mode.
 
-**Approval status (updated Oct 21, Session 2):** Jeremy has *directed* the overall direction (light, logo colors, back off the green, classy and alive, mobile first, Facebook logo, no invented claims) and, on Oct 21, **explicitly approved D1, D4, D5 and the claims approach** below. D2, D3 and D6 proceed by default: he was told the plan on Oct 21 and did not object, and he sees the result in the Session 3 prototypes. Everything else in the code is BUILT, pending Session 4's formal lock.
+**Approval status (updated Oct 21, Session 3):** Jeremy has *directed* the overall direction (light, logo colors, back off the green, classy and alive, mobile first, Facebook logo, no invented claims) and, on Oct 21, **explicitly approved D1, D4, D5 and the claims approach** below. **On Oct 21 in Session 3 (about 10:20 AM) he also chose hero A (people-led) and the warm cream surface behind the hero only (D4, D2).** D3 and D6 proceed by default: he was told the plan on Oct 21 and did not object. Everything else in the code is BUILT, pending Session 4's formal lock.
 
 ### Decisions (Phase 1)
 
 | # | Decision | Status |
 |---|---|---|
 | **D1** | **Color hierarchy.** Navy leads, green is the accent (as built), versus a deep-green-led palette. | **APPROVED Oct 21: navy leads, green accent.** The hex values in `DESIGN_SYSTEM.md` section 2 are now locked tokens; changing one needs Jeremy's approval. |
-| **D2** | **Warmth.** Test one warm neutral (sand/cream) surface beside the cool palette. | Proceeding by default: test it **only inside the hero prototypes** (Session 3), not site-wide. Jeremy confirms when he sees them. |
+| **D2** | **Warmth.** Test one warm neutral (sand/cream) surface beside the cool palette. | **APPROVED Oct 21 (Session 3), for the hero surface only:** `--cream: #f6f0e3`, used as the hero background gradient `#fdfbf6 → #f6f0e3 → #efe8d8`; the ridge's front layer stays cool. Whether any other section gets a warm neutral is **not decided** (Session 4). It lives only in `css/proto.css` until Session 6 applies it. |
 | **D3** | **Typography.** Plus Jakarta Sans plus the Fraunces italic accent. | Proceeding by default: keep. A serif headline may appear in at most one hero prototype. |
-| **D4** | **Hero.** Build two prototypes to compare: **A, people-led** (Joey and Ethan in the gable frame, as built) and **B, numbers-led** (net sheet or compare table in the hero, smaller photo). | **APPROVED Oct 21: build both.** Jeremy picks after seeing them (Session 3). |
+| **D4** | **Hero.** Build two prototypes to compare: **A, people-led** (Joey and Ethan in the gable frame, as built) and **B, numbers-led** (net sheet or compare table in the hero, smaller photo). | **APPROVED Oct 21 (Session 3): A, people-led.** Both were built and shown (desktop and phone, cool and warm). B (numbers-led) was not chosen; it stays in the repo until Session 6 for reference, then is deleted. Jeremy's note on A: the floating tags looked random, so they were rebuilt on five rules (`DESIGN_SYSTEM.md`, "Hero tag system"). |
 | **D5** | **Glass and motion.** Glass blur is used in 7 places; motion includes ridge and photo parallax, blobs, count-up and view transitions. | **APPROVED Oct 21 as a direction: restrained set.** Keep header glass, small overlays on photos, and the ridge and contour touches; drop the floating blobs and photo parallax. Session 4 sets the exact list of the 7 glass uses that stay; Session 5 applies it. |
 | **D6** | **Architecture and gallery.** Five pages (Home, Your options, Our story, New homes, Contact), New homes a light teaser; where the homes gallery goes. | Structure: proceeding by default (Jeremy published it on Oct 21). Gallery placement (inside New homes, its own "Our work" page, or the future construction site) is decided after Joey sends photos and answers (Session 10). |
 | **Claims** | How to treat the six unverified claims (`CONTENT_CLAIMS.md`). | **APPROVED Oct 21: "Joey's own words now."** Done in Session 2. About 9:30 AM Jeremy then answered the open questions himself (yes to all) and asked for five claims to go back; they are on the draft tagged **J** (Jeremy's word, not yet Joey's) until Joey confirms. |
 
 ## D. Roadmap summary, open questions and risks
 
-Roadmap: see **`ROADMAP.md`** (13 sessions to launch). Phase status: 0 done; 1 partly approved (D1, D4, D5 approved; the hero choice is pending); 2 to 6 built but need review, consolidation or validation; 7 not started. **Next: Session 3, hero prototypes A and B** (see `SESSION_HANDOFF.md`).
+Roadmap: see **`ROADMAP.md`** (13 sessions to launch). Phase status: 0 done; 1 partly approved (D1, D2, D4, D5 approved; hero A chosen; the formal lock is Session 4); 2 to 6 built but need review, consolidation or validation; 7 not started. **Next: Session 4, direction lock** (see `SESSION_HANDOFF.md`).
 
 ### Open questions (ask Joey; claim-related ones are in `CONTENT_CLAIMS.md`)
 
@@ -208,12 +208,13 @@ Every inner page ends with a call-to-action band, so there is always a next step
 | Joey's live site, re-read Oct 21 | Home sections, four path cards that jump to the form, no statistics or reviews; Calculator inputs and the $127,000 sample with its one-line disclaimer; Terms and Privacy naming "GLP Home Options (Legal entity: GL Partners LLC)"; legal URLs `/privacy-policy` and `/terms-of-service`. |
 | Contact details vs. Joey's site and Facebook | Phone, email, entity and PO Box verified (the PO Box is on Facebook only; see `CONTENT_CLAIMS.md`) |
 | **Session 2 checks** | After Jeremy's answers were applied (Checkpoint 3): pages rebuild; 340 links resolve; every JSON-LD block parses and the FAQ data matches the visible FAQ lists (11, 6 and 6 items); axe all clear; no page scrolls sideways at 1440, 390 or 320; screenshots of every changed area at 1440, 390 and 320 were reviewed. Wording kept out of the site: "doing business as", "no obligation, ever", and "takes about a minute" for the form (it stays only for our own net sheet). At the net sheet's defaults, read in a browser, listing nets $112,000 and the $255,000 example offer nets $105,000 (verdict: "Listing nets about $7,000 more."). |
+| **Session 3 checks** | Prototypes A and B, cool and warm: axe 0 violations in all 24 scans (16, then 8 more after the tag change) at 1440, 820, 390 touch and 390 reduced motion; 476 links resolve (9 pages); no broken images; no sideways scroll at 1440 and 390; the toggle, its URL state (`?surface=warm`), the A/B links, keyboard use and the phone call bar were tested; A's tags were checked for overlaps and clipping at 1440, 1100, 820, 560, 390 and 320 (none) and every tag label stays on one line. First-view weight (gzipped text, fonts, images): live Home 298 KB desktop / 196 KB phone; A 301 / 200 (the prototype files add about 3 KB); B 243 / 141 (no big photo, two small portraits). The only console errors are the contact-form script, which the workspace cannot reach (same on the live pages). |
 
 **Not verified:** the GHL form and booking; real phones; Safari/Firefox; keyboard-only and screen-reader walkthrough; Lighthouse; 320px width; print; net sheet against test cases.
 
 ### E7. Known defects and cautions
 
-See the risk table above and `CONTENT_CLAIMS.md`. No known broken links, console errors from our code, or accessibility violations. Some links are smaller than the 44px best-practice size (footer 36px and breadcrumbs 32px on desktop; breadcrumbs 32px on phones); all meet WCAG 2.2 AA's 24px minimum. See the tap-target row in E6. **At 320px wide** (first looked at in Session 2) no page scrolls sideways, but the email link in the Contact and Our story tiles wraps with a lone "m" on its second line, and the Home hero button wraps to two lines. Cosmetic; fix in Session 12.
+See the risk table above and `CONTENT_CLAIMS.md`. No known broken links, console errors from our code, or accessibility violations. Some links are smaller than the 44px best-practice size (footer 36px and breadcrumbs 32px on desktop; breadcrumbs 32px on phones); all meet WCAG 2.2 AA's 24px minimum. See the tap-target row in E6. **At 320px wide** (first looked at in Session 2) no page scrolls sideways, but the email link in the Contact and Our story tiles wraps with a lone "m" on its second line, and the Home hero button wraps to two lines. Cosmetic; fix in Session 12. **Found in Session 3, also at 320px:** the header's logo and Menu button need about 343px, so at 320px the Menu button is clipped by about 23px (fine from about 343px up: checked at 340, 360, 375 and 390). Fix in Session 12 (shrink the wordmark or the button below about 360px).
 
 ## F. Session log
 
@@ -243,7 +244,17 @@ See the risk table above and `CONTENT_CLAIMS.md`. No known broken links, console
 - **Outstanding:** Joey's confirmation of every J claim; a lawyer's review of the seller financing and lease option wording; the GHL form; the 320px wraps (Session 12); the hero choice (Session 3).
 - **Exact next task:** Session 3, hero prototypes A and B, see `SESSION_HANDOFF.md`.
 
+### Session 3: Oct 21, 2026, hero prototypes and the hero choice
+
+- **Built (additive, `noindex`):** `tools/build-prototypes.py` reads the built `index.html` and writes `proto-hero-a.html` and `proto-hero-b.html` (only the hero differs), with `css/proto.css`, `js/proto.js` (Cool/Warm toggle, `?surface=warm`) and two avatar crops (`images/joey-avatar.jpg`, `images/ethan-avatar.jpg`, from the Our story portraits). Nothing in `css/site.css`, `js/site.js`, `tools/build-pages.py` or `tools/pages/` changed.
+- **A (people-led):** the live hero without the three blobs; photo and tags held still (D5). **B (numbers-led):** a side-by-side card of Joey's own numbers (Timeline, Commission and fees, Closing costs, Repairs, and "Usually nets the most", the row that favors listing, kept on purpose), Joey and Ethan as two small portraits, no big photo; the stats strip is hidden in B because the card carries the same numbers. The build stops if the live table wording changes.
+- **Jeremy's feedback (10:07 AM):** the tags on the people version \"look random\". Rebuilt on five rules (see `DESIGN_SYSTEM.md`). This also fixed two phone defects in the live hero: the speed tag covered Ethan's eyes, and the caption ran under the call tag.
+- **Decision (about 10:20 AM):** A, people-led, with the warm cream surface behind the hero only.
+- **Findings:** the 320px header (E7). The warm cream passes contrast for all small text (numbers in `DESIGN_SYSTEM.md`, P3).
+- **Not done (by design):** applying A and the warm hero to the real Home page (Session 6); any warm neutral outside the hero (needs a decision in Session 4); deleting the prototypes (Session 6).
+- **Checkpoint 4 written.** **Exact next task:** Session 4, direction lock, see `SESSION_HANDOFF.md`.
+
 ## G. Immediate handoff
 
-- **Current phase and status:** Phase 0 complete. Phase 1 is partly approved (D1, D4, D5); the accuracy work is done and recorded at Checkpoint 3 (Session 2, with Jeremy's answers applied). The hero choice (D4) is pending.
-- **Next task:** Session 3, two hero prototypes (A people-led, B numbers-led) built in isolation, plus the one warm-surface test (D2). Full instructions, where to start in the code, what not to change, and how to verify completion are in **`SESSION_HANDOFF.md`**.
+- **Current phase and status:** Phase 0 complete. Phase 1 is partly approved (D1, D2, D4, D5); the hero is chosen (A, people-led, warm cream) and recorded at Checkpoint 4 (Session 3). The accuracy work was recorded at Checkpoint 3.
+- **Next task:** Session 4, lock the direction: label every design-system item DIRECTED or APPROVED, and set the exact list of the 7 glass uses (D5). Full instructions are in **`SESSION_HANDOFF.md`**.

@@ -27,11 +27,12 @@ Nothing below has been signed off as a complete package yet. The system was buil
 
 **APPROVED by Jeremy on Oct 21, 2026:**
 9. **D1: navy leads, green is the accent.** The color tokens in section 2 are locked.
-10. **D4: build two homepage hero prototypes** (A people-led, B numbers-led) and compare before choosing (Session 3).
+10. **D4: the homepage hero is A, people-led** (approved Oct 21, Session 3). B (numbers-led) was prototyped and not chosen.
+11. **D2: a warm cream surface behind the hero only** (approved Oct 21, Session 3; see P3).
 11. **D5: a restrained set of glass and motion.** Keep header glass, small overlays on photos and the ridge and contour touches; drop the floating blobs and photo parallax (exact glass list set in Session 4, applied in Session 5).
 12. **Claims:** copy says only what Joey's own materials support, or what Jeremy has confirmed and `CONTENT_CLAIMS.md` tags **J** until Joey confirms it.
 
-**Proceeding by default (Jeremy told, no objection):** D2 test one warm neutral inside the hero prototypes only; D3 keep Plus Jakarta Sans and the Fraunces italic accent; D6 keep the five-page structure (the gallery's placement is decided later).
+**Proceeding by default (Jeremy told, no objection):** D3 keep Plus Jakarta Sans and the Fraunces italic accent; D6 keep the five-page structure (the gallery's placement is decided later).
 
 All decisions (D1 to D6) and their status are in `PROJECT_STATUS.md`, section C.
 
@@ -128,7 +129,7 @@ Reduced motion: all animations and transitions are removed; reveals show immedia
 |---|---|---|
 | Header + nav | `.hdr .nav .hdr-phone .hdr-cta .hdr-fb .menu-btn .mnav` | Contact is last in the nav. Facebook logo button in the header at ≥1161px; phone menu has a "Follow us on Facebook" row. |
 | Phone action bar | `.mobile-bar` | Appears after the hero buttons scroll away; steps aside at the form. |
-| Hero (home) | `.hero .hero-grid .gable .fc .pill .micro` | One H1, one primary action, a human photo, three floating facts. |
+| Hero (home) | `.hero .hero-grid .gable .fc .pill .micro` | One H1, one primary action, a human photo, three floating facts that follow the tag system below. |
 | Page hero (inner pages) | `.phero .crumbs` | Breadcrumb, H1, lede, one primary action. |
 | Photo frame | `.gable` (`.g1 .g2 .g3`, `clipPath#gable`) | The roofline of the logo as a photo mask. Use for people and homes. |
 | Section heading | `.head .eyebrow .ital` | Eyebrow + H2 with italic accent + optional lede. |
@@ -145,6 +146,18 @@ Reduced motion: all animations and transitions are removed; reveals show immedia
 | CTA band, footer | `.cta-band .ftr` | Every page ends with a next step. |
 | Buttons | `.btn .btn-primary .btn-ghost .btn-lg .btn-sm` | Pill shape; min-height 52 (lg 60, sm 46). |
 | Facebook | `.fb-btn .fb-logo` | The logo is a white disc with the `#0866FF` mark. Don't use the line-icon class on it. |
+
+### Hero tag system (APPROVED with hero A, Oct 21; built in `css/proto.css`, moves into `css/site.css` in Session 6)
+
+Jeremy's feedback: the floating tags on the photo "look random". The old tags sat at three different overhangs and heights; on phones the speed tag covered Ethan's eyes and the caption ran under the call tag. They now follow five rules:
+
+1. **One overhang.** Every tag hangs the same distance past the photo frame: 40px (14px on phones; on single-column tablet widths `min(40px, (100vw - 470px) / 2 - 12px)`, so nothing is clipped).
+2. **One size.** The three tags share a width and height: 224 x 62px (phones 202 x 54), with a 12px gap where they stack.
+3. **Two groups.** The speed tag ("Selling directly / Close in 7-14 days") hangs off the right side with its top on the roof peak. The price and call tags form a left stack with one left edge.
+4. **One bottom line.** The bottom of the call tag and the bottom of the Joey & Ethan caption sit on the same line, 28px above the frame's bottom (the caption is 20px from the right edge). On phones the caption becomes a nameplate centred on the bottom edge, so it never meets the call tag; the price tag is hidden there, as before.
+5. **Faces stay clear.** Nothing sits above the chins. Check any change by looking at the photo at 1440, 820 and 390.
+
+No bobbing and no slow photo zoom (D5). Verified: no tag overlaps or clips at 1440, 1100, 820, 560, 390 and 320, and every label stays on one line.
 
 ## 8. Accessibility and responsive requirements
 
@@ -165,7 +178,7 @@ Photos are real project/people photos in the gable frame, with descriptive alt t
 |---|---|---|
 | P1 | Consolidate 19 breakpoints into 4 | 2 |
 | P2 | Add a spacing scale (`--space-1..8`) and a type scale as tokens | 2 |
-| P3 | Test **one warm neutral** (sand/cream surface) beside the cool navy and green, to express "warm, local, human". Proceeding by default (D2), inside the hero prototypes only. | 1 (hero prototypes) |
+| P3 | Warm neutral (cream) surface. **APPROVED for the hero only (Oct 21, Session 3):** `--cream: #f6f0e3`; hero background `linear-gradient(180deg,#fdfbf6 0%,var(--cream) 55%,#efe8d8 100%)`; the ridge's front layer stays `--mist`. Contrast on the darkest stop `#efe8d8`: body text 6.45:1, `--muted` 5.28:1, navy-800 9.83:1, green-700 5.47:1; the green-600 italic accent is 4.13:1, so on cream it is for large type only. Any other section: not decided. Built in `css/proto.css`; applied in Session 6. | done (1); apply in 6 |
 | P4 | Motion tokens (durations, easings) | 2 |
 | P5 | 44px touch targets for footer/inline links on touch devices | 6 |
 | P6 | Responsive images (`srcset`, WebP/AVIF) once originals exist | 6 |
