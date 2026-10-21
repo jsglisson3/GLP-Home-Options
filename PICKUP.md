@@ -1,48 +1,68 @@
 # Pick-up notes — GLP Home Options site
 
-_Last session: Oct 21, 2026. Goal from Jeremy: make a site that blows Joey away — this is his family's livelihood._
+_Updated Oct 21, 2026. Goal from Jeremy: a classy, enterprise-level site that blows Joey away. It's his family's livelihood, so accuracy and trust come first._
 
 ## Where it stands
+`index.html` is the working draft: single page, no build step, images in `images/`. It no longer has the "Preview draft" banner or "To add" boxes. It is **not ready to replace glphomeoptions.com yet** (see "Before launch").
 
-- `index.html` = the previous session's build (trail-map design: pine/river green + blaze gold, contour background, three-path chooser, net-sheet calculator, FAQ, contact form). Still a **preview draft**: ribbon on, "To add" markers, form shows a preview message instead of sending.
-- Live preview from last session: https://claude.ai/artifact/N2xbnPH846e9WDubVH3FCp
-- This session was research + photo collection (below). The big upgrade build has **not** been done yet.
+**This session built:**
+- Hero v2: Joey & Ethan photo above the fold, tap-to-call card, one primary action, reassurance microcopy, proof strip (7–14 days / $0 commission / every option / local team), two "latest from the team" links.
+- **Recent story** section (Sept closing: 35 years of deferred maintenance, bought off-market, rental found for the next move) with the real closing-day photo.
+- **Now building** section (3 bed / 2 bath, 0.6+ acres, mid-$200s; driveway pour, kitchen cabinets, exterior).
+- Trail map moved into the "Three paths" section; comparison table stacks into cards on phones.
+- Palette backed off the green: night navy + gold, green only on check marks and the logo.
+- Real contact block: call, text, email, booking link, GoHighLevel form embedded, plus a "form not loading?" fallback.
+- Mobile: sticky Call / Text / Get my options bar, full-screen menu, 44px+ tap targets, safe-area aware.
+- Accessibility: skip link, real table semantics, keyboard-focusable regions, dark mode, reduced motion. Automated axe-core scan = **0 violations** on phone + desktop, light + dark.
+- SEO: title/description, Open Graph, LocalBusiness + FAQ JSON-LD, icons. **`noindex` is ON** (see Before launch).
+- Riverfront photo: removed the corner caption that read like a watermark. The image file itself has no text baked in.
 
-## Confirmed business facts
+## Benchmark: what the best peers do, and what we took
+Looked at Opendoor and Offerpad (the category leaders) and Baymard's form research. We copy *patterns*, never their wording or visuals.
 
-| Item | Value | Source |
-|---|---|---|
-| Phone | (423) 451-5707 | current site + Facebook page header |
-| Email | info@glphomeoptions.com | current site (contact page) |
-| Mailing address | PO Box 55, Hixson, TN | Facebook page |
-| Facebook | https://www.facebook.com/profile.php?id=61588492362641 (50 followers, 0 reviews) | |
-| Lead form (GoHighLevel) | https://links.voiseai.com/widget/form/c36UOOc2pkosxfvRfjZJ | current site |
-| Booking calendar | https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz | current site |
-| Service area (their words) | "Chattanooga and the surrounding counties" | Facebook, May 18 post |
+| Pattern from the best | Where we are |
+|---|---|
+| Opendoor: one headline, one main action, a human photo, and "takes 5 minutes / info stays private" next to the button | Done in the hero (faces + microcopy) |
+| Opendoor: proof stats directly under the hero | Done, using only claims Joey's own site already makes |
+| Opendoor/Offerpad: side-by-side vs the traditional route (timeline, fees) | Done (comparison table + net sheet) |
+| Offerpad: answers "Is X legit?" head-on | Added FAQ "How do I know GLP is legit?" |
+| Offerpad: repeats the main CTA through the page; city pages in the footer | CTA repeated; city pages are a next step |
+| Offerpad/Opendoor: real licensing + Equal Housing notices in the footer | **Ask Joey** whether/where that applies before adding |
+| Both: reviews/press/ratings | None exist yet. We don't fake it. See next steps |
+| Baymard: mark required vs optional clearly, labels above fields, few fields, mobile-friendly inputs | The form lives inside GoHighLevel, so these changes happen there (see next steps) |
 
-**Ask Joey:** older Facebook posts (May–June) list **423-401-6779**; the site and page header list 423-451-5707. Confirm which one goes on the site.
+Sources: offerpad.com, opendoor.com, baymard.com (guideline 686 "indicating required and optional fields"; free articles on mobile form usability). Baymard's detailed guideline text is paywalled; we applied its published principles, not its premium content.
 
-## What Facebook added (their own posts)
+## Confirmed facts
+Phone (423) 451-5707 · info@glphomeoptions.com · PO Box 55, Hixson, TN · "Chattanooga and the surrounding counties" · Facebook page ID 61588492362641 · GHL form `links.voiseai.com/widget/form/c36UOOc2pkosxfvRfjZJ` · GHL booking `links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz`. The existing site has **no** testimonials, license numbers, awards, or years in business, so we show none.
 
-- **Intro:** "house buying specialists focused on solutions — not pressure… on-market listing, off-market solutions, or a quick as-is sale."
-- **Real story, Sept 18:** helped homeowners with a house that had 35 years of deferred maintenance; bought it completely off-market, worked around their timeline, and helped them find a rental for their next move — "just walk away and that's what they did." Closed with a local title company. Closing-day photo saved (`research/photos/facebook/closing-day-…`). → Use as a "recent story" section. **Confirm the seller is OK with the photo on the website** (it's already on Facebook).
-- **They build, too:** new construction in Chattanooga — 3 bed / 2 bath on 0.6+ acres, mid-$200s (Oct 13 post); driveway concrete going in Oct 20 ("finals getting done"). May 15 post says several affordable new builds are coming, priced for the City of Chattanooga down-payment assistance program. → Add a "Now building" section with the construction photos. **Update or remove when that house sells.**
-- **Also offer:** seller financing, lease options, creative deal structures, free property value consultations (May 18 / June 25 posts).
-- Facebook cover photo (staged white living room) is unknown provenance — not used.
+## Ask Joey
+1. Which phone number: (423) 451-5707 (site + FB header) or 423-401-6779 (older FB posts)?
+2. Is the bridge photo a real photo of the two of them? It has a very polished look. A genuine photo is the biggest single trust upgrade; if it's AI-generated we should replace it.
+3. OK to use the closing-day photo and the Sept story on the site? Seller privacy/consent.
+4. OK to use words from his Facebook posts ("No pressure. Just solutions." etc.)?
+5. Towns/counties served, for local SEO pages.
+6. Does he hold a TN real estate license / work with a broker? (Equal Housing notice, license line.)
+7. Is the new build still unsold? Update/remove "Now building" when it sells. Price/specs are from his Oct 13 post.
+8. Rights to the Chattanooga riverfront photo (only 900px wide, so it also looks soft when wide).
 
-## Photos collected (`research/photos/`)
+## Before launch (don't skip)
+- Remove the `noindex` meta tag in `index.html` (it's marked DRAFT) and add a canonical URL.
+- Fix the GoHighLevel consent text that still says `[BUSINESS NAME]` / example.com. Needed for text-message compliance.
+- Add real Privacy Policy + Terms pages (the old site had them). A lawyer should review.
+- Get 3+ real reviews (Google Business Profile + Facebook) after closings; add them to the page. Template idea: first name + neighborhood + quote. Never invent.
+- Point glphomeoptions.com at the new site (or paste the page into GHL hosting) once Joey approves.
 
-- `from-old-build/` — Joey & Ethan on the Walnut Street Bridge, both headshots, kitchen-table photo, house mark.
-- `current-site/` — the three option images from glphomeoptions.com (sell direct, list with agent, keep the home). These look like stock/AI images — use lightly.
-- `facebook/` — new-build exterior, lot + excavator, driveway pour, concrete truck, kitchen in progress, closing day (all real, 800px).
-- `chattanooga-riverfront-pano-900x225.jpg` — Jeremy's aquarium/riverfront shot (only 900px wide; needs upscaling or a smaller placement for a hero). **Confirm we have rights to use it** if it isn't Jeremy's own photo.
-- `glp-logo-original-200px.jpg` — only 200px exists anywhere; plan is to redraw the house mark as SVG.
+## Next steps (priority order)
+1. Real founders photo + a short "why we started" in Joey's voice (the old About page has none).
+2. Hero upgrade with a higher-res Chattanooga skyline/riverfront image and a real SVG logo (only a 200px logo exists).
+3. Separate pages for SEO and trust: Sell an inherited house, Sell a house that needs repairs, Divorce, Relocation, Seller financing & lease options, New construction, Hixson / Signal Mountain / Ooltewah / East Chattanooga.
+4. Move the contact form to a short first step (name, phone, address) inside GHL; mark optional fields as optional; labels above fields; one column on mobile.
+5. Reviews strip + Google rating once real.
+6. "Market snapshot" only with sourced numbers (his FB weekly posts are flagged "AI content", so we don't copy those stats).
+7. Analytics + form-conversion tracking.
 
-## Next steps (in order)
-
-1. **Upgrade build:** cinematic Chattanooga hero with Joey & Ethan + call/text CTAs; path cards with photos; "Recent story" (Sept 18 deal + closing photo); "Now building" section with the new-construction photos; keep net-sheet calculator, comparison table, how-it-works, about, FAQ (+ FAQ schema); contact with call / text / email / booking link; sticky mobile call bar.
-2. **Remove the preview ribbon + "To add" markers** — replace review placeholders with their promises (no invented reviews, licenses, years, or awards).
-3. **Wire the form for the hosted site:** embed the GoHighLevel form (iframe works on a real domain) so leads land in Joey's CRM. Fix "[BUSINESS NAME]" / example.com text in the GHL form's consent settings.
-4. SEO: meta/Open Graph, LocalBusiness JSON-LD, SVG logo + favicon.
-5. Test on phone + desktop, light + dark, then push → GitHub Pages updates.
-6. Later: point glphomeoptions.com at the new site (or keep GHL hosting and paste the page in) once Joey approves.
+## Technical notes
+- Palette tokens live at the top of `index.html` (`--river` navy, `--blaze` gold, `--band` dark band). Dark bands stay dark in dark mode via a scoped override near the end of the CSS.
+- Accessibility/phone check: `tools/a11y-check.py` (Playwright + axe-core; setup steps are at the top of the file). Re-run after big changes. Last result: 0 violations, phone + desktop, light + dark.
+- Source photos are in `research/photos/` (not loaded by the page).
