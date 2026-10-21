@@ -2,7 +2,19 @@
 
 Website for **GLP Home Options** (Joey & Ethan), Chattanooga / Hixson, TN. Plain HTML, CSS and JavaScript. Nothing to install to host it.
 
-> Status: **working draft** for Joey's review. Set to `noindex` so search engines skip this preview copy. Not ready to replace glphomeoptions.com yet. **Start with `PICKUP.md`**: it has where things stand, the questions for Joey, the next steps, and the launch checklist.
+> Status: **working draft** for Joey's review. Set to `noindex` so search engines skip this preview copy. Not ready to replace glphomeoptions.com yet. **Start with `PROJECT_STATUS.md`**: it is the map (where things stand, decisions, open questions, session log). The code is the truth; if the two disagree, believe the code and fix the notes.
+
+## Project documents
+
+| File | What it holds |
+|---|---|
+| `PROJECT_STATUS.md` | Current state, approved decisions, implementation record, session log. Names the other documents. |
+| `SESSION_HANDOFF.md` | Exactly what the next working session does. Replaced at the end of every session. |
+| `ROADMAP.md` | The phases and the session-by-session plan |
+| `DESIGN_SYSTEM.md` | Colors, type, spacing, motion, components; each marked directed, built or proposed |
+| `CONTENT_CLAIMS.md` | Every factual claim on the site, its source, and what Joey still needs to confirm |
+| `CHECKPOINT.json` | Fingerprints of the files at the last verified checkpoint (written by `tools/checkpoint.py`) |
+| `PICKUP.md` | Retired. Points to the files above. |
 
 ## The pages
 
@@ -34,8 +46,8 @@ python3 tools/check-links.py     # every link, anchor, image and script resolves
 
 - `css/site.css`, `js/site.js`: all styling and behavior
 - `images/`, `fonts/`: photos, logo, favicons, share picture, self-hosted fonts
-- `tools/`: page builder, link checker, accessibility test, legal text, share-picture generator
-- `PICKUP.md`: working notes. `research/`: source photos and older notes (not loaded by the site)
+- `tools/`: page builder, link checker, accessibility test, checkpoint check, legal text, share-picture generator
+- `research/`: source photos and older notes (not loaded by the site)
 
 ## Preview on your computer
 
@@ -53,5 +65,6 @@ To publish a change in VS Code: **Source Control** (left bar), stage all changes
 
 ## Checking your work
 
+- `python tools/checkpoint.py` compares the project with the last saved checkpoint (`CHECKPOINT.json`), confirms a fresh build reproduces the saved pages, and runs the link check. Run it at the **start** of a session (it should say "clean"). At the **end**, once everything passes, run `python tools/checkpoint.py --write "short label"`.
 - `python tools/check-links.py` finds broken links, missing images and duplicate ids across all pages. It's instant and needs nothing installed.
 - `python tools/a11y-check.py` scans every page at desktop, tablet and phone sizes and reports accessibility problems, broken images, sideways scrolling and small tap targets. Setup is at the top of that file (it needs `axe-core` installed next to where you run it). The goal is 0 problems.
