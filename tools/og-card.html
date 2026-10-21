@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>og-card source</title>
+<!-- Source for images/og-card.jpg (the 1200x630 picture shown when the site is shared). Render with: python3 tools/make-og.py -->
+<style>
+@font-face{font-family:"Plus Jakarta Sans";src:url(../fonts/plus-jakarta-sans-latin-wght-normal.woff2) format("woff2");font-weight:200 800;font-display:block}
+@font-face{font-family:"Fraunces";src:url(../fonts/fraunces-latin-wght-italic.woff2) format("woff2");font-weight:100 900;font-style:italic;font-display:block}
+*{box-sizing:border-box;margin:0}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{position:relative;text-rendering:optimizeLegibility;font-kerning:normal;-webkit-font-smoothing:antialiased;font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:#233948;background:linear-gradient(135deg,#f7fbf9 0%,#e4f0eb 100%)}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55}
+.b1{width:520px;height:520px;right:-120px;top:-160px;background:#bfe0d3}
+.b2{width:420px;height:420px;left:-140px;bottom:-200px;background:#cfe1ea}
+.brand{position:absolute;left:68px;top:52px;display:flex;align-items:center;gap:16px}
+.brand img{width:96px;height:auto;display:block;mix-blend-mode:multiply}
+.wm{font-weight:800;font-size:40px;letter-spacing:-.02em;color:#2d4855;line-height:1}
+.wm small{display:block;margin-top:6px;font-size:15px;letter-spacing:.34em;font-weight:700;color:#3c7a66}
+h1{position:absolute;left:68px;top:176px;width:660px;white-space:nowrap;font-weight:800;font-size:66px;line-height:1.04;letter-spacing:-.035em;color:#233948}
+h1 em{display:block;margin-top:6px;font-family:"Fraunces",serif;font-style:italic;font-weight:500;letter-spacing:-.02em;color:#3c7a66}
+.sub{position:absolute;left:68px;top:370px;width:560px;font-size:27px;line-height:1.45;font-weight:500;color:#3d5560}
+.pill{position:absolute;left:68px;bottom:54px;display:inline-flex;align-items:center;gap:12px;padding:14px 24px 14px 18px;border-radius:999px;background:#fff;box-shadow:0 10px 30px rgba(35,57,72,.12);font-weight:700;font-size:22px;color:#233948}
+.pill i{width:14px;height:14px;border-radius:50%;background:#3c7a66;box-shadow:0 0 0 5px #cfe6dc}
+.gable{position:absolute;right:50px;top:56px;width:424px;height:508px;filter:drop-shadow(0 26px 40px rgba(35,57,72,.28))}
+.gable>*{position:absolute}
+.g1{inset:0;background:linear-gradient(135deg,#2d4855,#3c7a66);clip-path:url(#gable)}
+.g2{inset:9px;background:#fff;clip-path:url(#gable)}
+.g3{inset:19px;overflow:hidden;clip-path:url(#gable);background:#dfe9ee}
+.g3 img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block}
+.tag{position:absolute;right:40px;bottom:92px;padding:14px 22px;border-radius:16px;background:rgba(255,255,255,.96);box-shadow:0 12px 30px rgba(35,57,72,.22);font-weight:800;font-size:24px;line-height:1.15;color:#233948}
+.tag small{display:block;font-size:13px;letter-spacing:.14em;font-weight:700;color:#3c7a66;text-transform:uppercase;margin-top:5px}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="gable" clipPathUnits="objectBoundingBox"><path d="M0.04,1 Q0,1 0,0.962 L0,0.285 Q0,0.25 0.03,0.232 L0.47,0.02 Q0.5,0.006 0.53,0.02 L0.97,0.232 Q1,0.25 1,0.285 L1,0.962 Q1,1 0.96,1 Z"/></clipPath></defs></svg>
+<i class="blob b1"></i><i class="blob b2"></i>
+<div class="brand"><img src="../images/glp-mark.png" alt=""><div class="wm">GLP<small>HOME OPTIONS</small></div></div>
+<h1>Real home options<span style="margin-left:-.075em">.</span><em>Clear next steps.</em></h1>
+<p class="sub">Sell it, list it, or keep it. Joey and Ethan lay out the numbers in plain English.</p>
+<div class="pill"><i></i>Chattanooga &amp; surrounding counties</div>
+<div class="gable"><div class="g1"></div><div class="g2"></div><div class="g3"><img src="../images/joey-ethan-bridge.jpg" alt=""></div></div>
+</body></html>
