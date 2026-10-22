@@ -11,10 +11,11 @@ editing words, run this: a new lonely word usually means a small rewording (or a
 as in "stays&nbsp;confidential.").
 """
 import functools, http.server, pathlib, socketserver, threading
+import _site  # lets the 404 page's /GLP-Home-Options/... addresses work on the local server
 from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = ["index", "options", "about", "work", "new-homes", "contact", "privacy-policy", "terms-of-service"]
+PAGES = ["index", "options", "about", "work", "new-homes", "contact", "privacy-policy", "terms-of-service", "404"]
 WIDTHS = [(320, 700), (390, 844), (820, 1180), (1024, 768), (1280, 800), (1440, 900)]
 LIMIT = 6
 

@@ -27,6 +27,7 @@ import json
 import pathlib
 import re
 import sys
+from urllib.parse import urlsplit
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
@@ -42,7 +43,7 @@ PHONE_TEL, PHONE_SMS, PHONE = "tel:+14234515707", "sms:+14234515707", "(423) 451
 EMAIL = "info@glphomeoptions.com"
 BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 FORM_ID = "c36UOOc2pkosxfvRfjZJ"
-CSS_V, JS_V = 44, 22
+CSS_V, JS_V = 45, 23
 HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-1200.jpg 1200w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
@@ -80,9 +81,9 @@ PAGES = [
          ld=["crumbs"]),
     dict(slug="new-homes", file="new-homes.html", crumb="New homes", preload=["images/build-exterior.jpg"],
          title="Affordable New Homes in Chattanooga | GLP Home Options",
-         desc="A new home we're building in Chattanooga for first-time buyers and families: 3 bed, 2 bath on 0.6+ acres, priced in the mid $200s. Ask about getting in early.",
+         desc="A new home we're building in Chattanooga for first-time buyers and families: 3 bed, 2 bath on 0.6+ acres, priced in the mid $200s. Want to see it before it's listed? Ask us.",
          og_title="Affordable new homes, built right here | GLP Home Options",
-         og_desc="3 bed, 2 bath on 0.6+ acres in Chattanooga, priced in the mid $200s. Ask about getting in before it's listed.",
+         og_desc="3 bed, 2 bath on 0.6+ acres in Chattanooga, priced in the mid $200s. Want to see it before it's listed? Ask us.",
          ld=["faq:homes", "crumbs"]),
     dict(slug="contact", file="contact.html", crumb="Contact", ghl=True, preload=[],
          title="Contact Us: Call, Text, or Send Details | GLP Home Options",
@@ -100,6 +101,15 @@ LEGAL_PAGES = [
          title="Privacy Policy | GLP Home Options", desc=LEGAL.PRIVACY["meta"], data=LEGAL.PRIVACY),
     dict(slug="terms", file=LEGAL.TERMS["file"], crumb=None, ghl=False, legal=True, preload=[], ld=[],
          title="Terms of Service | GLP Home Options", desc=LEGAL.TERMS["meta"], data=LEGAL.TERMS),
+]
+
+# The "page not found" page. GitHub Pages shows 404.html for ANY address that does not exist, at any depth (/GLP-Home-Options/a/b/c), so
+# its links and files are written from the site's root (see absolutize()). Like the legal pages it has no share card.
+EXTRA_PAGES = [
+    dict(slug="404", file="404.html", crumb=None, ghl=False, legal=True, preload=[], ld=[],
+         title="Page not found | GLP Home Options",
+         desc="That page isn't here. Start from the home page, or call or text (423) 451-5707 and we'll help.",
+         og_title="", og_desc=""),
 ]
 
 # ------------------------------------------------------------------ FAQ text (the visible list and the structured data both come from here)
@@ -145,7 +155,7 @@ FAQ = {
     ],
     "homes": [
         ("Is the home available yet?",
-         "Not yet. It's coming soon. Ask us about getting in before it's listed."),
+         "Not yet. It's coming soon. Want to see it before it's listed? Ask us."),
         ("What's the price, and how big is it?",
          "We're pricing it in the mid $200s. It has three bedrooms and two baths on 0.6+ acres in Chattanooga. Reach out and we'll go over the details with you."),
         ("I'm a first-time buyer. Can I get help with the down payment?",
@@ -165,10 +175,13 @@ CTAS = {
     "about": ("Let's talk", "Ready to talk it through? <span class=\"ital\">We're a call away.</span>",
               "You'll talk to Joey or Ethan. We'll listen first, show you every option, and let you decide."),
     "homes": ("Be first to know", "Want to see it <span class=\"ital\">before it's listed?</span>",
-              "Ask about getting in early, or about down payment assistance if you're a first-time buyer. You'll talk to Joey or Ethan."),
+              "Ask us about the home, or about down payment assistance if you're a first-time buyer. You'll talk to Joey or Ethan."),
     "work": ("Let's talk", "Have a house on your mind? <span class=\"ital\">Tell us about it.</span>",
              "You'll talk to Joey or Ethan. We'll listen first, show you every option, and let you decide."),
 }
+
+# The closing band's main button says "Get my options" like every other main button; New homes keeps its own (the page is about one home).
+CTA_LABEL = {"homes": "Ask about this home"}
 
 RIDGE = ('<svg class="ridge" viewBox="0 0 1440 240" preserveAspectRatio="none" focusable="false">'
          '<path class="r1" d="M0 150 L150 138 C200 104 224 88 270 84 L560 80 C612 82 634 104 690 128 C770 160 850 130 930 104 C990 84 1050 78 1110 92 C1190 110 1230 146 1310 140 C1370 136 1410 120 1440 124 L1440 240 L0 240Z"/>'
@@ -437,6 +450,7 @@ def faq_list(pg, key):
 
 def cta_band(pg, key):
     eyebrow, h2, lede = CTAS[key]
+    label = CTA_LABEL.get(key, "Get my options")
     return f'''<section class="cta-band" aria-labelledby="cta-h">
     <div class="cta-bg" aria-hidden="true"><canvas class="topo" data-tone="light"></canvas></div>
     <div class="wrap cta-grid">
@@ -446,12 +460,20 @@ def cta_band(pg, key):
         <p class="lede">{lede}</p>
       </div>
       <div class="cta-actions rv" data-d="1">
-        <a class="btn btn-light btn-lg" href="{contact_href(pg)}">Send us a few details{ICON("arrow")}</a>
-        <a class="btn btn-outline-light btn-lg" href="{PHONE_TEL}">{ICON("phone")}Call or text {PHONE}</a>
+        <a class="btn btn-light btn-lg" href="{contact_href(pg)}">{label}{ICON("arrow")}</a>
+        <a class="btn btn-outline-light btn-lg" href="{PHONE_TEL}">{ICON("phone")}<span class="bl">Call or text {PHONE}</span></a>
         <p class="cta-note">No obligation, no spam. Your information is kept confidential.</p>
       </div>
     </div>
   </section>'''
+
+
+def ask_people():
+    """A face and a promise near the top of the Options page (review N25): who answers the phone. Same look as the card on the form."""
+    return ('<p class="form-who ask-people"><span class="avs" aria-hidden="true">'
+            '<img src="images/joey-avatar.jpg" alt="" width="112" height="112" decoding="async">'
+            '<img src="images/ethan-avatar.jpg" alt="" width="112" height="112" decoding="async"></span>'
+            '<span><b>Questions? Joey or Ethan will answer.</b><small>Co-founders<span class="sep"> · </span><span class="loc">Hixson, TN</span></small></span></p>')
 
 
 def reach(page=False):
@@ -528,13 +550,13 @@ def contact_section(pg, page=False):
             <p class="ghl-slow-h">The form isn't loading right now.</p>
             <p class="ghl-slow-p">Call or text us instead and we'll take it from there.</p>
             <div class="ghl-slow-btns">
-              <a class="btn btn-primary" href="{PHONE_TEL}">{ICON("phone")}Call {PHONE}</a>
+              <a class="btn btn-primary" href="{PHONE_TEL}">{ICON("phone")}<span class="bl">Call {PHONE}</span></a>
               <a class="btn btn-ghost" href="{PHONE_SMS}">{ICON("sms")}Text us</a>
             </div>
             <p class="ghl-slow-alt"><button type="button" data-ghl-retry>Try the form again</button><span class="dot" aria-hidden="true"> · </span><a href="mailto:{EMAIL}">Email us</a></p>
           </div>
         </div>
-        <p class="form-alt">Prefer to talk? Call or text <a class="nb" href="{PHONE_TEL}">{PHONE}</a>, or email <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+        <p class="form-alt">Prefer to talk? Call or text <a class="nb ph" href="{PHONE_TEL}">{PHONE}</a>, or email <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
       </div>
     </div>
   </section>'''
@@ -563,6 +585,10 @@ def expand(pg, text):
             return cta_band(pg, tok.split(" ", 1)[1])
         if tok.startswith("gallery "):
             return gallery(tok.split(" ", 1)[1])
+        if tok == "phone":
+            return PHONE
+        if tok == "ask-people":
+            return ask_people()
         if tok == "contact home":
             return contact_section(pg, page=False)
         if tok == "contact page":
@@ -602,6 +628,68 @@ def curly(page):
     if out.replace("\u2019", "'") != page.replace("\u2019", "'"):
         sys.exit("curly(): it changed something other than apostrophes; the page was not written")
     return out
+
+
+BASE = urlsplit(SITE).path or "/"   # "/GLP-Home-Options/" on the preview address, "/" on the real domain (it follows SITE)
+URL_ATTR = re.compile(r'\b(href|src)="([^"]*)"')
+NOT_RELATIVE = ("#", "/", "http:", "https:", "mailto:", "tel:", "sms:", "data:", "javascript:")
+
+
+def absolutize(page):
+    """Writes every relative link and file in a page from the site's root: "css/site.css" becomes "/GLP-Home-Options/css/site.css".
+    Only for the 404 page, which can be shown at any depth. Left alone: in-page "#" links (the icon sprite uses them), full web
+    addresses, mailto/tel/sms, scripts' and styles' contents. Guard: taking the prefix off again must give back exactly the input."""
+    def fix(m):
+        v = m.group(2)
+        return m.group(0) if not v or v.startswith(NOT_RELATIVE) else f'{m.group(1)}="{BASE}{v}"'
+    out = []
+    for m in TOKENS.finditer(page):
+        tok = m.group(0)
+        if tok.startswith("<script"):
+            end = tok.index(">") + 1
+            tok = URL_ATTR.sub(fix, tok[:end]) + tok[end:]
+        elif tok.startswith("<") and not tok.startswith(("<style", "<!--")):
+            tok = URL_ATTR.sub(fix, tok)
+        out.append(tok)
+    res = "".join(out)
+    if re.sub(r'\b(href|src)="' + re.escape(BASE), r'\1="', res) != page:
+        sys.exit("absolutize(): it changed something other than link prefixes; the page was not written")
+    return res
+
+
+NOBREAK = re.compile(re.escape(PHONE) + "|short-term")
+
+
+def nobreak(page):
+    """Keeps the phone number (and the word "short-term") on one line, whatever the screen width or text size (review N26, N31).
+
+    Every occurrence inside running text is wrapped: "short-term" in <span class="nb"> (white-space: nowrap), the phone number in
+    <span class="nb ph"> (a small inline block: it moves to the next line whole, and only when even a full line is too narrow for it, which
+    is a small phone with the text blown up to 150% or more, does it wrap at its one space instead of running off the screen).
+    Left alone: tags and attributes, scripts, styles, comments, the <title>, and anything already inside an .nb element.
+    (The contact tiles and the footer link are wrapped too, and the stylesheet lets them wrap as they always did.)
+    Guard: taking the wrappers out again must give back exactly the input."""
+    out, prev, in_title = [], "", False
+    for m in TOKENS.finditer(page):
+        tok = m.group(0)
+        if tok.startswith("<"):
+            if tok.startswith("<title"):
+                in_title = True
+            elif tok.startswith("</title"):
+                in_title = False
+            if not tok.startswith(("<script", "<style", "<!--")):
+                prev = tok
+            out.append(tok)
+            continue
+        if in_title or not NOBREAK.search(tok) or re.search(r'class="[^"]*\bnb\b', prev):
+            out.append(tok)
+            continue
+        out.append(NOBREAK.sub(lambda x: f'<span class="nb{" ph" if x.group(0) == PHONE else ""}">{x.group(0)}</span>', tok))
+    res = "".join(out)
+    strip = lambda s: re.sub(r'<span class="nb(?: ph)?">(' + NOBREAK.pattern + r")</span>", r"\1", s)  # noqa: E731
+    if strip(res) != strip(page):
+        sys.exit("nobreak(): it changed something other than the wrappers; the page was not written")
+    return res
 
 
 def render(pg, main):
@@ -653,14 +741,22 @@ def legal_main(d):
 def main():
     for pg in PAGES:
         src = (TOOLS / "pages" / f"{pg['slug']}.html").read_text(encoding="utf-8")
-        out = curly(render(pg, expand(pg, src)))
+        out = nobreak(curly(render(pg, expand(pg, src))))
+        left = re.findall(r"\[\[[^\]]+\]\]", out)
+        if left:
+            sys.exit(f"{pg['file']}: unresolved tokens {left}")
+        (ROOT / pg["file"]).write_text(out, encoding="utf-8")
+        print("wrote", pg["file"], f"({len(out) // 1024} KB)")
+    for pg in EXTRA_PAGES:
+        src = (TOOLS / "pages" / f"{pg['slug']}.html").read_text(encoding="utf-8")
+        out = absolutize(nobreak(curly(render(pg, expand(pg, src)))))
         left = re.findall(r"\[\[[^\]]+\]\]", out)
         if left:
             sys.exit(f"{pg['file']}: unresolved tokens {left}")
         (ROOT / pg["file"]).write_text(out, encoding="utf-8")
         print("wrote", pg["file"], f"({len(out) // 1024} KB)")
     for pg in LEGAL_PAGES:
-        out = curly(render(pg, legal_main(pg["data"])))
+        out = nobreak(curly(render(pg, legal_main(pg["data"]))))
         (ROOT / pg["file"]).write_text(out, encoding="utf-8")
         print("wrote", pg["file"], f"({len(out) // 1024} KB)")
 

@@ -5,14 +5,29 @@
 
 Offline and instant. Run it after tools/build-pages.py. Exits with an error if anything is wrong.
 (External links such as Facebook and the GoHighLevel form are not fetched.)
+The 404 page uses root-absolute links (so it works from any depth); those lose the site's base folder (read from SITE in
+tools/build-pages.py, "/GLP-Home-Options/" on the preview address, "/" on the real domain) and are checked like any other.
 """
 import pathlib
+import re
 import sys
 from html.parser import HTMLParser
 from urllib.parse import unquote, urlsplit
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = sorted(p for p in ROOT.glob("*.html"))
+SITE = re.search(r'^SITE = "([^"]+)"', (ROOT / "tools" / "build-pages.py").read_text(encoding="utf-8"), re.M).group(1)
+BASE = urlsplit(SITE).path or "/"
+
+
+def local(path):
+    """A link's path as a path inside the site folder. A root-absolute path loses the base folder; one outside it returns None."""
+    path = unquote(path)
+    if path.startswith("/"):
+        if not path.startswith(BASE):
+            return None
+        path = path[len(BASE):]
+    return path
 
 
 class Scan(HTMLParser):
@@ -52,11 +67,15 @@ for name, s in scans.items():
         u = urlsplit(href)
         if u.scheme in ("http", "https"):
             continue
-        if u.path and not u.path.endswith(".html"):   # a link to a file, such as the larger version of a photo
-            if not (ROOT / unquote(u.path)).exists():
+        rel = local(u.path) if u.path else ""
+        if u.path and rel is None:
+            problems.append(f"{name}: link '{href}' points outside the site folder {BASE}")
+            continue
+        if rel and not rel.endswith(".html"):   # a link to a file, such as the larger version of a photo
+            if not (ROOT / rel).exists():
                 problems.append(f"{name}: link to missing file '{href}'")
             continue
-        target = name if not u.path else u.path
+        target = name if not rel else rel
         t = scans.get(target)
         if t is None:
             problems.append(f"{name}: link to missing page '{href}'")
@@ -67,7 +86,8 @@ for name, s in scans.items():
         u = urlsplit(src)
         if u.scheme in ("http", "https", "data") or not u.path:
             continue
-        if not (ROOT / unquote(u.path)).exists():
+        rel = local(u.path)
+        if rel is None or not (ROOT / rel).exists():
             problems.append(f"{name}: missing file '{src}'")
 
 print(f"checked {len(PAGES)} pages, {total} links")

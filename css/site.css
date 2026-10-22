@@ -50,6 +50,13 @@ h1 .ital,h2 .ital{display:block}
 .lede{font-size:1.06rem;font-size:clamp(1.06rem,1.4vw,1.2rem);line-height:1.65;color:var(--text);max-width:62ch}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
 .nb{white-space:nowrap}
+.nb.ph{display:inline-block;max-width:100%;white-space:normal}   /* the phone number: one piece that moves to the next line whole; only if even a full line is too narrow for it (a small phone with the text blown up) does it wrap, at its one space, rather than run off the screen */
+span.nb.ph{text-decoration:inherit}   /* an inline block does not pick up its parent link's underline by itself */
+/* A wrapper is a plain run of text, whatever rule styles the spans around it: `.opt-card .beats div span{display:block;font-size:.97rem}` and `.faq-card span{font-size:.9rem}` also reached a wrapper nested in such a span
+   ("short-term" dropped onto its own line and shrank twice; the number in the FAQ card shrank). tools/nobreak-test.py (STYLE) fails if a wrapper is ever not inline, not the size of the text around it, or has its own margin or padding. */
+span.nb{display:inline!important;margin:0!important;padding:0!important;font-size:inherit!important;letter-spacing:inherit!important}
+span.nb.ph{display:inline-block!important}
+.reach .nb,.ftr-col .nb{white-space:normal}   /* the contact tiles and the footer link keep their own block and wrap as they always did */
 .i{width:1.25em;height:1.25em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 main:focus{outline:none}
 
@@ -82,6 +89,7 @@ main:focus{outline:none}
 .btn-lg{min-height:60px;padding:0 34px;font-size:1.06rem}
 .btn-sm{min-height:46px;padding:0 22px;font-size:.95rem}
 .btn .i{width:1.15em;height:1.15em;transition:transform .25s ease}
+.btn .bl{text-align:center;line-height:1.25}   /* a label with the phone number in it (Checkpoint 36): one flex item, so "Call" and the number sit one space apart and, when the words wrap, the number stays whole (see .nb) */
 .btn:hover .i:last-child{transform:translateX(3px)}
 .cta-row{display:flex;flex-wrap:wrap;gap:14px}
 
@@ -179,9 +187,9 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 @keyframes enter{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @keyframes enter-photo{from{opacity:0;transform:translateY(26px) scale(.975)}to{opacity:1;transform:none}}
 .hero .hero-copy>.hero-eyebrow{animation:enter .7s cubic-bezier(.2,.7,.2,1) both}
-.hero .hero-copy>.lede{animation:enter .8s cubic-bezier(.2,.7,.2,1) .5s both}
-.hero .hero-copy>.cta-row{animation:enter .8s cubic-bezier(.2,.7,.2,1) .74s both}
-.hero .hero-copy>.micro{animation:enter .8s cubic-bezier(.2,.7,.2,1) .86s both}
+.hero .hero-copy>.lede{animation:enter .75s cubic-bezier(.2,.7,.2,1) .42s both}
+.hero .hero-copy>.cta-row{animation:enter .7s cubic-bezier(.2,.7,.2,1) .5s both}
+.hero .hero-copy>.micro{animation:enter .7s cubic-bezier(.2,.7,.2,1) .58s both}
 .hero .gable{animation:enter-photo .9s cubic-bezier(.2,.7,.2,1) .08s both}
 
 @media (max-width:61.25em){
@@ -229,8 +237,9 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .after-hero{position:relative;display:flow-root;background:var(--cream-100)}
 .situ{text-align:center;padding-top:28px;padding-top:clamp(28px,3.4vw,44px);padding-bottom:48px;padding-bottom:clamp(48px,6vw,80px)}
 .situ-label{margin-bottom:20px;font:800 .78rem/1 var(--f);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.situ-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;list-style:none;margin:0;padding:0}
-.chip{display:inline-flex;align-items:center;gap:10px;padding:12px 18px 12px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:var(--sh-1);font:650 .95rem/1.2 var(--f);color:var(--navy-700)}
+.situ-row{display:flex;flex-wrap:wrap;gap:6px 28px;justify-content:center;list-style:none;margin:0;padding:0}
+/* Checkpoint 36: plain text with a small green icon, no pill, border or shadow. They are a list of situations, not buttons (review N15: the pills looked tappable and were not). */
+.chip{display:inline-flex;align-items:center;gap:9px;padding:8px 0;font:650 .98rem/1.25 var(--f);color:var(--navy-700)}
 .chip .i{color:var(--green-600)}
 
 /* ---------- Path cards ---------- */
@@ -289,6 +298,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .how{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:40px;gap:clamp(40px,6vw,100px);align-items:center}
 .how-photo{margin:0;width:100%;max-width:480px;justify-self:center}
 .gable-sm{aspect-ratio:560/600}
+.gable-sm .g3 img[src$="kitchen-table.jpg"]{object-position:56% 20%}   /* Checkpoint 36: the person at the right edge of the kitchen-table photo was cut in half by the frame; the window moves a little to the right so both faces are in the frame (the two men are about 570px apart in an 800px photo and the frame shows 560px of it, so the right-hand ear and the left-hand hair still touch the edges) */
 .how-copy .head{margin-bottom:30px;margin-bottom:clamp(30px,4vw,44px)}
 .steps{display:grid;gap:34px;list-style:none;margin:0;padding:0}
 .step{position:relative;display:grid;grid-template-columns:56px minmax(0,1fr);gap:22px}
@@ -311,6 +321,8 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .cmp td.us{background:var(--green-50);font-weight:650;color:var(--navy-800)}
 .cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
 .fine{margin-top:16px;font-size:.88rem;color:var(--muted)}
+/* Checkpoint 36 (review N25): the two plainest sentences on the site ("The trade: ..." and "A real offer depends on the home...") are read at body size, not as fine print */
+.fine.honest{font-size:1rem;font-size:clamp(1rem,.96rem + .2vw,1.0625rem);color:var(--text)}
 .table-scroll:focus-visible{outline-offset:-3px}
 @media (max-width:43.75em){
   .cmp{min-width:0}
@@ -380,6 +392,13 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .verdict .big{font:800 1.4rem/1.15 var(--f);font:800 clamp(1.4rem,2.6vw,1.95rem)/1.15 var(--f);letter-spacing:-.025em;color:#fff}
 .verdict .big span{color:#c4ecda}
 .verdict p{color:rgba(255,255,255,.92);font-size:.94rem}
+.verdict .breakeven{margin-top:4px;padding-top:14px;border-top:1px solid rgba(255,255,255,.28);color:#fff}
+.verdict .breakeven strong{font-weight:800;color:#fff}   /* white, not the mint of the headline: mint on the green end of the gradient is under 4.5:1 at this size */
+.res-actions{display:flex;flex-wrap:wrap;gap:12px}
+.res-actions .btn{flex:1 1 auto}
+.print-btn{display:none}
+.js .print-btn{display:inline-flex}
+.print-only{display:none}
 @media (max-width:63.5em){.net{grid-template-columns:minmax(0,1fr)}}
 /* tablets held sideways and small laptops (about 1017 to 1100px at the normal text size): the two sheets sit side by side in a narrow panel, so the results panel and the sheets give up a little padding and every number stays inside its card (Checkpoint 28) */
 @media (min-width:63.5625em) and (max-width:68.75em){.panel.results{padding-left:22px;padding-right:22px}.sheet{padding-left:16px;padding-right:16px}}
@@ -403,6 +422,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 /* ---------- About ---------- */
 .about{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;gap:clamp(40px,6vw,96px);align-items:start}
 .about-copy .head{margin-bottom:24px;margin-bottom:clamp(24px,3vw,36px)}
+.about-copy>.cta-row{margin-top:26px;margin-top:clamp(22px,3vw,30px)}
 .motto{font-size:2.6rem;font-size:clamp(2.6rem,6vw,4.6rem);letter-spacing:-.04em}
 .prose{display:grid;gap:18px;max-width:60ch}
 .founders{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;gap:clamp(14px,2vw,22px);align-items:start}
@@ -500,6 +520,9 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .form-who b{display:block;font:800 .95rem/1.15 var(--f);color:var(--navy-800)}
 .form-who small{display:block;margin-top:2px;font:700 .8rem/1.25 var(--f);letter-spacing:.02em;color:var(--green-700)}
 .form-who .loc{white-space:nowrap}
+.form-who.ask-people{margin:0}
+.form-who.ask-people b{font-size:1rem}
+.micro-stack{display:grid;gap:8px}
 @media (max-width:22.4375em){.form-who .sep{display:none}.form-who .loc{display:block}}   /* the narrowest phones: the place drops to its own line, so no dot is left hanging at the end of a line */
 .form-card h3,.form-card .h3{margin-bottom:8px;font-size:1.5rem;color:var(--ink)}
 .form-card .sub{margin-bottom:22px;font-size:.96rem;color:var(--muted)}
@@ -507,7 +530,12 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
    "ready" shows the form, "slow" (the form cannot load: slow network, blocked, offline) shows a call/text card. With no JS, the card shows. */
 .ghl{position:relative;min-height:540px;border-radius:12px}
 .ghl[data-state="ready"],.ghl[data-state="slow"],html:not(.js) .ghl{min-height:0}
-.ghl iframe{position:relative;display:block}
+/* FORM-TRIM (Checkpoint 36). The company's form draws its own padding (about 42px a side, about 20px above its first label) inside our card's padding,
+   so on a phone the fields were about half the screen wide (203px of 375). The form's frame now runs the full width of the card, so the form's own
+   padding is the only side space (fields 24% wider on a 375px phone, the form about 120px shorter), and it starts 14px higher. This is tuned to how the
+   form looks today: if its own padding is ever removed (the custom CSS in research/ghl-form-style.md), delete this rule, or the fields will sit against the
+   card's edge. The "!important" is there because the form's script writes width:100% on the frame. */
+.ghl iframe{position:relative;display:block;width:calc(100% + 48px)!important;width:calc(100% + 2*clamp(24px,3vw,38px))!important;max-width:none;margin:-14px -24px 0;margin:-14px calc(-1*clamp(24px,3vw,38px)) 0}
 .ghl-wait,.ghl-slow{display:none}
 .js .ghl[data-state="idle"] .ghl-wait,.js .ghl[data-state="loading"] .ghl-wait,.js .ghl[data-state="slow"] .ghl-slow,html:not(.js) .ghl-slow{display:block}
 html:not(.js) .ghl-slow-alt button,html:not(.js) .ghl-slow-alt .dot{display:none}
@@ -730,6 +758,10 @@ html:not(.js) .ghl-slow-alt button,html:not(.js) .ghl-slow-alt .dot{display:none
 /* ---------- Our work: photo wall and viewer ---------- */
 .phero-plain .phero-grid{grid-template-columns:minmax(0,1fr)}
 .phero-plain .phero-copy{max-width:760px}
+/* the "page not found" page (Checkpoint 36): a short list of places to go */
+.nf-links{display:flex;flex-wrap:wrap;gap:0 26px;margin-top:4px}
+.nf-links a{display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:var(--green-700);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px}
+.nf-links a:hover{color:var(--green-800)}
 .work-grid{columns:1;column-gap:12px;column-gap:clamp(12px,1.6vw,18px);list-style:none;margin:0;padding:0}
 @media (min-width:35em){.work-grid{columns:2}}
 @media (min-width:61.25em){.work-grid{columns:3}}
@@ -818,6 +850,47 @@ html.lb-open{overflow:hidden}
 }
 
 @media print{.js .rv:not(.in){opacity:1!important}.hdr,.mobile-bar{display:none!important}}
+
+/* Print my numbers (Checkpoint 36). The button on the net sheet adds html.print-sheet just before it opens the print box, so only the net sheet goes to paper:
+   the numbers typed in, the two sheets, the answer, one line to reach us. Nothing here depends on background colors (printers drop them by default), so the green answer box prints as dark text in a ruled box. */
+@media print{
+  html.print-sheet .skip,html.print-sheet .hdr,html.print-sheet .mnav,html.print-sheet .mobile-bar,html.print-sheet .ftr,
+  html.print-sheet main>:not(#numbers),
+  html.print-sheet #numbers .wrap>:not(.print-brand):not(.netsheet-head):not(.net),
+  html.print-sheet .netsheet-head .lede,html.print-sheet .netsheet-head .eyebrow,
+  html.print-sheet #calc,html.print-sheet .res-actions{display:none!important}
+  html.print-sheet,html.print-sheet body{background:#fff!important;color:#111}
+  html.print-sheet body{padding:0!important}   /* the strip kept clear for the phone call bar would push the last line onto a second page */
+  html.print-sheet #numbers{padding:0!important;background:#fff!important}
+  html.print-sheet #numbers .wrap{max-width:none;padding:0}
+  html.print-sheet .print-only{display:block!important}
+  html.print-sheet .print-brand{margin:0 0 6pt;font-size:11pt;color:#444}
+  html.print-sheet .print-brand b{color:#111}
+  html.print-sheet .netsheet-head{margin:0 0 10pt;text-align:left}
+  html.print-sheet .netsheet-head h2{margin:0;font-size:20pt;line-height:1.15;color:#111}
+  html.print-sheet .net{display:block}
+  html.print-sheet .print-inputs{margin:0 0 10pt;padding:8pt 12pt;border:.75pt solid #777;break-inside:avoid}
+  html.print-sheet .print-inputs p{margin:0 0 4pt;font-size:10.5pt;color:#444}
+  html.print-sheet .print-inputs dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2pt 22pt;margin:0}
+  html.print-sheet .print-inputs dl div{display:flex;justify-content:space-between;gap:10pt;font-size:10.5pt}
+  html.print-sheet .print-inputs dt{color:#333}
+  html.print-sheet .print-inputs dd{margin:0;font-weight:700;white-space:nowrap}
+  html.print-sheet .panel.results{padding:0;border:0;background:#fff;box-shadow:none;gap:10pt}
+  html.print-sheet .cols{gap:12pt}
+  html.print-sheet .sheet,html.print-sheet .sheet-us{padding:8pt 12pt;border:.75pt solid #555;border-radius:0;background:#fff;break-inside:avoid}
+  html.print-sheet .sheet h4,html.print-sheet .sheet dt,html.print-sheet .sheet dd,html.print-sheet .sheet h4 small{color:#111}
+  html.print-sheet .sheet h4{margin-bottom:8pt}
+  html.print-sheet .sheet dl{gap:5pt;font-size:10.5pt}
+  html.print-sheet .sheet .total{border-top:1.5pt solid #111}
+  html.print-sheet .sheet .total dd{font-size:14pt}
+  html.print-sheet .verdict{gap:5pt;padding:10pt 12pt;border:1.5pt solid #111;border-radius:0;background:#fff!important;color:#111;break-inside:avoid}
+  html.print-sheet .verdict .big,html.print-sheet .verdict .big span,html.print-sheet .verdict p,html.print-sheet .verdict .breakeven,html.print-sheet .verdict .breakeven strong{color:#111!important}
+  html.print-sheet .verdict .big{font-size:17pt}
+  html.print-sheet .verdict p{font-size:10.5pt}
+  html.print-sheet .verdict .breakeven{border-top:.75pt solid #777}
+  html.print-sheet .panel.results>.fine{margin:0;font-size:9.5pt;color:#444}
+  html.print-sheet .print-contact{margin:12pt 0 0;padding-top:8pt;border-top:.75pt solid #777;font-size:10.5pt;line-height:1.5;color:#111}
+}
 
 /* Phone legibility floor (Checkpoint 19): small capital labels and short notes no smaller than about 12px (.76 to .78rem); photo captions, compare-table labels and form hints no smaller than 13px (.82rem).
    Phones only; desktop sizes are unchanged. The HOME OPTIONS line inside the logo is a lockup and keeps its size. */

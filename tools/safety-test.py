@@ -11,6 +11,7 @@ It serves this folder on a throwaway port and opens every page in a phone-sized 
   5. Contact page:      its heading block is plain; the Call and Text tiles and the form card fade in from the stylesheet alone.
 """
 import functools, http.server, pathlib, socketserver, threading
+import _site  # lets the 404 page's /GLP-Home-Options/... addresses work on the local server
 from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -19,7 +20,7 @@ class Quiet(http.server.SimpleHTTPRequestHandler):
 srv = socketserver.TCPServer(("127.0.0.1", 0), functools.partial(Quiet, directory=str(ROOT)))
 BASE = f"http://127.0.0.1:{srv.server_address[1]}/"
 threading.Thread(target=srv.serve_forever, daemon=True).start()
-PAGES = ["index.html", "options.html", "about.html", "work.html", "new-homes.html", "contact.html", "privacy-policy.html", "terms-of-service.html"]
+PAGES = ["index.html", "options.html", "about.html", "work.html", "new-homes.html", "contact.html", "privacy-policy.html", "terms-of-service.html", "404.html"]
 fails = []
 def check(name, ok, detail=""):
     print(("ok    " if ok else "FAIL  ") + name + (("  " + str(detail)) if detail != "" else ""))
@@ -49,7 +50,7 @@ with sync_playwright() as p:
         ready = pg.evaluate("window.__glpReady === true")
         hidden = pg.evaluate(HIDDEN)
         check(f"{page}: normal load keeps the script's features (ready flag set, js class kept)", ready and pg.evaluate(JS_CLASS), (ready, pg.evaluate(JS_CLASS)))
-        if page not in ("privacy-policy.html", "terms-of-service.html"):
+        if page not in ("privacy-policy.html", "terms-of-service.html", "404.html"):
             check(f"{page}: sections below the screen still wait to scroll into view", hidden > 0, hidden)
         ctx.close()
 

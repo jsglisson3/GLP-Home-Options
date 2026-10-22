@@ -11,12 +11,13 @@ Menu button (never neither); the menu bar never wraps to two lines; the headline
 Give a folder name and it also saves a first-screen picture of every page and size there (keep the folder outside the project).
 """
 import functools, http.server, os, pathlib, socketserver, sys, threading
+import _site  # lets the 404 page's /GLP-Home-Options/... addresses work on the local server
 from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SHOTS = sys.argv[1] if len(sys.argv) > 1 else None
 if SHOTS: os.makedirs(SHOTS, exist_ok=True)
-PAGES = ["index", "options", "about", "work", "new-homes", "contact", "privacy-policy", "terms-of-service"]
+PAGES = ["index", "options", "about", "work", "new-homes", "contact", "privacy-policy", "terms-of-service", "404"]
 # (label, width, height, touch)
 SIZES = [("w600", 600, 900, True), ("w700", 700, 900, True), ("w768", 768, 1024, True), ("w820", 820, 1180, True), ("w900", 900, 1100, False),
          ("w1024", 1024, 768, True), ("w1180", 1180, 820, True), ("w1280", 1280, 800, False),

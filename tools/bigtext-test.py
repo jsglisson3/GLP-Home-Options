@@ -34,10 +34,11 @@ pages it fails most of its combinations (the Menu button off the screen, a botto
 at Checkpoint 29 it fails none.
 """
 import functools, http.server, pathlib, socketserver, sys, threading
+import _site  # lets the 404 page's /GLP-Home-Options/... addresses work on the local server
 from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else pathlib.Path(__file__).resolve().parent.parent
-PAGES = ["index", "options", "about", "work", "new-homes", "contact", "privacy-policy", "terms-of-service"]
+PAGES = ["index", "options", "about", "work", "new-homes", "contact", "privacy-policy", "terms-of-service", "404"]
 # (label, width, height, mode, amount): mode "scale" = root text size in percent (A), "font" = browser default font size in px (B), "letters" = every element's text size in percent (G)
 RUNS = [("phone 390", 390, 844, "scale", p) for p in (125, 150, 200)] + \
        [("phone 360", 360, 740, "scale", p) for p in (125, 150, 200)] + \

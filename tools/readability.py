@@ -15,7 +15,7 @@ For each page it reads the text inside <main> (not the menu, footer, scripts or 
 import html, pathlib, re, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = ["index", "options", "about", "work", "new-homes", "contact", "privacy-policy", "terms-of-service"]
+PAGES = ["index", "options", "about", "work", "new-homes", "contact", "privacy-policy", "terms-of-service", "404"]
 
 # words an ordinary homeowner may not use every day; each needs a plain word or a short explanation in the same sentence
 JARGON = [

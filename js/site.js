@@ -215,6 +215,25 @@
         v.innerHTML = 'You\u2019d keep about <span>' + usd(-diff) + '</span> more by selling direct.';
         s.textContent = 'Once the commission, closing costs, repairs, and the cost of waiting come out, the direct offer leaves you ahead, and you close in 7 to 14 days.';
       }
+      // Break-even (Checkpoint 36): the cash offer that leaves the same in your pocket as listing. Listing keeps price - payoff - costs; a direct sale keeps offer - payoff;
+      // the mortgage cancels, so they are equal when offer = price - commission - closing costs - repairs - cost of waiting.
+      var be = price - commAmt - closeAmt - repairs - carryAmt, bx = el('breakeven');
+      if (bx) {
+        if (price > 0 && be > 0 && be <= price) { bx.innerHTML = 'On these numbers, a cash offer above <strong>' + usd(be) + '</strong> keeps more in your pocket than listing.'; bx.hidden = false; }
+        else { bx.textContent = ''; bx.hidden = true; }
+      }
+      // The list of numbers that prints at the top of the printed page (the form itself does not print)
+      var pin = el('p-inputs');
+      if (pin) {
+        var rows = [['Still owed on the mortgage', usd(payoff)], ['What it might sell for if listed', usd(price)], ['Cash offer compared', usd(offer)],
+                    ['Agent commission', num('comm') + '%'], ['Seller closing costs', num('close') + '%'], ['Repairs and prep', usd(repairs)],
+                    ['Monthly cost while listed', usd(carry)], ['Months to sell', String(num('months'))]];
+        pin.textContent = '';
+        rows.forEach(function (r) {
+          var d = doc.createElement('div'), t = doc.createElement('dt'), v = doc.createElement('dd');
+          t.textContent = r[0]; v.textContent = r[1]; d.appendChild(t); d.appendChild(v); pin.appendChild(d);
+        });
+      }
     };
     $$('#calc input').forEach(function (inp) {
       inp.addEventListener('input', calc);
@@ -224,6 +243,20 @@
       });
     });
     calc();
+
+    /* Print my numbers (Checkpoint 36): the page prints only the net sheet (the print rules in the stylesheet key on html.print-sheet). */
+    var pbtn = el('print-sheet');
+    if (pbtn) {
+      if (typeof window.print !== 'function') { pbtn.hidden = true; }
+      var rootEl = doc.documentElement, undo = function () { rootEl.classList.remove('print-sheet'); };
+      window.addEventListener('afterprint', undo);
+      pbtn.addEventListener('click', function () {
+        calc();
+        var pd = el('p-date'); if (pd) pd.textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        rootEl.classList.add('print-sheet');
+        try { window.print(); } finally { setTimeout(undo, 60000); }   // afterprint cleans up as usual; the timer covers a phone that never sends it
+      });
+    }
   }
 
   /* ---------- Faint topographic contours (the ridges around Chattanooga) ---------- */

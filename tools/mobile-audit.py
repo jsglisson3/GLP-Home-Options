@@ -10,10 +10,11 @@ Then, at 390 px with a slow phone (4x slower processor, slow 4G), it reports the
 request count. It changes nothing. Goal: no "overflow", no tiny tap targets, no zoom-prone fields, LCP under 2.5 s, CLS under 0.1.
 """
 import functools, http.server, json, pathlib, socketserver, sys, threading
+import _site  # lets the 404 page's /GLP-Home-Options/... addresses work on the local server
 from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = sys.argv[1:] or ["index.html", "options.html", "about.html", "work.html", "new-homes.html", "contact.html", "privacy-policy.html", "terms-of-service.html"]
+PAGES = sys.argv[1:] or ["index.html", "options.html", "about.html", "work.html", "new-homes.html", "contact.html", "privacy-policy.html", "terms-of-service.html", "404.html"]
 class Quiet(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *a, **k): pass
 srv = socketserver.TCPServer(("127.0.0.1", 0), functools.partial(Quiet, directory=str(ROOT)))
@@ -30,7 +31,8 @@ PROBE = r"""
   const small = new Map();
   document.body.querySelectorAll('*').forEach(e => { if (![...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim().length > 2) || !vis(e)) return; const fs = parseFloat(getComputedStyle(e).fontSize); if (fs < 14) small.set(sel(e) + ' ' + fs + 'px', (small.get(sel(e) + ' ' + fs + 'px') || 0) + 1); });
   out.smallText = [...small.entries()].slice(0, 6).map(([k, v]) => k + ' x' + v);
-  const inline = a => { const p = a.closest('p,li,dd,td'); return p && a.parentElement !== document.body && getComputedStyle(a).display === 'inline' && a.textContent.trim().length < p.textContent.trim().length - 8; };
+  const inline = a => { const p = a.closest('p,li,dd,td'); const d = getComputedStyle(a).display;   // the phone number in a sentence is an inline-block (class nb) so it moves whole: still an in-sentence link
+    return p && a.parentElement !== document.body && (d === 'inline' || (d === 'inline-block' && a.classList.contains('nb'))) && a.textContent.trim().length < p.textContent.trim().length - 8; };
   out.tap = [...document.querySelectorAll('a,button,summary,input:not([type=hidden]),select,textarea,[role=button]')].filter(e => vis(e) && !inline(e)).map(e => { const r = e.getBoundingClientRect(); return [sel(e), Math.round(r.width), Math.round(r.height)]; }).filter(x => x[1] < 44 || x[2] < 44).slice(0, 8).map(x => x[0] + ' ' + x[1] + 'x' + x[2]);
   out.zoomFields = [...document.querySelectorAll('input:not([type=hidden]),select,textarea')].filter(e => vis(e) && parseFloat(getComputedStyle(e).fontSize) < 16).map(sel).slice(0, 6);
   out.bigImgs = [...document.images].filter(i => i.naturalWidth && i.getBoundingClientRect().width > 0 && i.naturalWidth > i.getBoundingClientRect().width * 3).map(i => i.getAttribute('src').split('/').pop() + ' ' + i.naturalWidth + 'px shown at ' + Math.round(i.getBoundingClientRect().width)).slice(0, 6);

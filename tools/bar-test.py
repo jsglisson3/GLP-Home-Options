@@ -12,6 +12,7 @@ This test holds the script back (the local server sleeps before sending js/site.
   5) a laptop (1280 x 800): no bar at all.
 """
 import sys, pathlib, threading, http.server, socketserver, functools, time
+import _site  # lets the 404 page's /GLP-Home-Options/... addresses work on the local server
 from playwright.sync_api import sync_playwright
 
 folder = str(pathlib.Path(sys.argv[1]).resolve()) if len(sys.argv) > 1 else str(pathlib.Path(__file__).resolve().parent.parent)
@@ -31,7 +32,7 @@ class T(socketserver.ThreadingTCPServer):
 srv = T(("127.0.0.1", 0), functools.partial(H, directory=folder)); port = srv.server_address[1]
 threading.Thread(target=srv.serve_forever, daemon=True).start()
 base = f"http://127.0.0.1:{port}/"
-PAGES = ["index.html", "options.html", "new-homes.html", "work.html", "about.html", "contact.html", "privacy-policy.html", "terms-of-service.html"]
+PAGES = ["index.html", "options.html", "new-homes.html", "work.html", "about.html", "contact.html", "privacy-policy.html", "terms-of-service.html", "404.html"]
 STATE = """() => { const b = document.querySelector('.mobile-bar'); if (!b) return null; const r = b.getBoundingClientRect(), cs = getComputedStyle(b);
   return {auto: b.classList.contains('auto'), on: b.classList.contains('on'), shown: cs.display !== 'none' && cs.visibility === 'visible' && r.top < innerHeight - 1 && r.bottom > 1,
           js: document.documentElement.classList.contains('js'), ready: !!window.__glpReady}; }"""
