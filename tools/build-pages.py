@@ -111,12 +111,10 @@ FAQ = {
         ("How do I know GLP is legit?",
          f'Fair question. You deal directly with Joey or Ethan, and you can reach us anytime at <a href="{PHONE_TEL}">{PHONE}</a> or <a href="mailto:{EMAIL}">{EMAIL}</a>. '
          f'You can see our recent closing and the home we\'re building on <a href="work.html">our work page</a> and {LINK_FB}, and you\'re always free to have your own attorney or title company review anything before you sign.'),
-        ("How fast can you close if I sell directly?",
-         "As little as 7 days, and usually 7 to 14. You pick the closing date, so if you need more time to move, that works too."),
-        ("Do I need to fix anything or clean out the house?",
-         "Not if you sell directly to us. We buy as-is, with no repairs, no cleaning, and no showings. Just one visit so we can see the home."),
-        ("Are there fees or commissions when I sell to you?",
-         "No commissions and no fees, and we pay the closing costs on a direct sale."),
+        ("How fast can you close, and what does it cost me?",
+         "As little as 7 days, and usually 7 to 14. You pick the closing date, so if you need more time to move, that works too. "
+         "We buy as-is, so there are no repairs, no cleaning, and no showings, just one visit so we can see the home. "
+         "There are no commissions or fees, and we pay the closing costs on a direct sale."),
         ("Why would I list instead of taking a cash offer?",
          "If your home is move-in ready and you aren't in a hurry, listing on the open market usually nets the most money. We'll tell you plainly if that's your best move."),
         ("What if I want to keep my home but I'm struggling?",

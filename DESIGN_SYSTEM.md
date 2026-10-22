@@ -55,7 +55,7 @@ All decisions (D1 to D6) and their status are in `PROJECT_STATUS.md`, section C.
 
 **Checkpoint 13 (Session 6f, Oct 21 late night):** no code changed. Jeremy's tone, audience and contact-form direction (items 8a to 8c) was recorded; the glass count was corrected from 7 to 5; the real contact form was measured and a fix for its look was prepared (`research/ghl-form-style.md`, `research/ghl-form-custom.css`, `research/ghl-form-before-after.jpg`).
 
-**Checkpoint 14 (Session 6g, Oct 21 late night):** words were trimmed before wording was simplified (Jeremy, 11:30 PM: trim first, then the plain-talk pass). The Options page lost repeated sentences, list items and one duplicate card; the net sheet shows three boxes up front with the five assumed costs under "Change the costs we assumed" and no bars (Jeremy: "crucial"); the Our work closing section holds two photos (the second, a SOLD-sign photo, is not yet confirmed by Joey).
+**Checkpoint 14 (Session 6g, Oct 21 late night):** words were trimmed before wording was simplified (Jeremy, 11:30 PM: trim first, then the plain-talk pass). The Options page lost repeated sentences, list items and one duplicate card; the net sheet shows three boxes up front with the five assumed costs under "Change the costs we assumed" and no bars (Jeremy: "crucial"); the Our work closing section holds two photos (the second, a SOLD-sign photo, is not yet confirmed by Joey). **Checkpoint 15** trimmed repeated words on Home (the option-card bullets, the strip under the cards, the About band) and About, and merged three Home FAQ questions into one; no style, component or script changed.
 
 ## 1. Brand personality (from the master plan)
 

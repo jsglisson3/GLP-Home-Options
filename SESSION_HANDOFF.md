@@ -1,12 +1,12 @@
 # Session handoff
 
-**Written:** Oct 21, 2026, about 11:50 PM CT, at the end of Session 6g, Checkpoint 14. Checkpoint 13 (Session 6f) came just before it.
+**Written:** Oct 21, 2026, about 11:55 PM CT, at the wind-down of Session 6g, Checkpoint 15. Checkpoints 13 and 14 came just before it and are already live.
 **Replace this file at the end of every session.** It describes exactly one next session and what is true right now. The long-term plan is in `ROADMAP.md`; the full state is in `PROJECT_STATUS.md`.
 
 ## Where the project is
 
-- **Live site = Jeremy's commit "big push" (`9d79ab4`, 11:05 PM CT, Checkpoint 12)** at https://jsglisson3.github.io/GLP-Home-Options/ (`noindex`). It has the Our work page, the six-link header, the menu-highlight fix and the start-at-top fix. All 46 files saved for Checkpoint 12 are in that commit with exactly the saved content.
-- **Checkpoints 13 and 14 are saved in his folder and wait for him to commit and sync.** Checkpoint 13 (Session 6f) changed no page: notes and three research files about the contact form (below), updated Joey questions, Jeremy's tone and audience direction. **Checkpoint 14 (Session 6g) changes live pages:** the **Options page is trimmed** by cutting words (1,263 down to 1,113 words; 8,829 down to 7,450 px on a laptop), the **net sheet on Home is simplified** (three boxes up front, the five assumed costs under "Change the costs we assumed", no bars; same math, tested), and a **SOLD-sign photo is added to Our work** under the September closing as "Another closing day" (not confirmed by Joey; `CONTENT_CLAIMS.md` row 47). CSS v32, JS v14. Two new tools: `tools/netsheet-test.py` (run it after any net sheet change) and `tools/page-size.py` (page height and words).
+- **Live site = Jeremy's commit "trim and simple" (11:45 PM CT, Checkpoint 14), pushed 11:45:53 PM** (his repo log shows three pushes tonight: 11:05, 11:30 and 11:45) at https://jsglisson3.github.io/GLP-Home-Options/ (`noindex`). It has the Our work page, the six-link header, the menu-highlight and start-at-top fixes, the trimmed Options page, the simplified net sheet and the SOLD-sign photo. Checkpoint 12 was "big push" (`9d79ab4`, 11:05 PM); Checkpoint 13 was "form changes" (11:30 PM).
+- **Checkpoint 15 is saved in his folder and waits for him to commit and sync.** It changes only Home and About (words cut, below). Earlier: Checkpoint 13 (Session 6f) changed no page: notes and three research files about the contact form (below), updated Joey questions, Jeremy's tone and audience direction. **Checkpoint 14 (Session 6g, committed) changed live pages:** the **Options page is trimmed** by cutting words (1,263 down to 1,113 words; 8,829 down to 7,450 px on a laptop), the **net sheet on Home is simplified** (three boxes up front, the five assumed costs under "Change the costs we assumed", no bars; same math, tested), and a **SOLD-sign photo is added to Our work** under the September closing as "Another closing day" (not confirmed by Joey; `CONTENT_CLAIMS.md` row 47). CSS v32, JS v14. Two new tools: `tools/netsheet-test.py` (run it after any net sheet change) and `tools/page-size.py` (page height and words).
 - **Approved by Jeremy:** D1 (navy leads, green accent); D2 (warm cream, the whole site's one tint); D4 (hero A, people-led, in the gable frame); D5 (restrained glass and motion, as a direction; the exact list is Session 4); D6 (the gallery is its own "Our work" page, approved Oct 21, 8:40 PM); "Joey's own words now" for claims. D3 proceeds by default.
 - **Jeremy's direction, Oct 21, 11:09 to 11:11 PM** (`DESIGN_SYSTEM.md`, section 0, items 8a to 8c): professional but not too corporate; best guidelines but not cookie-cutter; authentic, not a sellout. The people selling are ordinary homeowners, many short on money and time, many wary of "we buy houses" ads, so: plain words, no pressure, no luxury gloss, short forms, phone first.
 - **The contact form looks like a bolt-on** (Jeremy: "scammy, like an ad on top of the website"). It is GoHighLevel's default in an iframe from `links.voiseai.com`; only someone with GoHighLevel access can restyle it. **A tested fix is ready:** `research/ghl-form-style.md` (what is wrong, steps, what to check), `research/ghl-form-custom.css` (paste-ready) and `research/ghl-form-before-after.jpg`. The button still says "Button". The consent text now names "GL Partners LLC DBA GLP Home Options" with no placeholders left. Not tested: the form inside our page (the AI's browser tab shows the frame blank), error messages, a phone width.
@@ -24,12 +24,14 @@
 
 Do these in order. **One checkpoint and one save per step**, so he can accept or reject each by commit. If a check fails and cannot be fixed in a few minutes, undo that step (the files saved before it are the safe state) and write what happened at the top of this file.
 
-1. **Trim words on Home, About, New homes and Contact.** (The Options page is done; Session 6g in `PROJECT_STATUS.md` shows the method.) Cut sentences that repeat another, list items that say the same thing twice, and cards that repeat each other. Keep every "Maybe not if", every confirmed claim (`CONTENT_CLAIMS.md`), and the phone, email, Facebook link, form id and booking id. Targets: Home main text from about 1,380 to about 1,000 words; the others by 10 to 15%. Measure with `python3 tools/page-size.py PAGE` before and after.
+1. **Trim words on New homes and Contact, then take a second look at Home.** (**Done:** the Options page (Checkpoint 14) and, at Checkpoint 15, About (662 words) and Home (1,382 down to 1,328 words; its three FAQ questions on speed, fixing and fees became one). Session 6g in `PROJECT_STATUS.md` shows the method. New homes is 372 words and Contact 326, both already short, so aim for about 10% there. **Home is still about 12,100 px tall because of structure, not words;** see the proposals below, which need Jeremy's approval.) Cut sentences that repeat another, list items that say the same thing twice, and cards that repeat each other. Keep every "Maybe not if", every confirmed claim (`CONTENT_CLAIMS.md`), and the phone, email, Facebook link, form id and booking id. Targets: Home toward about 1,000 words only if he approves the structure changes below; the others by about 10%. Measure with `python3 tools/page-size.py PAGE` before and after.
 2. **Plain-talk pass on every page, after step 1.** Short sentences, everyday words, no pitch language. Explain or drop jargon (MLS, carrying costs, as-is, equity, title company, off-market): say what it means in the same sentence. Talk about money the way a neighbor would. Phone first. Add no claims; keep `python3 tools/claims-check.py` clear. Read the net sheet labels last.
 3. **The contact section, our side of the frame** (Home and Contact): a calmer card (softer shadow), Joey and Ethan's faces beside the form, three short lines on what happens next, the phone number as the first choice. Do not replace the form or touch the consent wording; its own look stays a GoHighLevel job (`research/ghl-form-style.md`).
 4. **Final QA and a morning handoff:** before and after pictures (`tools/shots.py`) for every changed page; axe (see Commands); links; claims; `python3 tools/netsheet-test.py` (must print `FAILS 0`); 320 to 390 px widths. Replace this file with a short morning summary at the top: what changed, what to look at first, what to reject if he does not like it, and the commit messages.
 
 **Do not:** build the numbers page; change the glass; add claims or photos; change the phone, email, Facebook link, form id, booking id or the `noindex` tag; sign in anywhere; put a street address in any repo file.
+
+**Proposals that need Jeremy's approval (list them in the morning notes; do not do them overnight):** Home is long because it repeats what other pages say, not because of wordy sentences. (a) Fold the "How it works" steps into the option cards, since Home already has a 3-step "What happens next" block by the form. (b) Move the panoramic photo band into About, which says the same thing. (c) Cut the Home FAQ to about 5 to 7 questions (it has 9 after tonight's merge; the full set stays on the Options page). (d) About repeats Home's "Why we do this" panel, "Beyond buying" band and "Is GLP legit?" tiles; keep each idea on one page. (e) The numbers on their own page (D7) stays parked.
 
 ## After the overnight run: Session 4, direction lock (30 to 45 minutes)
 
@@ -97,20 +99,12 @@ python3 -m http.server 8000                     # preview at http://localhost:80
 
 ## Suggested commit messages (Jeremy)
 
-**For Checkpoint 13** (if he has not committed it yet, one commit for both is fine; use the second message):
+Checkpoints 12, 13 and 14 are already committed and pushed ("big push", "form changes", "trim and simple"). **Checkpoint 15:**
 
-Contact form fix ready, tone and audience notes, Joey questions updated
+Trim repeated words on Home and About
 
-- Contact form: measured the live form and wrote a tested fix for its look (paste-ready CSS, steps, before and after picture); it needs GoHighLevel access
-- Notes now record the tone and audience direction and the corrected glass count
-- Questions for Joey updated (Our work photos, the sold photo, the videos, the form)
-- Checkpoint 13; no page, style or script changes
+- Home: cut repeated phrases in the option cards, the strip under them and the About band; three FAQ questions (how fast, fix and clean, fees) merged into one with every fact kept
+- About: four sentences shortened
+- No claim, number, photo, style or script changed; checkpoint 15
 
-**For Checkpoint 14:**
-
-Trim the Options page, simplify the net sheet, add the sold-sign photo to Our work
-
-- Options page: cut repeated words and list items (about 16% shorter); every "Maybe not if" kept
-- Net sheet: three boxes up front, the other costs under "Change the costs we assumed", same math (tested); bars removed
-- Our work: a second closing photo under the September one, captioned "Another closing day" (not yet confirmed by Joey)
-- New tools: net sheet test, page size; notes updated; checkpoint 14
+(If the overnight run adds more checkpoints, each has its own message at the top of this file.)
