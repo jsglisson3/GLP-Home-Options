@@ -503,10 +503,28 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 @media (max-width:22.4375em){.form-who .sep{display:none}.form-who .loc{display:block}}   /* the narrowest phones: the place drops to its own line, so no dot is left hanging at the end of a line */
 .form-card h3,.form-card .h3{margin-bottom:8px;font-size:1.5rem;color:var(--ink)}
 .form-card .sub{margin-bottom:22px;font-size:.96rem;color:var(--muted)}
-.ghl{position:relative;min-height:520px;border-radius:12px}
-.ghl::before{content:"Loading the form\2026";position:absolute;top:0;right:0;bottom:0;left:0;inset:0;display:grid;place-items:start center;padding-top:60px;color:var(--muted);font-size:.95rem;pointer-events:none}
-.ghl.loaded::before{display:none}
+/* The contact form box. site.js puts the company's form in it and sets data-state: "loading" shows a calm placeholder shaped like the form,
+   "ready" shows the form, "slow" (the form cannot load: slow network, blocked, offline) shows a call/text card. With no JS, the card shows. */
+.ghl{position:relative;min-height:540px;border-radius:12px}
+.ghl[data-state="ready"],.ghl[data-state="slow"],html:not(.js) .ghl{min-height:0}
 .ghl iframe{position:relative;display:block}
+.ghl-wait,.ghl-slow{display:none}
+.js .ghl[data-state="idle"] .ghl-wait,.js .ghl[data-state="loading"] .ghl-wait,.js .ghl[data-state="slow"] .ghl-slow,html:not(.js) .ghl-slow{display:block}
+html:not(.js) .ghl-slow-alt button,html:not(.js) .ghl-slow-alt .dot{display:none}
+.ghl-bars{display:grid;gap:10px}
+.ghl-bars i{display:block;height:42px;border-radius:10px;border:1.5px solid var(--line);background:var(--green-50)}
+.ghl-bars i.l{height:12px;width:30%;margin-top:8px;border:0;border-radius:6px;background:var(--navy-100)}
+.ghl-bars i.c{height:64px;border:0;background:var(--navy-100);opacity:.55}
+.ghl-bars i.b{height:52px;margin-top:10px;border:0;border-radius:999px;background:var(--green-100)}
+.ghl-wait p{margin-top:18px;text-align:center;font-size:.95rem;color:var(--muted)}
+.ghl-slow{padding:30px 22px 22px;border:1.5px solid var(--line);border-radius:var(--r-m);background:var(--green-50);text-align:center}
+.ghl-slow-h{font:800 1.2rem/1.3 var(--f);letter-spacing:-.01em;color:var(--ink)}
+.ghl-slow-p{margin:8px auto 20px;max-width:32ch;color:var(--text)}
+.ghl-slow-btns{display:grid;gap:12px;max-width:340px;margin:0 auto}
+.ghl-slow-btns .btn{width:100%}
+.ghl-slow-alt{margin-top:14px;font-size:.95rem;color:var(--muted)}
+.ghl-slow-alt button{font:inherit;font-weight:700;color:var(--green-700);background:none;border:0;padding:10px 4px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.ghl-slow-alt a{display:inline-block;padding:10px 4px;color:var(--green-700);font-weight:700}
 .form-alt{margin-top:14px;font-size:.9rem;color:var(--muted)}
 .form-alt a{color:var(--green-700);font-weight:700}
 @media (max-width:60em){.contact-grid{grid-template-columns:minmax(0,1fr)}}

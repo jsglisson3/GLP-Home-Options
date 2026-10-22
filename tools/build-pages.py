@@ -42,7 +42,7 @@ PHONE_TEL, PHONE_SMS, PHONE = "tel:+14234515707", "sms:+14234515707", "(423) 451
 EMAIL = "info@glphomeoptions.com"
 BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 FORM_ID = "c36UOOc2pkosxfvRfjZJ"
-CSS_V, JS_V = 43, 21
+CSS_V, JS_V = 44, 22
 HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-1200.jpg 1200w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
@@ -519,10 +519,22 @@ def contact_section(pg, page=False):
         <p class="form-who"><span class="avs" aria-hidden="true"><img src="images/joey-avatar.jpg" alt="" width="112" height="112"{"" if page else ' loading="lazy"'} decoding="async"><img src="images/ethan-avatar.jpg" alt="" width="112" height="112"{"" if page else ' loading="lazy"'} decoding="async"></span><span><b>Joey &amp; Ethan</b><small>Co-founders<span class="sep"> · </span><span class="loc">Hixson, TN</span></small></span></p>
         <{hx} class="h3">Thinking about selling, or not sure yet?</{hx}>
         <p class="sub">Share a few details and Joey or Ethan will get back to you. There's no obligation.</p>
-        <div class="ghl">
-          <iframe src="https://links.voiseai.com/widget/form/{FORM_ID}" loading="lazy" style="width:100%;height:760px;border:none;border-radius:10px" id="inline-{FORM_ID}" data-layout="{{'id':'INLINE'}}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="GLP Home Options lead form" data-height="760" data-layout-iframe-id="inline-{FORM_ID}" data-form-id="{FORM_ID}" title="Contact form: send GLP Home Options a few details about your home"></iframe>
+        <div class="ghl" data-form="{FORM_ID}" data-state="idle">
+          <div class="ghl-wait" role="status">
+            <span class="ghl-bars" aria-hidden="true"><i class="l"></i><i></i><i class="l"></i><i></i><i class="l"></i><i></i><i class="l"></i><i></i><i class="c"></i><i class="c"></i><i class="b"></i></span>
+            <p>Loading the form…</p>
+          </div>
+          <div class="ghl-slow" role="status">
+            <p class="ghl-slow-h">The form isn't loading right now.</p>
+            <p class="ghl-slow-p">Call or text us instead and we'll take it from there.</p>
+            <div class="ghl-slow-btns">
+              <a class="btn btn-primary" href="{PHONE_TEL}">{ICON("phone")}Call {PHONE}</a>
+              <a class="btn btn-ghost" href="{PHONE_SMS}">{ICON("sms")}Text us</a>
+            </div>
+            <p class="ghl-slow-alt"><button type="button" data-ghl-retry>Try the form again</button><span class="dot" aria-hidden="true"> · </span><a href="mailto:{EMAIL}">Email us</a></p>
+          </div>
         </div>
-        <p class="form-alt">Form not loading? Call or text <a href="{PHONE_TEL}">{PHONE}</a> or email <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+        <p class="form-alt">Prefer to talk? Call or text <a class="nb" href="{PHONE_TEL}">{PHONE}</a>, or email <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
       </div>
     </div>
   </section>'''
@@ -562,8 +574,6 @@ def expand(pg, text):
 
 def scripts(pg):
     s = ""
-    if pg["ghl"]:
-        s += '<script src="https://links.voiseai.com/js/form_embed.js" async></script>\n'
     # if site.js fails to load, drop the "js" class at once so no section stays hidden waiting for it (the head also has a 6 s safety timer)
     s += f'<script src="js/site.js?v={JS_V}" defer onerror=\'document.documentElement.classList.remove("js")\'></script>'
     for name in pg.get("js", []):   # scripts only one page needs (the Our work photo viewer)

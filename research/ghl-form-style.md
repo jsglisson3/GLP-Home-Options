@@ -2,6 +2,8 @@
 
 **Why:** Jeremy, Oct 21, 11:09 PM: the questionnaire "looks like a third-party bolt-on, scammy, like an ad on top of the website." He is right. The form on the Home and Contact pages is GoHighLevel's plain default, in a frame (an iframe) from `links.voiseai.com`. Our site's CSS cannot reach inside it. Only someone who can open the form in GoHighLevel can change it.
 
+**Update, Oct 22, 11:30 AM (Checkpoint 35): the form also never loaded below the first screen.** Cause and fix are in `PROJECT_STATUS.md` (Checkpoint 35): our frame was `loading="lazy"` and GoHighLevel's embed script parks every form frame 10,000 px off-screen until the form reports its height, so the browser never fetched it. That is fixed on our side; nothing in GoHighLevel needs to change for it. The look problems below still need someone with GoHighLevel access. Measured again today on the real form: the button is `button.btn.btn-dark.button-element` with the label "Button" (`#18bd5b`); the consent paragraphs have inline fonts; fields are 12 px; the two consent links point at `glphomeoptions.com`; Cloudflare's bot check inside the form logged "Error: 600010" when the form was opened by itself in the pane (may be the pane itself; one test lead from a real phone settles it). On a phone the form is about 1,150 px tall at 390 px wide because of the two long consent paragraphs, so a smaller consent font and the card's side padding matter more there.
+
 **Who it is for:** ordinary homeowners, many short on money and time, who have seen a lot of "we buy houses" ads (Jeremy, Oct 21, 11:11 PM). The form has to look like it belongs to two local guys, not to an ad network. See `DESIGN_SYSTEM.md`, section 0.
 
 ![Before and after](ghl-form-before-after.jpg)
@@ -32,7 +34,7 @@ Menu names in GoHighLevel move around a little. Look for the form builder and it
    - look at the form (one font, green button, no box inside the box);
    - tap a field (the page should not zoom in);
    - send **one test lead with a phone number you control**, and check it arrives where leads go and that the consent is recorded.
-6. Tell Claude what you see. Claude cannot load the form inside its own browser tab, so it cannot check the page end to end.
+6. Tell Claude what you see. (Update, Oct 22: when Jeremy's computer is on, Claude can open the real form in the built-in browser pane, so it can check the form by itself and inside our page; it still cannot submit a real lead without a go from Jeremy.)
 
 ## What the CSS does and does not do
 
