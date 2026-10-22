@@ -206,11 +206,11 @@
         v.innerHTML = 'About the <span>same</span> either way.';
         s.textContent = 'When the money is this close, speed, certainty, and skipping showings and repairs may decide it.';
       } else if (diff > 0) {
-        v.innerHTML = 'Listing nets about <span>' + usd(diff) + '</span> more.';
-        s.textContent = 'Selling direct trades that for closing in 7 to 14 days with no repairs, showings, or months of carrying costs. The offer is ' + usd(off) + ' below list price, but the gap in your pocket is smaller once costs come out.';
+        v.innerHTML = 'You\u2019d keep about <span>' + usd(diff) + '</span> more by listing.';
+        s.textContent = 'Selling direct gives that up, but you close in 7 to 14 days with no repairs, showings, or months of house payments and bills. The offer is ' + usd(off) + ' below the list price, but the gap in your pocket is smaller once costs come out.';
       } else {
-        v.innerHTML = 'Selling direct nets about <span>' + usd(-diff) + '</span> more.';
-        s.textContent = 'Once commission, closing costs, repairs, and carrying costs come out, the direct offer leaves you ahead, and you close in 7 to 14 days.';
+        v.innerHTML = 'You\u2019d keep about <span>' + usd(-diff) + '</span> more by selling direct.';
+        s.textContent = 'Once the commission, closing costs, repairs, and the cost of waiting come out, the direct offer leaves you ahead, and you close in 7 to 14 days.';
       }
     };
     $$('#calc input').forEach(function (inp) {

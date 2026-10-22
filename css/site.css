@@ -35,6 +35,9 @@ body{margin:0;background:#fff;color:var(--text);font:450 clamp(1rem,.96rem + .2v
 img,svg,canvas{max-width:100%}
 img{height:auto}
 h1,h2,h3,h4{margin:0;color:var(--ink);font-family:var(--f);text-wrap:balance}
+/* line breaks that avoid a lonely last word (Checkpoint 28): paragraphs use "pretty", short items (list items, questions, table cells) use "balance". Chrome, Edge and Safari apply it; other browsers ignore it. */
+p,dd,dt,figcaption,blockquote{text-wrap:pretty}
+li,summary,th,td{text-wrap:balance}
 h1{font-size:clamp(2.35rem,4.7vw,4.2rem);line-height:1.02;letter-spacing:-.04em;font-weight:800}
 h2{font-size:clamp(2.05rem,4.5vw,3.5rem);line-height:1.04;letter-spacing:-.035em;font-weight:800}
 h3,.h3{font-size:1.3rem;line-height:1.2;letter-spacing:-.02em;font-weight:700}
@@ -46,6 +49,7 @@ h1 .ital,h2 .ital{display:block}
 .h1 .dot{margin-left:-.07em}
 .lede{font-size:clamp(1.06rem,1.4vw,1.2rem);line-height:1.65;color:var(--text);max-width:62ch}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.nb{white-space:nowrap}
 .i{width:1.25em;height:1.25em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 main:focus{outline:none}
 
@@ -112,6 +116,8 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 @media (max-width:640px){.hdr-cta{display:none}.menu-btn{margin-left:auto}}
 @media (min-width:1241px){.mnav{display:none!important}}
 @media (max-width:420px){.wordmark b{font-size:1.6rem}.wm-sub{font-size:.58rem}.brand img{height:38px}.hdr-row{min-height:70px}}
+/* phones held sideways (about 500px tall or less): a slimmer header with the same logo sizes the narrow phones use, so the page gets back about 22px of a short screen (Checkpoint 26) */
+@media (max-height:500px) and (orientation:landscape){.hdr-row{min-height:58px}.brand img{height:38px}.wordmark b{font-size:1.6rem}.wm-sub{font-size:.58rem}html{scroll-padding-top:70px}}
 /* narrowest phones (320 to 350px): the Menu button shows only its icon; the word stays as its accessible name */
 @media (max-width:350px){.menu-btn{width:46px;padding:0;justify-content:center}.menu-btn span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}}
 
@@ -473,7 +479,15 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .next ol{display:grid;gap:12px;list-style:none;margin:0;padding:0}
 .next li{display:flex;align-items:center;gap:14px;font-weight:650;color:rgba(255,255,255,.95)}
 .next .num{width:34px;height:34px;font-size:.88rem;background:#fff;color:var(--navy-800);box-shadow:none}
-.form-card{padding:clamp(24px,3vw,38px);border-radius:var(--r-l);background:#fff;color:var(--text);box-shadow:0 34px 80px rgba(10,28,36,.38)}
+.form-card{padding:clamp(24px,3vw,38px);border-radius:var(--r-l);background:#fff;color:var(--text);box-shadow:0 22px 56px rgba(10,28,36,.3)}
+.form-who{display:flex;align-items:center;gap:12px;margin:0 0 16px}
+.form-who .avs{display:flex;flex:none}
+.form-who img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2.5px solid #fff;box-shadow:var(--sh-1);background:var(--navy-100)}
+.form-who img+img{margin-left:-14px}
+.form-who b{display:block;font:800 .95rem/1.15 var(--f);color:var(--navy-800)}
+.form-who small{display:block;margin-top:2px;font:700 .8rem/1.25 var(--f);letter-spacing:.02em;color:var(--green-700)}
+.form-who .loc{white-space:nowrap}
+@media (max-width:359px){.form-who .sep{display:none}.form-who .loc{display:block}}   /* the narrowest phones: the place drops to its own line, so no dot is left hanging at the end of a line */
 .form-card h3,.form-card .h3{margin-bottom:8px;font-size:1.5rem;color:var(--ink)}
 .form-card .sub{margin-bottom:22px;font-size:.96rem;color:var(--muted)}
 .ghl{position:relative;min-height:520px;border-radius:12px}
@@ -637,6 +651,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 @media (max-width:620px){.duo{grid-template-columns:minmax(0,1fr)}.duo-arrow{justify-self:center;transform:rotate(90deg)}}
 .beliefs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px);list-style:none;margin:0;padding:0}
 .beliefs.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.beliefs.two{grid-template-columns:repeat(2,minmax(0,1fr));max-width:860px;margin-left:auto;margin-right:auto}
 .belief{display:grid;gap:14px;align-content:start;justify-items:start;padding:clamp(22px,2.4vw,30px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-1);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s}
 .belief:hover{transform:translateY(-5px);box-shadow:var(--sh-2);border-color:var(--green-200)}
 .belief h3{font-size:1.14rem}
@@ -646,6 +661,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 @media (max-width:380px){.belief .more,.proof .more{font-size:.9rem}}
 @media (max-width:1080px){.beliefs{grid-template-columns:repeat(2,minmax(0,1fr))}.beliefs.three{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:900px){.beliefs.three{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:700px){.beliefs.two{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:560px){.beliefs{grid-template-columns:minmax(0,1fr)}}
 .case{display:grid;margin:0;padding:0;list-style:none}
 .case li{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:18px;padding-bottom:26px}
@@ -662,7 +678,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 /* ---------- New homes ---------- */
 .phero-build .gable .g3 img{object-position:50% 64%}
 @media (max-width:520px){.phero-build .gable-cap{display:none}}
-.spec-xl{max-width:980px;margin-inline:auto;padding:clamp(26px,4vw,48px);box-shadow:var(--sh-2)}
+.spec-xl{max-width:980px;margin-inline:auto;padding:clamp(26px,4vw,48px);gap:clamp(20px,3vw,30px);box-shadow:var(--sh-2)}
 .spec-xl .spec-grid{grid-template-columns:repeat(4,auto);justify-content:space-between;gap:18px clamp(14px,3vw,34px)}
 .spec-xl .spec-grid dd{font-size:clamp(1.8rem,3.9vw,3rem)}
 .spec-xl p{font-size:1.04rem;max-width:62ch}
@@ -716,6 +732,15 @@ html.lb-open{overflow:hidden}
   .lb[open]{grid-template-columns:1fr 1fr;grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"bar bar" "fig fig" "prev next"}
   .lb-prev{justify-self:start}.lb-next{justify-self:end}
   .lb-img{max-height:calc(100vh - 250px);max-height:calc(100dvh - 250px)}
+}
+/* phones held sideways: the photo gets more of the short screen (Checkpoint 26) */
+@media (max-height:500px) and (orientation:landscape){
+  .lb[open]{grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"bar bar bar" "prev fig next";padding:8px max(14px,env(safe-area-inset-left,0px))}
+  .lb-prev,.lb-next{justify-self:auto}
+  .lb-bar{min-height:52px}
+  .lb-fig{gap:6px}
+  .lb-cap{font-size:.9rem;line-height:1.25}
+  .lb-img{max-height:calc(100vh - 118px);max-height:calc(100dvh - 118px)}
 }
 
 /* ---------- Contact page ---------- */

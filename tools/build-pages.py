@@ -42,7 +42,7 @@ PHONE_TEL, PHONE_SMS, PHONE = "tel:+14234515707", "sms:+14234515707", "(423) 451
 EMAIL = "info@glphomeoptions.com"
 BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 FORM_ID = "c36UOOc2pkosxfvRfjZJ"
-CSS_V, JS_V = 34, 17
+CSS_V, JS_V = 39, 19
 HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-1200.jpg 1200w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
@@ -55,16 +55,16 @@ NEWTAB = '<span class="vh"> (opens in a new tab)</span>'
 PAGES = [
     dict(slug="index", file="index.html", crumb=None, ghl=True, preload=["images/joey-ethan-bridge.jpg"],
          title="GLP Home Options | Real Home Options for Chattanooga Homeowners",
-         desc="Joey and Ethan help Chattanooga homeowners compare their options: sell as-is in as little as 7 days, list for top dollar, "
-              "keep the home, or explore creative options like seller financing and lease options. Local, with no pressure. Call or text (423) 451-5707.",
+         desc="Joey and Ethan help Chattanooga homeowners compare their options: sell with no repairs in as little as 7 days, list for the best price, "
+              "keep the home, or look at other options like seller financing and lease options. Local, with no pressure. Call or text (423) 451-5707.",
          og_title="GLP Home Options | Real home options. Clear next steps.",
-         og_desc="Sell as-is, list for top dollar, or keep it. Joey and Ethan lay out the real numbers in plain English. No pressure, just solutions.",
+         og_desc="Sell with no repairs, list for the best price, or keep it. Joey and Ethan lay out the real numbers in plain English. No pressure, just solutions.",
          ld=["business", "faq:home"]),
     dict(slug="options", file="options.html", crumb="Your options", preload=[],
          title="Your Home Options in Chattanooga | GLP Home Options",
-         desc="Sell directly as-is in 7–14 days, list with an agent, keep your home, or explore seller financing and lease options. Every Chattanooga option side by side, in plain English.",
+         desc="Sell directly with no repairs in 7–14 days, list with an agent, keep your home, or look at seller financing and lease options. Every Chattanooga option side by side, in plain English.",
          og_title="Every option for your home, side by side | GLP Home Options",
-         og_desc="Sell as-is, list for top dollar, keep the home, or get creative. What each path costs, how long it takes, and who it fits.",
+         og_desc="Sell with no repairs, list for the best price, keep the home, or find another way. What each path costs, how long it takes, and who it fits.",
          ld=["faq:options", "crumbs"]),
     dict(slug="about", file="about.html", crumb="Our story", preload=["images/joey.jpg", "images/ethan.jpg"],
          title="Our Story: Meet Joey & Ethan | GLP Home Options",
@@ -80,7 +80,7 @@ PAGES = [
          ld=["crumbs"]),
     dict(slug="new-homes", file="new-homes.html", crumb="New homes", preload=["images/build-exterior.jpg"],
          title="Affordable New Homes in Chattanooga | GLP Home Options",
-         desc="Affordable new construction in Chattanooga for first-time buyers and families: 3 bed, 2 bath on 0.6+ acres, priced in the mid $200s. Ask about getting in early.",
+         desc="A new home we're building in Chattanooga for first-time buyers and families: 3 bed, 2 bath on 0.6+ acres, priced in the mid $200s. Ask about getting in early.",
          og_title="Affordable new homes, built right here | GLP Home Options",
          og_desc="3 bed, 2 bath on 0.6+ acres in Chattanooga, priced in the mid $200s. Ask about getting in before it's listed.",
          ld=["faq:homes", "crumbs"]),
@@ -110,17 +110,17 @@ FAQ = {
          "No. The first conversation is free and there's no obligation. We'll show you every realistic option, including listing with an agent or keeping the home, and you decide what's right."),
         ("How do I know GLP is legit?",
          f'Fair question. You deal directly with Joey or Ethan, and you can reach us anytime at <a href="{PHONE_TEL}">{PHONE}</a> or <a href="mailto:{EMAIL}">{EMAIL}</a>. '
-         f'You can see our recent closing and the home we\'re building on <a href="work.html">our work page</a> and {LINK_FB}, and you\'re always free to have your own attorney or title company review anything before you sign.'),
+         f'You can see our recent closing and the home we\'re building on <a href="work.html">our work page</a> and {LINK_FB}. And you\'re always free to have your own attorney or title company review anything before you sign.'),
         ("How fast can you close, and what does it cost me?",
          "As little as 7 days, and usually 7 to 14. You pick the closing date, so if you need more time to move, that works too. "
-         "We buy as-is, so there are no repairs, no cleaning, and no showings, just one visit so we can see the home. "
+         "We buy the house as it is, so there are no repairs, no cleaning, and no showings, just one visit so we can see the home. "
          "There are no commissions or fees, and we pay the closing costs on a direct sale."),
         ("Why would I list instead of taking a cash offer?",
-         "If your home is move-in ready and you aren't in a hurry, listing on the open market usually nets the most money. We'll tell you plainly if that's your best move."),
+         "If your home is ready to move into and you aren't in a hurry, listing on the open market usually brings in the most money. We'll tell you plainly if that's your best move."),
         ("What if I want to keep my home but I'm struggling?",
          "We can help you think through refinancing, renting the property out, or other ways to get past short-term financial trouble so you can stay."),
         ("Do you offer seller financing or lease options?",
-         'Yes. For unique situations where the standard paths don\'t feel like a fit, we explore structured options together, including seller financing and lease options. <a href="options.html#creative">See how they work.</a>'),
+         'Yes. If the usual paths don\'t fit your situation, we can look at other setups together, like seller financing (you carry the loan instead of a bank) or a lease option (a buyer rents first and can choose to buy later). <a href="options.html#creative">See how they work.</a>'),
         ("Can you help me figure out where to go next?",
          "Often, yes. In a recent sale the owners needed a place to move, so we worked around their timeline and helped them find a rental."),
         ("What areas do you serve?",
@@ -132,26 +132,24 @@ FAQ = {
         ("What does “as-is” mean?",
          "It means you sell the home in the condition it's in today. If you sell directly to us, there are no repairs, no cleaning, and no showings. We just visit once so we can see the house."),
         ("Will I get less money selling directly than listing?",
-         "A direct offer is often lower than the best-case listing price, because you're trading some price for speed, certainty, and skipping repairs, showings, and months of carrying costs. "
+         "A direct offer is often lower than the best-case listing price, because you're trading some price for speed, certainty, and skipping repairs, showings, and months of house payments and bills. "
          'Once commission, closing costs, and those costs come out, the gap can be smaller than it first looks. Run your own numbers on <a href="[[home]]#netsheet">the net sheet</a>.'),
         ("How do I know which option is right for me?",
          "Start with what matters most: speed, price, or staying put. Then talk to us. We'll go over the numbers together and tell you what we'd do in your position."),
         ("What are seller financing and a lease option?",
          "With seller financing, the seller carries the loan instead of a bank, and the buyer pays the seller over time under agreed terms. "
-         "With a lease option, a buyer rents the home with the right, but not the obligation, to buy it later at an agreed price. "
+         "With a lease option, a buyer rents the home with the option to buy it later at an agreed price, and doesn't have to buy. "
          "Terms vary, so have your own attorney or title company review any agreement before you sign."),
         ("Do I have to decide on the first call?",
          "No. The first conversation is free, with no obligation. Take the time you need."),
     ],
     "homes": [
         ("Is the home available yet?",
-         "Not yet. It's coming soon, and the finishing work is underway. Ask us about getting in before it's listed."),
-        ("What's the price?",
-         "We're pricing it in the mid $200s. Reach out and we'll go over the details with you."),
-        ("How big is it?",
-         "Three bedrooms and two baths, on 0.6+ acres in Chattanooga."),
+         "Not yet. It's coming soon. Ask us about getting in before it's listed."),
+        ("What's the price, and how big is it?",
+         "We're pricing it in the mid $200s. It has three bedrooms and two baths on 0.6+ acres in Chattanooga. Reach out and we'll go over the details with you."),
         ("I'm a first-time buyer. Can I get help with the down payment?",
-         "Possibly. Down payment assistance exists for many first-time buyers, and what you qualify for depends on your situation and your lender. Ask us how it could help and we'll talk it through."),
+         "Possibly. Down payment assistance exists for many first-time buyers, and what you qualify for depends on your situation and your lender. Ask us and we'll talk it through."),
         ("Will you build more homes?",
          "We're building affordable homes right here in Chattanooga. Ask us what's coming up next."),
         ("Do you help people sell their homes, too?",
@@ -262,7 +260,7 @@ def ld_blocks(pg):
         if key == "business":
             out.append({
                 "@context": "https://schema.org", "@type": "LocalBusiness", "name": "GLP Home Options", "legalName": "GL Partners LLC",
-                "description": "Chattanooga home solutions: sell directly as-is, list with an agent, keep your home, or a creative structure like seller financing or a lease option. Plus affordable new construction.",
+                "description": "Chattanooga home options: sell directly with no repairs, list with an agent, keep your home, or another arrangement like seller financing or a lease option. Plus affordable new homes.",
                 "telephone": "+1-423-451-5707", "email": EMAIL, "url": REAL,
                 "image": SITE + "images/joey-ethan-bridge.jpg", "logo": SITE + "images/glp-mark.png",
                 "address": {"@type": "PostalAddress", "postOfficeBoxNumber": "55", "addressLocality": "Hixson", "addressRegion": "TN", "addressCountry": "US"},
@@ -504,20 +502,21 @@ def contact_section(pg, page=False):
       <div class="contact-copy">
         <div{"" if page else ' class="rv"'}>
           {top}
-          <p class="lede">Call or text anytime, or send a few details and we'll follow up. You'll talk to Joey or Ethan, and your information stays confidential.</p>
+          <p class="lede">Call or text anytime, or send a few details. You'll talk to Joey or Ethan, and your information stays&nbsp;confidential.</p>
         </div>
         {reach(page)}
         <div class="next rv">
           <{hx} class="h3">What happens next?</{hx}>
           <ol>
-            <li><span class="num" aria-hidden="true">1</span>We discuss your situation.</li>
-            <li><span class="num" aria-hidden="true">2</span>We review your options together.</li>
-            <li><span class="num" aria-hidden="true">3</span>You decide the best path forward.</li>
+            <li><span class="num" aria-hidden="true">1</span>We talk through your situation.</li>
+            <li><span class="num" aria-hidden="true">2</span>We go over your options together.</li>
+            <li><span class="num" aria-hidden="true">3</span>You decide what's best for you.</li>
           </ol>
         </div>
       </div>
 
       <div class="form-card rv{' in" style="--d:2' if page else ''}" data-d="2">
+        <p class="form-who"><span class="avs" aria-hidden="true"><img src="images/joey-avatar.jpg" alt="" width="112" height="112"{"" if page else ' loading="lazy"'} decoding="async"><img src="images/ethan-avatar.jpg" alt="" width="112" height="112"{"" if page else ' loading="lazy"'} decoding="async"></span><span><b>Joey &amp; Ethan</b><small>Co-founders<span class="sep"> · </span><span class="loc">Hixson, TN</span></small></span></p>
         <{hx} class="h3">Thinking about selling, or not sure yet?</{hx}>
         <p class="sub">Share a few details and Joey or Ethan will get back to you. There's no obligation.</p>
         <div class="ghl">
@@ -572,6 +571,29 @@ def scripts(pg):
     return s
 
 
+APOS = re.compile(r"(?<=\w)'")
+ATTR = re.compile(r'\b(alt|title|content|aria-label)="([^"]*)"')
+TOKENS = re.compile(r"<script\b[^>]*>.*?</script>|<style\b[^>]*>.*?</style>|<!--.*?-->|<[^>]+>|[^<]+", re.S)
+
+
+def curly(page):
+    """Curly apostrophes (it's -> it\u2019s) in the visible text, alt text, meta text and JSON-LD of a built page; never in scripts,
+    styles, tags or addresses. The page sources keep plain apostrophes, so anyone editing a page types them normally.
+    Guard: the built page may differ from its input in the apostrophe character and nothing else."""
+    def one(tok):
+        if tok.startswith("<script"):
+            return APOS.sub("\u2019", tok) if "application/ld+json" in tok[:tok.find(">")] else tok
+        if tok.startswith(("<style", "<!--")):
+            return tok
+        if tok.startswith("<"):
+            return ATTR.sub(lambda m: f'{m.group(1)}="{APOS.sub(chr(0x2019), m.group(2))}"', tok)
+        return APOS.sub("\u2019", tok)
+    out = "".join(one(t.group(0)) for t in TOKENS.finditer(page))
+    if out.replace("\u2019", "'") != page.replace("\u2019", "'"):
+        sys.exit("curly(): it changed something other than apostrophes; the page was not written")
+    return out
+
+
 def render(pg, main):
     return f'''<!doctype html>
 <html lang="en">
@@ -621,14 +643,14 @@ def legal_main(d):
 def main():
     for pg in PAGES:
         src = (TOOLS / "pages" / f"{pg['slug']}.html").read_text(encoding="utf-8")
-        out = render(pg, expand(pg, src))
+        out = curly(render(pg, expand(pg, src)))
         left = re.findall(r"\[\[[^\]]+\]\]", out)
         if left:
             sys.exit(f"{pg['file']}: unresolved tokens {left}")
         (ROOT / pg["file"]).write_text(out, encoding="utf-8")
         print("wrote", pg["file"], f"({len(out) // 1024} KB)")
     for pg in LEGAL_PAGES:
-        out = render(pg, legal_main(pg["data"]))
+        out = curly(render(pg, legal_main(pg["data"])))
         (ROOT / pg["file"]).write_text(out, encoding="utf-8")
         print("wrote", pg["file"], f"({len(out) // 1024} KB)")
 

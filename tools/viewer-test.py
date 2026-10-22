@@ -6,6 +6,8 @@ It serves this folder on a throwaway port and opens the Our work page in a phone
 a tap on a photo opens the viewer at "1 of N"; a swipe left shows 2, a swipe right shows 1 again; a mostly-vertical drag and a
 short drag change nothing; the arrow keys and the Next/Previous buttons still work; the Close button and Esc close it and give
 focus back to the photo; the buttons are 44 px or larger.
+Then, on phones held sideways (five landscape sizes), every photo with its caption, counter and buttons stays on the screen, with no
+overlaps, and the photo is at least 190 px tall (Checkpoint 26).
 """
 import functools, http.server, pathlib, socketserver, threading
 from playwright.sync_api import sync_playwright
@@ -74,7 +76,31 @@ with sync_playwright() as p:
     check("focus goes back to the photo that was opened", pg.evaluate("document.activeElement && document.activeElement.matches('.work-grid a')"))
     first.tap(); pg.wait_for_timeout(400); pg.keyboard.press("Escape"); pg.wait_for_timeout(300)
     check("Esc closes it too", not pg.evaluate("!!document.querySelector('dialog.lb[open]')"))
-    ctx.close(); b.close()
+    ctx.close()
+
+    # phones held sideways: every photo, its caption and the buttons stay on the screen (Checkpoint 26)
+    RECTS = """() => { const R = s => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); return {t: r.top, b: r.bottom, l: r.left, r: r.right}; };
+      return {vw: innerWidth, vh: innerHeight, img: R('.lb-img'), cap: R('.lb-cap'), close: R('.lb-close'), prev: R('.lb-prev'), next: R('.lb-next'), count: R('.lb-count')}; }"""
+    for (w, h) in ((844, 390), (667, 375), (932, 430), (568, 320), (640, 360)):
+        lc = b.new_context(viewport={"width": w, "height": h}, is_mobile=True, has_touch=True, device_scale_factor=1, reduced_motion="reduce")
+        lc.route("**/*", lambda r: r.continue_() if r.request.url.startswith(BASE) else r.abort())
+        lp = lc.new_page(); lp.goto(BASE + "work.html"); lp.wait_for_timeout(700)
+        f = lp.query_selector(".work-grid a"); f.scroll_into_view_if_needed(); lp.wait_for_timeout(300); f.tap(); lp.wait_for_timeout(600)
+        n = int((lp.evaluate(COUNT) or "1 of 0").split(" of ")[1]); bad = []; smallest = 9999
+        for i in range(n):
+            lp.wait_for_timeout(200)
+            m = lp.evaluate(RECTS); img = m["img"]; smallest = min(smallest, img["b"] - img["t"])
+            if img["t"] < 0 or img["b"] > m["vh"] or img["l"] < 0 or img["r"] > m["vw"]: bad.append(f"photo {i+1} is off the screen")
+            if m["cap"] and (m["cap"]["b"] > m["vh"] or m["cap"]["t"] < img["b"] - 1): bad.append(f"photo {i+1}: caption off the screen or on the photo")
+            for k in ("close", "prev", "next", "count"):
+                e = m[k]
+                if e and (e["t"] < 0 or e["b"] > m["vh"] or e["l"] < 0 or e["r"] > m["vw"]): bad.append(f"photo {i+1}: {k} is off the screen")
+            if m["prev"] and img["l"] < m["prev"]["r"] - 1: bad.append(f"photo {i+1}: the photo touches Previous")
+            if m["next"] and img["r"] > m["next"]["l"] + 1: bad.append(f"photo {i+1}: the photo touches Next")
+            lp.keyboard.press("ArrowRight")
+        check(f"sideways {w}x{h}: all {n} photos, captions and buttons stay on the screen; photo at least 190 px tall", n > 0 and not bad and smallest >= 190, f"smallest photo {round(smallest)} px" + (" | " + "; ".join(bad[:3]) if bad else ""))
+        lc.close()
+    b.close()
 
 print("\nFAILS", len(fails))
 raise SystemExit(1 if fails else 0)
