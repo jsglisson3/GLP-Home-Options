@@ -48,7 +48,7 @@ python3 tools/check-links.py     # every link, anchor, image and script resolves
 - `css/site.css`, `js/site.js`: all styling and behavior
 - `images/`, `fonts/`: photos, logo, favicons, share picture, self-hosted fonts (`images/work/` holds the Our work photos)
 - `tools/`: page builder, link checker, accessibility test, checkpoint check, legal text, share-picture generator
-- `research/`: source photos and older notes (not loaded by the site, but this repository is public, so everything in it can be seen)
+- `research/`: source photos, reviews and research notes (not loaded by the site, but this repository is public, so everything in it can be seen, except the folder `research/private/` and the rules notes, which `.gitignore` keeps out and which stay in the family's folder only)
 
 ## Adding photos to Our work
 

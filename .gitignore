@@ -5,3 +5,15 @@ research/photos/incoming/*
 # Saved copies of web pages can hold private data from a signed-in browser.
 *.mhtml
 *.mht
+
+# Rules research that points out weak spots in our own legal and text-message wording. For the family and an attorney, not for a public repo.
+# Delete the next line to publish it.
+research/compliance-questions-for-joey.md
+
+# Raw research reports that name other businesses and quote their pages (private folder). For the family, not a public repo.
+# Delete the next line to publish it.
+research/private/
+
+# Python's compiled cache; never part of the site.
+__pycache__/
+*.pyc

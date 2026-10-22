@@ -132,6 +132,8 @@ Headings use `text-wrap: balance`. Do not add a third font.
 
 **Checkpoint 30:** the phone's bottom bar is tucked away by the stylesheet from the very first paint (`.js .mobile-bar:not(.auto)`, in the same position as the script's own hidden state, so nothing animates when the script takes over). Rule: anything the script shows or hides on load must start in its final state in the stylesheet, and the `js` flag (taken off the page if the script fails, or if it is stuck for 6 seconds) keeps the no-script fallback working. `tools/bar-test.py` guards it.
 
+**Checkpoint 32 (older browsers):** anything newer than about 2020 now has a plain line in front of it in `css/site.css`. Every `clamp()`, `inset`, `margin-inline` and `padding-block` declaration is preceded by an older-style twin (the smallest size, or left/right/top/bottom), and the photo frames' height and `--pull` have a short block at the end of the file inside `@supports not (...)`. **Rule for new CSS:** write the plain line first and the newer one after it (the later line wins in modern browsers), never the reverse, then run `python3 tools/computed-diff.py <folder of the last checkpoint> .` and expect 0 differences. Support floor and what older phones do without: `research/browser-support-audit.md`.
+
 **PROPOSAL P1 (Phase 2, no visual change intended):** consolidate to four: 520 (phone), 900 (tablet), 1240 (nav), plus one wide value if a layout needs it (the old 1360 header-phone rule is gone), and map every other value onto them.
 
 ## 5. Surfaces: radii, shadows, glass (BUILT)
