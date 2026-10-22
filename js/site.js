@@ -48,34 +48,6 @@
     rvs.forEach(function (el) { rio.observe(el); });
   }
 
-  /* ---------- Count-up on the stats strip ---------- */
-  var counters = $$('[data-count]');
-  function countUp(el) {
-    var to = parseFloat(el.getAttribute('data-count')), from = parseFloat(el.getAttribute('data-from') || '0');
-    var dur = 1200, t0 = null;
-    function step(t) {
-      if (t0 === null) t0 = t;
-      var p = clamp((t - t0) / dur, 0, 1), e = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(from + (to - from) * e);
-      if (p < 1) window.requestAnimationFrame(step);
-    }
-    window.requestAnimationFrame(step);
-  }
-  if (counters.length && !reduce && 'IntersectionObserver' in window) {
-    counters.forEach(function (el) { el.textContent = el.getAttribute('data-from') || '0'; });
-    var stats = $('.stats'), fired = false;
-    var cio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { fired = true; counters.forEach(countUp); cio.disconnect(); }
-      });
-    }, { threshold: 0.25 });
-    if (stats) cio.observe(stats);
-    /* failsafe: never leave a placeholder number on screen if the strip is never scrolled into view */
-    setTimeout(function () {
-      if (!fired) counters.forEach(function (el) { el.textContent = el.getAttribute('data-count'); });
-    }, 8000);
-  }
-
   /* ---------- Phone action bar: slides in after the hero buttons scroll away, steps aside at the form ---------- */
   var mbar = $('.mobile-bar');
   if (mbar && 'IntersectionObserver' in window) {
@@ -126,34 +98,6 @@
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
     Object.keys(map).forEach(function (id) { var s = doc.getElementById(id); if (s) sio.observe(s); });
-  }
-
-  /* ---------- "What matters most?" picker ---------- */
-  var picker = $('.picker');
-  if (picker) {
-    var btns = $$('.picker-opts button', picker), out = $('#picker-out'), cards = $$('.path, .opt-sec');
-    var linkBase = picker.getAttribute('data-href') || '#path-';
-    var idle = out ? out.textContent : '';
-    var msgs = {
-      direct: 'If speed matters most, selling directly can close in 7–14 days, as-is, with no repairs, showings, or commission.',
-      list: 'If you want the highest price and aren’t in a rush, listing with an agent usually nets the most, especially for a move-in ready home.',
-      keep: 'If you’d rather stay, we can look at refinancing, renting the home out, or other ways to get past a rough patch.'
-    };
-    var setPick = function (p) {
-      var same = btns.some(function (b) { return b.getAttribute('data-path') === p && b.getAttribute('aria-pressed') === 'true'; });
-      var next = same ? null : p;
-      btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-path') === next)); });
-      cards.forEach(function (c) { c.classList.toggle('on', c.getAttribute('data-path') === next); });
-      if (!out) return;
-      if (next) {
-        out.textContent = msgs[next] + ' ';
-        var a = doc.createElement('a');
-        a.href = linkBase + next; a.textContent = 'See the details';
-        a.style.cssText = 'font-weight:700;color:var(--green-700);text-underline-offset:3px';
-        out.appendChild(a);
-      } else { out.textContent = idle; }
-    };
-    btns.forEach(function (b) { b.addEventListener('click', function () { setPick(b.getAttribute('data-path')); }); });
   }
 
   /* ---------- Seller net sheet ---------- */

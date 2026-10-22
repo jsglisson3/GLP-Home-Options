@@ -1,5 +1,7 @@
 # Session handoff
 
+> **IN PROGRESS (Oct 21, about 9 PM CT):** Jeremy asked for the site to feel like two real people, not a company, and for the gallery. Saved so far, not yet checkpointed: a wording pass (no more "we're real" announcements, "Joey or Ethan" instead of "our team"), and the removal of the "What matters most?" quiz and the hero stats strip. The "Our work" gallery page is being built next. The notes below still describe Checkpoint 11 until the final notes replace this file.
+
 **Written:** Oct 21, 2026, at the end of the planning session after Session 6d, Checkpoint 11.
 **Replace this file at the end of every session.** It describes exactly one next session and what is true right now. The long-term plan is in `ROADMAP.md`; the full state is in `PROJECT_STATUS.md`.
 

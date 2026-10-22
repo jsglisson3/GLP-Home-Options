@@ -39,7 +39,7 @@ PHONE_TEL, PHONE_SMS, PHONE = "tel:+14234515707", "sms:+14234515707", "(423) 451
 EMAIL = "info@glphomeoptions.com"
 BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 FORM_ID = "c36UOOc2pkosxfvRfjZJ"
-CSS_V, JS_V = 28, 9
+CSS_V, JS_V = 29, 10
 HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
@@ -52,22 +52,22 @@ NEWTAB = '<span class="vh"> (opens in a new tab)</span>'
 PAGES = [
     dict(slug="index", file="index.html", crumb=None, ghl=True, preload=["images/joey-ethan-bridge.jpg"],
          title="GLP Home Options | Real Home Options for Chattanooga Homeowners",
-         desc="Joey and Ethan help Chattanooga homeowners compare every real option: sell as-is in as little as 7 days, list for top dollar, "
-              "keep the home, or explore creative options like seller financing and lease options. Local, honest, no pressure. Call or text (423) 451-5707.",
+         desc="Joey and Ethan help Chattanooga homeowners compare their options: sell as-is in as little as 7 days, list for top dollar, "
+              "keep the home, or explore creative options like seller financing and lease options. Local, with no pressure. Call or text (423) 451-5707.",
          og_title="GLP Home Options | Real home options. Clear next steps.",
          og_desc="Sell as-is, list for top dollar, or keep it. Joey and Ethan lay out the real numbers in plain English. No pressure, just solutions.",
          ld=["business", "faq:home"]),
     dict(slug="options", file="options.html", crumb="Your options", preload=[],
          title="Your Home Options in Chattanooga | GLP Home Options",
          desc="Sell directly as-is in 7–14 days, list with an agent, keep your home, or explore seller financing and lease options. Every Chattanooga option side by side, in plain English.",
-         og_title="Every real option for your home, side by side | GLP Home Options",
+         og_title="Every option for your home, side by side | GLP Home Options",
          og_desc="Sell as-is, list for top dollar, keep the home, or get creative. What each path costs, how long it takes, and who it fits.",
          ld=["faq:options", "crumbs"]),
     dict(slug="about", file="about.html", crumb="Our story", preload=["images/joey.jpg", "images/ethan.jpg"],
          title="Our Story: Meet Joey & Ethan | GLP Home Options",
          desc="Meet Joey and Ethan, co-founders of GLP Home Options in Hixson, TN. Guides, not gurus: clear options, honest advice, and no pressure for Chattanooga homeowners.",
          og_title="Guides, not gurus. Meet Joey & Ethan | GLP Home Options",
-         og_desc="Two local co-founders, one simple promise: every real option for your home, laid out in plain English. No pressure, just solutions.",
+         og_desc="Two local co-founders, one simple promise: every option for your home, laid out in plain English. No pressure, just solutions.",
          ld=["crumbs"]),
     dict(slug="new-homes", file="new-homes.html", crumb="New homes", preload=["images/build-exterior.jpg"],
          title="Affordable New Homes in Chattanooga | GLP Home Options",
@@ -150,7 +150,7 @@ FAQ = {
         ("Will you build more homes?",
          "We're building affordable homes right here in Chattanooga. Ask us what's coming up next."),
         ("Do you help people sell their homes, too?",
-         'Yes. We help Chattanooga homeowners compare every real option, including selling directly to us. <a href="options.html">See your options.</a>'),
+         'Yes. We help Chattanooga homeowners compare every option, including selling directly to us. <a href="options.html">See your options.</a>'),
     ],
 }
 FAQ["contact"] = [q for q in FAQ["home"] if q[0] in (
@@ -158,9 +158,9 @@ FAQ["contact"] = [q for q in FAQ["home"] if q[0] in (
 
 CTAS = {
     "options": ("Ready when you are", "Not sure which path fits? <span class=\"ital\">Tell us what's going on.</span>",
-                "We'll go over the numbers together and tell you what we'd do in your position. No pressure, no obligation."),
+                "We'll go over the numbers together and tell you what we'd do in your position."),
     "about": ("Let's talk", "Ready to talk it through? <span class=\"ital\">We're a call away.</span>",
-              "You'll talk to Joey or Ethan. We'll listen first, show you every real option, and let you decide."),
+              "You'll talk to Joey or Ethan. We'll listen first, show you every option, and let you decide."),
     "homes": ("Be first to know", "Want to see it <span class=\"ital\">before it's listed?</span>",
               "Ask about getting in early, or about down payment assistance if you're a first-time buyer. You'll talk to Joey or Ethan."),
 }
@@ -440,7 +440,7 @@ def contact_section(pg, page=False):
           <h1 id="contact-h">Let's talk about your home. <span class="ital">No pressure, no scripts.</span></h1>'''
     else:
         top = '''<span class="eyebrow on-dark">Let's start a conversation</span>
-          <h2 id="contact-h">No pressure. No scripts. <span class="ital">Just a clear look at your options.</span></h2>'''
+          <h2 id="contact-h">Want to talk it through? <span class="ital">Call or text Joey or Ethan.</span></h2>'''
     # On the Contact page the H1 sits directly above these two headings, so they are H2s there
     # (looks identical: the .h3 class carries the H3 styling). On the home page the section title is an H2, so H3 is right.
     hx = "h2" if page else "h3"

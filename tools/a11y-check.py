@@ -6,7 +6,7 @@ Chromium at desktop (1440), tablet (820) and phone (390, touch) sizes plus a pho
 scrolls the whole page so every reveal/lazy image fires, then reports:
   - axe-core violations (WCAG 2.0/2.1/2.2 A + AA and best-practice rules), plus the "needs review" color-contrast items
   - broken images, sideways scrolling, interactive elements smaller than 44px, JS errors
-  - the phone menu opened, and the "What matters most?" picker pressed, re-scanned with axe
+  - the phone menu opened (Home page), re-scanned with axe
 Screenshots of each run go to a temp folder that is printed at the top.
 
 Setup (once):   pip install playwright pillow && playwright install chromium && npm i axe-core
@@ -104,10 +104,6 @@ async def main():
                     await pg.screenshot(path=str(OUT / "phone-menu-open.png"))
                     bad += await axe(pg, "phone menu open")
                     await pg.click(".menu-btn")
-                    await pg.evaluate("document.querySelector('.picker').scrollIntoView()")
-                    await pg.click(".picker-opts button[data-path=list]")
-                    await pg.wait_for_timeout(500)
-                    bad += await axe(pg, "picker pressed")
                 await pg.screenshot(path=str(OUT / f"{page_name.replace('.html','')}-{name}.png"), full_page=True)
                 await ctx.close()
         await b.close()
