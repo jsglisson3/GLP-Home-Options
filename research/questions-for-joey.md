@@ -54,3 +54,14 @@ The research on wary home sellers (`what-works-2026-10-22.md`) says the same few
 > 5. OK to use your full names, with two or three true sentences each about you and how long you've been in Chattanooga?
 > 6. When do you answer, and what reply time can you keep every time ("the same day"?)
 > 7. Which of these do you buy: inherited houses (in probate, or with several heirs), owners behind on the mortgage, rentals with tenants, houses with liens or back taxes? Just "often / sometimes / no" for each is fine.
+
+## Added Oct 22, 3:08 PM: the contact form (for Jeremy's talk with Joey)
+
+Jeremy decided to leave the form that is on the site today exactly as it is (it is the form from Joey's existing site) and to build a new one later. These four questions make that possible. Nothing here is a promise to anyone.
+
+1. **Who can sign in to the GoHighLevel account that runs the form?** (The form is served from `links.voiseai.com`.) Is it you, or someone who set it up for you?
+2. **Can we have a second copy of the form just for the new site,** so the one on your current website stays exactly as it is? Whoever has the login can copy it in a few minutes.
+3. **When someone sends the form today, where does it go and who answers?** Your phone, your email, a list in the CRM? Does the person get an automatic text or email back? (We want the new form to do exactly the same, no more and no less.)
+4. **Is the text-message wording on the form the same wording your registered text campaign uses?** A new form has to copy it word for word.
+
+Also worth asking, because it changes the design: **what do you need to know before you call someone back?** First name and phone only, or also the address and what is going on? Fewer questions usually mean more people send the form.
