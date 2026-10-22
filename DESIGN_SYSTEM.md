@@ -2,7 +2,7 @@
 
 **Source of truth for visual decisions.** The code (`css/site.css`) is the truth for what exists today; this file records the values, the rules, and **which decisions Jeremy has actually approved**. If this file and the code disagree, believe the code, then fix this file.
 
-Last verified against the code: Oct 21, 2026. Checkpoint 12 (Session 6e) updated the header, breakpoints, motion, components and accessibility sections and the image notes; the other sections were last checked at Checkpoint 1. Checkpoint 13 (Session 6f) changed no code; it recorded Jeremy's tone, audience and contact-form direction in section 0 and corrected the glass count in section 5 (5 uses, not 7). Checkpoint 14 (Session 6g) updated the Options, net sheet and photo wall rows in section 7.
+Last verified against the code: Oct 21, 2026. Checkpoint 12 (Session 6e) updated the header, breakpoints, motion, components and accessibility sections and the image notes; the other sections were last checked at Checkpoint 1. Checkpoint 13 (Session 6f) changed no code; it recorded Jeremy's tone, audience and contact-form direction in section 0 and corrected the glass count in section 5 (5 uses, not 7). Checkpoint 14 (Session 6g) updated the Options, net sheet and photo wall rows in section 7. Checkpoints 19 to 21 (Session 6g, the mobile pass) added the phone floor, the first-screen rule and safety nets, the 44px touch-target note, and the bottom bar and photo viewer rows.
 
 ## 0. Approval status (read this first)
 
@@ -102,7 +102,7 @@ Self-hosted variable fonts (no Google requests), `font-display: swap`:
 | Eyebrow | `.78rem`, uppercase | 1 | +.16em | 800, `--green-700`, with a 30×3 px gradient bar |
 | Buttons | `1rem` (lg `1.06rem`, sm `.95rem`) | 1 | normal | 700 |
 
-**Phone floor (Checkpoint 19, 700px wide and narrower, CSS only):** small capital labels and short notes are never smaller than `.76rem` (the photo-frame caption) to `.78rem` (about 12.2 to 12.5px); photo captions, compare-table labels and form hints are never smaller than `.82rem` (13.1px). Body text, headings, buttons and form fields are unchanged (form fields stay 16px or larger so iOS does not zoom the page). The HOME OPTIONS line inside the logo (9.3px on a phone) is a lockup, not text, and keeps its size. Check with `python3 tools/mobile-audit.py`.
+**Phone floor (Checkpoint 19, 700px wide and narrower, CSS only):** small capital labels and short notes are never smaller than `.76rem` (the photo-frame caption) to `.78rem` (about 12.2 to 12.5px); photo captions, compare-table labels and form hints are never smaller than `.82rem` (13.1px). Body text, headings, buttons and form fields are unchanged (form fields stay 16px or larger so iOS does not zoom the page). The HOME OPTIONS line inside the logo (9.3px on a phone) is a lockup, not text, and keeps its size. An `.eyebrow` label that wraps to two lines uses line height 1.3 on phones (Checkpoint 21). Check with `python3 tools/mobile-audit.py`.
 
 **The italic accent (`.ital`):** Fraunces italic 500, `--green-600`, `1.04em`, set on its own line (`display:block`) inside H1/H2. One accent phrase per heading. It is the main "warm, human" typographic gesture.
 
@@ -152,7 +152,7 @@ Reduced motion: all animations and transitions are removed; reveals show immedia
 | Component | Classes | Rules worth keeping |
 |---|---|---|
 | Header + nav | `.hdr .nav .hdr-cta .hdr-fb .menu-btn .mnav` | Six links (Your options, The numbers, Our story, Our work, New homes, Contact); Contact is last. Facebook logo button in the header at ≥1241px; phone menu has a "Follow us on Facebook" row. No phone number in the header (removed at Checkpoint 12: it did not fit). |
-| Phone action bar | `.mobile-bar` | Appears after the hero buttons scroll away; steps aside at the form. |
+| Phone action bar | `.mobile-bar` | Appears after the hero buttons scroll away; steps aside at the form. The three buttons (Call, Text, Get my options) share the width 1 : 1 : 1.55; at 350px and narrower 1 : 1 : 1.7 with a 6px gap and 10px side padding (Checkpoint 21). |
 | Hero (home) | `.hero .hero-grid .gable .eyebrow .micro` | One H1, one primary action, one human photo with a single name plate. No floating tags (removed Oct 21, Session 6b). |
 | Page hero (inner pages) | `.phero .crumbs` | Breadcrumb, H1, lede, one primary action. |
 | Photo frame | `.gable` (`.g1 .g2 .g3`, `clipPath#gable`) | The roofline of the logo as a photo mask. Use for people and homes. |
@@ -166,7 +166,7 @@ Reduced motion: all animations and transitions are removed; reveals show immedia
 | Contact block | `.contact .reach-item .next .form-card .ghl` | Labels above fields; the form is the GoHighLevel iframe (`links.voiseai.com`). **Its look is set inside GoHighLevel** and today it reads as a bolt-on (the button says "Button"; Jeremy, Oct 21, 11:09 PM). The fix is prepared in `research/ghl-form-custom.css` and waits on GoHighLevel access. Our frame is a white card on the navy band. |
 | Gallery strip | `.gallery` (New homes) | Captions are honest status labels. |
 | Photo wall (Our work) | `.work-grid .work-rows .work-item .work-closed` | Every photo is a plain link to the larger picture, so it works without JavaScript. Photos of mixed shapes flow into columns (1, 2 or 3 by width); a group whose photos are all the same shape sits in tidy rows (the builder adds `.work-rows`). A white caption chip says what the photo shows or when. The photo list is `tools/gallery_data.py`; width and height are read from the picture files at build time. The Recently closed group holds two photos, stacked in one column (17 photos in all). |
-| Photo viewer | `.lb` (a native `<dialog>`), `js/gallery.js` | Opens on the first click or tap. Close button, Previous and Next (they wrap around), arrow keys, Escape, and a click on the dark backdrop all work; focus returns to the photo you opened; the page behind stops scrolling; "3 of 16" is announced. Neighbor photos are preloaded. |
+| Photo viewer | `.lb` (a native `<dialog>`), `js/gallery.js` | Opens on the first click or tap. Close button, Previous and Next (they wrap around), arrow keys, Escape, and a click on the dark backdrop all work; focus returns to the photo you opened; the page behind stops scrolling; "3 of 16" is announced. Neighbor photos are preloaded. **On a phone a swipe left or right moves between photos** (50px or more, clearly more sideways than vertical; ignored while the page is pinched in; Checkpoint 21). Test: `python3 tools/viewer-test.py` (FAILS 0). |
 | Open at the top | `js/site.js` (a guard near the top) | A page opens at the very top on phones. Reloads, the browser's scroll memory and the contact form script used to leave it half-way down. Until the visitor touches, scrolls or presses a key (or 8 seconds pass) it holds the page at the top. A link to a section (`#contact`) and the Back button are left alone. Automated tests must press a key first (`tools/shots.py` does). |
 | CTA band, footer | `.cta-band .ftr` | Every page ends with a next step. |
 | Buttons | `.btn .btn-primary .btn-ghost .btn-lg .btn-sm` | Pill shape; min-height 52 (lg 60, sm 46). |

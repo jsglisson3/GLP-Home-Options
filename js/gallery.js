@@ -1,7 +1,7 @@
 /* GLP Home Options: Our work photo viewer.
    Every photo on the page is a plain link to the larger picture, so it all works with no JavaScript. This adds a viewer
-   on top: Esc or the Close button leaves it, the arrow keys (or the buttons) move between photos, and focus goes back
-   to the photo you opened. */
+   on top: Esc or the Close button leaves it, the arrow keys (or the buttons, or a swipe on a phone) move between photos,
+   and focus goes back to the photo you opened. */
 (function () {
   'use strict';
   var tiles = Array.prototype.slice.call(document.querySelectorAll('.work-grid a'));
@@ -35,6 +35,18 @@
       if (e.key === 'ArrowLeft') { e.preventDefault(); show(now - 1); }
       else if (e.key === 'ArrowRight') { e.preventDefault(); show(now + 1); }
     });
+    // Phones: swipe left or right to move between photos (ignored while the visitor has pinched in on a photo)
+    var sx = 0, sy = 0, swiping = false;
+    dlg.addEventListener('touchstart', function (e) {
+      swiping = e.touches.length === 1 && !(window.visualViewport && window.visualViewport.scale > 1.05);
+      if (swiping) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }
+    }, { passive: true });
+    dlg.addEventListener('touchend', function (e) {
+      if (!swiping) return;
+      swiping = false;
+      var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) show(now + (dx < 0 ? 1 : -1));
+    }, { passive: true });
     dlg.addEventListener('close', function () {
       root.classList.remove('lb-open');
       if (opener) opener.focus();
