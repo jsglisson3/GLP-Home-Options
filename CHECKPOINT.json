@@ -53,22 +53,22 @@
   "research/photos/from-old-build/kitchen-table-800x600.jpg",
   "research/photos/glp-logo-original-200px.jpg"
  ],
- "checkpoint": 15,
+ "checkpoint": 16,
  "git_head_when_written": "ad04d66",
- "label": "Session 6g (continued): Home and About words trimmed, three Home FAQ questions merged",
+ "label": "Session 6g (continued): Home strip sentence shortened to one line",
  "note": "Written just before the files for this checkpoint are committed, so the commit that contains it comes after git_head_when_written.",
  "text": {
   "CONTENT_CLAIMS.md": "cc888ef518a3e137",
-  "DESIGN_SYSTEM.md": "7c3718e445e5e84d",
+  "DESIGN_SYSTEM.md": "cf1f17fe4b1a1905",
   "PICKUP.md": "736ce416a86463d3",
-  "PROJECT_STATUS.md": "69f2fe82ee031e88",
+  "PROJECT_STATUS.md": "f3cf835c6b472d02",
   "README.md": "f6810c79da8c5579",
-  "ROADMAP.md": "a22f2ead4288f7b0",
-  "SESSION_HANDOFF.md": "447244e86336321f",
+  "ROADMAP.md": "ab58528215b8e424",
+  "SESSION_HANDOFF.md": "908cb0f9255dc460",
   "about.html": "38c0f5cac3327545",
   "contact.html": "e1ec8671c60c815e",
   "css/site.css": "abc21bca4fbb0669",
-  "index.html": "8b5a81f49ce13fb3",
+  "index.html": "4d13879292d38fcc",
   "js/gallery.js": "0066a9c8a56d788e",
   "js/site.js": "e2f280c9454b397b",
   "new-homes.html": "0b60a0e47b41b2db",
@@ -96,7 +96,7 @@
   "tools/pages/_sprite.html": "f76503974cbdd063",
   "tools/pages/about.html": "5aa8336fde0e02c2",
   "tools/pages/contact.html": "e4843dd2a6de2b44",
-  "tools/pages/index.html": "02f50c4e833a10e7",
+  "tools/pages/index.html": "48aa29ee7d9ab654",
   "tools/pages/new-homes.html": "d7ea8443fe166322",
   "tools/pages/options.html": "282862a318d1bb10",
   "tools/pages/work.html": "1e7c65881578f73f",
@@ -105,5 +105,5 @@
   "tools/shots.py": "b8c0f90c8ca848bf",
   "work.html": "1902cf562af39c8b"
  },
- "written": "2026-10-21T23:49-05:00"
+ "written": "2026-10-21T23:52-05:00"
 }
