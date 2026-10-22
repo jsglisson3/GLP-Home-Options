@@ -2,7 +2,7 @@
 
 **Source of truth for visual decisions.** The code (`css/site.css`) is the truth for what exists today; this file records the values, the rules, and **which decisions Jeremy has actually approved**. If this file and the code disagree, believe the code, then fix this file.
 
-Last verified against the code: Oct 21, 2026. Checkpoint 12 (Session 6e) updated the header, breakpoints, motion, components and accessibility sections and the image notes; the other sections were last checked at Checkpoint 1. Checkpoint 13 (Session 6f) changed no code; it recorded Jeremy's tone, audience and contact-form direction in section 0 and corrected the glass count in section 5 (5 uses, not 7).
+Last verified against the code: Oct 21, 2026. Checkpoint 12 (Session 6e) updated the header, breakpoints, motion, components and accessibility sections and the image notes; the other sections were last checked at Checkpoint 1. Checkpoint 13 (Session 6f) changed no code; it recorded Jeremy's tone, audience and contact-form direction in section 0 and corrected the glass count in section 5 (5 uses, not 7). Checkpoint 14 (Session 6g) updated the Options, net sheet and photo wall rows in section 7.
 
 ## 0. Approval status (read this first)
 
@@ -54,6 +54,8 @@ All decisions (D1 to D6) and their status are in `PROJECT_STATUS.md`, section C.
 **Checkpoint 12 (Session 6e, Oct 21 night):** the full desktop header now starts at **1241px** (it was 1161px) and **the header phone number is gone**: with a sixth link (Our work) the bar overflowed the page at 1360 to 1440px and was cramped from 1161 to 1240px. The phone stays in the hero buttons, the footer, Contact and the phone bottom bar. Also new: **pages open at the very top on phones** (a guard in `js/site.js`; see the Components table), and the **Our work photo wall and viewer** (below). The stats strip, the numbers count-up and the "What matters most?" fit picker were removed in Session 6e's plain-talk pass.
 
 **Checkpoint 13 (Session 6f, Oct 21 late night):** no code changed. Jeremy's tone, audience and contact-form direction (items 8a to 8c) was recorded; the glass count was corrected from 7 to 5; the real contact form was measured and a fix for its look was prepared (`research/ghl-form-style.md`, `research/ghl-form-custom.css`, `research/ghl-form-before-after.jpg`).
+
+**Checkpoint 14 (Session 6g, Oct 21 late night):** words were trimmed before wording was simplified (Jeremy, 11:30 PM: trim first, then the plain-talk pass). The Options page lost repeated sentences, list items and one duplicate card; the net sheet shows three boxes up front with the five assumed costs under "Change the costs we assumed" and no bars (Jeremy: "crucial"); the Our work closing section holds two photos (the second, a SOLD-sign photo, is not yet confirmed by Joey).
 
 ## 1. Brand personality (from the master plan)
 
@@ -153,13 +155,13 @@ Reduced motion: all animations and transitions are removed; reveals show immedia
 | Section heading | `.head .eyebrow .ital` | Eyebrow + H2 with italic accent + optional lede. |
 | Icon tiles / beliefs | `.tile .belief .beliefs .beats .num .checks` | Line icons from the SVG sprite (`i-*` symbols), 2px stroke. |
 | Compare table | `.cmp .table-card .table-scroll` | Scrolls sideways on phones; focusable. |
-| Net sheet | `.net .sheet .verdict` | Symmetric verdict; "Example figures" labeled; disclaimer shown. |
+| Net sheet | `.net .sheet .verdict .costs-more` | Three boxes up front (what you still owe, what it might sell for, a cash offer to compare); the five assumed costs sit in a closed disclosure (`.costs-more`, "Change the costs we assumed"); two result columns line up row by row; no bars. Symmetric verdict; "Example figures" labeled; disclaimer shown. The math is in `js/site.js` (`calc()`); test any change against an independent calculation. |
 | "Jump to" panel | `.jump` (Options page) | In-page links to each option; glass surface. |
-| Option sections | `.opt-card` | "A good fit if" and an honest "Maybe not if". |
+| Option sections | `.opt-sec .opt-card .steps-line` | "A good fit if" and an honest "Maybe not if" (every "Maybe not if" stays). Section padding is 56 to 96px (`.opt-sec`); the plain "How it works" card is three steps for selling to us and one line (`.steps-line`) for listing. |
 | FAQ | `.faq` (`<details>`) | The same data drives the visible list and the FAQPage structured data (builder). |
 | Contact block | `.contact .reach-item .next .form-card .ghl` | Labels above fields; the form is the GoHighLevel iframe (`links.voiseai.com`). **Its look is set inside GoHighLevel** and today it reads as a bolt-on (the button says "Button"; Jeremy, Oct 21, 11:09 PM). The fix is prepared in `research/ghl-form-custom.css` and waits on GoHighLevel access. Our frame is a white card on the navy band. |
 | Gallery strip | `.gallery` (New homes) | Captions are honest status labels. |
-| Photo wall (Our work) | `.work-grid .work-rows .work-item .work-closed` | Every photo is a plain link to the larger picture, so it works without JavaScript. Photos of mixed shapes flow into columns (1, 2 or 3 by width); a group whose photos are all the same shape sits in tidy rows (the builder adds `.work-rows`). A white caption chip says what the photo shows or when. The photo list is `tools/gallery_data.py`; width and height are read from the picture files at build time. |
+| Photo wall (Our work) | `.work-grid .work-rows .work-item .work-closed` | Every photo is a plain link to the larger picture, so it works without JavaScript. Photos of mixed shapes flow into columns (1, 2 or 3 by width); a group whose photos are all the same shape sits in tidy rows (the builder adds `.work-rows`). A white caption chip says what the photo shows or when. The photo list is `tools/gallery_data.py`; width and height are read from the picture files at build time. The Recently closed group holds two photos, stacked in one column (17 photos in all). |
 | Photo viewer | `.lb` (a native `<dialog>`), `js/gallery.js` | Opens on the first click or tap. Close button, Previous and Next (they wrap around), arrow keys, Escape, and a click on the dark backdrop all work; focus returns to the photo you opened; the page behind stops scrolling; "3 of 16" is announced. Neighbor photos are preloaded. |
 | Open at the top | `js/site.js` (a guard near the top) | A page opens at the very top on phones. Reloads, the browser's scroll memory and the contact form script used to leave it half-way down. Until the visitor touches, scrolls or presses a key (or 8 seconds pass) it holds the page at the top. A link to a section (`#contact`) and the Back button are left alone. Automated tests must press a key first (`tools/shots.py` does). |
 | CTA band, footer | `.cta-band .ftr` | Every page ends with a next step. |

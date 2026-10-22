@@ -70,4 +70,10 @@ GALLERY = [
     dict(group="closed", img="images/closing-day.jpg",
          alt="Closing day: Joey with the homeowners at the title office, holding a Just Closed key and a GLP Home Options sign",
          caption="Closed · September 2026"),
+    # Added Oct 21 (11:35 PM) on Jeremy's word ("this other picture would be perfect for this section").
+    # NOT confirmed by Joey: who the two other people are, whether they and the title company agree to appear,
+    # and when it was taken. The caption claims no date. See CONTENT_CLAIMS.md row 47 and the private log.
+    dict(group="closed", img="images/work/closing-sold-sign.jpg",
+         alt="Closing day: three people smiling in an office, holding a SOLD sign",
+         caption="Another closing day"),
 ]

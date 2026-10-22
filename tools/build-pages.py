@@ -42,7 +42,7 @@ PHONE_TEL, PHONE_SMS, PHONE = "tel:+14234515707", "sms:+14234515707", "(423) 451
 EMAIL = "info@glphomeoptions.com"
 BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 FORM_ID = "c36UOOc2pkosxfvRfjZJ"
-CSS_V, JS_V = 31, 13
+CSS_V, JS_V = 32, 14
 HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
@@ -138,12 +138,10 @@ FAQ = {
          'Once commission, closing costs, and those costs come out, the gap can be smaller than it first looks. Run your own numbers on <a href="[[home]]#netsheet">the net sheet</a>.'),
         ("How do I know which option is right for me?",
          "Start with what matters most: speed, price, or staying put. Then talk to us. We'll go over the numbers together and tell you what we'd do in your position."),
-        ("What is seller financing?",
-         "With seller financing, the seller carries the loan instead of the buyer getting one from a bank. The buyer makes payments to the seller over time under agreed terms. "
-         "It can help when a standard sale doesn't fit. Terms vary, so have your own attorney or title company review any agreement."),
-        ("What is a lease option?",
-         "A lease option lets a buyer rent the home with the right, but not the obligation, to buy it later at an agreed price. "
-         "The details depend on the deal, so have your own attorney or title company review anything before you sign."),
+        ("What are seller financing and a lease option?",
+         "With seller financing, the seller carries the loan instead of a bank, and the buyer pays the seller over time under agreed terms. "
+         "With a lease option, a buyer rents the home with the right, but not the obligation, to buy it later at an agreed price. "
+         "Terms vary, so have your own attorney or title company review any agreement before you sign."),
         ("Do I have to decide on the first call?",
          "No. The first conversation is free, with no obligation. Take the time you need."),
     ],

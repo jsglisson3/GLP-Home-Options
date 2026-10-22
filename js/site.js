@@ -151,11 +151,6 @@
       el('r-payoff2').textContent = neg(payoff);
       el('r-netdirect').textContent = usd(netDirect);
       el('t-list').textContent = '~' + (Math.round(months * 10) / 10) + ' mo';
-      var max = Math.max(netList, netDirect, 1);
-      el('b-list').style.width = Math.max(0, netList / max * 100) + '%';
-      el('b-direct').style.width = Math.max(0, netDirect / max * 100) + '%';
-      el('bv-list').textContent = usd(netList);
-      el('bv-direct').textContent = usd(netDirect);
       var diff = netList - netDirect, v = el('verdict'), s = el('verdict-sub'), off = price - offer;
       if (Math.abs(diff) < 500) {
         v.innerHTML = 'About the <span>same</span> either way.';

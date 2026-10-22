@@ -170,7 +170,7 @@
       <div class="head rv" id="compare">
         <span class="eyebrow">Side by side</span>
         <h2 id="numbers-h">Listing vs. selling direct, <span class="ital">in plain numbers.</span></h2>
-        <p class="lede">Neither one is always better. Here's how the two most common paths compare, so you can see what you trade for speed or for price.</p>
+        <p class="lede">Neither one is always better. Here's how the two most common paths compare.</p>
       </div>
       <div class="table-card rv">
         <div class="table-scroll" role="region" aria-label="Comparison of listing with an agent versus selling direct to GLP" tabindex="0">
@@ -187,66 +187,68 @@
           </table>
         </div>
       </div>
-      <p class="fine">Typical ranges. Every home and market is different, and we'll go over your specific numbers with you.</p>
+      <p class="fine">Typical ranges. We'll go over your own numbers with you.</p>
 
       <div class="head rv netsheet-head" id="netsheet">
         <span class="eyebrow">Seller net sheet</span>
         <h2>What would you actually <span class="ital">walk away with?</span></h2>
-        <p class="lede">The sale price isn't what lands in your pocket. Put in your own numbers to compare what you'd keep from a listing against a direct offer.</p>
+        <p class="lede">The sale price isn't what you keep. Try your own numbers to see what you'd keep from listing and from a direct offer.</p>
       </div>
 
       <div class="net">
         <form class="panel rv" id="calc" autocomplete="off" onsubmit="return false">
           <h3>Your numbers <span class="example-tag">Example figures</span></h3>
-          <p class="sub">Change any value. Everything updates as you type.</p>
+          <p class="sub">Change a number and the answer updates.</p>
           <div class="fields">
-            <div class="fieldset-label">Both paths</div>
             <div class="field full">
-              <label for="payoff">Mortgage payoff</label>
+              <label for="payoff">What you still owe on the mortgage</label>
               <div class="input"><span class="pre">$</span><input id="payoff" inputmode="numeric" value="150,000"></div>
             </div>
-
-            <div class="fieldset-label">If you list with an agent</div>
             <div class="field">
-              <label for="price">Expected sale price</label>
+              <label for="price">What it might sell for</label>
               <div class="input"><span class="pre">$</span><input id="price" inputmode="numeric" value="300,000"></div>
+              <span class="hint">If you list it</span>
             </div>
             <div class="field">
-              <label for="comm">Agent commission</label>
-              <div class="input pct"><input id="comm" inputmode="decimal" value="6"><span class="post">%</span></div>
-            </div>
-            <div class="field">
-              <label for="close">Seller closing costs</label>
-              <div class="input pct"><input id="close" inputmode="decimal" value="2.5"><span class="post">%</span></div>
-            </div>
-            <div class="field">
-              <label for="repairs">Repairs and prep</label>
-              <div class="input"><span class="pre">$</span><input id="repairs" inputmode="numeric" value="8,000"></div>
-            </div>
-            <div class="field">
-              <label for="carry">Monthly carrying cost</label>
-              <div class="input"><span class="pre">$</span><input id="carry" inputmode="numeric" value="1,800"></div>
-              <span class="hint">Mortgage, taxes, insurance, utilities</span>
-            </div>
-            <div class="field">
-              <label for="months">Months to sell</label>
-              <div class="input pct"><input id="months" inputmode="decimal" value="2.5"><span class="post">mo</span></div>
-              <span class="hint">Typical listing: 1.5 to 3+ months</span>
-            </div>
-
-            <div class="fieldset-label">If you sell directly</div>
-            <div class="field full">
-              <label for="offer">Cash offer amount</label>
+              <label for="offer">A cash offer to compare</label>
               <div class="input"><span class="pre">$</span><input id="offer" inputmode="numeric" value="255,000"></div>
-              <span class="hint">An example only, not a quote. A real offer depends on the home, and we make it after we see it.</span>
+              <span class="hint">Just an example, not a quote</span>
             </div>
           </div>
+          <details class="costs-more">
+            <summary>Change the costs we assumed</summary>
+            <div class="fields">
+              <div class="field">
+                <label for="comm">Agent commission</label>
+                <div class="input pct"><input id="comm" inputmode="decimal" value="6"><span class="post">%</span></div>
+              </div>
+              <div class="field">
+                <label for="close">Seller closing costs</label>
+                <div class="input pct"><input id="close" inputmode="decimal" value="2.5"><span class="post">%</span></div>
+              </div>
+              <div class="field">
+                <label for="repairs">Repairs and prep</label>
+                <div class="input"><span class="pre">$</span><input id="repairs" inputmode="numeric" value="8,000"></div>
+              </div>
+              <div class="field">
+                <label for="carry">Monthly cost while listed</label>
+                <div class="input"><span class="pre">$</span><input id="carry" inputmode="numeric" value="1,800"></div>
+                <span class="hint">Mortgage, taxes, insurance, utilities</span>
+              </div>
+              <div class="field">
+                <label for="months">Months to sell</label>
+                <div class="input pct"><input id="months" inputmode="decimal" value="2.5"><span class="post">mo</span></div>
+                <span class="hint">Typical listing: 1.5 to 3+ months</span>
+              </div>
+            </div>
+          </details>
+          <p class="fine">A real offer depends on the home. We make it after we see the house.</p>
         </form>
 
         <div class="panel results rv" aria-live="polite">
           <div class="cols">
             <div class="sheet">
-              <h4>List with agent <small id="t-list">~2.5 mo</small></h4>
+              <h4>If you list <small id="t-list">~2.5 mo</small></h4>
               <dl>
                 <div><dt>Sale price</dt><dd id="r-price"></dd></div>
                 <div><dt>Mortgage payoff</dt><dd id="r-payoff1"></dd></div>
@@ -258,7 +260,7 @@
               </dl>
             </div>
             <div class="sheet sheet-us">
-              <h4>Sell direct <small>7–14 days</small></h4>
+              <h4>If you sell to us <small>7–14 days</small></h4>
               <dl>
                 <div><dt>Cash offer</dt><dd id="r-offer"></dd></div>
                 <div><dt>Mortgage payoff</dt><dd id="r-payoff2"></dd></div>
@@ -270,15 +272,11 @@
               </dl>
             </div>
           </div>
-          <div class="bars" aria-hidden="true">
-            <div class="bar"><span>List</span><div class="track"><div class="fill" id="b-list"></div></div><span class="v" id="bv-list"></span></div>
-            <div class="bar direct"><span>Direct</span><div class="track"><div class="fill" id="b-direct"></div></div><span class="v" id="bv-direct"></span></div>
-          </div>
           <div class="verdict">
             <div class="big" id="verdict"></div>
             <p id="verdict-sub"></p>
           </div>
-          <a class="btn btn-primary" href="#contact">Review these numbers with us<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-primary" href="#contact">Go over these numbers<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <p class="fine">Estimates for information only. Not legal, tax, or financial advice.</p>
         </div>
       </div>

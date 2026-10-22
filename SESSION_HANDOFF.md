@@ -1,12 +1,12 @@
 # Session handoff
 
-**Written:** Oct 21, 2026, about 11:40 PM CT, at the end of Session 6f, Checkpoint 13.
+**Written:** Oct 21, 2026, about 11:50 PM CT, at the end of Session 6g, Checkpoint 14. Checkpoint 13 (Session 6f) came just before it.
 **Replace this file at the end of every session.** It describes exactly one next session and what is true right now. The long-term plan is in `ROADMAP.md`; the full state is in `PROJECT_STATUS.md`.
 
 ## Where the project is
 
 - **Live site = Jeremy's commit "big push" (`9d79ab4`, 11:05 PM CT, Checkpoint 12)** at https://jsglisson3.github.io/GLP-Home-Options/ (`noindex`). It has the Our work page, the six-link header, the menu-highlight fix and the start-at-top fix. All 46 files saved for Checkpoint 12 are in that commit with exactly the saved content.
-- **Checkpoint 13 (Session 6f) changed no page, style or script.** It added notes and three research files about the contact form (below), updated `research/questions-for-joey.md`, and recorded Jeremy's tone and audience direction. It waits for him to commit and sync; nothing on the live site depends on it.
+- **Checkpoints 13 and 14 are saved in his folder and wait for him to commit and sync.** Checkpoint 13 (Session 6f) changed no page: notes and three research files about the contact form (below), updated Joey questions, Jeremy's tone and audience direction. **Checkpoint 14 (Session 6g) changes live pages:** the **Options page is trimmed** by cutting words (1,263 down to 1,113 words; 8,829 down to 7,450 px on a laptop), the **net sheet on Home is simplified** (three boxes up front, the five assumed costs under "Change the costs we assumed", no bars; same math, tested), and a **SOLD-sign photo is added to Our work** under the September closing as "Another closing day" (not confirmed by Joey; `CONTENT_CLAIMS.md` row 47). CSS v32, JS v14. Two new tools: `tools/netsheet-test.py` (run it after any net sheet change) and `tools/page-size.py` (page height and words).
 - **Approved by Jeremy:** D1 (navy leads, green accent); D2 (warm cream, the whole site's one tint); D4 (hero A, people-led, in the gable frame); D5 (restrained glass and motion, as a direction; the exact list is Session 4); D6 (the gallery is its own "Our work" page, approved Oct 21, 8:40 PM); "Joey's own words now" for claims. D3 proceeds by default.
 - **Jeremy's direction, Oct 21, 11:09 to 11:11 PM** (`DESIGN_SYSTEM.md`, section 0, items 8a to 8c): professional but not too corporate; best guidelines but not cookie-cutter; authentic, not a sellout. The people selling are ordinary homeowners, many short on money and time, many wary of "we buy houses" ads, so: plain words, no pressure, no luxury gloss, short forms, phone first.
 - **The contact form looks like a bolt-on** (Jeremy: "scammy, like an ad on top of the website"). It is GoHighLevel's default in an iframe from `links.voiseai.com`; only someone with GoHighLevel access can restyle it. **A tested fix is ready:** `research/ghl-form-style.md` (what is wrong, steps, what to check), `research/ghl-form-custom.css` (paste-ready) and `research/ghl-form-before-after.jpg`. The button still says "Button". The consent text now names "GL Partners LLC DBA GLP Home Options" with no placeholders left. Not tested: the form inside our page (the AI's browser tab shows the frame blank), error messages, a phone width.
@@ -18,24 +18,26 @@
 - **Waiting on Jeremy:** try the start-at-top fix on his phone (open a page, scroll, reload, and open it from a bookmark and from a link in a message; tell me if any still starts in the middle, and how he got there); get Joey to add him to GoHighLevel or paste the CSS himself; answers to D7 to D11 (`ROADMAP.md`, "Proposed plan v2"); sending the Joey text (`research/questions-for-joey.md`); whether to delete `Facebook.mhtml`.
 - **Waiting on Joey:** the photo confirmations (rows 42 to 46), photo and video originals, the SOLD-photo people and title company, every claim tagged **J**, license or brokerage (his videos say "New Listing coming soon"), the county list, the main phone number, reviews, GoHighLevel access, the domain. A lawyer should look at how seller financing and lease options are described.
 
-## Next: tonight's last push (Jeremy chose items 1, 2 and 3 at 11:24 PM; item 4 is parked)
+## Next: the overnight run (Jeremy is going to sleep; nothing goes live until he commits in the morning)
 
-Do them in this order, one checkpoint each, saving after each so he can commit and see it:
+**His rules for it:** trim words first, then plain talk (11:30 PM). Tone: professional but not too corporate, not cookie-cutter, authentic (11:10 PM). Audience: ordinary homeowners short on money and time, wary of "we buy houses" ads (11:11 PM). **The net sheet is crucial** (11:33 PM; done once, keep it simple). The new "The numbers" page (D7) is parked: leave the compare table and net sheet where they are.
 
-1. **Trim the Options page** (`options.html`, built from `tools/pages/options.html`; about 9,000 px today). Shorter, without losing depth or any honest "Maybe not if". `ROADMAP.md`, Session 8.
-2. **A plain-talk pass for the audience** (Jeremy, 11:11 PM): read every page's words as a tired homeowner short on time and money who has seen many "we buy houses" ads. Plainer words, shorter sentences, nothing that sounds like a pitch, no new claims (`CONTENT_CLAIMS.md` and `tools/claims-check.py` still rule).
-3. **The contact section, our side of the frame:** make the section around the form feel like two local people, not an ad. `ROADMAP.md`, "Jeremy's direction". The form's own look stays a GoHighLevel job; do not replace the form or touch the consent wording.
-4. **Parked, do not build:** the new "The numbers" page (D7). Jeremy: "we will come back to that, but keep this in mind." Do not undo anything that makes it harder later: the compare table and net sheet stay where they are.
+Do these in order. **One checkpoint and one save per step**, so he can accept or reject each by commit. If a check fails and cannot be fixed in a few minutes, undo that step (the files saved before it are the safe state) and write what happened at the top of this file.
 
-Every change gets a before and after screenshot check (`tools/shots.py`), `check-links.py`, `claims-check.py` and an accessibility scan, then a checkpoint, then the save protocol below.
+1. **Trim words on Home, About, New homes and Contact.** (The Options page is done; Session 6g in `PROJECT_STATUS.md` shows the method.) Cut sentences that repeat another, list items that say the same thing twice, and cards that repeat each other. Keep every "Maybe not if", every confirmed claim (`CONTENT_CLAIMS.md`), and the phone, email, Facebook link, form id and booking id. Targets: Home main text from about 1,380 to about 1,000 words; the others by 10 to 15%. Measure with `python3 tools/page-size.py PAGE` before and after.
+2. **Plain-talk pass on every page, after step 1.** Short sentences, everyday words, no pitch language. Explain or drop jargon (MLS, carrying costs, as-is, equity, title company, off-market): say what it means in the same sentence. Talk about money the way a neighbor would. Phone first. Add no claims; keep `python3 tools/claims-check.py` clear. Read the net sheet labels last.
+3. **The contact section, our side of the frame** (Home and Contact): a calmer card (softer shadow), Joey and Ethan's faces beside the form, three short lines on what happens next, the phone number as the first choice. Do not replace the form or touch the consent wording; its own look stays a GoHighLevel job (`research/ghl-form-style.md`).
+4. **Final QA and a morning handoff:** before and after pictures (`tools/shots.py`) for every changed page; axe (see Commands); links; claims; `python3 tools/netsheet-test.py` (must print `FAILS 0`); 320 to 390 px widths. Replace this file with a short morning summary at the top: what changed, what to look at first, what to reject if he does not like it, and the commit messages.
 
-## After tonight: Session 4, direction lock (30 to 45 minutes)
+**Do not:** build the numbers page; change the glass; add claims or photos; change the phone, email, Facebook link, form id, booking id or the `noindex` tag; sign in anywhere; put a street address in any repo file.
+
+## After the overnight run: Session 4, direction lock (30 to 45 minutes)
 
 **Objective:** turn the approved decisions into the formal design system and set the exact glass list. **No change to any real page.** The glass inventory is already done (5 uses; `DESIGN_SYSTEM.md` section 5) and Checkpoint 13 recorded the D10 recommendation; what is left is Jeremy's answers.
 
 ### Needed from Jeremy (first message, short)
 
-1. That Checkpoint 13 and tonight's later checkpoints are committed and synced, and whether the start-at-top fix works on his phone.
+1. That Checkpoints 13 and 14 and the overnight checkpoints are committed and synced, and whether the start-at-top fix works on his phone.
 2. His answers to **D7 to D11** in `ROADMAP.md` ("go with your recommendations" is a valid answer). D8 (headline rule) and D10 (glass list) feed this session directly.
 3. What else at the top of the page looked gimmicky, if anything. One question.
 
@@ -74,7 +76,9 @@ python3 tools/claims-check.py                   # the "never invent" rule: no cr
 python3 tools/process-photos.py --slug NAME photo.jpg   # prepare a photo for Our work (upright, metadata removed, 1600px and 800px); prints the gallery_data.py line
 python3 tools/shots.py ../shots-before          # full-page screenshots (1440 and 390 px, or --widths=320,768,1024); keep the folder outside the project
 python3 tools/shots-diff.py ../shots-before ../shots-after   # which pictures changed and by how much
-python3 tools/a11y-check.py index.html ...      # accessibility scan (Playwright and axe-core, run from the folder that has node_modules); give .html names; also tests the Our work photo viewer
+python3 tools/page-size.py options              # a page's height and word count, section by section, at 1440 and 390 px
+python3 tools/netsheet-test.py                  # the net sheet math against an independent calculation (must print FAILS 0)
+python3 tools/a11y-check.py index.html ...      # accessibility scan (Playwright and axe-core, run from the folder that has node_modules; `npm i axe-core` first in a new session); give .html names; also tests the Our work photo viewer
 python3 tools/checkpoint.py --write "label"     # end of session, after everything passes
 python3 -m http.server 8000                     # preview at http://localhost:8000
 ```
@@ -91,12 +95,22 @@ python3 -m http.server 8000                     # preview at http://localhost:80
 - **Facebook:** our tools cannot fetch it (it refuses them) and we never sign in. Ask Joey or Jeremy for saved photos or video files.
 - **Our work photo groups:** photos of mixed shapes flow into columns; a group whose photos are all the same shape sits in rows (the builder decides). Seven same-shape Building photos leave one photo alone in the last row; a "More on Facebook" tile could fill it.
 
-## Suggested commit message for this session (Jeremy)
+## Suggested commit messages (Jeremy)
 
-Subject: Contact form fix ready, tone and audience notes, Joey questions updated
+**For Checkpoint 13** (if he has not committed it yet, one commit for both is fine; use the second message):
 
-Body:
+Contact form fix ready, tone and audience notes, Joey questions updated
+
 - Contact form: measured the live form and wrote a tested fix for its look (paste-ready CSS, steps, before and after picture); it needs GoHighLevel access
 - Notes now record the tone and audience direction and the corrected glass count
 - Questions for Joey updated (Our work photos, the sold photo, the videos, the form)
 - Checkpoint 13; no page, style or script changes
+
+**For Checkpoint 14:**
+
+Trim the Options page, simplify the net sheet, add the sold-sign photo to Our work
+
+- Options page: cut repeated words and list items (about 16% shorter); every "Maybe not if" kept
+- Net sheet: three boxes up front, the other costs under "Change the costs we assumed", same math (tested); bars removed
+- Our work: a second closing photo under the September one, captioned "Another closing day" (not yet confirmed by Joey)
+- New tools: net sheet test, page size; notes updated; checkpoint 14
