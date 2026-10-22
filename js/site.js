@@ -10,6 +10,31 @@
   /* ---------- Year ---------- */
   var yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
 
+  /* ---------- Open at the very top ----------
+     A reloaded page reopens part-way down (the browser remembers where you were, and phones do it a lot), and the embedded
+     contact form can pull the page toward itself while it loads. Until the visitor touches the page, keep it at the top.
+     A link to a section (#contact) and the Back button are left alone. */
+  (function () {
+    var entry = window.performance && performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
+    if (location.hash || (entry && entry.type === 'back_forward')) return;
+    var guarding = true, canRestore = 'scrollRestoration' in history;
+    function topNow() {
+      if (guarding && (window.pageYOffset || doc.documentElement.scrollTop)) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+    function stop() {
+      if (!guarding) return;
+      guarding = false;
+      if (canRestore) history.scrollRestoration = 'auto';   // give Back its normal memory again
+    }
+    if (canRestore) history.scrollRestoration = 'manual';
+    ['touchstart', 'wheel', 'keydown', 'mousedown'].forEach(function (ev) { window.addEventListener(ev, stop, { passive: true, once: true }); });
+    window.addEventListener('scroll', topNow, { passive: true });
+    window.addEventListener('load', topNow);
+    window.addEventListener('pageshow', topNow);
+    topNow();
+    setTimeout(stop, 8000);
+  })();
+
   /* ---------- Scroll: header state, ridge parallax ---------- */
   var hdr = $('#hdr'), hero = $('.hero, .phero'), ridge = $('.ridge');
   var ticking = false;
@@ -80,7 +105,7 @@
     mbtn.addEventListener('click', function () { setMenu(mnav.hidden); });
     mnav.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
     doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !mnav.hidden) { setMenu(false); mbtn.focus(); } });
-    window.addEventListener('resize', function () { if (window.innerWidth > 1160 && !mnav.hidden) setMenu(false); });
+    window.addEventListener('resize', function () { if (window.innerWidth > 1240 && !mnav.hidden) setMenu(false); });
   }
 
   /* ---------- Scroll-spy for the desktop nav ---------- */
@@ -94,6 +119,8 @@
         if (e.isIntersecting) {
           navLinks.forEach(function (n) { n.classList.remove('active'); n.removeAttribute('aria-current'); });
           a.classList.add('active'); a.setAttribute('aria-current', 'true');
+        } else if (a.classList.contains('active')) {   // scrolled away again: no highlight when no section is in view
+          a.classList.remove('active'); a.removeAttribute('aria-current');
         }
       });
     }, { rootMargin: '-45% 0px -50% 0px' });

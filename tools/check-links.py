@@ -52,6 +52,10 @@ for name, s in scans.items():
         u = urlsplit(href)
         if u.scheme in ("http", "https"):
             continue
+        if u.path and not u.path.endswith(".html"):   # a link to a file, such as the larger version of a photo
+            if not (ROOT / unquote(u.path)).exists():
+                problems.append(f"{name}: link to missing file '{href}'")
+            continue
         target = name if not u.path else u.path
         t = scans.get(target)
         if t is None:

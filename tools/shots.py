@@ -10,8 +10,8 @@ Example: python3 tools/shots.py ../shots-before
 
 Needs Playwright with Chromium. It serves the project folder itself (no other server needed),
 blocks outside requests so the GoHighLevel form cannot change the picture, turns motion off so
-animations cannot, scrolls down the page first (photos use lazy loading, so they stay blank
-otherwise), hides the phone bottom bar, and writes OUTDIR/<page>_<width>.png at 1440 and 390 wide.
+animations cannot, presses a key (the pages keep themselves at the top until a visitor touches them)
+and scrolls down the page first (photos use lazy loading, so they stay blank otherwise), hides the phone bottom bar, and writes OUTDIR/<page>_<width>.png at 1440 and 390 wide.
 Keep OUTDIR outside the project folder, or it will be picked up by the checkpoint tool.
 """
 import functools
@@ -23,7 +23,7 @@ import threading
 from playwright.sync_api import sync_playwright
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ALL = ["index", "options", "about", "new-homes", "contact", "privacy-policy", "terms-of-service"]
+ALL = ["index", "options", "about", "work", "new-homes", "contact", "privacy-policy", "terms-of-service"]
 WIDTHS = [(1440, False), (390, True)]
 
 
@@ -58,6 +58,7 @@ def main():
                 pg = c.new_page()
                 pg.goto(f"http://127.0.0.1:{port}/{name}.html", wait_until="load")
                 pg.wait_for_timeout(1200)
+                pg.keyboard.press("Shift")   # a real key press ends the start-at-top guard in js/site.js, or the scrolling below is undone
                 h = pg.evaluate("document.documentElement.scrollHeight")
                 y = 0
                 while y < h:

@@ -8,9 +8,10 @@ FAQ and contact blocks repeat on every page. This script keeps ONE copy of each 
 Commit the generated .html files; the site itself stays plain HTML, CSS and JavaScript.
 
 Where things live
-  tools/pages/<page>.html   the <main> content of each page (index, options, about, new-homes, contact)
+  tools/pages/<page>.html   the <main> content of each page (index, options, about, work, new-homes, contact)
   tools/pages/_sprite.html  the icon sprite and the gable clip-path (see clean_sprite() below for why it is cleaned on read)
   tools/legal_text.py       the wording of the Privacy Policy and Terms (a plain-words draft, not lawyer-reviewed)
+  tools/gallery_data.py     the photos on the Our work page (file, alt text, caption). tools/process-photos.py prepares new ones
   this file                 header, footer, mobile bar, FAQ text, titles and descriptions, structured data
 
 Tokens you can use inside tools/pages/*.html
@@ -18,6 +19,7 @@ Tokens you can use inside tools/pages/*.html
   [[contact-href]] [[home]] [[new-homes-href]] [[fb]]   links that depend on which page you are on
   [[faq home]] [[faq options]] ...           FAQ list (also feeds the FAQPage structured data, so they can never drift apart)
   [[cta options]] ...                        the closing call-to-action band
+  [[gallery building]] [[gallery closed]]    a photo grid from tools/gallery_data.py (the Our work page)
   [[contact home]] [[contact page]]          the contact section (reach tiles, next steps, form)
 """
 import html
@@ -29,6 +31,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
 sys.path.insert(0, str(TOOLS))
+import gallery_data as GAL  # noqa: E402
 import legal_text as LEGAL  # noqa: E402
 
 # ------------------------------------------------------------------ site facts (change them here, once)
@@ -39,7 +42,7 @@ PHONE_TEL, PHONE_SMS, PHONE = "tel:+14234515707", "sms:+14234515707", "(423) 451
 EMAIL = "info@glphomeoptions.com"
 BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 FORM_ID = "c36UOOc2pkosxfvRfjZJ"
-CSS_V, JS_V = 29, 10
+CSS_V, JS_V = 31, 13
 HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
@@ -68,6 +71,12 @@ PAGES = [
          desc="Meet Joey and Ethan, co-founders of GLP Home Options in Hixson, TN. Guides, not gurus: clear options, honest advice, and no pressure for Chattanooga homeowners.",
          og_title="Guides, not gurus. Meet Joey & Ethan | GLP Home Options",
          og_desc="Two local co-founders, one simple promise: every option for your home, laid out in plain English. No pressure, just solutions.",
+         ld=["crumbs"]),
+    dict(slug="work", file="work.html", crumb="Our work", preload=[], js=["gallery"],
+         title="Our Work: Renovations, Builds and Closings | GLP Home Options",
+         desc="Photos from renovations, the new home we're building in Chattanooga, and a recent closing, from Joey and Ethan at GLP Home Options in Hixson, TN.",
+         og_title="Our work: renovations, builds and closings | GLP Home Options",
+         og_desc="Photos from the job sites and a recent closing in Chattanooga.",
          ld=["crumbs"]),
     dict(slug="new-homes", file="new-homes.html", crumb="New homes", preload=["images/build-exterior.jpg"],
          title="Affordable New Homes in Chattanooga | GLP Home Options",
@@ -101,7 +110,7 @@ FAQ = {
          "No. The first conversation is free and there's no obligation. We'll show you every realistic option, including listing with an agent or keeping the home, and you decide what's right."),
         ("How do I know GLP is legit?",
          f'Fair question. You deal directly with Joey or Ethan, and you can reach us anytime at <a href="{PHONE_TEL}">{PHONE}</a> or <a href="mailto:{EMAIL}">{EMAIL}</a>. '
-         f"You can see our recent closing and the home we're building on {LINK_FB}, and you're always free to have your own attorney or title company review anything before you sign."),
+         f'You can see our recent closing and the home we\'re building on <a href="work.html">our work page</a> and {LINK_FB}, and you\'re always free to have your own attorney or title company review anything before you sign.'),
         ("How fast can you close if I sell directly?",
          "As little as 7 days, and usually 7 to 14. You pick the closing date, so if you need more time to move, that works too."),
         ("Do I need to fix anything or clean out the house?",
@@ -163,6 +172,8 @@ CTAS = {
               "You'll talk to Joey or Ethan. We'll listen first, show you every option, and let you decide."),
     "homes": ("Be first to know", "Want to see it <span class=\"ital\">before it's listed?</span>",
               "Ask about getting in early, or about down payment assistance if you're a first-time buyer. You'll talk to Joey or Ethan."),
+    "work": ("Let's talk", "Have a house on your mind? <span class=\"ital\">Tell us about it.</span>",
+             "You'll talk to Joey or Ethan. We'll listen first, show you every option, and let you decide."),
 }
 
 RIDGE = ('<svg class="ridge" viewBox="0 0 1440 240" preserveAspectRatio="none" focusable="false">'
@@ -273,6 +284,46 @@ def ld_blocks(pg):
     return out
 
 
+def image_size(rel):
+    """Width and height of a JPEG or PNG, read from the file itself, so a page can never disagree with its photo."""
+    data = (ROOT / rel).read_bytes()
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return int.from_bytes(data[16:20], "big"), int.from_bytes(data[20:24], "big")
+    i = 2
+    while i + 9 < len(data):
+        if data[i] != 0xFF:
+            i += 1
+            continue
+        m = data[i + 1]
+        if m == 0xFF or m in (0xD8, 0x01) or 0xD0 <= m <= 0xD7:
+            i += 1 if m == 0xFF else 2
+            continue
+        if 0xC0 <= m <= 0xCF and m not in (0xC4, 0xC8, 0xCC):   # a "start of frame" block holds the size
+            return int.from_bytes(data[i + 7:i + 9], "big"), int.from_bytes(data[i + 5:i + 7], "big")
+        i += 2 + int.from_bytes(data[i + 2:i + 4], "big")
+    raise ValueError(f"cannot read the size of {rel}")
+
+
+def gallery(group):
+    """The photo grid for one group in tools/gallery_data.py. Each photo is a plain link to the larger picture
+    (it works with no JavaScript); js/gallery.js adds the viewer on top."""
+    items = [g for g in GAL.GALLERY if g["group"] == group]
+    if not items:
+        sys.exit(f"gallery '{group}': no photos in tools/gallery_data.py")
+    out, ratios = [], set()
+    for g in items:
+        w, h = image_size(g["img"])
+        ratios.add(round(w / h, 2))
+        full = g.get("full") or g["img"]
+        out.append(
+            f'  <li class="work-item rv"><figure><a href="{full}"><img src="{g["img"]}" alt="{html.escape(g["alt"], quote=True)}" '
+            f'width="{w}" height="{h}" loading="lazy" decoding="async"></a>'
+            f'<figcaption>{html.escape(g["caption"])}</figcaption></figure></li>')
+    # photos that are all the same shape sit in tidy rows; mixed shapes flow into columns
+    rows = " work-rows" if len(items) >= 3 and len(ratios) == 1 else ""
+    return f'<ul class="work-grid{rows}" data-stagger>\n' + "\n".join(out) + "\n      </ul>"
+
+
 def fb_button():
     return (f'<a class="fb-btn" href="{FB}" target="_blank" rel="noopener">{ICON("fb-logo", "fb-logo")}'
             f'<span><b>Follow us on Facebook</b><small>Recent closings and builds</small>{NEWTAB}</span></a>')
@@ -294,6 +345,7 @@ def header(pg):
         link("options", "Your options", "options.html"),
         f'<a href="{sec(pg, "numbers")}">The numbers</a>',
         link("about", "Our story", "about.html"),
+        link("work", "Our work", "work.html"),
         link("new-homes", "New homes", NEW_HOMES),
         link("contact", "Contact", "contact.html"),
     ])
@@ -302,6 +354,7 @@ def header(pg):
         f'<a href="{sec(pg, "how")}">How it works</a>',
         f'<a href="{sec(pg, "numbers")}">Compare &amp; net sheet</a>',
         link("about", "Our story", "about.html"),
+        link("work", "Our work", "work.html"),
         link("new-homes", "New homes", NEW_HOMES),
         f'<a href="{sec(pg, "faq")}">FAQ</a>',
         link("contact", "Contact", "contact.html"),
@@ -313,7 +366,6 @@ def header(pg):
       {nav}
     </nav>
     <a class="hdr-fb" href="{FB}" target="_blank" rel="noopener" aria-label="GLP Home Options on Facebook (opens in a new tab)" title="GLP Home Options on Facebook">{ICON("fb-logo", "fb-logo")}</a>
-    <a class="hdr-phone" href="{PHONE_TEL}" aria-label="Call GLP Home Options at {PHONE}">{ICON("phone")}<span>{PHONE}</span></a>
     <a class="btn btn-primary btn-sm hdr-cta" href="{contact_href(pg)}">Get my options</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav">{ICON("menu")}<span>Menu</span></button>
   </div>
@@ -340,7 +392,7 @@ def footer(pg):
     </div>
     <nav class="ftr-col" aria-label="Explore">
       <h2>Explore</h2>
-      <a href="options.html">Your options</a><a href="{sec(pg, "how")}">How it works</a><a href="{sec(pg, "numbers")}">Compare &amp; net sheet</a><a href="about.html">Our story</a><a href="{NEW_HOMES}">New homes</a><a href="{sec(pg, "faq")}">FAQ</a><a href="contact.html">Contact</a>
+      <a href="options.html">Your options</a><a href="{sec(pg, "how")}">How it works</a><a href="{sec(pg, "numbers")}">Compare &amp; net sheet</a><a href="about.html">Our story</a><a href="work.html">Our work</a><a href="{NEW_HOMES}">New homes</a><a href="{sec(pg, "faq")}">FAQ</a><a href="contact.html">Contact</a>
     </nav>
     <div class="ftr-col">
       <h2>Contact</h2>
@@ -428,7 +480,7 @@ def reach():
           </a>
           <a class="reach-item rv" href="{FB}" target="_blank" rel="noopener">
             <span class="ico" aria-hidden="true">{ICON("fb-logo", "fb-logo")}</span>
-            <span class="txt"><small>See our recent work</small><b class="sm">Find us on Facebook{NEWTAB}</b></span><span class="go" aria-hidden="true">Visit</span>
+            <span class="txt"><small>Recent closings and builds</small><b class="sm">Find us on Facebook{NEWTAB}</b></span><span class="go" aria-hidden="true">Visit</span>
           </a>
         </div>'''
 
@@ -496,6 +548,8 @@ def expand(pg, text):
             return faq_list(pg, tok.split(" ", 1)[1])
         if tok.startswith("cta "):
             return cta_band(pg, tok.split(" ", 1)[1])
+        if tok.startswith("gallery "):
+            return gallery(tok.split(" ", 1)[1])
         if tok == "contact home":
             return contact_section(pg, page=False)
         if tok == "contact page":
@@ -509,7 +563,10 @@ def scripts(pg):
     s = ""
     if pg["ghl"]:
         s += '<script src="https://links.voiseai.com/js/form_embed.js" async></script>\n'
-    return s + f'<script src="js/site.js?v={JS_V}" defer></script>'
+    s += f'<script src="js/site.js?v={JS_V}" defer></script>'
+    for name in pg.get("js", []):   # scripts only one page needs (the Our work photo viewer)
+        s += f'\n<script src="js/{name}.js?v={JS_V}" defer></script>'
+    return s
 
 
 def render(pg, main):

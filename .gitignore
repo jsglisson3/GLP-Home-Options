@@ -1,0 +1,7 @@
+# Raw inbox: photos and videos dropped in for Claude to process. They are not part of the website and must not be published.
+# This only stops NEW files from being added; files that were already committed stay tracked.
+research/photos/incoming/*
+
+# Saved copies of web pages can hold private data from a signed-in browser.
+*.mhtml
+*.mht

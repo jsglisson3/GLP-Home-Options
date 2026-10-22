@@ -2,7 +2,7 @@
 
 **Source of truth for visual decisions.** The code (`css/site.css`) is the truth for what exists today; this file records the values, the rules, and **which decisions Jeremy has actually approved**. If this file and the code disagree, believe the code, then fix this file.
 
-Last verified against the code: Oct 21, 2026 (Session 1, Checkpoint 1).
+Last verified against the code: Oct 21, 2026. Checkpoint 12 (Session 6e) updated the header, breakpoints, motion, components and accessibility sections and the image notes; the other sections were last checked at Checkpoint 1.
 
 ## 0. Approval status (read this first)
 
@@ -44,7 +44,9 @@ All decisions (D1 to D6) and their status are in `PROJECT_STATUS.md`, section C.
 
 **Checkpoint 9 (Session 6c):** the Home hero photo was re-processed, not re-shot: the source is 800 x 600, so it was resampled with Lanczos, lightly sharpened and warmed (`images/joey-ethan-bridge.jpg` for normal screens and `images/joey-ethan-bridge-2x.jpg`, 1600 x 1200, for sharp screens, chosen by `srcset`); the original is kept in `research/photos/from-old-build/`. The gable frame is slimmer on every page (7px line, 7px white mat; was 9 and 8) and the photo has a soft shade at the bottom behind the name plate. The header's phone number is plain text with a small green phone glyph and the Facebook logo has no circle; the scroll-progress line was removed. **The photo is the limit: ask Joey for the original file or a new portrait (at least 1600px tall).**
 
-**Checkpoint 10 (Session 6d):** the hero photo has 6% extra headroom (a mirrored, blurred extension of the top of the background; the faces are untouched) so the roofline no longer clips the heads: `joey-ethan-bridge.jpg` is 800 x 636 and `-2x.jpg` 1600 x 1272. The header shows the "Get my options" button beside Menu from 641 to 1160px wide (it was hidden there); below 641px only Menu shows, and above 1160px the full desktop header shows.
+**Checkpoint 10 (Session 6d):** the hero photo has 6% extra headroom (a mirrored, blurred extension of the top of the background; the faces are untouched) so the roofline no longer clips the heads: `joey-ethan-bridge.jpg` is 800 x 636 and `-2x.jpg` 1600 x 1272. The header shows the "Get my options" button beside Menu from 641 to 1240px wide (it was hidden there); below 641px only Menu shows, and above 1240px the full desktop header shows.
+
+**Checkpoint 12 (Session 6e, Oct 21 night):** the full desktop header now starts at **1241px** (it was 1161px) and **the header phone number is gone**: with a sixth link (Our work) the bar overflowed the page at 1360 to 1440px and was cramped from 1161 to 1240px. The phone stays in the hero buttons, the footer, Contact and the phone bottom bar. Also new: **pages open at the very top on phones** (a guard in `js/site.js`; see the Components table), and the **Our work photo wall and viewer** (below). The stats strip, the numbers count-up and the "What matters most?" fit picker were removed in Session 6e's plain-talk pass.
 
 ## 1. Brand personality (from the master plan)
 
@@ -99,15 +101,15 @@ Headings use `text-wrap: balance`. Do not add a third font.
 
 - Content width `--maxw: 1240px` via `.wrap`, side padding `clamp(20px, 4vw, 48px)` plus device safe areas.
 - Sections (`.sec`): vertical padding `clamp(76px, 10vw, 136px)`. Section heads (`.head`): max 780px (`.center` max 980px), 18px gap, bottom margin `clamp(40px, 6vw, 72px)`.
-- `--pull: clamp(64px, 8vw, 112px)` pulls the stats strip up over the hero.
+- `--pull: clamp(64px, 8vw, 112px)` leaves room under the hero people for the ridge (it used to pull the stats strip up over the hero; the strip was removed at Checkpoint 12).
 - Sticky header: 82px tall, 68px after scrolling. `scroll-padding-top: 92px` so anchors clear it.
 - **There is no spacing scale.** Gaps and paddings are individual values. (PROPOSAL P2.)
 
 ### Breakpoints (BUILT, and inconsistent)
 
-19 distinct width conditions across 47 width-based `@media` rules (51 `@media` rules in all; the rest are print, reduced-motion and coarse-pointer): max-width **380, 420, 440, 480, 520, 560, 620, 700, 720, 760, 860, 900, 960, 980, 1080, 1160** and min-width **981, 1161, 1360**. Most used: 900 (12 rules), 980 (6), 520 (5). The ones that carry real decisions: **≤1160** (nav collapses to the phone menu), **≥1360** (header phone pill appears), **≤900** and **≤520** (layouts stack, phone sizing).
+24 distinct width conditions across 55 width-based `@media` rules (60 `@media` rules in all; the rest are print, reduced-motion and coarse-pointer), counted at Checkpoint 12: max-width **350, 380, 420, 440, 480, 520, 560, 620, 640, 700, 720, 760, 767, 860, 900, 960, 980, 1080, 1100, 1240** and min-width **560, 980, 981, 1241**. Most used: 900 (11 rules), 980 (5), 520 (5). The ones that carry real decisions: **≤1240** (nav collapses to the phone menu; **≥1241** shows the full header and the Facebook logo button), **≤900** and **≤520** (layouts stack, phone sizing). The Our work photo wall uses **560** (2 columns) and **980** (3 columns).
 
-**PROPOSAL P1 (Phase 2, no visual change intended):** consolidate to four: 520 (phone), 900 (tablet), 1160 (nav), 1360 (wide), and map every other value onto them.
+**PROPOSAL P1 (Phase 2, no visual change intended):** consolidate to four: 520 (phone), 900 (tablet), 1240 (nav), plus one wide value if a layout needs it (the old 1360 header-phone rule is gone), and map every other value onto them.
 
 ## 5. Surfaces: radii, shadows, glass (BUILT)
 
@@ -127,32 +129,32 @@ Principles: motion explains or rewards, never decorates; everything is off for `
 | Background blobs | Removed at Checkpoint 5 (D5). |
 | Topographic contours | Canvas, drawn once per size (static lines; 16 rings around two peaks). |
 | Header | Height and background ease in `.3s`; scroll-progress bar fills with scroll. |
-| Count-up (stats strip) | 1.2s ease-out cubic; 8s failsafe shows final numbers. |
 | Buttons | Lift 2px on hover, sheen sweep `.8s`; arrow nudges 3px. |
 | Page changes | `@view-transition` soft fade where supported. |
 
-Reduced motion: all animations and transitions are removed; reveals show immediately; parallax and count-up are skipped. **Approved Oct 21 (D5):** drop the background blobs (`drift`) and the photo parallax; keep scroll reveal, the ridge and contour touches, count-up, button hover and the page fade. **PROPOSAL P4:** define motion tokens (durations, easings) in Phase 2.
+Reduced motion: all animations and transitions are removed; reveals show immediately; parallax is skipped. **Approved Oct 21 (D5):** drop the background blobs (`drift`) and the photo parallax; keep scroll reveal, the ridge and contour touches, button hover and the page fade. The numbers count-up was removed with the stats strip at Checkpoint 12. **PROPOSAL P4:** define motion tokens (durations, easings) in Phase 2.
 
 ## 7. Components (BUILT; class names in `css/site.css`)
 
 | Component | Classes | Rules worth keeping |
 |---|---|---|
-| Header + nav | `.hdr .nav .hdr-phone .hdr-cta .hdr-fb .menu-btn .mnav` | Contact is last in the nav. Facebook logo button in the header at ≥1161px; phone menu has a "Follow us on Facebook" row. |
+| Header + nav | `.hdr .nav .hdr-cta .hdr-fb .menu-btn .mnav` | Six links (Your options, The numbers, Our story, Our work, New homes, Contact); Contact is last. Facebook logo button in the header at ≥1241px; phone menu has a "Follow us on Facebook" row. No phone number in the header (removed at Checkpoint 12: it did not fit). |
 | Phone action bar | `.mobile-bar` | Appears after the hero buttons scroll away; steps aside at the form. |
 | Hero (home) | `.hero .hero-grid .gable .eyebrow .micro` | One H1, one primary action, one human photo with a single name plate. No floating tags (removed Oct 21, Session 6b). |
 | Page hero (inner pages) | `.phero .crumbs` | Breadcrumb, H1, lede, one primary action. |
 | Photo frame | `.gable` (`.g1 .g2 .g3`, `clipPath#gable`) | The roofline of the logo as a photo mask. Use for people and homes. |
 | Section heading | `.head .eyebrow .ital` | Eyebrow + H2 with italic accent + optional lede. |
 | Icon tiles / beliefs | `.tile .belief .beliefs .beats .num .checks` | Line icons from the SVG sprite (`i-*` symbols), 2px stroke. |
-| Stats strip | `.stats` (`data-count`) | Only numbers Joey's site supports. |
 | Compare table | `.cmp .table-card .table-scroll` | Scrolls sideways on phones; focusable. |
 | Net sheet | `.net .sheet .verdict` | Symmetric verdict; "Example figures" labeled; disclaimer shown. |
-| Fit picker | `.picker .picker-opts .path .opt-sec` | Appears only with JavaScript. |
 | "Jump to" panel | `.jump` (Options page) | In-page links to each option; glass surface. |
 | Option sections | `.opt-card` | "A good fit if" and an honest "Maybe not if". |
 | FAQ | `.faq` (`<details>`) | The same data drives the visible list and the FAQPage structured data (builder). |
 | Contact block | `.contact .reach-item .next .form-card .ghl` | Labels above fields; form is the GoHighLevel iframe. |
-| Gallery | `.gallery` (New homes) | Captions are honest status labels. |
+| Gallery strip | `.gallery` (New homes) | Captions are honest status labels. |
+| Photo wall (Our work) | `.work-grid .work-rows .work-item .work-closed` | Every photo is a plain link to the larger picture, so it works without JavaScript. Photos of mixed shapes flow into columns (1, 2 or 3 by width); a group whose photos are all the same shape sits in tidy rows (the builder adds `.work-rows`). A white caption chip says what the photo shows or when. The photo list is `tools/gallery_data.py`; width and height are read from the picture files at build time. |
+| Photo viewer | `.lb` (a native `<dialog>`), `js/gallery.js` | Opens on the first click or tap. Close button, Previous and Next (they wrap around), arrow keys, Escape, and a click on the dark backdrop all work; focus returns to the photo you opened; the page behind stops scrolling; "3 of 16" is announced. Neighbor photos are preloaded. |
+| Open at the top | `js/site.js` (a guard near the top) | A page opens at the very top on phones. Reloads, the browser's scroll memory and the contact form script used to leave it half-way down. Until the visitor touches, scrolls or presses a key (or 8 seconds pass) it holds the page at the top. A link to a section (`#contact`) and the Back button are left alone. Automated tests must press a key first (`tools/shots.py` does). |
 | CTA band, footer | `.cta-band .ftr` | Every page ends with a next step. |
 | Buttons | `.btn .btn-primary .btn-ghost .btn-lg .btn-sm` | Pill shape; min-height 52 (lg 60, sm 46). |
 | Facebook | `.fb-btn .fb-logo` | The logo is a white disc with the `#0866FF` mark. Don't use the line-icon class on it. |
@@ -173,7 +175,7 @@ No bobbing and no slow photo zoom (D5). Verified: no tag overlaps or clips at 14
 
 ## 8. Accessibility and responsive requirements
 
-- **WCAG 2.2 AA is the target.** Baseline: axe-core 0 violations on all 7 pages at 1440, 820, 390 (touch) and 390 with reduced motion, plus the phone menu open and the picker pressed.
+- **WCAG 2.2 AA is the target.** Baseline: axe-core 0 violations on all 8 pages at 1440, 820, 390 (touch) and 390 with reduced motion, plus the phone menu open and the photo viewer open (Checkpoint 12: 35 scans, 0 violations).
 - Visible focus: 3px `--navy-700` outline, 3px offset (white on dark bands). Skip link on every page. Landmarks and one H1 per page.
 - Tap targets (measured Oct 21, non-inline links, buttons, inputs and FAQ rows on all 7 pages): nothing is under WCAG 2.2 AA's 24px minimum. Buttons, inputs and FAQ rows are 46px or taller. Footer links are 36px tall on desktop (44px on phones), header and breadcrumb links are 32px, and the phone-number text link on Our story is 40px. That meets AA but not the 44px best practice (**PROPOSAL P5:** 44px on touch).
 - Forms: permanent labels above fields (Baymard). The embedded GHL form's own styling is controlled inside GoHighLevel.
@@ -182,13 +184,13 @@ No bobbing and no slow photo zoom (D5). Verified: no tag overlaps or clips at 14
 
 ## 9. Image treatment
 
-Photos are real project/people photos in the gable frame, with descriptive alt text and explicit width/height. Current sources are ~800px wide (soft above ~1000px display width): **replace with Joey's originals** (see `PROJECT_STATUS.md`). The logo is a 240×132 raster (`images/glp-mark.png`): **a vector logo is needed**. Don't use the old site's illustrated option images (they look AI-generated). Saved copies of images get an invisible provenance tag (a few KB), which is harmless.
+Photos are real project/people photos in the gable frame, with descriptive alt text and explicit width/height. Current sources are ~800px wide (soft above ~1000px display width): **replace with Joey's originals** (see `PROJECT_STATUS.md`). The logo is a 240×132 raster (`images/glp-mark.png`): **a vector logo is needed**. Photos for Our work go through `tools/process-photos.py` (upright, camera and location data removed, 1600px large and 800px small versions into `images/work/`); alt text describes only what is visible, and captions state the stage of the work, never an address, price or count. Don't use the old site's illustrated option images (they look AI-generated). Saved copies of images get an invisible provenance tag (a few KB), which is harmless.
 
 ## 10. Gaps and proposals (none approved)
 
 | # | Proposal | Phase |
 |---|---|---|
-| P1 | Consolidate 19 breakpoints into 4 | 2 |
+| P1 | Consolidate 24 breakpoints into 4 | 2 |
 | P2 | Add a spacing scale (`--space-1..8`) and a type scale as tokens | 2 |
 | P3 | Warm neutral (cream) surface. **APPROVED for the hero (Oct 21, Session 3) and extended to the whole site (Oct 21, Session 6b):** `--cream: #f6f0e3`; hero background `linear-gradient(180deg,#fdfbf6 0%,var(--cream) 55%,#efe8d8 100%)`; the ridge's front layer stays `--mist`. Contrast on the darkest stop `#efe8d8`: body text 6.45:1, `--muted` 5.28:1, navy-800 9.83:1, green-700 5.47:1; the green-600 italic accent is 4.13:1, so on cream it is for large type only. Any other section: not decided. Built in `css/proto.css`; applied in Session 6. | done (1); apply in 6 |
 | P4 | Motion tokens (durations, easings) | 2 |

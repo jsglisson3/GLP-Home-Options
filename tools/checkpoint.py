@@ -31,7 +31,7 @@ TOOLS = ROOT / "tools"
 MANIFEST = ROOT / "CHECKPOINT.json"
 
 TEXT_GLOBS = ["*.html", "*.md", "css/*.css", "js/*.js", "tools/*.py", "tools/pages/*.html", "research/*.md"]
-ASSET_GLOBS = ["images/*", "fonts/*", "research/photos/**/*"]
+ASSET_GLOBS = ["images/**/*", "fonts/*", "research/photos/**/*"]
 SPRITE = "tools/pages/_sprite.html"
 
 
@@ -58,11 +58,14 @@ def tracked_text():
     return sorted(found)
 
 
+INBOX = "research/photos/incoming/"   # raw photos and videos dropped in for Claude: not published, not fingerprinted (see .gitignore)
+
+
 def tracked_assets():
     found = set()
     for pattern in ASSET_GLOBS:
         found.update(p for p in ROOT.glob(pattern) if p.is_file())
-    return sorted(p.relative_to(ROOT).as_posix() for p in found)
+    return [n for n in sorted(p.relative_to(ROOT).as_posix() for p in found) if not n.startswith(INBOX)]
 
 
 def git(*args):
@@ -108,6 +111,7 @@ def rebuild_matches():
     tmp = pathlib.Path(tempfile.mkdtemp(prefix="glp-rebuild-"))
     try:
         shutil.copytree(TOOLS, tmp / "tools", ignore=shutil.ignore_patterns("__pycache__", "node_modules"))
+        shutil.copytree(ROOT / "images", tmp / "images")   # the builder reads photo sizes from the files themselves
         r = subprocess.run([sys.executable, str(tmp / "tools" / "build-pages.py")], cwd=tmp, capture_output=True, text=True, timeout=60)
         if r.returncode != 0:
             print("  FAILED: the page builder stopped with an error:")

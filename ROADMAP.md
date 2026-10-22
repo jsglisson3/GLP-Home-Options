@@ -11,7 +11,7 @@ The master plan assumes a clean start. This project did not start clean: earlier
 | Phase | What exists today | Status |
 |---|---|---|
 | 0 Audit and safe foundation | Audit done, project record created, checkpoint tool added | **Done in Session 1** |
-| 1 Creative direction and visual design | A complete direction is *built* (light, navy and green from the logo, Plus Jakarta Sans + Fraunces italic accent, gable photo frame). One hero composition only. No formal approval. | **Partly approved Oct 21** (D1, D2, D4, D5); D3, D6 proceed by default; hero A (people-led) chosen with a warm cream hero surface (Session 3); the formal lock is Session 4 |
+| 1 Creative direction and visual design | A complete direction is *built* (light, navy and green from the logo, Plus Jakarta Sans + Fraunces italic accent, gable photo frame). One hero composition only. No formal approval. | **Partly approved Oct 21** (D1, D2, D4, D5); D3 proceeds by default; D6 was settled on Oct 21 (night): the gallery is its own "Our work" page; hero A (people-led) chosen with a warm cream hero surface (Session 3); the formal lock is Session 4 |
 | 2 Design system and foundation | Tokens and components exist in `css/site.css` (19 breakpoints, no spacing scale, no motion tokens) | Built, needs consolidation |
 | 3 Homepage structure | Five pages built and published (Home, Your options, Our story, New homes, Contact) | Built, needs approval |
 | 4 Section refinement | Sections exist; several need a review for repetition. The accuracy patch is done (Session 2). | Partly done |
@@ -56,11 +56,11 @@ Verified the live site and repo, audited code, design tokens, claims and weights
 - 9: About, New homes, FAQ, contact section, footer.
 - **Success per session:** that section meets its design, content, usability and accessibility criteria; consistent with the approved system.
 
-### Session 10: the homes gallery (Jeremy's idea, Oct 21)
-- **Goal:** a gallery of Joey's homes from his Facebook page ("our work").
-- **Needs first (blocking):** Joey's answers (which homes; status; address/price/interior photos allowed; photo ownership; originals; licensing and advertising rules, see `CONTENT_CLAIMS.md` question 8) and decision D6 on placement: (1) inside New homes, (2) its own "Our work" page, or (3) the future construction site.
+### Session 10: the homes gallery (Jeremy's idea, Oct 21), built early in Session 6e
+- **Built Oct 21 (night, Session 6e, Checkpoint 12):** Jeremy approved decision D6 at 8:40 PM: the gallery is **its own "Our work" page** (`work.html`), closings and builds together, with a new menu link; New homes keeps its small strip. It has three groups (Renovating, Building, Recently closed), a keyboard-friendly photo viewer, and a photo list in `tools/gallery_data.py`. The eight renovation photos came from Joey's personal Facebook via Jeremy; the building and closing photos are the ones already on the site plus two lot photos.
+- **What this session still has to do (blocking launch):** Joey's answers (which homes are his; status; whether a city or neighborhood, prices or interiors may be shown; **who owns each photo**; originals; licensing and advertising rules, see `CONTENT_CLAIMS.md` question 8 and rows 42 to 46). Then add more photos with `tools/process-photos.py` and `tools/gallery_data.py`, swap in originals, and record consent. The six properties Jeremy named are in a private log outside the repo (never put street addresses in the repo; it is public).
 - **Success:** accessible gallery (keyboard, alt text, honest captions like "Closed September 2026" or "Now building"), no invented stats, consent recorded.
-- **Why not sooner:** we can't build it from the logged-out Facebook view (it exposes only the newest post), and it may belong on the construction site.
+- **A video:** Jeremy asked about a Facebook video of Joey's (Oct 21, night). Our tools cannot fetch Facebook, so it needs a saved file. An intro video is in decision D11 ("not now"); putting any video on the site is its own approval.
 
 ### Session 11: Phase 5, function and integration
 - Validate the net sheet with test cases (known inputs and outputs, edge cases: zero, negative, blank).
@@ -107,11 +107,11 @@ The approved plan above stays in force. This section proposes what to add or reo
 | Session | Objective | Waits on |
 |---|---|---|
 | 4 | Direction lock: label the design system; set the glass list (D10) and the headline rule (D8). No page changes. | D8, D10 |
-| 5 | Consolidation: 4 breakpoints (22 today; the starting inventory and a proposed mapping are in `research/css-inventory-2026-10-21.md`), spacing, type and motion tokens (motion today is 5 keyframes, all behind `no-preference`; proposed 160, 280 and 480 ms plus one easing curve), remove the count-up code, fix the column-balance spots (review F9), make the two glass uses solid. Before and after screenshots match except those. | Session 4 |
+| 5 | Consolidation: 4 breakpoints (22 at Checkpoint 11, 24 at Checkpoint 12; the starting inventory and a proposed mapping are in `research/css-inventory-2026-10-21.md`), spacing, type and motion tokens (motion today is 5 keyframes, all behind `no-preference`; proposed 160, 280 and 480 ms plus one easing curve), fix the column-balance spots (review F9), make the two glass uses solid. Before and after screenshots match except those. | Session 4 |
 | 7 | Home diet: the new "The numbers" page (D7), a Home teaser, menu and links; trim the FAQ to the five most-asked and fold "how it works" into the options section; vary the repeated card grids (F6). | D7 |
 | 8 | Options page: shorten it (9,039 px) without losing depth; Our story rhythm. | |
 | 9 | New homes, Contact, footer polish. | |
-| 10 | Homes gallery. | Joey's photos and answers (blocked) |
+| 10 | Homes gallery: the Our work page is built (Session 6e); this session adds Joey's confirmations, originals and more photos. | Joey's photos and answers |
 | 11 | Form, consent text, every journey end to end. | GoHighLevel access |
 | 12 | Lighthouse, keyboard and screen-reader pass, 320 px, print. | |
 | 13 | Launch QA and deployment. | Joey's confirmations, a lawyer, the domain |
@@ -125,7 +125,7 @@ The approved plan above stays in force. This section proposes what to add or reo
 | Launch with the J-tagged claims | Joey's confirmation of each (`CONTENT_CLAIMS.md`, rows 1, 2, 4, 5, 6, 41) and a lawyer's look at seller financing and lease options |
 | Session 4 | Jeremy's decisions D1 to D6 and the Session 3 hero choice (made: A, people-led, warm cream hero) |
 | Session 5 | Session 4 (we consolidate the approved system) |
-| Session 10 gallery | Joey's photos and answers; D6 |
+| Session 10 gallery (page built) | Joey's confirmation of the photos, who owns them, and what may be shown |
 | Session 11 form fix | GoHighLevel access (Joey or Jeremy); registered text-message campaign wording |
 | Session 13 launch | Lawyer review, real reviews (if any), domain control, Joey's sign-off on every claim |
 

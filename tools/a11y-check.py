@@ -17,7 +17,7 @@ import asyncio, functools, http.server, pathlib, socketserver, sys, tempfile, th
 from playwright.async_api import async_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = sys.argv[1:] or ["index.html", "options.html", "about.html", "new-homes.html", "contact.html", "privacy-policy.html", "terms-of-service.html"]
+PAGES = sys.argv[1:] or ["index.html", "options.html", "about.html", "work.html", "new-homes.html", "contact.html", "privacy-policy.html", "terms-of-service.html"]
 OUT = pathlib.Path(tempfile.mkdtemp(prefix="glp-check-"))
 AXE_PATH = pathlib.Path("node_modules/axe-core/axe.min.js")
 AXE = AXE_PATH.read_text()
@@ -104,6 +104,25 @@ async def main():
                     await pg.screenshot(path=str(OUT / "phone-menu-open.png"))
                     bad += await axe(pg, "phone menu open")
                     await pg.click(".menu-btn")
+                if name in ("desk", "phone") and page_name == "work.html":
+                    # the photo viewer: open it, scan it, step with the arrow key, then Esc must close it and hand focus back
+                    await pg.evaluate("window.scrollTo(0,0)")
+                    first = pg.locator(".work-grid a").first
+                    await first.click()
+                    await pg.wait_for_timeout(300)
+                    await pg.screenshot(path=str(OUT / f"work-viewer-{name}.png"))
+                    bad += await axe(pg, "photo viewer open")
+                    shown = await pg.evaluate("document.querySelector('.lb-count').textContent")
+                    await pg.keyboard.press("ArrowRight")
+                    await pg.wait_for_timeout(150)
+                    stepped = await pg.evaluate("document.querySelector('.lb-count').textContent")
+                    await pg.keyboard.press("Escape")
+                    await pg.wait_for_timeout(150)
+                    back = await pg.evaluate("document.activeElement === document.querySelector('.work-grid a')")
+                    closed = await pg.evaluate("!document.querySelector('.lb').open")
+                    print(f"  viewer: opened at '{shown}', arrow key -> '{stepped}', Esc closes: {closed}, focus back on photo: {back}")
+                    if shown == stepped or not closed or not back:
+                        print("  VIEWER PROBLEM"); bad += 1
                 await pg.screenshot(path=str(OUT / f"{page_name.replace('.html','')}-{name}.png"), full_page=True)
                 await ctx.close()
         await b.close()

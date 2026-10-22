@@ -23,6 +23,7 @@ Website for **GLP Home Options** (Joey & Ethan), Chattanooga / Hixson, TN. Plain
 | `index.html` | Landing page: the story, three paths, the numbers, FAQ, contact form |
 | `options.html` | Your options: sell direct, list, keep the home, creative solutions |
 | `about.html` | Our story: Joey and Ethan, what they stand for, the September closing |
+| `work.html` | Our work: photos from the job sites and a recent closing, with a photo viewer |
 | `new-homes.html` | New homes: the home they're building now (kept deliberately light) |
 | `contact.html` | Contact: call, text, email, book, Facebook, and the form |
 | `privacy-policy.html`, `terms-of-service.html` | Plain-words legal pages (draft, not lawyer-reviewed) |
@@ -32,11 +33,11 @@ Website for **GLP Home Options** (Joey & Ethan), Chattanooga / Hixson, TN. Plain
 The header, footer, icon sprite, FAQ and contact block repeat on every page, so they are generated from one place. The output is still plain files; GitHub Pages serves them as-is.
 
 ```
-python3 tools/build-pages.py     # rewrites all 7 pages from the shared pieces
+python3 tools/build-pages.py     # rewrites all 8 pages from the shared pieces
 python3 tools/check-links.py     # every link, anchor, image and script resolves; no duplicate ids
 ```
 
-- **Edit** `tools/pages/<page>.html` (the middle of each page), `tools/build-pages.py` (header, footer, FAQ text, page titles, phone/email/Facebook, structured data), `tools/legal_text.py` (Privacy and Terms wording), `css/site.css`, `js/site.js`.
+- **Edit** `tools/pages/<page>.html` (the middle of each page), `tools/build-pages.py` (header, footer, FAQ text, page titles, phone/email/Facebook, structured data), `tools/legal_text.py` (Privacy and Terms wording), `css/site.css`, `js/site.js`, `js/gallery.js` (the photo viewer).
 - **Don't edit** the root `.html` files by hand. They get overwritten the next time the builder runs.
 - After changing `css/site.css` or `js/site.js`, bump `CSS_V` / `JS_V` at the top of `tools/build-pages.py` and rebuild (this makes browsers fetch the new file).
 - Commit the generated root `.html` files too, since that is what GitHub Pages serves.
@@ -45,9 +46,18 @@ python3 tools/check-links.py     # every link, anchor, image and script resolves
 ## What's here
 
 - `css/site.css`, `js/site.js`: all styling and behavior
-- `images/`, `fonts/`: photos, logo, favicons, share picture, self-hosted fonts
+- `images/`, `fonts/`: photos, logo, favicons, share picture, self-hosted fonts (`images/work/` holds the Our work photos)
 - `tools/`: page builder, link checker, accessibility test, checkpoint check, legal text, share-picture generator
-- `research/`: source photos and older notes (not loaded by the site)
+- `research/`: source photos and older notes (not loaded by the site, but this repository is public, so everything in it can be seen)
+
+## Adding photos to Our work
+
+1. Drop the originals into `research/photos/incoming/` (this folder is ignored by git, so new files in it are not published; photos and videos Joey has not OK'd should stay there or outside the folder).
+2. Prepare each one: `python3 tools/process-photos.py --slug some-name "research/photos/incoming/photo.jpg"` (it straightens the photo, removes camera and location data, and writes `images/work/some-name.jpg`, plus a small version for big photos). It prints the line to paste next.
+3. Paste that line into `tools/gallery_data.py`, choose the group and write the caption and the alt text from what the photo shows. Never put a street address, price or house count in either.
+4. Add a row for it in `CONTENT_CLAIMS.md`, rebuild (`python3 tools/build-pages.py`), and run the checks.
+
+Street addresses of homes Joey flipped or sold are kept in a private log outside this folder, never in the repository.
 
 ## Preview on your computer
 
