@@ -42,7 +42,7 @@ PHONE_TEL, PHONE_SMS, PHONE = "tel:+14234515707", "sms:+14234515707", "(423) 451
 EMAIL = "info@glphomeoptions.com"
 BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 FORM_ID = "c36UOOc2pkosxfvRfjZJ"
-CSS_V, JS_V = 33, 15
+CSS_V, JS_V = 33, 16
 HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-1200.jpg 1200w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
@@ -245,7 +245,7 @@ def head(pg):
 <link rel="icon" type="image/png" sizes="512x512" href="images/favicon-512.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 {og}<link rel="preload" href="fonts/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-{ital}{pre}<script>document.documentElement.classList.add('js')</script>
+{ital}{pre}<script>document.documentElement.classList.add('js');setTimeout(function(){{if(!window.__glpReady)document.documentElement.classList.remove('js')}},6000)</script>
 <link rel="stylesheet" href="css/site.css?v={CSS_V}">
 {ld}</head>'''
 
@@ -456,13 +456,19 @@ def cta_band(pg, key):
   </section>'''
 
 
-def reach():
+def reach(page=False):
+    # On the Contact page the heading block (see contact_section) is plain, with no fade, so the first paragraph counts as painted
+    # the moment the page paints (a fading block counts only when its fade ends). The Call and Text tiles are on the first screen too:
+    # they are marked "in" (with the same stagger value the script would set) and fade in from the stylesheet alone instead of waiting
+    # for site.js. Elsewhere the script reveals the tiles on scroll.
+    def tile(i):
+        return f'class="reach-item rv in" style="--d:{i}"' if page and i < 2 else 'class="reach-item rv"'
     return f'''<div class="reach" data-stagger>
-          <a class="reach-item rv" href="{PHONE_TEL}">
+          <a {tile(0)} href="{PHONE_TEL}">
             <span class="ico" aria-hidden="true">{ICON("phone")}</span>
             <span class="txt"><small>Call</small><b>{PHONE}</b></span><span class="go" aria-hidden="true">Call</span>
           </a>
-          <a class="reach-item rv" href="{PHONE_SMS}">
+          <a {tile(1)} href="{PHONE_SMS}">
             <span class="ico" aria-hidden="true">{ICON("sms")}</span>
             <span class="txt"><small>Text</small><b>{PHONE}</b></span><span class="go" aria-hidden="true">Text</span>
           </a>
@@ -496,11 +502,11 @@ def contact_section(pg, page=False):
     <div class="contact-bg" aria-hidden="true"><canvas class="topo" data-tone="light"></canvas></div>
     <div class="wrap contact-grid">
       <div class="contact-copy">
-        <div class="rv">
+        <div{"" if page else ' class="rv"'}>
           {top}
           <p class="lede">Call or text anytime, or send a few details and we'll follow up. You'll talk to Joey or Ethan, and your information stays confidential.</p>
         </div>
-        {reach()}
+        {reach(page)}
         <div class="next rv">
           <{hx} class="h3">What happens next?</{hx}>
           <ol>
@@ -511,7 +517,7 @@ def contact_section(pg, page=False):
         </div>
       </div>
 
-      <div class="form-card rv" data-d="2">
+      <div class="form-card rv{' in" style="--d:2' if page else ''}" data-d="2">
         <{hx} class="h3">Thinking about selling, or not sure yet?</{hx}>
         <p class="sub">Share a few details and Joey or Ethan will get back to you. There's no obligation.</p>
         <div class="ghl">
@@ -559,7 +565,8 @@ def scripts(pg):
     s = ""
     if pg["ghl"]:
         s += '<script src="https://links.voiseai.com/js/form_embed.js" async></script>\n'
-    s += f'<script src="js/site.js?v={JS_V}" defer></script>'
+    # if site.js fails to load, drop the "js" class at once so no section stays hidden waiting for it (the head also has a 6 s safety timer)
+    s += f'<script src="js/site.js?v={JS_V}" defer onerror=\'document.documentElement.classList.remove("js")\'></script>'
     for name in pg.get("js", []):   # scripts only one page needs (the Our work photo viewer)
         s += f'\n<script src="js/{name}.js?v={JS_V}" defer></script>'
     return s

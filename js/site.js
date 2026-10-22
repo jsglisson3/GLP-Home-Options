@@ -17,7 +17,7 @@
      tapping a menu link, and used to land the visitor mid-page). Until the visitor drags, scrolls, types or taps a link, anything
      that moves the page (the browser's saved spot, the contact form loading) is undone. Add ?scrolldebug to the address to see
      what happened on a phone. */
-  (function () {
+  try { (function () {
     var t0 = Date.now(), nav = null;
     try { nav = performance.getEntriesByType('navigation')[0] || null; } catch (e) {}
     var type = (nav && nav.type) || 'navigate';
@@ -83,7 +83,7 @@
       else if (loaded && now - t0 > 8000 && now - lastFix > 3000) stop('quiet');
     }, 500);
     topNow('start');
-  })();
+  })(); } catch (e) {}   // if anything in the guard ever fails, the rest of the script (menu, reveal, bars) must still run
 
   /* ---------- Scroll: header state, ridge parallax ---------- */
   var hdr = $('#hdr'), hero = $('.hero, .phero'), ridge = $('.ridge');
@@ -263,4 +263,6 @@
     var box = gf.parentElement, done = function () { box.classList.add('loaded'); };
     gf.addEventListener('load', done); setTimeout(done, 7000);
   }
+
+  window.__glpReady = true;   // the page's own safety timer (in the head) checks this: if it is missing after 6 s, every section is shown
 })();
