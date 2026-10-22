@@ -30,8 +30,8 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
 MANIFEST = ROOT / "CHECKPOINT.json"
 
-TEXT_GLOBS = ["*.html", "*.md", "css/*.css", "js/*.js", "tools/*.py", "tools/pages/*.html", "research/*.md"]
-ASSET_GLOBS = ["images/**/*", "fonts/*", "research/photos/**/*"]
+TEXT_GLOBS = ["*.html", "*.md", "css/*.css", "js/*.js", "tools/*.py", "tools/pages/*.html", "research/*.md", "research/*.css"]
+ASSET_GLOBS = ["images/**/*", "fonts/*", "research/photos/**/*", "research/*.jpg"]
 SPRITE = "tools/pages/_sprite.html"
 
 

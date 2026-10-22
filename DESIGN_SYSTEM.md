@@ -2,7 +2,7 @@
 
 **Source of truth for visual decisions.** The code (`css/site.css`) is the truth for what exists today; this file records the values, the rules, and **which decisions Jeremy has actually approved**. If this file and the code disagree, believe the code, then fix this file.
 
-Last verified against the code: Oct 21, 2026. Checkpoint 12 (Session 6e) updated the header, breakpoints, motion, components and accessibility sections and the image notes; the other sections were last checked at Checkpoint 1.
+Last verified against the code: Oct 21, 2026. Checkpoint 12 (Session 6e) updated the header, breakpoints, motion, components and accessibility sections and the image notes; the other sections were last checked at Checkpoint 1. Checkpoint 13 (Session 6f) changed no code; it recorded Jeremy's tone, audience and contact-form direction in section 0 and corrected the glass count in section 5 (5 uses, not 7).
 
 ## 0. Approval status (read this first)
 
@@ -24,15 +24,20 @@ Nothing below has been signed off as a complete package yet. The system was buil
 6. A **Facebook logo that links to Joey's page** in several places (header, phone menu, footer, About, Contact, home contact, New homes).
 7. Never invent reviews, licenses, years in business, or awards.
 8. (Oct 21) A separate construction site may follow; this site stays about **home buying/selling options**, and New homes remains a light teaser.
+8a. (Oct 21, 8:37 PM and 11:10 PM) **Tone:** authentic, like real people are behind it, not a corporate sellout. Professional but not too corporate. Follow the best guidelines, but do not look cookie-cutter. (Jeremy's view that the two of them are a better choice than a big outside name is a guide to tone only. No comparison goes on the site.)
+8b. (Oct 21, 11:11 PM) **Audience:** the people selling are ordinary homeowners, many short on money and short on time, not wealthy, and many are wary of "we buy houses" ads. Plain words, no pressure, no luxury gloss, short forms, phone first. Item 1's "something you would sell to a million dollar investor" means the craft is high, not that the site speaks to the wealthy.
+8c. (Oct 21, 11:09 PM) **The contact form must not look like a third-party bolt-on or an ad.** Its look is set inside GoHighLevel; the paste-ready fix is `research/ghl-form-custom.css` (steps in `research/ghl-form-style.md`) and it waits on someone with GoHighLevel access. Our side of the frame is a separate, smaller job (`ROADMAP.md`).
 
 **APPROVED by Jeremy on Oct 21, 2026:**
 9. **D1: navy leads, green is the accent.** The color tokens in section 2 are locked.
 10. **D4: the homepage hero is A, people-led** (approved Oct 21, Session 3). B (numbers-led) was prototyped and not chosen.
 11. **D2: cream is the site's one tint** (hero approved Oct 21, Session 3; extended by Jeremy on Oct 21, Session 6b, to every hero, the alternate sections and the footer; see P3).
-11. **D5: a restrained set of glass and motion.** Keep header glass, small overlays on photos and the ridge and contour touches; drop the floating blobs and photo parallax (exact glass list set in Session 4, applied in Session 5). **Built at Checkpoint 5 (Session 3b):** the floating blobs, the photo drift, the hero photo's slow zoom and the tags' bobbing are gone from `css/site.css` and `js/site.js`; only the glass reduction to the 7 listed uses is left for Session 5.
+11. **D5: a restrained set of glass and motion.** Keep header glass, small overlays on photos and the ridge and contour touches; drop the floating blobs and photo parallax (exact glass list set in Session 4, applied in Session 5). **Built at Checkpoint 5 (Session 3b):** the floating blobs, the photo drift, the hero photo's slow zoom and the tags' bobbing are gone from `css/site.css` and `js/site.js`; the glass list itself is Session 4's job (the code has 5 uses today, see section 5) and the CSS change is Session 5's.
 12. **Claims:** copy says only what Joey's own materials support, or what Jeremy has confirmed and `CONTENT_CLAIMS.md` tags **J** until Joey confirms it.
 
-**Proceeding by default (Jeremy told, no objection):** D3 keep Plus Jakarta Sans and the Fraunces italic accent; D6 keep the five-page structure (the gallery's placement is decided later).
+**Also APPROVED (Oct 21, 8:40 PM): D6, the gallery is its own "Our work" page** (built at Checkpoint 12).
+
+**Proceeding by default (Jeremy told, no objection):** D3 keep Plus Jakarta Sans and the Fraunces italic accent.
 
 All decisions (D1 to D6) and their status are in `PROJECT_STATUS.md`, section C.
 
@@ -47,6 +52,8 @@ All decisions (D1 to D6) and their status are in `PROJECT_STATUS.md`, section C.
 **Checkpoint 10 (Session 6d):** the hero photo has 6% extra headroom (a mirrored, blurred extension of the top of the background; the faces are untouched) so the roofline no longer clips the heads: `joey-ethan-bridge.jpg` is 800 x 636 and `-2x.jpg` 1600 x 1272. The header shows the "Get my options" button beside Menu from 641 to 1240px wide (it was hidden there); below 641px only Menu shows, and above 1240px the full desktop header shows.
 
 **Checkpoint 12 (Session 6e, Oct 21 night):** the full desktop header now starts at **1241px** (it was 1161px) and **the header phone number is gone**: with a sixth link (Our work) the bar overflowed the page at 1360 to 1440px and was cramped from 1161 to 1240px. The phone stays in the hero buttons, the footer, Contact and the phone bottom bar. Also new: **pages open at the very top on phones** (a guard in `js/site.js`; see the Components table), and the **Our work photo wall and viewer** (below). The stats strip, the numbers count-up and the "What matters most?" fit picker were removed in Session 6e's plain-talk pass.
+
+**Checkpoint 13 (Session 6f, Oct 21 late night):** no code changed. Jeremy's tone, audience and contact-form direction (items 8a to 8c) was recorded; the glass count was corrected from 7 to 5; the real contact form was measured and a fix for its look was prepared (`research/ghl-form-style.md`, `research/ghl-form-custom.css`, `research/ghl-form-before-after.jpg`).
 
 ## 1. Brand personality (from the master plan)
 
@@ -116,7 +123,7 @@ Headings use `text-wrap: balance`. Do not add a third font.
 - Radii: `--r-s 12px`, `--r-m 20px`, `--r-l 28px`; buttons, nav pills and chips are fully round (`999px`).
 - Shadows: `--sh-1` (hairline lift), `--sh-2` (cards, open FAQ), `--sh-3` (floating UI), all tinted navy.
 - Borders: 1px `--line`; cards often `--line` plus `--sh-1`.
-- **Glass (translucent white + blur)** is used in 7 places: the sticky header (`.74` white, blur 16, saturate 1.8, `.95` once scrolled), photo caption chip (`.gable-cap`), floating cards (`.fc`), founder captions, contact reach tiles (on the dark band), the phone action bar, and the "Jump to an option" panel on the Options page (`.jump`). Text on every glass surface passes AA. **D5 (approved Oct 21)** keeps the header glass and small overlays on photos; Session 4 decides, for each of the seven, whether it stays (the contact reach tiles, the "Jump to" panel and the phone action bar are the ones to review).
+- **Glass (translucent white + blur)** is used in **5 places** today (counted with `grep -n backdrop-filter css/site.css`, Oct 21): the sticky header `.hdr` (`.74` white, blur 16, saturate 1.8, `.95` once scrolled), the About name plates `.founder figcaption`, the contact reach tiles `.reach-item` (on the dark band), the phone action bar `.mobile-bar`, and the "Jump to an option" panel `.jump` on the Options page. (Earlier notes said 7: the photo caption chip `.gable-cap` is solid white now, and the floating cards `.fc` no longer exist.) Text on every glass surface passes AA. **D5 (approved Oct 21)** keeps the header glass and small overlays on photos. **D10 recommendation, awaiting Jeremy:** keep `.hdr`, `.mobile-bar` and `.reach-item`; make `.founder figcaption` and `.jump` solid, because they are almost opaque already, so the blur adds cost and no look. The CSS change is Session 5.
 
 ## 6. Motion (BUILT)
 
@@ -150,7 +157,7 @@ Reduced motion: all animations and transitions are removed; reveals show immedia
 | "Jump to" panel | `.jump` (Options page) | In-page links to each option; glass surface. |
 | Option sections | `.opt-card` | "A good fit if" and an honest "Maybe not if". |
 | FAQ | `.faq` (`<details>`) | The same data drives the visible list and the FAQPage structured data (builder). |
-| Contact block | `.contact .reach-item .next .form-card .ghl` | Labels above fields; form is the GoHighLevel iframe. |
+| Contact block | `.contact .reach-item .next .form-card .ghl` | Labels above fields; the form is the GoHighLevel iframe (`links.voiseai.com`). **Its look is set inside GoHighLevel** and today it reads as a bolt-on (the button says "Button"; Jeremy, Oct 21, 11:09 PM). The fix is prepared in `research/ghl-form-custom.css` and waits on GoHighLevel access. Our frame is a white card on the navy band. |
 | Gallery strip | `.gallery` (New homes) | Captions are honest status labels. |
 | Photo wall (Our work) | `.work-grid .work-rows .work-item .work-closed` | Every photo is a plain link to the larger picture, so it works without JavaScript. Photos of mixed shapes flow into columns (1, 2 or 3 by width); a group whose photos are all the same shape sits in tidy rows (the builder adds `.work-rows`). A white caption chip says what the photo shows or when. The photo list is `tools/gallery_data.py`; width and height are read from the picture files at build time. |
 | Photo viewer | `.lb` (a native `<dialog>`), `js/gallery.js` | Opens on the first click or tap. Close button, Previous and Next (they wrap around), arrow keys, Escape, and a click on the dark backdrop all work; focus returns to the photo you opened; the page behind stops scrolling; "3 of 16" is announced. Neighbor photos are preloaded. |

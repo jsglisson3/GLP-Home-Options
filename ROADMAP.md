@@ -65,9 +65,10 @@ Verified the live site and repo, audited code, design tokens, claims and weights
 ### Session 11: Phase 5, function and integration
 - Validate the net sheet with test cases (known inputs and outputs, edge cases: zero, negative, blank).
 - Fix the GHL form with Joey (its look can only be changed inside GoHighLevel: Form Builder, then Style). Form `links.voiseai.com/widget/form/c36UOOc2pkosxfvRfjZJ`, booking `.../widget/booking/cM59fR3vJlAVRy08Depz`; it appears on the home page and the Contact page.
-  - **Consent text:** still contains `[BUSINESS NAME]` and `[USE_CASE_FROM_CAMPAIGN_DESCRIPTION]`, and its Privacy and Terms links point to example.com. Replace with GLP Home Options / GL Partners LLC wording that matches the registered text-message campaign, linking to `/privacy-policy` and `/terms-of-service`. Carriers usually also want message-frequency and HELP/STOP wording.
-  - **Styling:** primary `#3c7a66`, font Plus Jakarta Sans, radius about 12px, button text "Get my options", labels above fields (Baymard), optional fields marked "(optional)", one column on phones.
-  - **Fields:** keep to name, phone and property address; the rest optional.
+  - **Its look (Jeremy, Oct 21, 11:09 PM: "a third-party bolt-on ... like an ad on top of the website"):** diagnosed, and a fix prepared and tested on a copy of the form page at Checkpoint 13: `research/ghl-form-style.md` (steps and what to check) and `research/ghl-form-custom.css` (paste-ready). It needs someone with GoHighLevel access, about 5 minutes, then a phone test and one test lead. The button still says "Button": change it in the form's settings (suggested "Send my details"). Not tested: the form inside our page, error messages, a phone width.
+  - **Consent text (checked Oct 21, about 11:15 PM):** no placeholders are left; it names "GL Partners LLC DBA GLP Home Options". Its Privacy and Terms links point to `glphomeoptions.com/privacy-policy` and `/terms-of-service` (the old site; after launch those addresses must open our Privacy and Terms pages). The first checkbox repeats "Message frequency varies." (delete one). A lawyer should still read the wording; carriers usually also want message-frequency and HELP/STOP wording.
+  - **Styling:** done by the prepared CSS: our green, Plus Jakarta Sans, 12px corners, labels above fields (Baymard), 54px fields at 16px text, one column.
+  - **Fields:** the goal is name, phone and property address, the rest optional. Today phone and email are both required; ask Joey whether email must stay required.
   - **Behavior:** confirm the thank-you behavior and where leads go.
 - Walk every journey end to end: call, text, email, book, form, Facebook.
 
@@ -94,6 +95,13 @@ The approved plan above stays in force. This section proposes what to add or reo
 | D10 | Glass: keep three uses (header, phone bottom bar, contact cards on the dark section); make the About name plates and the Options "jump to" panel solid. | **Yes** | Those two are almost opaque, so the blur adds cost and no look. Today's code has 5 uses, not 7. This is Session 4's list. |
 | D11 | Allow the scope additions in the review (save or print the numbers, a guided "which path fits", a real-reviews strip, situation pages, an intro video) as later sessions, each approved on its own. | **Not now** | Keep launch focused; revisit after Session 11. |
 
+### Jeremy's direction, Oct 21, 11:09 to 11:11 PM (recorded at Checkpoint 13; applies to every session below)
+
+- **Tone:** professional but not too corporate; follow the best guidelines but not cookie-cutter; authentic, not a sellout.
+- **Audience:** ordinary homeowners, many short on money and time, many wary of "we buy houses" ads. Plain words, no pressure, no luxury gloss, short forms, phone first.
+- **Contact form:** it must not look like a third-party bolt-on. The form's own look is Session 11's job (GoHighLevel access; the fix is ready). **Our side of the frame** is proposed for Session 9: a calmer card with no heavy shadow, Joey and Ethan's faces beside the form, a short "what happens next" line, and the phone number as the first choice. Proposed until built and seen.
+- **Tonight's last push (Jeremy, 11:24 PM):** he chose options 1 (trim the Options page), 2 (a plain-talk pass for the audience) and 3 (the contact section on our side). Option 4 (the new "The numbers" page, D7) is parked: "we will come back to that, but keep this in mind."
+
 ### Success measures (proposed launch targets)
 
 - Lighthouse on the live site, phone: Performance 95 or more, Accessibility 100, Best practices 95 or more, SEO 95 or more (after `noindex` is removed). Core Web Vitals: LCP 2.5 s or less, INP 200 ms or less, CLS 0.1 or less (CLS is 0.000 locally today).
@@ -110,9 +118,9 @@ The approved plan above stays in force. This section proposes what to add or reo
 | 5 | Consolidation: 4 breakpoints (22 at Checkpoint 11, 24 at Checkpoint 12; the starting inventory and a proposed mapping are in `research/css-inventory-2026-10-21.md`), spacing, type and motion tokens (motion today is 5 keyframes, all behind `no-preference`; proposed 160, 280 and 480 ms plus one easing curve), fix the column-balance spots (review F9), make the two glass uses solid. Before and after screenshots match except those. | Session 4 |
 | 7 | Home diet: the new "The numbers" page (D7), a Home teaser, menu and links; trim the FAQ to the five most-asked and fold "how it works" into the options section; vary the repeated card grids (F6). | D7 |
 | 8 | Options page: shorten it (9,039 px) without losing depth; Our story rhythm. | |
-| 9 | New homes, Contact, footer polish. | |
+| 9 | New homes, Contact (including our side of the form's frame, see above), footer polish. | |
 | 10 | Homes gallery: the Our work page is built (Session 6e); this session adds Joey's confirmations, originals and more photos. | Joey's photos and answers |
-| 11 | Form, consent text, every journey end to end. | GoHighLevel access |
+| 11 | Form (its look: the fix is ready), consent text, every journey end to end. | GoHighLevel access |
 | 12 | Lighthouse, keyboard and screen-reader pass, 320 px, print. | |
 | 13 | Launch QA and deployment. | Joey's confirmations, a lawyer, the domain |
 

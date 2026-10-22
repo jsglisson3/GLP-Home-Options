@@ -1,40 +1,53 @@
 # Session handoff
 
-**Written:** Oct 21, 2026, about 11 PM CT, at the end of Session 6e, Checkpoint 12.
+**Written:** Oct 21, 2026, about 11:40 PM CT, at the end of Session 6f, Checkpoint 13.
 **Replace this file at the end of every session.** It describes exactly one next session and what is true right now. The long-term plan is in `ROADMAP.md`; the full state is in `PROJECT_STATUS.md`.
 
 ## Where the project is
 
-- **Live site = Jeremy's commit "fixes" (9:08 PM CT)** at https://jsglisson3.github.io/GLP-Home-Options/ (`noindex`). A live fetch at about 10:55 PM showed the plain-talk pass (no quiz, no numbers strip) and a header **without** "Our work". **Checkpoint 12 is saved in his folder and waits for him to commit and sync:** the new Our work page, the simpler header, the menu-highlight fix and the start-at-top fix. After he syncs, fetch the live Home page and `work.html` with a cache-busting query to confirm.
+- **Live site = Jeremy's commit "big push" (`9d79ab4`, 11:05 PM CT, Checkpoint 12)** at https://jsglisson3.github.io/GLP-Home-Options/ (`noindex`). It has the Our work page, the six-link header, the menu-highlight fix and the start-at-top fix. All 46 files saved for Checkpoint 12 are in that commit with exactly the saved content.
+- **Checkpoint 13 (Session 6f) changed no page, style or script.** It added notes and three research files about the contact form (below), updated `research/questions-for-joey.md`, and recorded Jeremy's tone and audience direction. It waits for him to commit and sync; nothing on the live site depends on it.
 - **Approved by Jeremy:** D1 (navy leads, green accent); D2 (warm cream, the whole site's one tint); D4 (hero A, people-led, in the gable frame); D5 (restrained glass and motion, as a direction; the exact list is Session 4); D6 (the gallery is its own "Our work" page, approved Oct 21, 8:40 PM); "Joey's own words now" for claims. D3 proceeds by default.
-- **What Session 6e did (Checkpoint 12):** a plainer, more human site (Jeremy: "authentic, like real people are behind it, not a corporate sellout"): the "What matters most?" quiz and the Home numbers strip are gone, "Joey or Ethan" replaces "our team"; the **Our work** page with 16 photos (Renovating 8, Building 7, Recently closed 1) and a keyboard-friendly viewer; the header lost its phone number (six links did not fit) and the full header starts at 1241px; pages open at the very top on phones; the Home menu highlight clears at the top. Tools: `tools/process-photos.py`, `tools/gallery_data.py`, `js/gallery.js`; `.gitignore` for the photo inbox. All checks passed (E6, "Session 6e checks").
+- **Jeremy's direction, Oct 21, 11:09 to 11:11 PM** (`DESIGN_SYSTEM.md`, section 0, items 8a to 8c): professional but not too corporate; best guidelines but not cookie-cutter; authentic, not a sellout. The people selling are ordinary homeowners, many short on money and time, many wary of "we buy houses" ads, so: plain words, no pressure, no luxury gloss, short forms, phone first.
+- **The contact form looks like a bolt-on** (Jeremy: "scammy, like an ad on top of the website"). It is GoHighLevel's default in an iframe from `links.voiseai.com`; only someone with GoHighLevel access can restyle it. **A tested fix is ready:** `research/ghl-form-style.md` (what is wrong, steps, what to check), `research/ghl-form-custom.css` (paste-ready) and `research/ghl-form-before-after.jpg`. The button still says "Button". The consent text now names "GL Partners LLC DBA GLP Home Options" with no placeholders left. Not tested: the form inside our page (the AI's browser tab shows the frame blank), error messages, a phone width.
 - **The photos on Our work rest on Jeremy's word.** The eight renovation photos came from Joey's personal Facebook via Jeremy; Joey has not confirmed they are his projects, that he wants them shown, or who took them (`CONTENT_CLAIMS.md` rows 42 to 46). The site is `noindex` meanwhile.
-- **No street address is in any repo file, on purpose.** The six properties Jeremy named are in a private log **outside the repo**: `C:\Users\jsgli\Documents\GLP-private\flips-log.md` (with his words, links, the questions for Joey, the photo rules, and notes on two videos). Read it at the start of a session that touches the gallery; keep adding to it.
-- **Videos (Oct 21, about 10:55 PM):** Jeremy saved two screen recordings of Joey's Facebook videos into `research/photos/incoming/` (`Home walkthrough 1.mp4`, `Home walkthrough 2 .mp4`). They are about 470 px wide, have Facebook's buttons on top, and the first has an address in its text and a John Denver song. **Not used on the site.** Best path: ask Joey for the original files. A video on the site is a scope decision (D11 lists an intro video as "not now"). `Facebook.mhtml` in the same folder was not opened and should be deleted by Jeremy.
+- **No street address is in any repo file, on purpose.** The six properties Jeremy named are in a private log **outside the repo**: `C:\Users\jsgli\Documents\GLP-private\flips-log.md` (his words, links, the questions for Joey, the photo rules, notes on three videos and a photo with a SOLD sign). Read it at the start of a session that touches the gallery; keep adding to it.
+- **Videos and the SOLD photo (Oct 21, about 10:55 to 11:01 PM):** Jeremy saved three screen recordings of Joey's Facebook videos and one photo of three people holding a SOLD sign into `research/photos/incoming/`. **None is used on the site** (reasons are in the private log). Best path: ask Joey for the originals. A video on the site is a scope decision (D11 lists an intro video as "not now"). `Facebook.mhtml` in the same folder was not opened and should be deleted by Jeremy.
 - **`research/photos/incoming/` is the photo and video inbox.** New files there are ignored by git (`.gitignore`) and by the checkpoint tool. The 16 photos that were dropped there earlier tonight were **already committed**, so they are public (the repo is public); that cannot be undone from here.
-- **Biggest risks:** the origins of two people photos on the live pages (the bridge hero and the kitchen table; review F1 to F3); the riverfront banner is soft; the closing photo shows third parties and a title company's branding; the GoHighLevel consent text still has placeholders.
-- **Waiting on Jeremy:** commit and sync Checkpoint 12; try the start-at-top fix on his phone (open a page, scroll, reload, and open it from a bookmark and from a link in a message; tell me if any still starts in the middle, and how he got there); answers to D7 to D11 (`ROADMAP.md`, "Proposed plan v2"); what else at the top of the page looked gimmicky; sending the Joey text (`research/questions-for-joey.md`); whether to delete `Facebook.mhtml`.
-- **Waiting on Joey:** the photo confirmations (rows 42 to 46), photo and video originals, every claim tagged **J**, license or brokerage (his videos say "New Listing coming soon"), the county list, the main phone number, reviews, GoHighLevel access, the domain. A lawyer should look at how seller financing and lease options are described.
+- **Biggest risks:** the origins of two people photos on the live pages (the bridge hero and the kitchen table; review F1 to F3); the riverfront banner is soft; the closing photo shows third parties and a title company's branding; the contact form's look and the consent wording (a fix is ready; it needs GoHighLevel access and a lawyer's read).
+- **Waiting on Jeremy:** try the start-at-top fix on his phone (open a page, scroll, reload, and open it from a bookmark and from a link in a message; tell me if any still starts in the middle, and how he got there); get Joey to add him to GoHighLevel or paste the CSS himself; answers to D7 to D11 (`ROADMAP.md`, "Proposed plan v2"); sending the Joey text (`research/questions-for-joey.md`); whether to delete `Facebook.mhtml`.
+- **Waiting on Joey:** the photo confirmations (rows 42 to 46), photo and video originals, the SOLD-photo people and title company, every claim tagged **J**, license or brokerage (his videos say "New Listing coming soon"), the county list, the main phone number, reviews, GoHighLevel access, the domain. A lawyer should look at how seller financing and lease options are described.
 
-## Next session: Session 4, direction lock (30 to 45 minutes)
+## Next: tonight's last push (Jeremy chose items 1, 2 and 3 at 11:24 PM; item 4 is parked)
 
-**Objective:** turn the approved decisions into the formal design system and set the exact glass list. **No change to any real page.**
+Do them in this order, one checkpoint each, saving after each so he can commit and see it:
+
+1. **Trim the Options page** (`options.html`, built from `tools/pages/options.html`; about 9,000 px today). Shorter, without losing depth or any honest "Maybe not if". `ROADMAP.md`, Session 8.
+2. **A plain-talk pass for the audience** (Jeremy, 11:11 PM): read every page's words as a tired homeowner short on time and money who has seen many "we buy houses" ads. Plainer words, shorter sentences, nothing that sounds like a pitch, no new claims (`CONTENT_CLAIMS.md` and `tools/claims-check.py` still rule).
+3. **The contact section, our side of the frame:** make the section around the form feel like two local people, not an ad. `ROADMAP.md`, "Jeremy's direction". The form's own look stays a GoHighLevel job; do not replace the form or touch the consent wording.
+4. **Parked, do not build:** the new "The numbers" page (D7). Jeremy: "we will come back to that, but keep this in mind." Do not undo anything that makes it harder later: the compare table and net sheet stay where they are.
+
+Every change gets a before and after screenshot check (`tools/shots.py`), `check-links.py`, `claims-check.py` and an accessibility scan, then a checkpoint, then the save protocol below.
+
+## After tonight: Session 4, direction lock (30 to 45 minutes)
+
+**Objective:** turn the approved decisions into the formal design system and set the exact glass list. **No change to any real page.** The glass inventory is already done (5 uses; `DESIGN_SYSTEM.md` section 5) and Checkpoint 13 recorded the D10 recommendation; what is left is Jeremy's answers.
 
 ### Needed from Jeremy (first message, short)
 
-1. That Checkpoint 12 is committed and synced, and whether the start-at-top fix works on his phone.
+1. That Checkpoint 13 and tonight's later checkpoints are committed and synced, and whether the start-at-top fix works on his phone.
 2. His answers to **D7 to D11** in `ROADMAP.md` ("go with your recommendations" is a valid answer). D8 (headline rule) and D10 (glass list) feed this session directly.
 3. What else at the top of the page looked gimmicky, if anything. One question.
 
 ### Start protocol (5 minutes)
 
 1. Read `PROJECT_STATUS.md`, this file, `ROADMAP.md` (Sessions 4 and 5 and "Proposed plan v2") and `DESIGN_SYSTEM.md`.
-2. Get the project from Jeremy's folder, not from memory: `C:\Users\jsgli\Documents\GLP-Home-Options` (stage everything except `research/photos/incoming/`, which can hold big videos; include `images/`, `fonts/` and the rest of `research/photos/`; at most 50 files per staging call). Run `python3 tools/checkpoint.py`. **Expected: clean at Checkpoint 12** (ignore the workspace's stale "Git" lines). If not, stop and find out why.
+2. Get the project from Jeremy's folder, not from memory: `C:\Users\jsgli\Documents\GLP-Home-Options` (stage everything except `research/photos/incoming/`, which can hold big videos; include `images/`, `fonts/` and the rest of `research/photos/`; at most 50 files per staging call). Run `python3 tools/checkpoint.py`. **Expected: clean at the newest checkpoint** (ignore the workspace's stale "Git" lines). If not, stop and find out why.
 3. Read the newest line of `.git/logs/HEAD` in his folder (stage it, then read it); if he has pushed, fetch the live Home page, Our work page or stylesheet with a cache-busting query.
 
 ### What to do
 
-1. **Inventory the glass** with `grep -n "backdrop-filter" css/site.css`. Recommendation (D10): keep `.hdr`, `.mobile-bar` and `.reach-item`; make `.founder figcaption` and `.jump` solid. Record the final list; the CSS change itself is Session 5.
+1. **Inventory the glass** with `grep -n "backdrop-filter" css/site.css` (done once: 5 uses). Recommendation (D10): keep `.hdr`, `.mobile-bar` and `.reach-item`; make `.founder figcaption` and `.jump` solid. Record the final list; the CSS change itself is Session 5.
 2. **Label `DESIGN_SYSTEM.md`:** every token and rule is DIRECTED, APPROVED or PROPOSED. Already approved: color hierarchy and hex values (D1), the cream tint (D2), hero A (D4), D5 as a direction, the Our work page (D6). Leave P1, P2, P4, P5, P6 as proposals for Session 5 unless Jeremy decides now. Record the headline rule (D8) once he answers.
 3. **Check the docs agree** with each other and with the code (decisions, dates, next session).
 
@@ -73,17 +86,17 @@ python3 -m http.server 8000                     # preview at http://localhost:80
 - **Checkpoint reports the sprite or an image:** saving through the bridge adds an invisible tag to images and to `tools/pages/_sprite.html`. The tool and the builder already ignore it.
 - **A script's scrolling is undone, or full-page screenshots show blank photo frames:** the pages hold themselves at the top until a visitor touches, scrolls or presses a key (or 8 seconds pass), and the photos use native lazy loading. A script must press a key first, then scroll in steps and wait (`tools/shots.py` does).
 - **The Contact page's FAQ is chosen by exact question text** (`FAQ["contact"]` in `tools/build-pages.py`): "Do I have to sell to you if I reach out?", "How do I know GLP is legit?" and "What areas do you serve?". If a later session rewords one of those three, it silently drops off the Contact page; change the filter at the same time.
-- **The GoHighLevel form looks wrong live:** it cannot be tested from the workspace. Record what Jeremy sees and defer to Session 11.
+- **The GoHighLevel form looks wrong live:** the AI cannot test it inside our page (its browser tab shows the frame blank) and must never sign in or fill the form. It can be looked at on its own address, `https://links.voiseai.com/widget/form/c36UOOc2pkosxfvRfjZJ`, with nothing typed. Use `research/ghl-form-style.md`; record what Jeremy sees.
+- **The AI's browser tab is hidden:** `requestAnimationFrame` never fires and computed styles can be stale mid-transition, so check with screenshots and synchronous scripts, not timers.
 - **Facebook:** our tools cannot fetch it (it refuses them) and we never sign in. Ask Joey or Jeremy for saved photos or video files.
 - **Our work photo groups:** photos of mixed shapes flow into columns; a group whose photos are all the same shape sits in rows (the builder decides). Seven same-shape Building photos leave one photo alone in the last row; a "More on Facebook" tile could fill it.
 
 ## Suggested commit message for this session (Jeremy)
 
-Subject: Our work page, plainer wording, simpler header, pages open at the top on phones
+Subject: Contact form fix ready, tone and audience notes, Joey questions updated
 
 Body:
-- New Our work page: 16 photos in three groups with a keyboard-friendly photo viewer
-- Plain-talk pass: quiz and numbers strip removed, "Joey or Ethan" instead of "our team"
-- Header: no phone number, full menu from 1241px; the menu highlight clears at the top
-- Pages open at the very top on phones
-- Photo tools, a git ignore for the photo inbox, notes and checkpoint 12
+- Contact form: measured the live form and wrote a tested fix for its look (paste-ready CSS, steps, before and after picture); it needs GoHighLevel access
+- Notes now record the tone and audience direction and the corrected glass count
+- Questions for Joey updated (Our work photos, the sold photo, the videos, the form)
+- Checkpoint 13; no page, style or script changes
