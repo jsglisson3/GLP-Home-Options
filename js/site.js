@@ -11,28 +11,78 @@
   var yr = $('#yr'); if (yr) yr.textContent = new Date().getFullYear();
 
   /* ---------- Open at the very top ----------
-     A reloaded page reopens part-way down (the browser remembers where you were, and phones do it a lot), and the embedded
-     contact form can pull the page toward itself while it loads. Until the visitor touches the page, keep it at the top.
-     A link to a section (#contact) and the Back button are left alone. */
+     Rule: a page opens at the top. Two exceptions only: the Back button (the browser's own memory is right there), and a link
+     from another page of this site that points at a section (index.html#numbers). A link from a text, an email or a bookmark,
+     and a reload, all start at the top, even when the address carries a "#section" (that gets copied from the address bar after
+     tapping a menu link, and used to land the visitor mid-page). Until the visitor drags, scrolls, types or taps a link, anything
+     that moves the page (the browser's saved spot, the contact form loading) is undone. Add ?scrolldebug to the address to see
+     what happened on a phone. */
   (function () {
-    var entry = window.performance && performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
-    if (location.hash || (entry && entry.type === 'back_forward')) return;
-    var guarding = true, canRestore = 'scrollRestoration' in history;
-    function topNow() {
-      if (guarding && (window.pageYOffset || doc.documentElement.scrollTop)) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    var t0 = Date.now(), nav = null;
+    try { nav = performance.getEntriesByType('navigation')[0] || null; } catch (e) {}
+    var type = (nav && nav.type) || 'navigate';
+    var sameSite = false;
+    try { sameSite = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
+    var hash0 = location.hash, y0 = window.pageYOffset || doc.documentElement.scrollTop || 0;
+    var restore0 = 'scrollRestoration' in history ? history.scrollRestoration : 'n/a';
+    var keep = type === 'back_forward' || (!!hash0 && type === 'navigate' && sameSite);
+
+    var dbg = null, lines = [];
+    function note(s) {
+      if (!dbg) return;
+      lines.push(((Date.now() - t0) / 1000).toFixed(1) + 's ' + s);
+      dbg.textContent = lines.slice(-10).join('\n');
     }
-    function stop() {
+    if (/[?&]scrolldebug\b/.test(location.search)) {
+      dbg = doc.createElement('pre');
+      dbg.style.cssText = 'position:fixed;left:0;right:0;top:0;z-index:99999;margin:0;padding:8px 10px;background:rgba(0,0,0,.82);color:#9f9;font:11px/1.35 monospace;white-space:pre-wrap;pointer-events:none';
+      doc.body.appendChild(dbg);
+    }
+    note('type=' + type + ' hash=' + (hash0 || 'none') + ' ref=' + (document.referrer ? (sameSite ? 'same-site' : 'other') : 'none') + ' y0=' + Math.round(y0) + ' restore=' + restore0 + ' -> ' + (keep ? 'LEAVE ALONE' : 'GO TO TOP'));
+    if (keep) return;
+
+    if (hash0) { try { history.replaceState(history.state, '', location.pathname + location.search); } catch (e) {} }
+    var guarding = true, canRestore = 'scrollRestoration' in history, fixes = 0, lastFix = 0, loaded = doc.readyState === 'complete';
+    function topNow(why) {
+      if (!guarding) return;
+      var y = window.pageYOffset || doc.documentElement.scrollTop || 0;
+      if (y > 0) {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        fixes++; lastFix = Date.now();
+        note('moved to top from y=' + Math.round(y) + ' (' + why + ')');
+        if (fixes >= 4) stop('moved 4 times, so someone is scrolling (touch, scrollbar or screen reader)');
+      }
+    }
+    var intent = ['wheel', 'keydown', 'mousedown', 'touchmove'], tap = ['touchstart', 'pointerdown'];
+    function onScroll() { topNow('scroll'); }
+    function stop(why) {
       if (!guarding) return;
       guarding = false;
+      clearInterval(timer);
+      intent.forEach(function (ev) { window.removeEventListener(ev, onIntent); });
+      tap.forEach(function (ev) { window.removeEventListener(ev, onTap); });
+      window.removeEventListener('scroll', onScroll);
       if (canRestore) history.scrollRestoration = 'auto';   // give Back its normal memory again
+      note('guard off (' + why + '), fixes=' + fixes);
+    }
+    function onIntent(e) { stop(e.type); }
+    function onTap(e) {   // a tap on a link or button counts; a tap on bare page does not
+      var t = e.target;
+      if (t && t.closest && t.closest('a,button,summary,label,input,select,textarea,[role="button"]')) stop(e.type + ' on a control');
     }
     if (canRestore) history.scrollRestoration = 'manual';
-    ['touchstart', 'wheel', 'keydown', 'mousedown'].forEach(function (ev) { window.addEventListener(ev, stop, { passive: true, once: true }); });
-    window.addEventListener('scroll', topNow, { passive: true });
-    window.addEventListener('load', topNow);
-    window.addEventListener('pageshow', topNow);
-    topNow();
-    setTimeout(stop, 8000);
+    intent.forEach(function (ev) { window.addEventListener(ev, onIntent, { passive: true }); });
+    tap.forEach(function (ev) { window.addEventListener(ev, onTap, { passive: true }); });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('load', function () { loaded = true; topNow('load'); });
+    window.addEventListener('pageshow', function () { topNow('pageshow'); });
+    doc.addEventListener('visibilitychange', function () { if (!doc.hidden) topNow('visible'); });
+    var timer = setInterval(function () {   // quiet for 3 s after the first 8 s, or 30 s at most
+      var now = Date.now();
+      if (now - t0 > 30000) stop('30 s');
+      else if (loaded && now - t0 > 8000 && now - lastFix > 3000) stop('quiet');
+    }, 500);
+    topNow('start');
   })();
 
   /* ---------- Scroll: header state, ridge parallax ---------- */
