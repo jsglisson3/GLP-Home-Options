@@ -47,7 +47,7 @@ Verified the live site and repo, audited code, design tokens, claims and weights
 
 ### Session 5: Phase 2, design system consolidation
 - **Goal:** tokens and conventions: 4 breakpoints (P1), spacing and type scales (P2), motion tokens (P4). **No intended visual change except the approved D5 trims** (the floating blobs, photo parallax, hero photo zoom and tag bobbing were already removed in Session 3b, Checkpoint 5; what remains is to reduce glass to the list set in Session 4), shown as before and after screenshots.
-- **Success:** screenshots before and after match; axe still 0; checkpoint.
+- **Success:** screenshots before and after match (use `tools/shots.py` and `tools/shots-diff.py`); axe still 0; `tools/claims-check.py` clear; checkpoint.
 
 ### Sessions 6 to 9: Phase 3/4, section-by-section refinement (one session each)
 - 6: header, navigation, hero (applies the chosen hero: **A, people-led**, with the tag system and the warm cream hero surface moved from `css/proto.css` into `css/site.css` and `tools/pages/index.html`; then delete `proto-hero-a.html`, `proto-hero-b.html`, `css/proto.css`, `js/proto.js`, `tools/build-prototypes.py` and the two avatar images). (Update, Session 3b: the warm cream hero surface is already in `css/site.css`; only the tag system and the chosen hero markup remain to move.) (Update, Session 6a, Oct 21: hero A is applied to the live Home page, the header is refined and the prototypes are retired at Checkpoint 6; navigation wording and the other pages' headers remain.)
@@ -80,6 +80,44 @@ Verified the live site and repo, audited code, design tokens, claims and weights
 ### After launch (backlog, not scheduled)
 Situation pages (inherited home, divorce, relocation, needs repairs, financial stress, downsizing), each with unique copy from Joey's real experience; city pages (only towns Joey confirms; candidates to ask about: Hixson, Signal Mountain, Ooltewah, East Ridge, Red Bank, Soddy-Daisy, Collegedale); a real-reviews strip once real reviews exist; a market snapshot only with sourced numbers; a real SVG logo; video of Joey and Ethan; Google Business Profile; connect the construction site.
 
+## Proposed plan v2 (PROPOSED on Oct 21, planning session; nothing here is approved until Jeremy says so)
+
+The approved plan above stays in force. This section proposes what to add or reorder, based on `research/site-review-2026-10-21.md`. Jeremy can answer every decision in one message: "go with your recommendations", or "D7 no, the rest yes".
+
+### Decisions for Jeremy (recommendation first)
+
+| # | Decision | Recommend | Why |
+|---|---|---|---|
+| D7 | Give "The numbers" (compare table and net sheet) its own page; Home keeps a one-screen teaser. The "The numbers" menu item stays. | **Yes** | Home is about 13,000 px on a laptop and repeats the Options page. This alone brings it to about 11,200 px (laptop) and 16,600 px (phone); trimming the FAQ to the five most-asked and folding "how it works" into the options section (Session 7, same approval) brings it to about 9,500 and 14,500. A focused page is also easy to share in a text or on Facebook. About one session. |
+| D8 | Use the green-italic second headline line only for the hero and three or four key moments; plain bold elsewhere. | **Yes** | 11 headlines on Home use it; a signature used everywhere stops being one. About 20 minutes. |
+| D9 | Do not launch until every unconfirmed photo is confirmed by Joey or replaced. | **Yes** | The site presents the people photos as real moments (review F1 to F3). The site is already `noindex`. |
+| D10 | Glass: keep three uses (header, phone bottom bar, contact cards on the dark section); make the About name plates and the Options "jump to" panel solid. | **Yes** | Those two are almost opaque, so the blur adds cost and no look. Today's code has 5 uses, not 7. This is Session 4's list. |
+| D11 | Allow the scope additions in the review (save or print the numbers, a guided "which path fits", a real-reviews strip, situation pages, an intro video) as later sessions, each approved on its own. | **Not now** | Keep launch focused; revisit after Session 11. |
+
+### Success measures (proposed launch targets)
+
+- Lighthouse on the live site, phone: Performance 95 or more, Accessibility 100, Best practices 95 or more, SEO 95 or more (after `noindex` is removed). Core Web Vitals: LCP 2.5 s or less, INP 200 ms or less, CLS 0.1 or less (CLS is 0.000 locally today).
+- axe: 0 violations on all 7 pages at 4 views; a keyboard-only and a screen-reader pass done; touch targets 44 px or more.
+- After D7 and the Session 7 trims: Home about 9,500 px on a laptop and 14,500 px on a phone (13,050 and 20,295 today). Page weight 1 MB or less per page (Home is about 0.8 MB).
+- Zero unconfirmed claims or photos at launch (every **J** claim confirmed by Joey).
+- Tracked actions at launch: call tap, text tap, form submit, calculator start (Session 13).
+
+### Recommended order (30 to 40 minutes each)
+
+| Session | Objective | Waits on |
+|---|---|---|
+| 4 | Direction lock: label the design system; set the glass list (D10) and the headline rule (D8). No page changes. | D8, D10 |
+| 5 | Consolidation: 4 breakpoints (22 today; the starting inventory and a proposed mapping are in `research/css-inventory-2026-10-21.md`), spacing, type and motion tokens (motion today is 5 keyframes, all behind `no-preference`; proposed 160, 280 and 480 ms plus one easing curve), remove the count-up code, fix the column-balance spots (review F9), make the two glass uses solid. Before and after screenshots match except those. | Session 4 |
+| 7 | Home diet: the new "The numbers" page (D7), a Home teaser, menu and links; trim the FAQ to the five most-asked and fold "how it works" into the options section; vary the repeated card grids (F6). | D7 |
+| 8 | Options page: shorten it (9,039 px) without losing depth; Our story rhythm. | |
+| 9 | New homes, Contact, footer polish. | |
+| 10 | Homes gallery. | Joey's photos and answers (blocked) |
+| 11 | Form, consent text, every journey end to end. | GoHighLevel access |
+| 12 | Lighthouse, keyboard and screen-reader pass, 320 px, print. | |
+| 13 | Launch QA and deployment. | Joey's confirmations, a lawyer, the domain |
+
+**Joey track, in parallel:** Jeremy sends `research/questions-for-joey.md` (short text first). Photo originals are the biggest single upgrade and they gate D9.
+
 ## Dependencies
 
 | Task | Waits on |
@@ -94,7 +132,7 @@ Situation pages (inherited home, divorce, relocation, needs repairs, financial s
 ## Risks
 
 - Joey's answers arrive slowly: mitigated by the J tags in `CONTENT_CLAIMS.md` (we always know whose word a claim rests on) and by keeping the site `noindex` until he confirms.
-- Source photos are ~800px and one may be AI-generated (the bridge photo): real originals are the biggest trust upgrade.
+- Source photos are ~800px and the origins of two (the bridge hero and the kitchen table) are unconfirmed: real originals are the biggest trust upgrade (review findings F1 to F3).
 - The GHL form can't be exercised from our workspace: needs a human test on a phone after every change.
 - The construction business may split off: `NEW_HOMES` in `tools/build-pages.py` is the one-line switch.
 - Legal pages are plain-words drafts, not legal advice.

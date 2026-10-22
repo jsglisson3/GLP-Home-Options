@@ -2,6 +2,8 @@
 
 **Purpose:** every factual or promise-like statement on the site, where it came from, and what is still unconfirmed. This is how we keep the standing rule: **never invent reviews, licenses, years in business, awards, results, or business claims we can't verify.**
 
+**Automated guard:** `python3 tools/claims-check.py` fails if any built page gains credential, rating, award, guarantee, result-count or founding-year wording that is not allowlisted (with a reason) in `tools/claims-allow.txt`. Run it at every checkpoint.
+
 **Last audited:** Oct 21, 2026 (Session 1), against Joey's live site (glphomeoptions.com: Home, About, Options, Calculator, Contact, Privacy, Terms) and the GLP Home Options Facebook page. **Session 2 (Oct 21) reworked the six "fix first" claims; Jeremy then confirmed five of them and they went back on the draft, tagged J.** Authoritative for claims; `PROJECT_STATUS.md` links here.
 
 **Status key**

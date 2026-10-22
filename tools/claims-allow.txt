@@ -1,0 +1,6 @@
+# Allowed matches for tools/claims-check.py
+# Format:  page (or *) | a short piece of the surrounding text, lower case | why it is fine
+# Add a line only after checking the wording against CONTENT_CLAIMS.md. Never allow an invented credential, rating, award, review or result.
+terms-of-service.html | use license | Terms heading "Use license": permission to view the website, not a professional license
+terms-of-service.html | license to view | Terms: the website-use license, not a professional license
+terms-of-service.html | not a guarantee of any price | Terms: the net sheet is an estimate and is explicitly not a guarantee
