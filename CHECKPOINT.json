@@ -54,19 +54,19 @@
     "research/photos/from-old-build/kitchen-table-800x600.jpg",
     "research/photos/glp-logo-original-200px.jpg"
   ],
-  "checkpoint": 37,
-  "git_head_when_written": "0a2cad1",
-  "label": "Checkpoint 37 (notes only): Checkpoint 36 is live and checked; Jeremy decided to leave the current contact form alone and build a new one later (D17), with the plan and four questions for Joey",
+  "checkpoint": 38,
+  "git_head_when_written": "4b389e9",
+  "label": "Checkpoint 38 (notes only): Jeremy's 3:17 PM request about the calculator's default numbers is recorded; nothing changed on the site (D18: one real deal from Joey as the default, a guard for silly numbers)",
   "note": "Written just before the files for this checkpoint are committed, so the commit that contains it comes after git_head_when_written.",
   "text": {
     "404.html": "2c5574a92b76857f",
-    "CONTENT_CLAIMS.md": "bc9e45b9f5c07b8e",
+    "CONTENT_CLAIMS.md": "340fbf97b0864609",
     "DESIGN_SYSTEM.md": "4f6e6c1ec6a3a253",
     "PICKUP.md": "736ce416a86463d3",
-    "PROJECT_STATUS.md": "3412b23331101b79",
+    "PROJECT_STATUS.md": "f20effa0184132fc",
     "README.md": "a7576b8e2da698a9",
-    "ROADMAP.md": "e2f6eda4074a7b04",
-    "SESSION_HANDOFF.md": "d39d600779d35d68",
+    "ROADMAP.md": "ab62819a060f75c3",
+    "SESSION_HANDOFF.md": "6527b5a0e283b837",
     "about.html": "3f9b5da1d0e44a91",
     "contact.html": "baea3ccaf8f6f88f",
     "css/site.css": "23a65d7fbd0d8472",
@@ -85,7 +85,7 @@
     "research/joey-kit.md": "eb753ca423bbde13",
     "research/lead-response-playbook.md": "f9905c346390b964",
     "research/photo-brief-for-joey.md": "0bb72c4c01b58bce",
-    "research/questions-for-joey.md": "cd09e635c6fdca7e",
+    "research/questions-for-joey.md": "a5ea5b11959c933d",
     "research/site-map-proposal.md": "7d18879b5eacd8b5",
     "research/site-review-2026-10-21.md": "4a658339aaa1aea6",
     "research/site-review-2026-10-22.md": "29838595cb530add",
@@ -129,5 +129,5 @@
     "tools/wide-audit.py": "d3afae6cd9a89482",
     "work.html": "da1c6560cf8b6775"
   },
-  "written": "2026-10-22T15:13-05:00"
+  "written": "2026-10-22T15:22-05:00"
 }

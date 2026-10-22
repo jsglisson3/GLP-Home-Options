@@ -65,3 +65,9 @@ Jeremy decided to leave the form that is on the site today exactly as it is (it 
 4. **Is the text-message wording on the form the same wording your registered text campaign uses?** A new form has to copy it word for word.
 
 Also worth asking, because it changes the design: **what do you need to know before you call someone back?** First name and phone only, or also the address and what is going on? Fewer questions usually mean more people send the form.
+
+## Added Oct 22, 3:17 PM: a real example for the calculator (for Jeremy's talk with Joey)
+
+The net sheet opens on an example we made up (a $300,000 home, a $255,000 cash offer, listing nets $112,000, the offer $105,000). Jeremy wants the opening example to show GLP as a real win. The only honest way to do that is to use a real one.
+
+24. **Can you give me one real recent deal, with the numbers rounded so nobody can be identified?** What the home would have listed for, what repairs it needed, how long listing would likely have taken, what you offered, and what the seller would have netted by listing instead. Ideally the September closing, if those sellers are comfortable with it. We would use it as the example the calculator opens with, so it is true, and callers are not surprised by a real offer.
