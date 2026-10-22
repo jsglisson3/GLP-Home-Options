@@ -493,7 +493,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .fb:hover{text-decoration:underline;text-underline-offset:4px}
 .ftr-col{display:grid;gap:2px;align-content:start;font-size:.96rem}
 .ftr-col h2{margin-bottom:10px;font:800 .76rem/1 var(--f);letter-spacing:.15em;text-transform:uppercase;color:var(--navy-700)}
-.ftr-col a{display:inline-flex;align-items:center;width:fit-content;min-height:36px;color:var(--text);text-decoration:none;transition:color .2s}
+.ftr-col a{display:inline-flex;align-items:center;width:fit-content;min-width:44px;min-height:36px;color:var(--text);text-decoration:none;transition:color .2s}
 .ftr-col a:hover{color:var(--green-700);text-decoration:underline;text-underline-offset:4px}
 .ftr-col span{padding:6px 0;color:var(--muted)}
 @media (pointer:coarse){.ftr-col a{min-height:44px}}
@@ -555,7 +555,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .crumbs ol{display:flex;flex-wrap:wrap;align-items:center;gap:0 10px;list-style:none;margin:0;padding:0}
 .crumbs li+li::before{content:"/";margin-right:10px;color:var(--navy-300)}
 .crumbs a{display:inline-flex;align-items:center;min-height:32px;color:var(--navy-600);font-weight:650;text-decoration:none}
-@media (pointer:coarse){.crumbs a{min-height:44px}}
+@media (pointer:coarse){.crumbs a{min-width:44px;min-height:44px}}
 .crumbs a:hover{color:var(--green-700);text-decoration:underline;text-underline-offset:3px}
 .crumbs [aria-current]{color:var(--navy-800);font-weight:700}
 .phero{position:relative;isolation:isolate;overflow:hidden;padding:clamp(18px,3vw,40px) 0 clamp(92px,11vw,156px)}
@@ -637,7 +637,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .belief h3{font-size:1.14rem}
 .belief p{font-size:.97rem;line-height:1.55}
 .belief .addr{font-weight:650;color:var(--navy-800)}
-.belief .more,.proof .more{margin-top:0;min-height:40px;overflow-wrap:anywhere}
+.belief .more,.proof .more{margin-top:0;min-height:44px;overflow-wrap:anywhere}
 @media (max-width:380px){.belief .more,.proof .more{font-size:.9rem}}
 @media (max-width:1080px){.beliefs{grid-template-columns:repeat(2,minmax(0,1fr))}.beliefs.three{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:900px){.beliefs.three{grid-template-columns:minmax(0,1fr)}}
@@ -754,3 +754,11 @@ html.lb-open{overflow:hidden}
 }
 
 @media print{.js .rv:not(.in){opacity:1!important}.hdr,.mobile-bar{display:none!important}}
+
+/* Phone legibility floor (Checkpoint 19): small capital labels and short notes no smaller than about 12px (.76 to .78rem); photo captions, compare-table labels and form hints no smaller than 13px (.82rem).
+   Phones only; desktop sizes are unchanged. The HOME OPTIONS line inside the logo is a lockup and keeps its size. */
+@media (max-width:700px){
+  .gable-cap span,.hero .gable-cap span{font-size:.76rem;letter-spacing:.07em}
+  .us-badge,.example-tag,.founder figcaption span,.spec-grid dt,.txt small,.case-label,.fieldset-label,.sheet h4 small,.jump-label,.duo-label,.stamp,.pull cite,.ftr-col h2{font-size:.78rem}
+  .hero-people small,.cmp td::before,.mosaic figcaption,.gallery figcaption,.work-item figcaption,.hint{font-size:.82rem}
+}

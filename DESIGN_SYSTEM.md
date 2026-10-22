@@ -55,7 +55,7 @@ All decisions (D1 to D6) and their status are in `PROJECT_STATUS.md`, section C.
 
 **Checkpoint 13 (Session 6f, Oct 21 late night):** no code changed. Jeremy's tone, audience and contact-form direction (items 8a to 8c) was recorded; the glass count was corrected from 7 to 5; the real contact form was measured and a fix for its look was prepared (`research/ghl-form-style.md`, `research/ghl-form-custom.css`, `research/ghl-form-before-after.jpg`).
 
-**Checkpoint 14 (Session 6g, Oct 21 late night):** words were trimmed before wording was simplified (Jeremy, 11:30 PM: trim first, then the plain-talk pass). The Options page lost repeated sentences, list items and one duplicate card; the net sheet shows three boxes up front with the five assumed costs under "Change the costs we assumed" and no bars (Jeremy: "crucial"); the Our work closing section holds two photos (the second, a SOLD-sign photo, is not yet confirmed by Joey). **Checkpoints 15 and 16** trimmed repeated words on Home (the option-card bullets, the strip under the cards, the About band) and About, and merged three Home FAQ questions into one; no style or component changed. **Checkpoint 17** changed one script rule (`js/site.js`, "Open at the very top"): a page opens at the top unless it is reached by Back or by a link from another page of the site, and a stray `#section` from a text or a reload is dropped (checked by `tools/scrolltop-test.py`).
+**Checkpoint 14 (Session 6g, Oct 21 late night):** words were trimmed before wording was simplified (Jeremy, 11:30 PM: trim first, then the plain-talk pass). The Options page lost repeated sentences, list items and one duplicate card; the net sheet shows three boxes up front with the five assumed costs under "Change the costs we assumed" and no bars (Jeremy: "crucial"); the Our work closing section holds two photos (the second, a SOLD-sign photo, is not yet confirmed by Joey). **Checkpoints 15 and 16** trimmed repeated words on Home (the option-card bullets, the strip under the cards, the About band) and About, and merged three Home FAQ questions into one; no style or component changed. **Checkpoint 17** changed one script rule (`js/site.js`, "Open at the very top"): a page opens at the top unless it is reached by Back or by a link from another page of the site, and a stray `#section` from a text or a reload is dropped (checked by `tools/scrolltop-test.py`). **Checkpoint 19** (first mobile batch) added phone-only rules and one image: every touch target is 44px or larger in both directions (the footer, breadcrumb and "read more" links were the last ones under); below 700px wide, small capital labels and short notes are never smaller than about 12px and photo captions, compare-table labels and form hints never smaller than 13px (section 3); the Home hero photo has an 800, a 1200 and a 1600px copy in its `srcset`.
 
 ## 1. Brand personality (from the master plan)
 
@@ -101,6 +101,8 @@ Self-hosted variable fonts (no Google requests), `font-display: swap`:
 | H3 / `.h3` | `1.3rem` | 1.2 | −.02em | 700 |
 | Eyebrow | `.78rem`, uppercase | 1 | +.16em | 800, `--green-700`, with a 30×3 px gradient bar |
 | Buttons | `1rem` (lg `1.06rem`, sm `.95rem`) | 1 | normal | 700 |
+
+**Phone floor (Checkpoint 19, 700px wide and narrower, CSS only):** small capital labels and short notes are never smaller than `.76rem` (the photo-frame caption) to `.78rem` (about 12.2 to 12.5px); photo captions, compare-table labels and form hints are never smaller than `.82rem` (13.1px). Body text, headings, buttons and form fields are unchanged (form fields stay 16px or larger so iOS does not zoom the page). The HOME OPTIONS line inside the logo (9.3px on a phone) is a lockup, not text, and keeps its size. Check with `python3 tools/mobile-audit.py`.
 
 **The italic accent (`.ital`):** Fraunces italic 500, `--green-600`, `1.04em`, set on its own line (`display:block`) inside H1/H2. One accent phrase per heading. It is the main "warm, human" typographic gesture.
 
@@ -186,7 +188,7 @@ No bobbing and no slow photo zoom (D5). Verified: no tag overlaps or clips at 14
 
 - **WCAG 2.2 AA is the target.** Baseline: axe-core 0 violations on all 8 pages at 1440, 820, 390 (touch) and 390 with reduced motion, plus the phone menu open and the photo viewer open (Checkpoint 12: 35 scans, 0 violations).
 - Visible focus: 3px `--navy-700` outline, 3px offset (white on dark bands). Skip link on every page. Landmarks and one H1 per page.
-- Tap targets (measured Oct 21, non-inline links, buttons, inputs and FAQ rows on all 7 pages): nothing is under WCAG 2.2 AA's 24px minimum. Buttons, inputs and FAQ rows are 46px or taller. Footer links are 36px tall on desktop (44px on phones), header and breadcrumb links are 32px, and the phone-number text link on Our story is 40px. That meets AA but not the 44px best practice (**PROPOSAL P5:** 44px on touch).
+- Tap targets (measured Oct 21; re-measured Oct 22 with `tools/mobile-audit.py` at 320 to 430px): nothing is under WCAG 2.2 AA's 24px minimum. Buttons, inputs and FAQ rows are 46px or taller. **On a phone every target the audit measures is now 44px or larger in both directions** (Checkpoint 19: the footer "FAQ" link, the breadcrumb "Home" link and the "read more" links on About and Contact were the last ones under; links inside a sentence are exempt). With a mouse the footer links stay 36px tall and the header links 36 to 37px, which meets AA but not the 44px best practice (**P5 is built for touch screens only**).
 - Forms: permanent labels above fields (Baymard). The embedded GHL form's own styling is controlled inside GoHighLevel.
 - No horizontal scrolling at any tested width; test at 320px in Phase 6.
 - Respect `prefers-reduced-motion`; no autoplay media; no dark mode (deliberate).
@@ -203,7 +205,7 @@ Photos are real project/people photos in the gable frame, with descriptive alt t
 | P2 | Add a spacing scale (`--space-1..8`) and a type scale as tokens | 2 |
 | P3 | Warm neutral (cream) surface. **APPROVED for the hero (Oct 21, Session 3) and extended to the whole site (Oct 21, Session 6b):** `--cream: #f6f0e3`; hero background `linear-gradient(180deg,#fdfbf6 0%,var(--cream) 55%,#efe8d8 100%)`; the ridge's front layer stays `--mist`. Contrast on the darkest stop `#efe8d8`: body text 6.45:1, `--muted` 5.28:1, navy-800 9.83:1, green-700 5.47:1; the green-600 italic accent is 4.13:1, so on cream it is for large type only. Any other section: not decided. Built in `css/proto.css`; applied in Session 6. | done (1); apply in 6 |
 | P4 | Motion tokens (durations, easings) | 2 |
-| P5 | 44px touch targets for footer/inline links on touch devices | 6 |
+| P5 | 44px touch targets for footer/inline links on touch devices. **BUILT for non-inline links in Checkpoint 19, under Jeremy's mobile-pass direction (11:54 PM); say so if he wants it reversed.** | 6 |
 | P6 | Responsive images (`srcset`, WebP/AVIF) once originals exist | 6 |
 | P7 | Reduce repeated tile-card grids on the home page (the plan asks for varied layouts) | 4 |
 
