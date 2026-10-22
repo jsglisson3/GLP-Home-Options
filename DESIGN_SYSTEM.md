@@ -130,6 +130,8 @@ Headings use `text-wrap: balance`. Do not add a third font.
 
 **Checkpoint 29:** one new pair of widths, for Home's "now building" card (`.build-copy .spec-grid`): a 2 x 2 block from 56.3125em (901 px) to 74.9375em (1199 px) and one row of four from 75em (1200 px), because from about 920 to 1110 px the card used to run under the photos.
 
+**Checkpoint 30:** the phone's bottom bar is tucked away by the stylesheet from the very first paint (`.js .mobile-bar:not(.auto)`, in the same position as the script's own hidden state, so nothing animates when the script takes over). Rule: anything the script shows or hides on load must start in its final state in the stylesheet, and the `js` flag (taken off the page if the script fails, or if it is stuck for 6 seconds) keeps the no-script fallback working. `tools/bar-test.py` guards it.
+
 **PROPOSAL P1 (Phase 2, no visual change intended):** consolidate to four: 520 (phone), 900 (tablet), 1240 (nav), plus one wide value if a layout needs it (the old 1360 header-phone rule is gone), and map every other value onto them.
 
 ## 5. Surfaces: radii, shadows, glass (BUILT)
@@ -162,7 +164,7 @@ Reduced motion: all animations and transitions are removed; reveals show immedia
 | Component | Classes | Rules worth keeping |
 |---|---|---|
 | Header + nav | `.hdr .nav .hdr-cta .hdr-fb .menu-btn .mnav` | Six links (Your options, The numbers, Our story, Our work, New homes, Contact); Contact is last. Facebook logo button in the header at ≥1241px; phone menu has a "Follow us on Facebook" row. No phone number in the header (removed at Checkpoint 12: it did not fit). **Phones held sideways (a screen about 500px tall or less; Checkpoint 26):** the header is 58px tall instead of 80, with the same logo sizes the narrow phones use. |
-| Phone action bar | `.mobile-bar` | Appears after the hero buttons scroll away; steps aside at the form. The three buttons (Call, Text, Get my options) share the width 1 : 1 : 1.55; at 350px and narrower 1 : 1 : 1.7 with a 6px gap and 10px side padding (Checkpoint 21). |
+| Phone action bar | `.mobile-bar` | Appears after the hero buttons scroll away; steps aside at the form. The three buttons (Call, Text, Get my options) share the width 1 : 1 : 1.55; at 350px and narrower 1 : 1 : 1.7 with a 6px gap and 10px side padding (Checkpoint 21). Until the page's script has run the stylesheet keeps it tucked away (`.js .mobile-bar:not(.auto)`), so it never flashes on load; if the script fails, the `js` flag is taken off and the bar stays visible (Checkpoint 30). |
 | Hero (home) | `.hero .hero-grid .gable .eyebrow .micro` | One H1, one primary action, one human photo with a single name plate. No floating tags (removed Oct 21, Session 6b). |
 | Page hero (inner pages) | `.phero .crumbs` | Breadcrumb, H1, lede, one primary action. |
 | Photo frame | `.gable` (`.g1 .g2 .g3`, `clipPath#gable`) | The roofline of the logo as a photo mask. Use for people and homes. |

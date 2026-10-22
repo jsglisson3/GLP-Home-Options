@@ -539,6 +539,8 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
   .mb-go{background:linear-gradient(135deg,#3a7a66,#316656);color:#fff;box-shadow:0 6px 16px rgba(49,102,86,.3)}
   body{padding-bottom:calc(4.75rem + env(safe-area-inset-bottom,0px))}
   /* With JS the bar slides in once the hero buttons have scrolled away, and steps aside while the form is on screen. Without JS it simply stays put. */
+  /* Until the page's script has run, keep the bar tucked away so it never shows for a moment and then slides off (Checkpoint 30). If the script fails, the "js" class is taken off the page and the bar simply stays visible. */
+  .js .mobile-bar:not(.auto){transform:translateY(115%);visibility:hidden}
   .mobile-bar.auto{transform:translateY(115%);visibility:hidden;transition:transform .38s cubic-bezier(.2,.7,.2,1),visibility 0s linear .38s}
   .mobile-bar.auto.on{transform:none;visibility:visible;transition:transform .38s cubic-bezier(.2,.7,.2,1),visibility 0s}
 }

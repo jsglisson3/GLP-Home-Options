@@ -140,6 +140,9 @@
       }, { rootMargin: '0px 0px -30% 0px' }).observe(formSec);
     }
     syncBar();
+  } else if (mbar) {
+    /* very old browser without IntersectionObserver: the stylesheet hides the bar until it is told it may show, so show it for good */
+    mbar.classList.add('auto'); mbar.classList.add('on');
   }
 
   /* ---------- Mobile menu ---------- */
