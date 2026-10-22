@@ -54,18 +54,18 @@
   "research/photos/from-old-build/kitchen-table-800x600.jpg",
   "research/photos/glp-logo-original-200px.jpg"
  ],
- "checkpoint": 30,
+ "checkpoint": 31,
  "git_head_when_written": "ad04d66",
- "label": "Session 6g (continued): the phone's bottom bar no longer flashes while a page loads",
+ "label": "Session 6g (continued): notes only, Checkpoint 30 is live",
  "note": "Written just before the files for this checkpoint are committed, so the commit that contains it comes after git_head_when_written.",
  "text": {
   "CONTENT_CLAIMS.md": "daa5beaa0f50788e",
   "DESIGN_SYSTEM.md": "ea503333a4bad200",
   "PICKUP.md": "736ce416a86463d3",
-  "PROJECT_STATUS.md": "32c5505a4a753f2a",
+  "PROJECT_STATUS.md": "68e3d3aff592cbfa",
   "README.md": "f6810c79da8c5579",
-  "ROADMAP.md": "99cccda399c64420",
-  "SESSION_HANDOFF.md": "3f7eb7cca17b7d6d",
+  "ROADMAP.md": "ab1ec7f81fea6dc0",
+  "SESSION_HANDOFF.md": "241dae239663d1d1",
   "about.html": "1412ca1af46cd638",
   "contact.html": "30ba551ca7b3ffa0",
   "css/site.css": "6271212635e214a6",
@@ -116,5 +116,5 @@
   "tools/wide-audit.py": "8a308bbc224d8b00",
   "work.html": "cd151ac254b5fdb0"
  },
- "written": "2026-10-22T08:24-05:00"
+ "written": "2026-10-22T08:36-05:00"
 }
