@@ -87,7 +87,7 @@ Home
 | Page | When | Job | Needs from someone |
 |---|---|---|---|
 | The 8 pages we have | Launch | See section 6 | Joey's confirmations (photos, claims, license) |
-| Thank-you page | Launch | Confirms the message went through, says what happens next, shows the phone number again, lets us count form sends. Hidden from search | The GoHighLevel form must send people to it |
+| Thank-you page | Launch | Confirms the message went through, says what happens next, shows the phone number again, lets us count form sends. Hidden from search | **Changed at Checkpoint 46:** the new form shows its own "Thank you" panel in place and does not redirect, so this page is only needed if a separate page is wanted for counting sends. (It was written when the GoHighLevel form had to send people to it.) |
 | "Page not found" page | Launch | A friendly dead end: "We can't find that page. Call or text, or go Home." | Nothing |
 | `/calculator` redirect | Launch | The old net sheet link lands on the new net sheet | Nothing |
 | The numbers (own page) | Launch if S3 is yes | The most useful and most shareable thing on the site | Your yes |

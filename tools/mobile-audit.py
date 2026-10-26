@@ -33,8 +33,11 @@ PROBE = r"""
   out.smallText = [...small.entries()].slice(0, 6).map(([k, v]) => k + ' x' + v);
   const inline = a => { const p = a.closest('p,li,dd,td'); const d = getComputedStyle(a).display;   // the phone number in a sentence is an inline-block (class nb) so it moves whole: still an in-sentence link
     return p && a.parentElement !== document.body && (d === 'inline' || (d === 'inline-block' && a.classList.contains('nb'))) && a.textContent.trim().length < p.textContent.trim().length - 8; };
-  out.tap = [...document.querySelectorAll('a,button,summary,input:not([type=hidden]),select,textarea,[role=button]')].filter(e => vis(e) && !inline(e)).map(e => { const r = e.getBoundingClientRect(); return [sel(e), Math.round(r.width), Math.round(r.height)]; }).filter(x => x[1] < 44 || x[2] < 44).slice(0, 8).map(x => x[0] + ' ' + x[1] + 'x' + x[2]);
-  out.zoomFields = [...document.querySelectorAll('input:not([type=hidden]),select,textarea')].filter(e => vis(e) && parseFloat(getComputedStyle(e).fontSize) < 16).map(sel).slice(0, 6);
+  // Checkpoint 46: a hidden trap field (aria-hidden) cannot be tapped by anyone, and a checkbox or radio inside a label is tapped through the label, so those are judged by what a finger can actually hit.
+  const reach = e => !e.closest('[aria-hidden="true"]');
+  const hit = e => { if (e.matches('input[type=checkbox],input[type=radio]')) { const l = e.closest('label'); if (l) return l; } return e; };
+  out.tap = [...document.querySelectorAll('a,button,summary,input:not([type=hidden]),select,textarea,[role=button]')].filter(e => vis(e) && reach(e) && !inline(e)).map(e => { const r = hit(e).getBoundingClientRect(); return [sel(e), Math.round(r.width), Math.round(r.height)]; }).filter(x => x[1] < 44 || x[2] < 44).slice(0, 8).map(x => x[0] + ' ' + x[1] + 'x' + x[2]);
+  out.zoomFields = [...document.querySelectorAll('input:not([type=hidden]):not([type=checkbox]):not([type=radio]),select,textarea')].filter(e => vis(e) && reach(e) && parseFloat(getComputedStyle(e).fontSize) < 16).map(sel).slice(0, 6);   // only fields a person types into make a phone zoom in
   out.bigImgs = [...document.images].filter(i => i.naturalWidth && i.getBoundingClientRect().width > 0 && i.naturalWidth > i.getBoundingClientRect().width * 3).map(i => i.getAttribute('src').split('/').pop() + ' ' + i.naturalWidth + 'px shown at ' + Math.round(i.getBoundingClientRect().width)).slice(0, 6);
   out.noDims = [...document.images].filter(i => !i.getAttribute('width') || !i.getAttribute('height')).map(i => (i.getAttribute('src') || '').split('/').pop()).slice(0, 6);
   return out;

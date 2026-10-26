@@ -1,17 +1,34 @@
 """Does a change alter how anything looks?   (added at Checkpoint 32)
 
-Run:   python3 tools/computed-diff.py <folder A> <folder B>        It must print  PAGES WITH DIFFERENCES 0.   (needs: pip install playwright; playwright install chromium)
+Run:   python3 tools/computed-diff.py <folder A> <folder B> [--around SELECTOR]        It must print  PAGES WITH DIFFERENCES 0.   (needs: pip install playwright; playwright install chromium)
 
 Compares two copies of the site (say, last checkpoint and this one) by asking the browser, for EVERY element on every page at seven screen widths
 (320 to 1920 px), where it is, how big it is and every style value it computed. Zero differences means the change is invisible to modern browsers.
 Pictures are not compared on purpose: full-page screenshots of the same page differ from run to run (photos decode at different moments), so
 that test cries wolf; computed styles do not. Used at Checkpoint 32 to show the older-phone fallback lines change nothing in a modern browser
 (56 page-and-width pairs, 22,771 elements, 0 differences). It reads the style values in one step and compares them as a set, because the order a browser
-lists them in can vary from load to load."""
+lists them in can vary from load to load.
+
+--around SELECTOR (added at Checkpoint 46): for a change that is MEANT to alter one part of a page (the contact form replaced a frame, so the section is a different
+size, and the hidden icon sprite gained three icons). The part matching SELECTOR (say "#contact") and the icon sprite are left out of both pages; every other
+element is still compared in full (script tags draw nothing and are skipped), except that an element after the part ignores its distance from the top and its top and
+bottom offsets (the part's height moved it) and the elements that contain the part (main, body, html) ignore their own height. Without --around every element, the sprite included, is compared and a different element count is a
+difference by itself, as before.
+
+Known noise (found at Checkpoint 46): now and then Chrome reports the centring margin of a full-width container (an element with margin left and right set to "auto", such as
+"div.wrap.how" on About or "div.wrap.hero-grid" on Home) as 0 px in one of the two copies and as its true value (20 px at 1280 wide, 340 px at 1920 wide) in the other. The box (x, y, width,
+height) is identical every time, the element and page it hits change from run to run, and comparing the baseline with an identical copy of itself shows the same flips, so it is
+the measurement and not the site. A difference that is only margin-left, margin-right, margin-inline-start and margin-inline-end on such an element, with the box equal, is this noise: run again before worrying."""
 import sys, threading, functools, http.server, socketserver, json
 from playwright.sync_api import sync_playwright
-if len(sys.argv) < 3: sys.exit(__doc__)
-A, B = sys.argv[1], sys.argv[2]
+AROUND = None
+argv = list(sys.argv)
+if "--around" in argv:
+    _i = argv.index("--around")
+    if _i + 1 >= len(argv): sys.exit(__doc__)
+    AROUND = argv[_i + 1]; del argv[_i:_i + 2]
+if len(argv) < 3: sys.exit(__doc__)
+A, B = argv[1], argv[2]
 import _site  # finds the pages
 pages = [x for x in _site.page_slugs(A, include_404=False) if x in _site.page_slugs(B, include_404=False)]   # pages in BOTH folders; a page only one folder has is listed below
 only = sorted(set(_site.page_slugs(A, include_404=False)) ^ set(_site.page_slugs(B, include_404=False)))
@@ -27,14 +44,27 @@ def serve(d, port):
     s = socketserver.ThreadingTCPServer(("127.0.0.1", port), functools.partial(Q, directory=d)); s.daemon_threads = True
     threading.Thread(target=s.serve_forever, daemon=True).start()
 serve(A, 8761); serve(B, 8762)
-JS = """() => {
+JS = """(around) => {
   const out = [];
   const els = document.querySelectorAll('html, body, body *');
+  const sec = around ? document.querySelector(around) : null, sprite = around ? document.querySelector('body > svg[width="0"]') : null;
+  const SIZE = new Set(['height', 'block-size', 'perspective-origin', 'transform-origin']), POS = new Set(['top', 'bottom', 'inset-block-start', 'inset-block-end']);   // sizes of the elements that hold the part; where an absolutely placed element sits when the part above it changed height
   els.forEach((el, i) => {
+    let skipY = false, skipBox = false;
+    if (around) {
+      if (el.tagName === 'SCRIPT') return;   // a script tag draws nothing (the contact form adds one to Home and Contact)
+      if (sprite && (el === sprite || sprite.contains(el))) return;
+      if (sec) {
+        if (el === sec || sec.contains(el)) return;
+        if (el.contains(sec)) skipBox = true;
+        else if (sec.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) skipY = true;
+      }
+    }
     const r = el.getBoundingClientRect(), cs = getComputedStyle(el);
     const parts = [];
-    for (const p of cs) parts.push(p + ':' + cs.getPropertyValue(p));
-    out.push([el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (typeof el.className === 'string' && el.className ? '.' + el.className.trim().split(/\\s+/).join('.') : ''), [r.x, r.y, r.width, r.height].map(v => Math.round(v * 100) / 100).join(','), parts.join('\\n')]);
+    for (const p of cs) { if ((skipBox && SIZE.has(p)) || (skipY && POS.has(p))) continue; parts.push(p + ':' + cs.getPropertyValue(p)); }
+    const box = skipBox ? 'contains the part' : [r.x, skipY ? 'y' : r.y, r.width, r.height].map(v => (v === 'y' ? v : Math.round(v * 100) / 100)).join(',');
+    out.push([el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (typeof el.className === 'string' && el.className ? '.' + el.className.trim().split(/\\s+/).join('.') : ''), box, parts.join('\\n')]);
   });
   return out;
 }"""
@@ -52,7 +82,7 @@ with sync_playwright() as p:
         pa, pb = ctx.new_page(), ctx.new_page()
         for name in pages:
             load(pa, 8761, name); load(pb, 8762, name)
-            ra, rb = pa.evaluate(JS), pb.evaluate(JS)
+            ra, rb = pa.evaluate(JS, AROUND), pb.evaluate(JS, AROUND)
             total += 1; elems += len(ra)
             diffs = []
             if len(ra) != len(rb): diffs.append(f"element count {len(ra)} vs {len(rb)}")
@@ -67,7 +97,7 @@ with sync_playwright() as p:
                             what.append("style " + ", ".join(f"{k}: {da.get(k)} -> {db.get(k)}" for k in sorted(set(da) | set(db)) if da.get(k) != db.get(k))[:260])
                         diffs.append(f"{x[0][:50]}: " + "; ".join(what))
             if diffs: bad += 1
-            print(f"{w:>5} {name:<18} {len(ra):>5} elements  " + ("same" if not diffs else f"{len(diffs)} DIFFERENCES: " + " | ".join(diffs[:5])), flush=True)
+            print(f"{w:>5} {name:<18} {len(ra):>5} elements  " + ("same" if not diffs else f"{len(diffs)} DIFFERENCES: " + " | ".join(diffs[:(12 if AROUND else 5)])), flush=True)
         ctx.close()
     b.close()
 print("PAGES WITH DIFFERENCES", bad, "of", total, "checked", elems, "elements")

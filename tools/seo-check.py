@@ -408,6 +408,10 @@ def live_checks(folder, pages, stubs, real, redirects, utility=(), launch=False)
     check(not leaks, f"nothing mentions github.io or the preview account, in any capitalisation (found in: {leaks})")
     if launch:   # the part of launch day that is open on purpose today
         print("LAUNCH GATE (--launch): content that must be ready before the switch is flipped")
+        _src = (TOOLS / "build-pages.py").read_text(encoding="utf-8")
+        _ep = re.search(r'^FORM_ENDPOINT = "([^"]*)"', _src, re.M)
+        if _ep is not None and _ep.group(1) == "":   # not a failure: the hand-off works, nothing is lost. A reminder, so launch day is a decision and not a surprise
+            print("  note: the contact form is not connected to a receiving end yet (FORM_ENDPOINT is empty), so it hands the message to the visitor's own text or email app. See research/form-wiring.md.")
         for name in sorted(expected):
             shown = norm(" ".join(pages[name].text))
             check("Draft for review" not in shown, f"{name}: no visible \"Draft for review\" note on a page that can be searched (decision 7 in research/launch-checklist.md)")
@@ -460,6 +464,11 @@ def saved_checks(fresh_by_mode, launch_files):
     src = (TOOLS / "build-pages.py").read_text(encoding="utf-8")
     m = re.search(r"^LIVE\s*=\s*(\S+)\s*$", src, re.M)
     check(m is not None and m.group(1) in ("True", "False"), f"LIVE is written exactly True or False in tools/build-pages.py ({m.group(1) if m else 'not found'})")
+    ep = re.search(r'^FORM_ENDPOINT = "([^"]*)"', src, re.M)
+    check(ep is not None and (ep.group(1) == "" or ep.group(1).startswith("https://")),
+          f"FORM_ENDPOINT is empty (the form hands off to the visitor's own text or email app) or an https address ({(ep.group(1) or 'empty') if ep else 'not found'})")
+    ff = re.search(r'^FORM_FORMAT = "([^"]*)"', src, re.M)
+    check(ff is not None and ff.group(1) in ("json", "form"), f"FORM_FORMAT is json or form ({ff.group(1) if ff else 'not found'})")
     mode = "live" if m and m.group(1) == "True" else "preview"
     print(f"  LIVE says: {mode}")
     folder = fresh_by_mode[mode]

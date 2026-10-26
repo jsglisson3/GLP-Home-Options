@@ -25,8 +25,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="fonts/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/fraunces-latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
-<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__glpReady)document.documentElement.classList.remove('js')},6000)</script>
-<link rel="stylesheet" href="css/site.css?v=48">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__glpReady||(document.getElementById('lf')&&!window.__glpForm))document.documentElement.classList.remove('js')},6000)</script>
+<link rel="stylesheet" href="css/site.css?v=49">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LocalBusiness", "@id": "https://jsglisson3.github.io/GLP-Home-Options/#business", "name": "GLP Home Options", "legalName": "GL Partners LLC", "description": "Chattanooga home options: sell directly with no repairs, list with an agent, keep your home, or another arrangement like seller financing or a lease option. Plus affordable new homes.", "telephone": "+1-423-451-5707", "email": "info@glphomeoptions.com", "url": "https://jsglisson3.github.io/GLP-Home-Options/", "image": "https://jsglisson3.github.io/GLP-Home-Options/images/joey-ethan-bridge.jpg", "logo": "https://jsglisson3.github.io/GLP-Home-Options/images/glp-mark.png", "address": {"@type": "PostalAddress", "postOfficeBoxNumber": "55", "addressLocality": "Hixson", "addressRegion": "TN", "addressCountry": "US"}, "areaServed": [{"@type": "City", "name": "Chattanooga, TN"}, "Counties within about an hour of Chattanooga, in Tennessee and Georgia"], "founder": [{"@type": "Person", "name": "Joey"}, {"@type": "Person", "name": "Ethan"}], "sameAs": ["https://www.facebook.com/profile.php?id=61588492362641"]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://jsglisson3.github.io/GLP-Home-Options/"}, {"@type": "ListItem", "position": 2, "name": "Contact", "item": "https://jsglisson3.github.io/GLP-Home-Options/contact.html"}]}</script>
 </head>
@@ -65,6 +65,9 @@
     <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
     <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
     <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 7.5v5.5M12 16.6v.01"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2.2"/><path d="M5.5 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v.5"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4z"/></symbol>
     <symbol id="i-fb-logo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.7" fill="#fff" stroke="none"/><path fill="#0866FF" stroke="none" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></symbol>
   </defs>
 </svg>
@@ -107,14 +110,14 @@
   <section class="contact contact-page" id="contact" aria-labelledby="contact-h">
     <div class="contact-bg" aria-hidden="true"><canvas class="topo" data-tone="light"></canvas></div>
     <div class="wrap contact-grid">
-      <div class="contact-copy">
-        <div>
-          <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li><span aria-current="page">Contact</span></li></ol></nav>
+      <div class="contact-top">
+        <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li><span aria-current="page">Contact</span></li></ol></nav>
           <span class="eyebrow on-dark">Contact</span>
           <h1 id="contact-h">Let’s talk about your home. <span class="ital">No pressure, no scripts.</span></h1>
-          <p class="lede">Call or text anytime, or send a few details. You’ll talk to Joey or Ethan, and your information stays&nbsp;confidential.</p>
-        </div>
-        <div class="reach" data-stagger>
+        <p class="lede">Call or text anytime, or send a few details. You’ll talk to Joey or Ethan, and your information stays&nbsp;confidential.</p>
+      </div>
+
+      <div class="reach reach-main" data-stagger>
           <a class="reach-item rv in" style="--d:0" href="tel:+14234515707">
             <span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span>
             <span class="txt"><small>Call</small><b><span class="nb ph">(423) 451-5707</span></b></span><span class="go" aria-hidden="true">Call</span>
@@ -123,6 +126,123 @@
             <span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-sms"/></svg></span>
             <span class="txt"><small>Text</small><b><span class="nb ph">(423) 451-5707</span></b></span><span class="go" aria-hidden="true">Text</span>
           </a>
+        </div>
+
+      <div class="form-card rv in" style="--d:2" data-d="2">
+        <p class="form-who"><span class="avs" aria-hidden="true"><img src="images/joey-avatar.jpg" alt="" width="112" height="112" decoding="async"><img src="images/ethan-avatar.jpg" alt="" width="112" height="112" decoding="async"></span><span><b>Joey &amp; Ethan</b><small>Co-founders<span class="sep"> · </span><span class="loc">Hixson, TN</span></small></span></p>
+        <div class="lf-wrap">
+          <form class="lf" id="lf" novalidate method="post" onsubmit="return false" data-endpoint="" data-format="json" data-consent-version="8b99d710" data-sms="sms:+14234515707" data-mail="info@glphomeoptions.com" aria-labelledby="lf-h">
+            <div class="lf-head">
+              <h2 class="h3" id="lf-h">Thinking about selling, or not sure yet?</h2>
+              <p class="sub">Joey or Ethan will get back to you. There’s no obligation, and only your name and phone number are required.</p>
+            </div>
+            <div class="lf-sum" id="lf-sum" tabindex="-1" hidden></div>
+            <fieldset class="lf-pills">
+              <legend>What can we help with? <span class="lf-opt">(optional)</span></legend>
+              <div class="lf-pillrow">
+            <label class="pill"><input type="radio" name="topic" value="sell"><span>Selling my home</span></label>
+            <label class="pill"><input type="radio" name="topic" value="keep"><span>Keeping my home</span></label>
+            <label class="pill"><input type="radio" name="topic" value="new"><span>A new home</span></label>
+            <label class="pill"><input type="radio" name="topic" value="unsure"><span>Not sure yet</span></label>
+              </div>
+            </fieldset>
+            <div class="field" data-f="name">
+              <label for="lf-name">Your name</label>
+              <div class="input"><input id="lf-name" name="name" type="text" autocomplete="name" autocapitalize="words" enterkeyhint="next" spellcheck="false" maxlength="80" required aria-describedby="lf-name-err"></div>
+              <p class="lf-err" id="lf-name-err" hidden></p>
+            </div>
+            <div class="field" data-f="phone">
+              <label for="lf-phone">Phone number</label>
+              <div class="input"><input id="lf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="done" maxlength="24" required aria-describedby="lf-phone-err lf-phone-hint"></div>
+              <p class="lf-err" id="lf-phone-err" hidden></p>
+              <p class="hint" id="lf-phone-hint">So Joey or Ethan can reach you about your request.</p>
+            </div>
+            <details class="lf-more" id="lf-more">
+              <summary><span class="lf-more-t">Add an email, your address, or a note</span><span class="lf-opt">optional</span></summary>
+              <div class="lf-more-body">
+                <div class="field" data-f="email">
+                  <label for="lf-email">Email address</label>
+                  <div class="input"><input id="lf-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" enterkeyhint="next" spellcheck="false" maxlength="120" aria-describedby="lf-email-err"></div>
+                  <p class="lf-err" id="lf-email-err" hidden></p>
+                </div>
+                <fieldset class="lf-pills lf-chan">
+                  <legend>Best way to reach you</legend>
+                  <div class="lf-pillrow">
+              <label class="pill"><input type="radio" name="channel" value="call"><span>Call</span></label>
+              <label class="pill"><input type="radio" name="channel" value="text"><span>Text</span></label>
+              <label class="pill"><input type="radio" name="channel" value="email"><span>Email</span></label>
+                  </div>
+                </fieldset>
+                <div class="field" data-f="address">
+                  <label for="lf-address">Home address or ZIP code</label>
+                  <div class="input"><input id="lf-address" name="address" type="text" autocomplete="address-line1" enterkeyhint="next" maxlength="120" aria-describedby="lf-address-hint"></div>
+                  <p class="hint" id="lf-address-hint">Helps us look up your home before we talk. Leave it blank if you’d rather talk first.</p>
+                </div>
+                <div class="field" data-f="message">
+                  <label for="lf-message">Anything else you’d like us to know?</label>
+                  <textarea id="lf-message" name="message" rows="4" maxlength="600" aria-describedby="lf-message-hint"></textarea>
+                  <p class="hint" id="lf-message-hint">What’s going on, what you’re hoping for, or a good time to reach you. Up to 600 characters.</p>
+                </div>
+              </div>
+            </details>
+            <div class="lf-hp vh" aria-hidden="true"><label for="lf-web">Website</label><input id="lf-web" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+            <fieldset class="lf-consent">
+              <legend>Text messages <span class="lf-opt">(optional)</span></legend>
+              <div class="lf-checks">
+                <label class="check"><input type="checkbox" name="consent_service" value="yes"><span>I consent to receive non-marketing text messages from GL Partners LLC DBA GLP Home Options regarding appointment reminders, follow-up messages, account updates, and requested information about services. Message frequency varies. Message frequency varies, message &amp; data rates may apply. Reply HELP for assistance, reply STOP to opt out.</span></label>
+                <label class="check"><input type="checkbox" name="consent_marketing" value="yes"><span>I consent to receive marketing text messages from GL Partners LLC DBA GLP Home Options regarding promotions, special offers and product updates. Message frequency varies. Message and data rates may apply. Reply HELP for assistance, reply STOP to opt out.</span></label>
+              </div>
+            </fieldset>
+            <div class="lf-go">
+              <button class="btn btn-primary btn-lg lf-send" type="submit"><span class="lf-send-t">Get my message ready</span><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              <p class="lf-status vh" id="lf-status" role="status" aria-live="polite"></p>
+              <p class="lf-note">No obligation, no spam. Your information is kept confidential.</p>
+              <p class="lf-legal"><a href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy<span class="vh"> (opens in a new tab)</span></a><span class="dot" aria-hidden="true"> · </span><a href="terms-of-service.html" target="_blank" rel="noopener">Terms of Service<span class="vh"> (opens in a new tab)</span></a></p>
+            </div>
+          </form>
+
+          <div class="lf-panel lf-hand" id="lf-hand" role="region" aria-labelledby="lf-hand-h" tabindex="-1" hidden>
+            <span class="lf-badge" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-sms"/></svg></span>
+            <h2 class="h3" id="lf-hand-h">Your message is ready to send</h2>
+            <p class="lf-lede" id="lf-lede-sms" data-v="sms">Nothing has been sent yet. Press &ldquo;Text it to Joey &amp; Ethan&rdquo;, then press Send in your messages app, and it goes straight to Joey and Ethan. If nothing opens, press &ldquo;Copy my message&rdquo; below and paste it into a text, or call us.</p>
+            <p class="lf-lede" id="lf-lede-mail" data-v="mail" hidden>Nothing has been sent yet. Press &ldquo;Email it to Joey &amp; Ethan&rdquo;, then press Send in your email app, and it goes straight to Joey and Ethan. If nothing opens, press &ldquo;Copy my message&rdquo; below and paste it into an email, or call us.</p>
+            <p class="lf-lede" id="lf-lede-fail" data-v="fail" hidden>Your details are still here. To be sure Joey and Ethan get them, send them by text or email instead, or call <a class="nb ph" href="tel:+14234515707">(423) 451-5707</a> and we’ll take it from there.</p>
+            <div class="lf-actions">
+              <a class="btn btn-primary btn-lg" id="lf-sms" href="sms:+14234515707"><svg class="i" aria-hidden="true"><use href="#i-sms"/></svg><span id="lf-sms-t">Text it to Joey &amp; Ethan</span></a>
+              <a class="btn btn-ghost btn-lg" id="lf-mail" href="mailto:info@glphomeoptions.com"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg><span id="lf-mail-t">Or email it instead</span></a>
+            </div>
+            <div class="lf-msgbox"><p class="lf-msg-l" id="lf-msg-l">Here’s what it says</p><pre class="lf-msg" id="lf-msg" translate="no"></pre></div>
+            <ul class="lf-mini">
+              <li><button type="button" id="lf-copy"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg>Copy my message</button></li>
+              <li><button type="button" id="lf-edit"><svg class="i" aria-hidden="true"><use href="#i-edit"/></svg>Change my details</button></li>
+              <li><a href="tel:+14234515707"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span>Call <span class="nb ph">(423) 451-5707</span></span></a></li>
+            </ul>
+            <p class="lf-live" id="lf-live" role="status" aria-live="polite"></p>
+          </div>
+
+          <div class="lf-panel lf-done" id="lf-done" role="region" aria-labelledby="lf-done-h" tabindex="-1" hidden>
+            <span class="lf-badge ok" aria-hidden="true"><svg class="i lf-tick" aria-hidden="true"><use href="#i-check"/></svg></span>
+            <h2 class="h3" id="lf-done-h">Thank you<span id="lf-first"></span>.</h2>
+            <p class="lf-lede">We have your details, and Joey or Ethan will be in touch. If it can’t wait, call or text <a class="nb ph" href="tel:+14234515707">(423) 451-5707</a>.</p>
+            <ul class="lf-mini">
+              <li><button type="button" id="lf-again"><svg class="i" aria-hidden="true"><use href="#i-edit"/></svg>Send another message</button></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lf-nojs">
+          <p class="lf-nojs-h">The form isn’t available right now.</p>
+          <p class="lf-nojs-p">Call or text us instead and we’ll take it from there.</p>
+          <div class="lf-nojs-btns">
+            <a class="btn btn-primary" href="tel:+14234515707"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span class="bl">Call <span class="nb ph">(423) 451-5707</span></span></a>
+            <a class="btn btn-ghost" href="sms:+14234515707"><svg class="i" aria-hidden="true"><use href="#i-sms"/></svg>Text us</a>
+          </div>
+          <p class="lf-nojs-alt"><a href="mailto:info@glphomeoptions.com">Email us</a></p>
+        </div>
+        <p class="form-alt">Prefer to talk? Call or text <a class="nb ph" href="tel:+14234515707">(423) 451-5707</a>, or email <a href="mailto:info@glphomeoptions.com">info@glphomeoptions.com</a>.</p>
+      </div>
+
+      <div class="reach reach-more" data-stagger>
           <a class="reach-item rv" href="mailto:info@glphomeoptions.com">
             <span class="ico" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span>
             <span class="txt"><small>Email</small><b class="sm">info@glphomeoptions.com</b></span><span class="go" aria-hidden="true">Email</span>
@@ -136,36 +256,14 @@
             <span class="txt"><small>Recent closings and builds</small><b class="sm">Find us on Facebook<span class="vh"> (opens in a new tab)</span></b></span><span class="go" aria-hidden="true">Visit</span>
           </a>
         </div>
-        <div class="next rv">
-          <h2 class="h3">What happens next?</h2>
-          <ol>
-            <li><span class="num" aria-hidden="true">1</span>We talk through your situation.</li>
-            <li><span class="num" aria-hidden="true">2</span>We go over your options together.</li>
-            <li><span class="num" aria-hidden="true">3</span>You decide what’s best for you.</li>
-          </ol>
-        </div>
-      </div>
 
-      <div class="form-card rv in" style="--d:2" data-d="2">
-        <p class="form-who"><span class="avs" aria-hidden="true"><img src="images/joey-avatar.jpg" alt="" width="112" height="112" decoding="async"><img src="images/ethan-avatar.jpg" alt="" width="112" height="112" decoding="async"></span><span><b>Joey &amp; Ethan</b><small>Co-founders<span class="sep"> · </span><span class="loc">Hixson, TN</span></small></span></p>
-        <h2 class="h3">Thinking about selling, or not sure yet?</h2>
-        <p class="sub">Share a few details and Joey or Ethan will get back to you. There’s no obligation.</p>
-        <div class="ghl" data-form="c36UOOc2pkosxfvRfjZJ" data-state="idle">
-          <div class="ghl-wait" role="status">
-            <span class="ghl-bars" aria-hidden="true"><i class="l"></i><i></i><i class="l"></i><i></i><i class="l"></i><i></i><i class="l"></i><i></i><i class="c"></i><i class="c"></i><i class="b"></i></span>
-            <p>Loading the form…</p>
-          </div>
-          <div class="ghl-slow" role="status">
-            <p class="ghl-slow-h">The form isn’t loading right now.</p>
-            <p class="ghl-slow-p">Call or text us instead and we’ll take it from there.</p>
-            <div class="ghl-slow-btns">
-              <a class="btn btn-primary" href="tel:+14234515707"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span class="bl">Call <span class="nb ph">(423) 451-5707</span></span></a>
-              <a class="btn btn-ghost" href="sms:+14234515707"><svg class="i" aria-hidden="true"><use href="#i-sms"/></svg>Text us</a>
-            </div>
-            <p class="ghl-slow-alt"><button type="button" data-ghl-retry>Try the form again</button><span class="dot" aria-hidden="true"> · </span><a href="mailto:info@glphomeoptions.com">Email us</a></p>
-          </div>
-        </div>
-        <p class="form-alt">Prefer to talk? Call or text <a class="nb ph" href="tel:+14234515707">(423) 451-5707</a>, or email <a href="mailto:info@glphomeoptions.com">info@glphomeoptions.com</a>.</p>
+      <div class="next rv">
+        <h2 class="h3">What happens next?</h2>
+        <ol>
+          <li><span class="num" aria-hidden="true">1</span>We talk through your situation.</li>
+          <li><span class="num" aria-hidden="true">2</span>We go over your options together.</li>
+          <li><span class="num" aria-hidden="true">3</span>You decide what’s best for you.</li>
+        </ol>
       </div>
     </div>
   </section>
@@ -252,6 +350,7 @@
   <a class="mb-go" href="#contact">Get my options</a>
 </nav>
 
-<script src="js/site.js?v=24" defer onerror='document.documentElement.classList.remove("js")'></script>
+<script src="js/site.js?v=25" defer onerror='document.documentElement.classList.remove("js")'></script>
+<script src="js/form.js?v=25" defer onerror='document.documentElement.classList.remove("js")'></script>
 </body>
 </html>

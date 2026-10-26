@@ -57,6 +57,8 @@ The research on wary home sellers (`what-works-2026-10-22.md`) says the same few
 
 ## Added Oct 22, 3:08 PM: the contact form (for Jeremy's talk with Joey)
 
+**Update, Oct 26 (Checkpoint 46): the new form is built and the old frame is gone from the site; see "Added Oct 26" below.** Questions 1 and 2 now matter only for connecting the form to GoHighLevel (someone with the login must make the receiving end, `research/form-wiring.md`); questions 3 and 4 still stand and are repeated as items 30 and 32 below. What follows is the original text.
+
 Jeremy decided to leave the form that is on the site today exactly as it is (it is the form from Joey's existing site) and to build a new one later. These four questions make that possible. Nothing here is a promise to anyone.
 
 1. **Who can sign in to the GoHighLevel account that runs the form?** (The form is served from `links.voiseai.com`.) Is it you, or someone who set it up for you?
@@ -91,3 +93,16 @@ Jeremy asked how a site like this gets found on Google, with homeowners coming t
 > 3. Is "GLP Home Options" a registered business name of GL Partners LLC, or just what you go by? If you're not sure, your accountant would know.
 > 4. After a closing, who would be happy to leave an honest Google review? (Nothing in return, Google doesn't allow it.) About how many closings do you do in a normal month?
 > 5. Whose Google login should own the profile, so you and I can both get into it?
+
+## Added Oct 26: the new contact form (Checkpoint 46; for Jeremy's talk with Joey; not sent)
+
+The old GoHighLevel form on the site is gone. Joey's form is now part of the page itself, in the site's own look. It asks only for a name and a phone number, and everything else is optional. The two text-message boxes use Joey's own wording, word for word, and both start unticked. **Nothing is connected yet:** until it is, pressing Send builds a text and an email from what the visitor typed, and the visitor's own phone sends it (the page says "Nothing has been sent yet" until they do). These questions are what is needed to connect it. How: `research/form-wiring.md`.
+
+30. **Where should a request from the form go, and who answers it?** His phone, his email, the GoHighLevel inbox? Who gets the alert? Is it one person, or both of you? *(Also items 10 and 19. This is the one thing the form is waiting for.)*
+31. **Is a name and a phone number enough to call someone back?** Those are the only two required boxes. The address, an email and a note are optional. Does he need anything else before he calls (for example the address, or whether they want to sell or keep)? Fewer questions usually mean more people send the form.
+32. **The text-message wording.** The first box repeats the sentence "Message frequency varies." twice, because his old form did. Keep it exactly (his registered campaign may use it) or tidy it? Is the wording on the form the same as his registered campaign's? Does the number the "Text us" button opens (423-451-5707) receive and answer texts, and who answers?
+33. **An automatic reply?** Does he want the visitor to get an automatic text or email back ("We got your request")? If so, what should it say? Nothing on the site promises how fast anyone replies, so an automatic reply should not either, unless he can keep it every time.
+34. **"Best way to reach you" (call, text or email).** The form asks this under "Add an email, your address, or a note". Is it useful to him, or noise? Should there be a "best time to call" too?
+35. **The buttons.** The form's button says "Get my message ready" for now (it only prepares a text or email; it becomes "Send to Joey & Ethan" by itself once the form is connected); the buttons around the site that lead to it say "Get my options" (and, where the visitor has already said what they want, they open the form with that choice ticked). Is that wording OK with him, or would he rather "Request a call"?
+36. **A test with a real phone.** Before launch someone has to send a few test requests from a real iPhone and a real Android (to Joey's number and email), because the text and email buttons behave a little differently on each. Could he be around for an afternoon to receive them?
+37. **The interim.** While the form is not connected, a ticked text-message box is only recorded in the text or email the visitor sends. Is he comfortable with that for the preview period? (The alternative is not to show the form until it is connected.)

@@ -9,7 +9,7 @@ Example: python3 tools/shots.py ../shots-before
          python3 tools/shots-diff.py ../shots-before ../shots-after
 
 Needs Playwright with Chromium. It serves the project folder itself (no other server needed),
-blocks outside requests so the GoHighLevel form cannot change the picture, turns motion off so
+blocks outside requests so nothing from another site can change the picture, turns motion off so
 animations cannot, presses a key (the pages keep themselves at the top until a visitor touches them)
 and scrolls down the page first (photos use lazy loading, so they stay blank otherwise), hides the phone bottom bar, and writes OUTDIR/<page>_<width>.png at 1440 and 390 wide.
 Keep OUTDIR outside the project folder, or it will be picked up by the checkpoint tool.

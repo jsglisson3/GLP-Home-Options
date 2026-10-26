@@ -500,9 +500,20 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .contact h2{color:#fff}
 .contact .ital{color:#c4ecda}
 .contact .lede{color:rgba(255,255,255,.96);margin-top:18px}
-.contact-grid{position:relative;display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:36px;gap:clamp(36px,6vw,88px);align-items:start}
-.contact-copy .eyebrow{margin-bottom:18px}
+/* The page order is: heading, Call and Text, the form, Email / Book / Facebook, what happens next (Checkpoint 46). One column on a phone, so the form follows
+   the two tiles at once. From 60em up the form takes the right-hand column and runs down beside the four other parts. */
+.contact-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr);align-items:start}
+.contact-top .eyebrow{margin-bottom:18px}
+@media (min-width:60.0625em){
+  .contact-grid{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);grid-template-rows:auto auto auto 1fr;column-gap:36px;column-gap:clamp(36px,6vw,88px)}
+  .contact-top{grid-column:1;grid-row:1}
+  .form-card{grid-column:2;grid-row:1/span 4;margin-top:0}
+  .reach-main{grid-column:1;grid-row:2}
+  .reach-more{grid-column:1;grid-row:3}
+  .next{grid-column:1;grid-row:4}
+}
 .reach{display:grid;gap:12px;margin-top:26px;margin-top:clamp(26px,3vw,36px)}
+@media (min-width:60.0625em){.reach-more{margin-top:12px}}   /* beside the form the two groups of tiles read as one list */
 .reach-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;min-height:70px;padding:13px 16px;border-radius:20px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.24);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;text-decoration:none;transition:background .25s,transform .25s,border-color .25s}
 .reach-item:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
 .reach-item .ico{display:grid;place-items:center;width:46px;height:46px;border-radius:15px;background:rgba(255,255,255,.18)}
@@ -526,6 +537,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .next li{display:flex;align-items:center;gap:14px;font-weight:650;color:rgba(255,255,255,.95)}
 .next .num{width:34px;height:34px;font-size:.88rem;background:#fff;color:var(--navy-800);box-shadow:none}
 .form-card{padding:24px;padding:clamp(24px,3vw,38px);border-radius:var(--r-l);background:#fff;color:var(--text);box-shadow:0 22px 56px rgba(10,28,36,.3)}
+@media (max-width:60em){.form-card{margin-top:28px;margin-top:clamp(28px,5vw,40px)}}   /* one column: the card sits under the heading */
 .form-who{display:flex;align-items:center;gap:12px;margin:0 0 16px}
 .form-who .avs{display:flex;flex:none}
 .form-who img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2.5px solid #fff;box-shadow:var(--sh-1);background:var(--navy-100)}
@@ -539,36 +551,122 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 @media (max-width:22.4375em){.form-who .sep{display:none}.form-who .loc{display:block}}   /* the narrowest phones: the place drops to its own line, so no dot is left hanging at the end of a line */
 .form-card h3,.form-card .h3{margin-bottom:8px;font-size:1.5rem;color:var(--ink)}
 .form-card .sub{margin-bottom:22px;font-size:.96rem;color:var(--muted)}
-/* The contact form box. site.js puts the company's form in it and sets data-state: "loading" shows a calm placeholder shaped like the form,
-   "ready" shows the form, "slow" (the form cannot load: slow network, blocked, offline) shows a call/text card. With no JS, the card shows. */
-.ghl{position:relative;min-height:540px;border-radius:12px}
-.ghl[data-state="ready"],.ghl[data-state="slow"],html:not(.js) .ghl{min-height:0}
-/* FORM-TRIM (Checkpoint 36). The company's form draws its own padding (about 42px a side, about 20px above its first label) inside our card's padding,
-   so on a phone the fields were about half the screen wide (203px of 375). The form's frame now runs the full width of the card, so the form's own
-   padding is the only side space (fields 24% wider on a 375px phone, the form about 120px shorter), and it starts 14px higher. This is tuned to how the
-   form looks today: if its own padding is ever removed (the custom CSS in research/ghl-form-style.md), delete this rule, or the fields will sit against the
-   card's edge. The "!important" is there because the form's script writes width:100% on the frame. */
-.ghl iframe{position:relative;display:block;width:calc(100% + 48px)!important;width:calc(100% + 2*clamp(24px,3vw,38px))!important;max-width:none;margin:-14px -24px 0;margin:-14px calc(-1*clamp(24px,3vw,38px)) 0}
-.ghl-wait,.ghl-slow{display:none}
-.js .ghl[data-state="idle"] .ghl-wait,.js .ghl[data-state="loading"] .ghl-wait,.js .ghl[data-state="slow"] .ghl-slow,html:not(.js) .ghl-slow{display:block}
-html:not(.js) .ghl-slow-alt button,html:not(.js) .ghl-slow-alt .dot{display:none}
-.ghl-bars{display:grid;gap:10px}
-.ghl-bars i{display:block;height:42px;border-radius:10px;border:1.5px solid var(--line);background:var(--green-50)}
-.ghl-bars i.l{height:12px;width:30%;margin-top:8px;border:0;border-radius:6px;background:var(--navy-100)}
-.ghl-bars i.c{height:64px;border:0;background:var(--navy-100);opacity:.55}
-.ghl-bars i.b{height:52px;margin-top:10px;border:0;border-radius:999px;background:var(--green-100)}
-.ghl-wait p{margin-top:18px;text-align:center;font-size:.95rem;color:var(--muted)}
-.ghl-slow{padding:30px 22px 22px;border:1.5px solid var(--line);border-radius:var(--r-m);background:var(--green-50);text-align:center}
-.ghl-slow-h{font:800 1.2rem/1.3 var(--f);letter-spacing:-.01em;color:var(--ink)}
-.ghl-slow-p{margin:8px auto 20px;max-width:32ch;color:var(--text)}
-.ghl-slow-btns{display:grid;gap:12px;max-width:340px;margin:0 auto}
-.ghl-slow-btns .btn{width:100%}
-.ghl-slow-alt{margin-top:14px;font-size:.95rem;color:var(--muted)}
-.ghl-slow-alt button{font:inherit;font-weight:700;color:var(--green-700);background:none;border:0;padding:10px 4px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.ghl-slow-alt a{display:inline-block;padding:10px 4px;color:var(--green-700);font-weight:700}
-.form-alt{margin-top:14px;font-size:.9rem;color:var(--muted)}
+/* ---------- The contact form (Checkpoint 46) ----------
+   Ours, in the site's own look (DESIGN_SYSTEM 8c). js/form.js does the checking, the phone formatting, the ready-made text or email and the sending.
+   Without JavaScript the form cannot work, so it is hidden and .lf-nojs (a call, text or email card) shows instead; the Call and Text buttons on the
+   page work either way. Colors come from the tokens at the top; the one new color is the error red (--err), dark enough for text on white (about 7:1). */
+.lf-wrap{display:none}
+.js .lf-wrap{display:block}
+.js .lf-nojs,html:not(.js) .form-alt{display:none}
+.lf-nojs{padding:30px 22px 22px;border:1.5px solid var(--line);border-radius:var(--r-m);background:var(--green-50);text-align:center}
+.lf-nojs-h{font:800 1.2rem/1.3 var(--f);letter-spacing:-.01em;color:var(--ink)}
+.lf-nojs-p{margin:8px auto 20px;max-width:32ch;color:var(--text)}
+.lf-nojs-btns{display:grid;gap:12px;max-width:340px;margin:0 auto}
+.lf-nojs-btns .btn{width:100%}
+.lf-nojs-alt{margin-top:14px;font-size:.95rem}
+.lf-nojs-alt a{display:inline-block;padding:10px 4px;color:var(--green-700);font-weight:700}
+
+.lf{--err:#a4271f;--err-line:#c2473a;--err-bg:#fff6f4;--edge:#7b8d94;display:grid;gap:22px}   /* --edge: the line round a box or tick you press, 3.4:1 on white, so it can be seen in sunlight and by tired eyes */
+.lf [hidden],.lf-wrap [hidden]{display:none!important}
+.lf-head .sub{margin:0}
+.lf fieldset{min-width:0;margin:0;padding:0;border:0}
+.lf legend{display:block;width:100%;padding:0;font:700 .95rem/1.3 var(--f);color:var(--ink)}
+.lf-opt{font-weight:600;color:var(--muted)}
+.lf .field{gap:8px}
+.lf .field label{font-size:.95rem}
+.lf .hint{margin:0;font-size:.84rem;line-height:1.45;color:var(--muted)}
+.lf .input input,.lf textarea{width:100%;min-height:54px;padding:14px 16px;border:1.5px solid var(--edge);border-radius:14px;background:#fbfdfc;color:var(--ink);font:550 1.05rem/1.3 var(--f);font-variant-numeric:normal;-webkit-appearance:none;appearance:none;transition:border-color .2s,box-shadow .2s,background .2s}
+.lf textarea{display:block;min-height:112px;resize:vertical}
+.lf .input input:hover,.lf textarea:hover{border-color:var(--navy-700)}
+.lf .field.err .input input,.lf .field.err textarea{border-color:var(--err-line);background:var(--err-bg)}
+.lf .input input:focus,.lf textarea:focus{border-color:var(--green-600);background:#fff;box-shadow:0 0 0 4px rgba(60,122,102,.16)}
+.lf .field.err .input input:focus,.lf .field.err textarea:focus{border-color:var(--err-line);box-shadow:0 0 0 4px rgba(194,71,58,.16)}
+.lf .input input:focus-visible,.lf textarea:focus-visible{outline:3px solid var(--navy-700);outline-offset:2px}   /* the site's own focus ring: the soft glow alone is about 1.2:1 and cannot be seen */
+.lf-err{display:flex;gap:8px;align-items:flex-start;margin:0;font:650 .92rem/1.4 var(--f);color:var(--err)}
+.lf-err .i{width:1.15em;height:1.15em;margin-top:.1em}
+/* .lf-hp, the robot trap: hidden with the site's .vh class (1px, clipped, in place), not parked 9,999px off to the side, so no layout check or browser sees a box beyond the edge */
+
+/* what went wrong, in one place, when the visitor presses Send (focus moves to it; each line is a link to the field) */
+.lf-sum{padding:16px 18px;border:1.5px solid #e6bbb5;border-left:6px solid var(--err-line);border-radius:14px;background:var(--err-bg);color:#5c1a15;scroll-margin-top:12px}
+.lf-sum:focus{outline:3px solid var(--navy-700);outline-offset:3px}
+.lf-sum-h{margin:0 0 6px;font:800 1rem/1.3 var(--f);color:#5c1a15}
+.lf-sum ul{margin:0;padding-left:20px}
+.lf-sum li{margin:3px 0;font-weight:600}
+.lf-sum a{display:block;box-sizing:border-box;min-height:44px;padding:11px 0;color:inherit;text-underline-offset:3px}   /* each line is a link to its box: tall enough for a finger (a block, so a long line's bullet stays beside its first line) */
+
+/* one tap: what can we help with (and, inside the extras, the best way to reach you). Real radio buttons, drawn as pills */
+.lf-pills legend{margin-bottom:10px}
+.lf-pillrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-columns:repeat(auto-fit,minmax(max(calc(50% - 6px),calc(7.5ch + 52px)),1fr));gap:8px}   /* two across; one across when the text is made large, so no word is ever clipped */
+.lf-chan .lf-pillrow{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-columns:repeat(auto-fit,minmax(max(calc(33.3% - 6px),calc(5ch + 50px)),1fr))}
+.pill{position:relative;display:block;margin:0}
+.pill input{position:absolute;top:0;left:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.pill span{display:flex;align-items:center;gap:10px;height:100%;min-height:52px;padding:8px 12px;border:1.5px solid var(--line-2);border-radius:16px;background:#fbfdfc;color:var(--navy-700);font:700 .96rem/1.2 var(--f);transition:border-color .2s,background .2s,box-shadow .2s,color .2s;-webkit-tap-highlight-color:transparent}
+.pill span::before{content:"";flex:none;width:20px;height:20px;border:1.5px solid var(--edge);border-radius:50%;background:#fff center/12px no-repeat;transition:border-color .2s,background-color .2s}
+.pill:hover span{border-color:var(--navy-300);background:#fff}
+.pill input:checked+span{border-color:var(--green-600);background:var(--green-100);color:var(--green-800);box-shadow:0 0 0 3px rgba(60,122,102,.12)}
+.pill input:checked+span::before{border-color:var(--green-600);background-color:var(--green-600);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")}
+.pill input:focus-visible+span{outline:3px solid var(--navy-700);outline-offset:3px}
+@media (max-width:30em){
+  .pill span{gap:8px;padding:8px 10px;font-size:.93rem}
+  .pill span::before{width:18px;height:18px;background-size:11px}
+}
+
+/* the optional extras: closed until asked for, so the form starts short */
+.lf-more{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.lf-more summary{display:flex;align-items:center;gap:12px;min-height:58px;cursor:pointer;list-style:none;font:700 .98rem/1.3 var(--f);color:var(--green-800)}
+.lf-more summary::-webkit-details-marker{display:none}
+.lf-more summary::before{content:"";flex:none;width:28px;height:28px;border:1px solid var(--green-200);border-radius:50%;background:linear-gradient(currentColor,currentColor) center/12px 2px no-repeat,linear-gradient(currentColor,currentColor) center/2px 12px no-repeat,var(--green-50);color:var(--green-800)}
+.lf-more[open] summary::before{background:linear-gradient(currentColor,currentColor) center/12px 2px no-repeat,var(--green-50)}
+.lf-more summary .lf-opt{margin-left:auto;font-size:.85rem}
+.lf-more summary:focus-visible{outline:3px solid var(--navy-700);outline-offset:2px;border-radius:8px}
+.lf-more-body{display:grid;gap:22px;padding:6px 0 24px}
+
+/* the text-message boxes: Joey's exact wording, unticked, separate from each other and from everything else */
+.lf-consent legend{margin-bottom:10px}
+.lf-checks{padding:4px 16px;border:1.5px solid var(--line);border-radius:14px;background:#fbfdfc}
+.check{display:grid;grid-template-columns:26px minmax(0,1fr);gap:14px;align-items:start;margin:0;padding:14px 0;font-size:.86rem;line-height:1.55;color:var(--muted);cursor:pointer}
+.check+.check{border-top:1px solid var(--line)}
+.check input{-webkit-appearance:none;appearance:none;width:26px;height:26px;margin:0;border:1.5px solid var(--edge);border-radius:8px;background:#fff center/17px no-repeat;cursor:pointer;transition:border-color .2s,background-color .2s}
+.check input:checked{border-color:var(--green-600);background-color:var(--green-600);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")}
+.check input:focus-visible{outline:3px solid var(--navy-700);outline-offset:3px}
+
+.lf-go{display:grid;gap:12px;justify-items:center}
+.lf-send{width:100%}
+.lf-send[aria-busy="true"]{cursor:progress;pointer-events:none}
+.lf-send .spin{flex:none;width:1.15em;height:1.15em;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:lf-spin .8s linear infinite}
+@keyframes lf-spin{to{transform:rotate(360deg)}}
+.lf-note{margin:0;text-align:center;font-size:.9rem;color:var(--muted)}
+.lf-legal{margin:0;text-align:center;font-size:.84rem;color:var(--muted)}
+.lf-legal a{display:inline-flex;align-items:center;min-height:44px;padding:0 6px;color:var(--green-700);font-weight:650;text-underline-offset:3px}
+
+/* what replaces the form once it has been filled in: the ready-made message (until the form is connected) or the thank-you */
+.lf-panel{display:grid;gap:18px;justify-items:start;padding-top:4px}
+.lf-panel:focus{outline:none}
+.lf-panel .h3{margin:0}
+.lf-badge{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--green-100);color:var(--green-700)}
+.lf-badge .i{width:26px;height:26px}
+.lf-badge.ok{background:var(--green-600);color:#fff}
+.lf-tick path{stroke-dasharray:24;animation:lf-draw .5s .15s ease backwards}
+@keyframes lf-draw{from{stroke-dashoffset:24}}
+.lf-lede{margin:0;max-width:46ch;color:var(--text)}
+.lf-lede a{color:var(--green-700);font-weight:700}
+.lf-msgbox{width:100%}
+.lf-msg-l{margin:0 0 6px;font:800 .76rem/1.2 var(--f);letter-spacing:.12em;text-transform:uppercase;color:var(--green-700)}
+.lf-msg{margin:0;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--cream-100);color:var(--ink);font:500 .95rem/1.55 var(--f);white-space:pre-wrap;overflow-wrap:anywhere;-webkit-user-select:text;user-select:text}
+.lf-actions{display:grid;gap:12px;width:100%}
+.lf-actions .btn{width:100%}
+.lf-mini{display:flex;flex-wrap:wrap;gap:4px 20px;margin:0;padding:0;list-style:none}
+.lf-mini button,.lf-mini a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 2px;border:0;background:none;font:700 .95rem/1.2 var(--f);color:var(--green-700);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.lf-mini .i{width:1.1em;height:1.1em;flex:none}
+.lf-mini a span{text-decoration:inherit}   /* the phone number inside the Call link is an inline block, which would not take the link's underline by itself */
+.lf-live{margin:0;min-height:1.4em;font:650 .92rem/1.4 var(--f);color:var(--green-700)}
+
+@media (forced-colors:active){
+  .check input{-webkit-appearance:auto;appearance:auto;forced-color-adjust:auto}
+  .pill input:checked+span{border-width:3px}
+}
+.form-alt{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
 .form-alt a{color:var(--green-700);font-weight:700}
-@media (max-width:60em){.contact-grid{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- Footer ---------- */
 .ftr{background:var(--cream-100);border-top:1px solid var(--line);padding-top:52px;padding-top:clamp(52px,6vw,84px)}

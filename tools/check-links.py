@@ -4,7 +4,7 @@
     python3 tools/check-links.py
 
 Offline and instant. Run it after tools/build-pages.py. Exits with an error if anything is wrong.
-(External links such as Facebook and the GoHighLevel form are not fetched.)
+(External links such as Facebook and the booking page are not fetched.)
 The 404 page uses root-absolute links (so it works from any depth); those lose the site's base folder (read from SITE in
 tools/build-pages.py, "/GLP-Home-Options/" on the preview address, "/" on the real domain) and are checked like any other.
 """

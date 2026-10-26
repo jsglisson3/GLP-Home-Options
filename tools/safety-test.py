@@ -8,7 +8,8 @@ It serves this folder on a throwaway port and opens every page in a phone-sized 
   3. script crashes:    js/site.js throws on its first line -> after the 6 s safety timer in the head every section is visible;
   4. guard crashes:     history.scrollRestoration throws (the start-at-top guard fails) -> the rest of the script still runs
                         (menu button works, __glpReady is true);
-  5. Contact page:      its heading block is plain; the Call and Text tiles and the form card fade in from the stylesheet alone.
+  5. Contact page:      its heading block is plain; the Call and Text tiles and the form card fade in from the stylesheet alone;
+  6. form script:       js/form.js missing or crashing -> the form gives way to the call/text/email card (at once, or after the 6 s timer).
 """
 import functools, http.server, pathlib, socketserver, threading
 import _site  # lets the 404 page's /GLP-Home-Options/... addresses work on the local server
@@ -32,13 +33,15 @@ JS_CLASS = "document.documentElement.classList.contains('js')"
 
 with sync_playwright() as p:
     b = p.chromium.launch()
-    def fresh(block_script=False, crash_script=False, init=None):
+    def fresh(block_script=False, crash_script=False, init=None, block_form=False, crash_form=False):
         ctx = b.new_context(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True, device_scale_factor=2)
         def handler(r):
             u = r.request.url
             if not u.startswith(BASE): return r.abort()
             if "js/site.js" in u and block_script: return r.abort()
             if "js/site.js" in u and crash_script: return r.fulfill(status=200, content_type="application/javascript", body="throw new Error('test: script crashed');")
+            if "js/form.js" in u and block_form: return r.abort()
+            if "js/form.js" in u and crash_form: return r.fulfill(status=200, content_type="application/javascript", body="throw new Error('test: form script crashed');")
             return r.continue_()
         ctx.route("**/*", handler)
         if init: ctx.add_init_script(init)
@@ -80,12 +83,27 @@ with sync_playwright() as p:
     # 5. Contact page: nothing on the first screen waits for the script
     ctx, pg = fresh(block_script=True); pg.goto(BASE + "contact.html"); pg.wait_for_timeout(300)
     pg.evaluate("document.documentElement.classList.add('js')")   # pretend the script were still loading
-    top = pg.evaluate("(() => { const e = document.querySelector('.contact-copy > div'); return [e.className, getComputedStyle(e).opacity]; })()")
-    check("Contact: the heading block is plain (no fade), so it paints with the page", top[0] == "" and top[1] == "1", top)
+    top = pg.evaluate("(() => { const e = document.querySelector('.contact-top'); return [e.className, getComputedStyle(e).opacity]; })()")
+    check("Contact: the heading block is plain (no fade), so it paints with the page", top[0] == "contact-top" and top[1] == "1", top)
     vis = pg.evaluate("""() => ['.reach-item.rv:nth-child(1)', '.reach-item.rv:nth-child(2)', '.form-card'].map(s => {
         const e = document.querySelector(s); return [s, e.classList.contains('in'), getComputedStyle(e).animationName]; })""")
     check("Contact: Call tile, Text tile and form card fade in from the stylesheet alone", all(v[1] and v[2] == "reveal" for v in vis), vis)
     ctx.close()
+
+    # 6. the form's own script (js/form.js) fails: the visitor must never be left with a form that cannot send, so the call/text/email card takes its place
+    FORM_SHOWN = "(() => { const v = e => { const r = e && e.getBoundingClientRect(), s = e && getComputedStyle(e); return !!e && s.display !== 'none' && s.visibility !== 'hidden' && r.width > 0 && r.height > 0; }; return [v(document.getElementById('lf')), v(document.querySelector('.lf-nojs'))]; })()"
+    for page in ("contact.html", "index.html"):
+        ctx, pg = fresh(); pg.goto(BASE + page); pg.wait_for_timeout(900)
+        check(f"{page}: normal load shows the form, not the call/text card", pg.evaluate(FORM_SHOWN) == [True, False] and pg.evaluate("window.__glpForm === true"), pg.evaluate(FORM_SHOWN))
+        ctx.close()
+        ctx, pg = fresh(block_form=True); pg.goto(BASE + page); pg.wait_for_timeout(700)
+        check(f"{page}: form script missing -> the call/text card shows at once, the form is gone, the rest of the page works", pg.evaluate(FORM_SHOWN) == [False, True] and pg.evaluate(HIDDEN) == 0 and pg.evaluate("window.__glpReady === true"), (pg.evaluate(FORM_SHOWN), pg.evaluate(HIDDEN)))
+        ctx.close()
+        ctx, pg = fresh(crash_form=True); pg.goto(BASE + page); pg.wait_for_timeout(1500)
+        early = pg.evaluate(FORM_SHOWN)
+        pg.wait_for_timeout(5500)
+        check(f"{page}: form script crashes -> after the 6 s timer the call/text card shows and the form is gone", pg.evaluate(FORM_SHOWN) == [False, True] and pg.evaluate(HIDDEN) == 0, (early, pg.evaluate(FORM_SHOWN)))
+        ctx.close()
     b.close()
 
 print("\nFAILS", len(fails))

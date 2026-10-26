@@ -1,6 +1,6 @@
 # What happens after someone fills in the form: a plan for Joey and Ethan
 
-_Drafted Oct 22, 2026 (Session 6g). Nothing here is set up. It is a plan to review with Joey, and the first step is to look at what already exists in GoHighLevel (Jeremy or Joey needs to open it; Claude does not sign in anywhere). No numbers about reply times or results are promised on the site, and none should be until Joey can show them. Texting rules referenced here are summarized, with sources, in `compliance-questions-for-joey.md` (research for the family, not legal advice)._
+_Drafted Oct 22, 2026 (Session 6g). Nothing here is set up. It is a plan to review with Joey, and the first step is to look at what already exists in GoHighLevel (Jeremy or Joey needs to open it; Claude does not sign in anywhere). No numbers about reply times or results are promised on the site, and none should be until Joey can show them. (Oct 26: the contact form is now the site's own, so "look at what already exists in GoHighLevel" below is about what should receive its details; how the form hands them over is in `research/form-wiring.md`.) Texting rules referenced here are summarized, with sources, in `compliance-questions-for-joey.md` (research for the family, not legal advice)._
 
 ## The promise to a homeowner
 

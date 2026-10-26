@@ -15,7 +15,7 @@
      from another page of this site that points at a section (index.html#numbers). A link from a text, an email or a bookmark,
      and a reload, all start at the top, even when the address carries a "#section" (that gets copied from the address bar after
      tapping a menu link, and used to land the visitor mid-page). Until the visitor drags, scrolls, types or taps a link, anything
-     that moves the page (the browser's saved spot, the contact form loading) is undone. Add ?scrolldebug to the address to see
+     that moves the page (the browser's saved spot, something loading late) is undone. Add ?scrolldebug to the address to see
      what happened on a phone. */
   try { (function () {
     var t0 = Date.now(), nav = null;
@@ -324,99 +324,7 @@
     var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(redraw, 150); });
   }
 
-  /* ---------- Contact form ----------
-     The form is the company's own (a GoHighLevel embed in a frame). Their embed script parks the frame 10,000 px off to the left, invisible,
-     until the form has reported its height. A frame marked loading="lazy" is only fetched once it is near the screen, so a lazy frame that
-     gets parked off to the left is never fetched at all: a blank box, the "form never loads" bug (found in Checkpoint 35). So there is no lazy
-     attribute. This script adds the frame itself, when the box comes within about two screens of the visitor (or at once if it is already
-     there), parked the same way, and then makes sure the visitor never meets a blank box:
-       1. the box shows a calm "loading" card until the form has spoken (it sends the page messages once it is up) and has been shown;
-       2. if the form has spoken but the embed script has not shown it after 6 s, we show it ourselves, at the height the form reported;
-       3. if the form has not spoken after 12 s, the box turns into a "call or text us" card (and turns back into the form if it
-          comes up after all); "Try the form again" builds a fresh frame.
-     Time is counted only while the tab is visible: a background tab pauses the embed script's timers. */
-  (function () {
-    var box = $('.ghl[data-form]');
-    if (!box) return;
-    var FORM = box.getAttribute('data-form'), HOST = 'https://links.voiseai.com';
-    var frame = null, timer = null, watcher = null, vis = 0, heardAt = -1, lastH = 0, started = false, tries = 0, vendorBad = false;
-
-    function set(state) { if (box.getAttribute('data-state') !== state) box.setAttribute('data-state', state); }
-    function parked() { var s = frame.style; return s.visibility === 'hidden' || s.opacity === '0' || s.left === '-9999px'; }
-    function guess() {   // how tall the form is at this width (measured on the real form; it is taller where its text wraps more)
-      var w = box.clientWidth || 300, T = [[260, 1340], [300, 1175], [340, 1050], [380, 1010], [420, 950], [483, 890], [560, 850], [700, 830]];
-      if (w <= T[0][0]) return T[0][1];
-      for (var i = 1; i < T.length; i++) {
-        if (w <= T[i][0]) return Math.round(T[i - 1][1] + (T[i][1] - T[i - 1][1]) * (w - T[i - 1][0]) / (T[i][0] - T[i - 1][0]));
-      }
-      return T[T.length - 1][1];
-    }
-    function show() {   // put the frame where the form belongs (what the embed script does when it works)
-      var s = frame.style;
-      s.opacity = '1'; s.visibility = 'visible'; s.pointerEvents = 'auto'; s.display = 'block'; s.position = 'relative'; s.left = '';
-      if (lastH > 0) s.height = (lastH + 5) + 'px';
-    }
-    function check() {
-      if (!frame) return;
-      if (heardAt < 0) { set(vis >= 12000 ? 'slow' : 'loading'); return; }
-      if (!parked()) { set('ready'); if (timer) { clearInterval(timer); timer = null; } return; }
-      if (vis - heardAt >= (vendorBad ? 1000 : 6000)) { show(); set('ready'); return; }
-      set('loading');
-    }
-    function ticking() {
-      if (timer) return;
-      timer = setInterval(function () {
-        if (!doc.hidden) vis += 250;
-        check();
-        if (vis >= 60000 && heardAt < 0 && timer) { clearInterval(timer); timer = null; }   // nothing heard for a minute: stop checking ("Try the form again" starts it again)
-      }, 250);
-    }
-    function loadEmbed() {
-      if ($('script[data-ghl]')) return;
-      var sc = doc.createElement('script');
-      sc.src = HOST + '/js/form_embed.js'; sc.async = true; sc.setAttribute('data-ghl', '');
-      sc.onerror = function () { vendorBad = true; };
-      doc.body.appendChild(sc);
-    }
-    function make() {
-      var id = 'inline-' + FORM + (tries ? '-' + tries : ''), f = doc.createElement('iframe');
-      f.id = id; f.src = HOST + '/widget/form/' + FORM;
-      f.title = 'Contact form: send GLP Home Options a few details about your home';
-      f.setAttribute('style', 'width:100%;height:' + guess() + 'px;border:none;border-radius:10px;position:absolute;left:-9999px;opacity:0;visibility:hidden;pointer-events:none');
-      f.setAttribute('data-layout', "{'id':'INLINE'}");
-      f.setAttribute('data-trigger-type', 'alwaysShow'); f.setAttribute('data-trigger-value', '');
-      f.setAttribute('data-activation-type', 'alwaysActivated'); f.setAttribute('data-activation-value', '');
-      f.setAttribute('data-deactivation-type', 'neverDeactivate'); f.setAttribute('data-deactivation-value', '');
-      f.setAttribute('data-form-name', 'GLP Home Options lead form'); f.setAttribute('data-height', '760');
-      f.setAttribute('data-layout-iframe-id', id); f.setAttribute('data-form-id', FORM);
-      frame = f; vis = 0; heardAt = -1; lastH = 0;
-      box.appendChild(f);
-      if (window.MutationObserver) { watcher = new MutationObserver(function () { if (!timer && frame && parked()) ticking(); check(); }); watcher.observe(f, { attributes: true, attributeFilter: ['style'] }); }
-      ticking(); loadEmbed();
-    }
-    function begin() { if (started) return; started = true; set('loading'); make(); }
-    function retry() {
-      if (timer) { clearInterval(timer); timer = null; }
-      if (watcher) { watcher.disconnect(); watcher = null; }
-      if (frame && frame.parentNode) frame.parentNode.removeChild(frame);
-      frame = null; tries++; set('loading'); make();
-    }
-
-    window.addEventListener('message', function (e) {   // the form sends the page messages (its height, "I'm loaded", ...) once it is up
-      if (!frame || e.source !== frame.contentWindow) return;
-      if (heardAt < 0) heardAt = vis;
-      var m = typeof e.data === 'string' && /^\[iFrameSizer\][^:]*:(\d+):/.exec(e.data);
-      if (m && +m[1] > 200) lastH = +m[1];
-      if (!timer) ticking();   // the form came up after we had stopped watching (a minute with nothing): watch again, so it is shown within 6 s
-      check();
-    });
-    box.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-ghl-retry]')) retry(); });
-
-    if ('IntersectionObserver' in window) {
-      var near = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { near.disconnect(); begin(); } }, { rootMargin: '1800px 0px' });
-      near.observe(box);
-    } else begin();
-  })();
+  /* The contact form is its own file, js/form.js (Checkpoint 46); only Home and Contact load it. */
 
   window.__glpReady = true;   // the page's own safety timer (in the head) checks this: if it is missing after 6 s, every section is shown
 })();

@@ -26,8 +26,8 @@
 <link rel="preload" href="fonts/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/fraunces-latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="images/build-exterior.jpg" as="image" fetchpriority="high">
-<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__glpReady)document.documentElement.classList.remove('js')},6000)</script>
-<link rel="stylesheet" href="css/site.css?v=48">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__glpReady||(document.getElementById('lf')&&!window.__glpForm))document.documentElement.classList.remove('js')},6000)</script>
+<link rel="stylesheet" href="css/site.css?v=49">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is the home available yet?", "acceptedAnswer": {"@type": "Answer", "text": "Not yet. It’s coming soon. Want to see it before it’s listed? Ask us."}}, {"@type": "Question", "name": "What’s the price, and how big is it?", "acceptedAnswer": {"@type": "Answer", "text": "We’re pricing it in the mid $200s. It has three bedrooms and two baths on 0.6+ acres in Chattanooga. Reach out and we’ll go over the details with you."}}, {"@type": "Question", "name": "I’m a first-time buyer. Can I get help with the down payment?", "acceptedAnswer": {"@type": "Answer", "text": "Possibly. Down payment assistance exists for many first-time buyers, and what you qualify for depends on your situation and your lender. Ask us and we’ll talk it through."}}, {"@type": "Question", "name": "Will you build more homes?", "acceptedAnswer": {"@type": "Answer", "text": "We’re building affordable homes right here in Chattanooga. Ask us what’s coming up next."}}, {"@type": "Question", "name": "Do you help people sell their homes, too?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. We help Chattanooga homeowners compare every option, including selling directly to us. See your options."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://jsglisson3.github.io/GLP-Home-Options/"}, {"@type": "ListItem", "position": 2, "name": "New homes", "item": "https://jsglisson3.github.io/GLP-Home-Options/new-homes.html"}]}</script>
 </head>
@@ -66,6 +66,9 @@
     <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
     <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
     <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 7.5v5.5M12 16.6v.01"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2.2"/><path d="M5.5 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v.5"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4z"/></symbol>
     <symbol id="i-fb-logo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.7" fill="#fff" stroke="none"/><path fill="#0866FF" stroke="none" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></symbol>
   </defs>
 </svg>
@@ -118,7 +121,7 @@
         <h1 id="h1">Affordable new homes, <span class="ital">built right here.</span></h1>
         <p class="lede">Tired of crazy prices? We’re building affordable new homes for first-time buyers and families who are ready to stop renting and own their own home.</p>
         <div class="cta-row">
-          <a class="btn btn-primary btn-lg" href="contact.html#contact">Ask about this home<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-primary btn-lg" href="contact.html?for=new#contact" data-topic="new">Ask about this home<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a class="btn btn-ghost btn-lg" href="tel:+14234515707"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span class="bl">Call <span class="nb ph">(423) 451-5707</span></span></a>
         </div>
         <p class="micro"><svg class="i" aria-hidden="true"><use href="#i-key"/></svg>Want to see it before it’s listed? Ask us.</p>
@@ -150,7 +153,7 @@
           <div><dt>Acres</dt><dd>0.6+</dd></div>
           <div><dt>Price</dt><dd>Mid $200s</dd></div>
         </dl>
-        <div class="cta-row"><a class="btn btn-primary" href="contact.html#contact">Ask about this home<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+        <div class="cta-row"><a class="btn btn-primary" href="contact.html?for=new#contact" data-topic="new">Ask about this home<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
       </div>
     </div>
   </section>
@@ -219,7 +222,7 @@
         <p class="lede">Ask us about the home, or about down payment assistance if you’re a first-time buyer. You’ll talk to Joey or Ethan.</p>
       </div>
       <div class="cta-actions rv" data-d="1">
-        <a class="btn btn-light btn-lg" href="contact.html#contact">Ask about this home<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-light btn-lg" href="contact.html?for=new#contact" data-topic="new">Ask about this home<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn-outline-light btn-lg" href="tel:+14234515707"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span class="bl">Call or text <span class="nb ph">(423) 451-5707</span></span></a>
         <p class="cta-note">No obligation, no spam. Your information is kept confidential.</p>
       </div>
@@ -263,6 +266,6 @@
   <a class="mb-go" href="contact.html#contact">Get my options</a>
 </nav>
 
-<script src="js/site.js?v=24" defer onerror='document.documentElement.classList.remove("js")'></script>
+<script src="js/site.js?v=25" defer onerror='document.documentElement.classList.remove("js")'></script>
 </body>
 </html>
