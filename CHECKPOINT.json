@@ -54,19 +54,19 @@
   "research/photos/from-old-build/kitchen-table-800x600.jpg",
   "research/photos/glp-logo-original-200px.jpg"
  ],
- "checkpoint": 42,
- "git_head_when_written": "ce4cc62",
- "label": "Checkpoint 42: part C - net sheet 'Worth a second look' note, answer first on phones and tablets, one lone word fixed (CSS v47, JS v24)",
+ "checkpoint": 43,
+ "git_head_when_written": "421bd72",
+ "label": "Checkpoint 43: notes only - Checkpoints 39 to 42 are live and checked (his commit 421bd72, 10:31 PM Oct 25)",
  "note": "Written just before the files for this checkpoint are committed, so the commit that contains it comes after git_head_when_written.",
  "text": {
   "404.html": "57676f8629b19027",
   "CONTENT_CLAIMS.md": "54a5eb40a4130cb8",
   "DESIGN_SYSTEM.md": "6451976d2e409155",
   "PICKUP.md": "736ce416a86463d3",
-  "PROJECT_STATUS.md": "71b178dedb1a4632",
+  "PROJECT_STATUS.md": "9f474e8a3711c027",
   "README.md": "ae15ce09136a4985",
   "ROADMAP.md": "c33e7551239952bf",
-  "SESSION_HANDOFF.md": "8e33a706e2e3410f",
+  "SESSION_HANDOFF.md": "c1c1ef2585955531",
   "about.html": "50142afc555ba9e0",
   "contact.html": "0ba46bb490bdea18",
   "css/site.css": "df9e54b6d0ba6442",
@@ -129,5 +129,5 @@
   "tools/wide-audit.py": "d3afae6cd9a89482",
   "work.html": "fafb02a2ff1f02fe"
  },
- "written": "2026-10-25T21:41-05:00"
+ "written": "2026-10-25T22:43-05:00"
 }
