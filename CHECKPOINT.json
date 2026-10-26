@@ -57,19 +57,19 @@
   "research/photos/from-old-build/kitchen-table-800x600.jpg",
   "research/photos/glp-logo-original-200px.jpg"
  ],
- "checkpoint": 44,
- "git_head_when_written": "af96d24",
- "label": "Checkpoint 44: the search foundation and a quiet review path, built overnight - the site stays noindex and no page looks different (not yet committed)",
+ "checkpoint": 45,
+ "git_head_when_written": "5b87922",
+ "label": "Checkpoint 45: notes only - Checkpoint 44 is live and checked (his commit 5b87922, 7:49 AM Oct 26)",
  "note": "Written just before the files for this checkpoint are committed, so the commit that contains it comes after git_head_when_written.",
  "text": {
   "404.html": "5c256a993502ee75",
   "CONTENT_CLAIMS.md": "b990c21f9567c39e",
   "DESIGN_SYSTEM.md": "62383c8fe22017c7",
   "PICKUP.md": "736ce416a86463d3",
-  "PROJECT_STATUS.md": "e8ce5c71f505bed1",
+  "PROJECT_STATUS.md": "e7bc5f72ca255c67",
   "README.md": "b4fe4473a63c5170",
-  "ROADMAP.md": "8f05bd6ab61264c5",
-  "SESSION_HANDOFF.md": "dd961c009a108211",
+  "ROADMAP.md": "190844f263940629",
+  "SESSION_HANDOFF.md": "966d97f13d53e4d9",
   "about.html": "15535dbeaf8648eb",
   "contact.html": "593d36faee79a138",
   "css/site.css": "d452071e6254f100",
@@ -140,5 +140,5 @@
   "tools/wide-audit.py": "d48e37d77ea19835",
   "work.html": "f7d6f7de297d7070"
  },
- "written": "2026-10-26T04:13-05:00"
+ "written": "2026-10-26T07:58-05:00"
 }
