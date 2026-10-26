@@ -10,7 +10,13 @@ It opens the cost fields, types sets of numbers and checks, to the dollar:
      $600 above it makes selling direct win by $600, and $600 below it makes listing win by $600;
   3. "Print my numbers": the button sets up the print layout, fills in the list of typed numbers and the date, and cleans up after
      itself; the printed page (a real PDF made by Chromium, with background colors OFF the way printers default) is ONE page on Letter and
-     on A4, shows the sheets, the answer and the way to reach us, and shows none of the rest of the page.
+     on A4, shows the sheets, the answer and the way to reach us, and shows none of the rest of the page;
+  4. "Worth a second look" (Checkpoint 42): the calm note above the answer when the numbers look like a typo. It shows for an offer and a price
+     far apart (more than 1.5 times, or under a quarter), a mortgage above 1.5 times the price, listing costs above half the price, and a blank price
+     or offer (only once the person leaves the field); it waits for a pause in typing, clears the moment the numbers make sense, stays hidden for
+     every ordinary case, never changes a number or the answer, and prints with the sheet when it is showing;
+  5. the order on a phone or tablet (the sheet stacks under the form): the note (if showing), then the answer, then the two buttons, then the two
+     sheets, then the fine print. Wide screens keep the two sheets above the answer.
 Run it after ANY change to calc() in js/site.js, to the net sheet markup, or to the print rules. Prints FAILS 0 when everything matches.
 Needs Playwright with Chromium, and pdftotext/pdfinfo (poppler) for the printed-page checks.
 """
@@ -266,7 +272,7 @@ try:
             check(disp != 'none', f'print: {sel} is hidden')
             check(lum(color) is not None and lum(color) < 110, f'print: {sel} text color {color} is too light for white paper')
             check(bg in ('rgba(0, 0, 0, 0)', 'rgb(255, 255, 255)'), f'print: {sel} background {bg} would not print reliably')
-        hidden = pg.evaluate("""()=>['.hdr','.mobile-bar','.ftr','#calc','.res-actions','#paths','#story','#how','#faq','#contact','.pano','#about','#building','.hero','.netsheet-head .lede']
+        hidden = pg.evaluate("""()=>['.hdr','.mobile-bar','.ftr','#calc','.res-actions','#paths','#story','#how','#faq','#contact','#about','#building','.hero','.netsheet-head .lede']
               .map(s=>[s, document.querySelector(s)? getComputedStyle(document.querySelector(s)).display : 'missing'])""")
         for s, disp in hidden:
             check(disp == 'none', f'print: {s} should be hidden in the printed net sheet, display={disp}')
@@ -278,6 +284,168 @@ try:
         check(all(x == 'none' for x in plain['po']) and plain['faq'] != 'none' and plain['ftr'] != 'none' and plain['hdr'] == 'none' and plain['calc'] != 'none',
               f'plain page print (Ctrl+P on the whole page) should be unchanged: {plain}')
         pg.emulate_media(media='screen')
+
+        # ---- 4. "Worth a second look" (Checkpoint 42): a calm note above the answer when the numbers look like a typo
+        def look(c, final=True):
+            """The same rules as lookAgain() in js/site.js, in the same order."""
+            price, offer, payoff = c['price'], c['offer'], c['payoff']
+            costs = price * c['comm'] / 100 + price * c['close'] / 100 + c['repairs'] + c['carry'] * c['months']
+            if price <= 0 or offer <= 0:
+                return 'blank' if final else ''
+            if offer > price * 1.5 or offer < price * 0.25:
+                return 'apart'
+            if payoff > price * 1.5:
+                return 'mortgage'
+            if costs > price * 0.5:
+                return 'costs'
+            return ''
+
+        WORDS = {'blank': 'Add a sale price and a cash offer', 'apart': 'very far apart', 'mortgage': 'mortgage owed', 'costs': 'costs of listing add up'}
+
+        def note_state():
+            return pg.evaluate("""()=>{const n=document.getElementById('check-note');
+              return {hidden:n.hidden, shown:n.getClientRects().length>0, text:n.innerText.replace(/\\s+/g,' ').trim(), body:document.getElementById('check-text').textContent.trim(), live:!!n.closest('[aria-live]')}}""")
+
+        def settle(sel):
+            """Leave a field, then wait out the 0.3 s the page gives a tap on a button before it shows the note."""
+            pg.dispatch_event(sel, 'blur')
+            pg.wait_for_timeout(350)
+
+        base = dict(cases[0])
+        EXPECT = [
+            ('cash offer with an extra zero', dict(offer=2550000), 'apart'),
+            ('cash offer with a missing zero', dict(offer=25500), 'apart'),
+            ('sale price with an extra zero', dict(price=3000000), 'apart'),
+            ('sale price with a missing zero', dict(price=30000), 'apart'),
+            ('mortgage with an extra zero', dict(payoff=1500000), 'mortgage'),
+            ('repairs with an extra zero', dict(repairs=180000), 'costs'),
+            ('commission typed as 60', dict(comm=60), 'costs'),
+            ('250 months to sell', dict(months=250), 'costs'),
+            ('no sale price', dict(price=0), 'blank'),
+            ('no cash offer', dict(offer=0), 'blank'),
+            ('offer exactly 1.5 times the price is fine', dict(offer=450000), ''),
+            ('offer just over 1.5 times the price', dict(offer=450001), 'apart'),
+            ('offer exactly a quarter of the price is fine', dict(offer=75000), ''),
+            ('offer just under a quarter of the price', dict(offer=74999), 'apart'),
+            ('mortgage exactly 1.5 times the price is fine', dict(payoff=450000), ''),
+            ('mortgage just over 1.5 times the price', dict(payoff=450001), 'mortgage'),
+            ('owing more than it is worth is fine', dict(payoff=330000), ''),
+            ('no mortgage at all is fine', dict(payoff=0), ''),
+            ('costs exactly half the price are fine', dict(repairs=120000), ''),
+            ('costs just over half the price', dict(repairs=120001), 'costs'),
+            ('a rough house: big repairs, low offer', dict(offer=120000, repairs=60000), ''),
+            ('no agent and no closing costs', dict(comm=0, close=0), ''),
+        ]
+        shown_n = 0
+        for label, ov, want in EXPECT:
+            c = dict(base, **ov)
+            check(look(c) == want, f'test bug: the mirror disagrees with the expectation for {label}')
+            fill_all(pg, c)
+            settle('#offer')
+            st = note_state()
+            if want:
+                shown_n += 1
+                check(st['shown'] and not st['hidden'] and st['live'] and st['text'].startswith('Worth a second look.') and WORDS[want] in st['text'],
+                      f'{label}: the note should show ({want}): {st}')
+            else:
+                check(st['hidden'] and not st['shown'] and st['body'] == '', f'{label}: the note should stay hidden: {st}')
+            r = read(pg)
+            nl, nd, be = calc(**c)
+            check(r['list'] == usd(nl) and r['direct'] == usd(nd), f'{label}: the note must not change the totals: {r}')
+        print(f'checked {len(EXPECT)} typo and edge cases ({shown_n} show the note, {len(EXPECT) - shown_n} stay quiet)')
+
+        # the defaults and every ordinary case stay quiet; the note follows the same rules as the mirror on all the others
+        loud = 0
+        for c in cases + random_cases:
+            fill_all(pg, c)
+            settle('#offer')
+            want = look(c)
+            st = note_state()
+            if want:
+                loud += 1
+                check(st['shown'] and WORDS[want] in st['text'], f'the note should show ({want}) for {c}: {st}')
+            else:
+                check(st['hidden'] and st['body'] == '', f'the note should stay hidden for {c}: {st}')
+        fill_all(pg, base)
+        settle('#offer')
+        check(note_state()['hidden'], 'the note must be hidden for the default numbers')
+        print(f'checked {len(cases) + len(random_cases)} ordinary and random cases against the same rules ({loud} show the note)')
+
+        # typing: it waits for a pause, never flashes while the digits go in, and clears the moment the numbers make sense
+        pg.fill('#offer', '2550000'); pg.dispatch_event('#offer', 'input')
+        pg.wait_for_timeout(300)
+        check(note_state()['hidden'], 'the note must wait for a pause in the typing, not flash while the digits go in')
+        pg.wait_for_timeout(1200)
+        st = note_state()
+        check(st['shown'] and 'very far apart' in st['text'], f'the note should appear after a pause: {st}')
+        pg.fill('#offer', '255000'); pg.dispatch_event('#offer', 'input')
+        check(note_state()['hidden'], 'the note should clear the moment the numbers make sense again')
+        # a blank field is mentioned only once the person leaves it, and goes away as soon as the number is back
+        pg.fill('#price', ''); pg.dispatch_event('#price', 'input')
+        pg.wait_for_timeout(1300)
+        check(note_state()['hidden'], 'a blank sale price must not be mentioned while the person is still in the field')
+        settle('#price')
+        st = note_state()
+        check(st['shown'] and 'Add a sale price and a cash offer' in st['text'], f'a blank sale price should be mentioned on leaving the field: {st}')
+        pg.fill('#price', '300000'); pg.dispatch_event('#price', 'input')
+        check(note_state()['hidden'], 'the note should clear as soon as the sale price is back')
+        # a tap on a button straight after typing a flagged number must never be lost to the note moving the page
+        # (the first version showed the note the instant the field lost focus, which slid the button away between the press and the release)
+        pg.evaluate("()=>{window.__printed=0; window.print=function(){window.__printed++}}")
+        fill_all(pg, dict(base, offer=2550000))
+        pg.dispatch_event('#offer', 'input')
+        pg.click('#print-sheet')
+        check(pg.evaluate("()=>window.__printed") == 1, 'Print my numbers tapped straight after typing a flagged number must still print: the note moved the button')
+        pg.evaluate("()=>window.dispatchEvent(new Event('afterprint'))")
+        fill_all(pg, dict(base, offer=2550000))
+        pg.dispatch_event('#offer', 'input')
+        pg.click('.res-actions .btn-primary')
+        pg.wait_for_timeout(400)
+        check(pg.evaluate("()=>location.hash") == '#contact', 'Go over these numbers tapped straight after typing a flagged number must still go to the contact section: ' + pg.evaluate("()=>location.href"))
+        pg.evaluate("()=>{history.replaceState(null,'',location.pathname); window.scrollTo(0,0)}")
+        fill_all(pg, base)
+        settle('#offer')
+        # Print my numbers also checks the numbers one last time, so a page printed in a hurry carries the note
+        pg.evaluate("()=>{window.__printed=0; window.print=function(){window.__printed++}}")
+        fill_all(pg, dict(base, offer=2550000))
+        pg.dispatch_event('#offer', 'input')
+        pg.click('#print-sheet')
+        st = note_state()
+        check(st['shown'] and 'very far apart' in st['text'], f'clicking Print my numbers should show the note straight away: {st}')
+        pg.emulate_media(media='print')          # an earlier step switched the page to screen media, and a PDF made then ignores every print rule
+        pdf, text = pdf_check(pg, 'flagged numbers', 'Letter')
+        pg.emulate_media(media='screen')
+        check('Worth a second look' in text and 'very far apart' in text and '$2,550,000' in text, f'the printed page should carry the note: {text[:300]!r}')
+        pg.evaluate("()=>window.dispatchEvent(new Event('afterprint'))")
+        fill_all(pg, base)
+        settle('#offer')
+        print('note: waits for a pause, clears at once, blank only on leaving the field, prints with the sheet')
+
+        # ---- 5. the order when the sheet stacks under the form (phone and tablet); wide screens keep the original order
+        def order(w):
+            pg.set_viewport_size({'width': w, 'height': 900})
+            return pg.evaluate("""()=>{const t=s=>{const e=document.querySelector(s); return e&&e.getClientRects().length?Math.round(e.getBoundingClientRect().top+scrollY):null};
+              return {note:t('#check-note'), verdict:t('.results .verdict'), actions:t('.results .res-actions'), cols:t('.results .cols'), fine:t('.results > .fine'),
+                      tracks:getComputedStyle(document.querySelector('.net')).gridTemplateColumns.split(' ').length, sw:document.documentElement.scrollWidth, iw:innerWidth}}""")
+        for w in (320, 390, 768, 1016):
+            o = order(w)
+            check(o['tracks'] == 1, f'{w}px: the sheet should be stacked under the form: {o}')
+            check(o['verdict'] < o['actions'] < o['cols'] < o['fine'], f'{w}px: the answer, then the buttons, then the two sheets, then the fine print: {o}')
+            check(o['sw'] <= o['iw'], f'{w}px: sideways scroll {o}')
+        for w in (1017, 1100, 1440):
+            o = order(w)
+            check(o['tracks'] == 2, f'{w}px: the sheet should sit beside the form: {o}')
+            check(o['cols'] < o['verdict'] < o['actions'] < o['fine'], f'{w}px: wide screens keep the two sheets above the answer: {o}')
+        fill_all(pg, dict(base, offer=2550000))
+        settle('#offer')
+        for w in (320, 390, 768, 1016, 1017, 1100, 1440):
+            o = order(w)
+            check(o['note'] is not None and o['note'] < o['verdict'] and o['note'] < o['cols'], f'{w}px: the note should sit above the answer and the sheets: {o}')
+            check(o['sw'] <= o['iw'], f'{w}px: sideways scroll with the note showing {o}')
+        fill_all(pg, base)
+        settle('#offer')
+        pg.set_viewport_size({'width': 1440, 'height': 900})
+        print('order: answer first on a phone and tablet (320 to 1016px), two sheets first on wide screens (1017px and up), note above both')
 
         # ---- screen layout of the new line and the two buttons, no sideways scroll
         for w in (1440, 1024, 768, 390, 320):

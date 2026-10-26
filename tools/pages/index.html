@@ -136,28 +136,18 @@
     </div>
   </section>
 
-  <!-- ============ HOW IT WORKS ============ -->
-  <section class="sec" id="how" aria-labelledby="how-h">
-    <div class="wrap how">
-      <figure class="how-photo rv">
-        <div class="gable gable-sm">
-          <span class="g1" aria-hidden="true"></span>
-          <span class="g2" aria-hidden="true"></span>
-          <span class="g3"><img src="images/kitchen-table.jpg" alt="Ethan and Joey going over options with homeowners at a kitchen table" width="800" height="600" loading="lazy" decoding="async"></span>
-        </div>
-      </figure>
-      <div class="how-copy">
-        <div class="head rv">
-          <span class="eyebrow">How it works</span>
-          <h2 id="how-h">A conversation, <span class="ital">not a contract.</span></h2>
-          <p class="lede">We start by talking. You stay in control of every step.</p>
-        </div>
-        <ol class="steps" data-stagger>
-          <li class="step rv"><span class="num" aria-hidden="true">1</span><div><h3>Tell us your situation</h3><p>Share a few details about the home, your timing, and what's worrying you. In person or over the phone, whatever's easier.</p></div></li>
-          <li class="step rv"><span class="num" aria-hidden="true">2</span><div><h3>We lay out your options</h3><p>We go over the numbers together and show each realistic path with its pros, cons, and timeline. We'll tell you what we'd do in your position.</p></div></li>
-          <li class="step rv"><span class="num" aria-hidden="true">3</span><div><h3>You choose</h3><p>Take the time you need. Pick the path that fits your life, and we'll help with the next step if you want us to.</p></div></li>
-        </ol>
+  <!-- ============ HOW IT WORKS (slim strip, Checkpoint 39: the photo-and-steps section was 890 px on a laptop and 1,246 px on a phone; the About page keeps its own photo layout) ============ -->
+  <section class="sec sec-slim" id="how" aria-labelledby="how-h">
+    <div class="wrap flow">
+      <div class="head rv">
+        <span class="eyebrow">How it works</span>
+        <h2 id="how-h">A conversation, <span class="ital">not a contract.</span></h2>
       </div>
+      <ol class="flow-steps" data-stagger>
+        <li class="rv"><span class="num" aria-hidden="true">1</span><div><h3>Tell us your situation</h3><p>The home, your timing, what&rsquo;s worrying you. In person or by phone.</p></div></li>
+        <li class="rv"><span class="num" aria-hidden="true">2</span><div><h3>We lay out your options</h3><p>Each path&rsquo;s pros, cons and timeline, and what we&rsquo;d do in your shoes.</p></div></li>
+        <li class="rv"><span class="num" aria-hidden="true">3</span><div><h3>You choose</h3><p>Take the time you need. We&rsquo;ll help with the next step if you want us to.</p></div></li>
+      </ol>
     </div>
   </section>
 
@@ -248,6 +238,7 @@
         </form>
 
         <div class="panel results rv" aria-live="polite">
+          <p class="check-note" id="check-note" hidden><b>Worth a second look.</b> <span id="check-text"></span></p>
           <div class="cols">
             <div class="sheet">
               <h4>If you list <small id="t-list">~2.5 mo</small></h4>
@@ -290,29 +281,14 @@
     </div>
   </section>
 
-  <!-- ============ HOMETOWN BAND ============ -->
-  <section class="pano" aria-labelledby="pano-h">
-    <img src="images/chattanooga-riverfront.jpg" alt="Sunrise over the Chattanooga riverfront, with the Walnut Street Bridge and the Tennessee Aquarium" width="900" height="225" loading="lazy" decoding="async">
-    <div class="wrap pano-copy">
-      <div class="rv">
-        <span class="eyebrow on-dark">Right here at home</span>
-        <h2 id="pano-h">We live and work in Chattanooga, <span class="ital">same as you.</span></h2>
-        <p class="lede">When you call or text, you'll talk to Joey or Ethan.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ ABOUT ============ -->
-  <section class="sec" id="about" aria-labelledby="about-h">
+  <!-- ============ HOMETOWN + FOUNDERS (one band, Checkpoint 39: the riverfront band and the "Guides, not gurus" panel took 560 + 853 px on a laptop and 520 + 1,152 px on a phone; the About page keeps the riverfront band, the motto and the long version) ============ -->
+  <section class="sec sec-slim" id="about" aria-labelledby="about-h">
     <div class="wrap about">
       <div class="about-copy">
         <div class="head rv">
-          <span class="eyebrow">About GLP</span>
-          <h2 id="about-h" class="motto">Guides, <span class="ital">not gurus.</span></h2>
-          <p class="lede">We started GLP Home Options to be the first call for homeowners who want a straight answer, not a sales pitch.</p>
-        </div>
-        <div class="prose rv">
-          <p>Our goal isn't to buy your house. It's to help you find the best way forward, whether that's selling to us, listing, or keeping the home. We live and work here, and when we're not helping sellers, we're building affordable homes right here.</p>
+          <span class="eyebrow">Right here at home</span>
+          <h2 id="about-h">We live and work in Chattanooga, <span class="ital">same as you.</span></h2>
+          <p class="lede">Our goal isn&rsquo;t to buy your house. It&rsquo;s to help you find the best way forward. When you call or text, you&rsquo;ll talk to Joey or Ethan.</p>
         </div>
         <div class="cta-row rv"><a class="btn btn-ghost" href="about.html">Meet Joey &amp; Ethan<svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
       </div>
@@ -327,7 +303,6 @@
             <figcaption><b>Ethan</b><span>Co-Founder</span></figcaption>
           </figure>
         </div>
-        <blockquote class="pull rv"><p>&ldquo;No pressure. Just solutions. We&rsquo;ll walk through the options with you and help you decide what makes the most sense.&rdquo;</p><cite>Joey &amp; Ethan</cite></blockquote>
       </div>
     </div>
   </section>

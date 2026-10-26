@@ -308,6 +308,14 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .step.in::before{animation:draw .9s .35s ease backwards}
 @keyframes draw{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @media (max-width:56.25em){.how{grid-template-columns:minmax(0,1fr)}.how-photo{max-width:400px}}
+/* ---------- How it works on Home, slim strip (Checkpoint 39). Additive: the About page still uses .how, .how-photo and .gable-sm, and Options still uses .steps. ---------- */
+.sec-slim{padding-top:52px;padding-bottom:52px;padding-block:clamp(52px,6vw,88px)}
+.flow .head{gap:14px;margin-bottom:24px;margin-bottom:clamp(24px,3vw,36px)}
+.flow h2{font-size:1.75rem;font-size:clamp(1.75rem,3.2vw,2.5rem)}
+.flow-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;gap:clamp(18px,4vw,56px);list-style:none;margin:0;padding:0}
+.flow-steps li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:start}
+.flow-steps h3{margin:2px 0 6px}
+@media (max-width:56.25em){.flow-steps{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- Compare table ---------- */
 .table-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-2);overflow:hidden}
@@ -396,6 +404,11 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .verdict .breakeven strong{font-weight:800;color:#fff}   /* white, not the mint of the headline: mint on the green end of the gradient is under 4.5:1 at this size */
 .res-actions{display:flex;flex-wrap:wrap;gap:12px}
 .res-actions .btn{flex:1 1 auto}
+/* Worth a second look (Checkpoint 42): a calm note above the answer when the numbers look like a typo. It never changes the numbers. */
+.check-note{margin:0;padding:14px 18px 14px 22px;border:1px solid #e4d8b8;border-radius:var(--r-s);background:var(--cream-100);box-shadow:inset 4px 0 0 #b7791f;color:var(--ink);font-size:.94rem;line-height:1.5;text-wrap:pretty}
+.check-note b{font-weight:800}
+/* When the sheet stacks under the form (a phone or a tablet), the answer comes first and the detail follows. Wide screens and the printed page keep the original order. */
+@media screen and (max-width:63.5em){.results .check-note{order:-3}.results .verdict{order:-2}.results .res-actions{order:-1}}
 .print-btn{display:none}
 .js .print-btn{display:inline-flex}
 .print-only{display:none}

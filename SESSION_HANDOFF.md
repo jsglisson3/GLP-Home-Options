@@ -3,6 +3,8 @@
 <!-- morning:start -->
 ## Good morning, Jeremy. Read this first.
 
+**Update, Oct 25, about 9:41 PM: you are back with about two hours; Checkpoints 39 to 41 are the three cuts of the Home diet and Checkpoint 42 is part C.** Your Checkpoint 38 commit is on GitHub (`ce4cc62`) and the live site checked out clean (all 8 pages, the 404 page and the real form). You chose "A, then C" and said yes to all three Home cuts: (1) How it works as a slim strip (Checkpoint 39: 1,248 px to 513 px on a phone, 891 to 438 on a laptop), (2) one slim "Meet Joey & Ethan" band instead of the riverfront band and the "Guides, not gurus" panel (Checkpoint 40: 1,672 px to 728 px on a phone, 1,413 to 550 on a laptop), (3) the Home FAQ from 9 to 6 questions (Checkpoint 41: 1,548 px to 1,268 px on a phone, 1,142 to 884 on a laptop). Home is now 16,309 px on a phone (was 18,267) and 10,642 px on a laptop (was 12,216). Then C (Checkpoint 42): a calm "Worth a second look" note in the net sheet for numbers that look like typos (it only adds a line and never changes a number), the answer first on phones and tablets, and one lone word fixed on Your options. Nothing yet from Joey. The commit messages are at the bottom of this file.
+
 **Update, Oct 22, 3:05 PM: Checkpoint 36, your one final push before you left town, is live (you committed it at 2:58 PM) and I checked it on the live site. Read this paragraph.** You said the form looked solid (1:08 PM) with "a little extra space," that you leave today and get one deployment (1:09), that Joey likes it and wants it on Google with good ratings for soft leads and hooked to his CRM (1:10), and to hold the Google profile until you talk to Joey this weekend (1:12). So Checkpoint 36 is two jobs and nothing else. **Job 1, "easy to call, hard to doubt" (D14) plus the form's extra space:** every main button now says "Get my options"; every first screen shows the phone number as text ("Call (423) 451-5707"), kept in one piece; the closing story is labelled "A recent closing" and dated on Our work; New homes says "Want to see it before it's listed? Ask us."; Options has Joey's and Ethan's faces and "Last reviewed October 2026" and shows the two honest lines at normal size; the situation chips are plain text, not pills; two photo fixes; a friendly page for a wrong address (`404.html`); and the form's extra space trimmed (one CSS rule you can delete, see `research/ghl-form-style.md`, "FORM-TRIM"). **Job 2, net sheet round two (low risk):** a line in the green answer box, "On these numbers, a cash offer above $262,000 keeps more in your pocket than listing" (it follows whatever numbers a visitor types, and the math is proven to the dollar on 150 random cases), and a "Print my numbers" button that prints one clean page. **No default number and no method of the net sheet changed.** The Google profile, domain, search listing and the form's inner look (GoHighLevel access) were not touched. **Everything through Checkpoint 36 is live** (your 2:58 PM commit `0a2cad1`, live about a minute later). **What I checked on the live site at about 3:00 PM:** all 8 pages serve CSS v45 and JS v23, have "Get my options" and are still `noindex`; a wrong address (`/GLP-Home-Options/nope`, and a deeper one) shows our friendly page, with its styles, and a real 404 status; the real form shows, as wide as its card, with no sideways scroll at 375, 743 and 1440 px wide (on a phone it is about 120 px shorter than before); the break-even line reads "On these numbers, a cash offer above $262,000 keeps more in your pocket than listing."; "Print my numbers" fills in the date and the typed numbers and cleans up afterward (tested with the print call replaced, so no print box was opened); the Contact page loads all 10 of its files. I typed nothing into the form and sent no lead. **Nothing in Checkpoint 36 can be fixed until you can commit again, so it was tested harder than the others** (the full test set, the big-text test, a real printed PDF); the two things the test browser could not fully prove, the form trim on the finished page and GitHub's page for a wrong address, both worked live (above). The site stays `noindex`, so nobody finds it through search while you are away.
 
 **Update, Oct 22, about 3:13 PM: the contact form area is the next big job (your words at 3:03 and 3:08 PM).** You looked at the live Contact page on a wide screen: "on desktop veiew still lots of white space and this whole form still sticks out .. this is one of the main thigns so has tob e incredible this whole area  just note that down." I explained that GoHighLevel draws everything inside the frame, so the site cannot restyle it; you answered "this is the form from his existing site.. we will need to make a new one in the future lets leave this alone" and "ill talk to him on this one" (Joey). So: **the current form stays exactly as it is, and a new contact form (D17 in `ROADMAP.md`) is the first job after your talk with Joey.** I wrote down why the form feels like empty space (measured), what "incredible" would mean, two routes (a styled copy of the form in GoHighLevel first; a form built into our page later) and four questions for Joey: the top of `research/ghl-form-style.md` and the end of `research/questions-for-joey.md`. These notes are Checkpoint 37; nothing on the site changed.
@@ -84,23 +86,23 @@
 - **Waiting on Jeremy:** the start-at-top fix has been live since his 12:07 AM push; try it on his phone in a new private tab (so no old copy is cached): open the link from a text (also one that ends in `#numbers`), reload, and open it from a bookmark. If anything still starts mid-page, text himself the link with `?scrolldebug` on the end (`.../GLP-Home-Options/?scrolldebug`), open it and send a screenshot of the green box. Get Joey to add him to GoHighLevel or paste the CSS himself; answers to D7 to D16 (`ROADMAP.md`, "Proposed plan v2" and "Proposed plan v3"); sending the Joey text (`research/questions-for-joey.md`); whether to delete `Facebook.mhtml`.
 - **Waiting on Joey:** the photo confirmations (rows 42 to 46), photo and video originals, the SOLD-photo people and title company, every claim tagged **J**, license or brokerage (his videos say "New Listing coming soon"), whether a text campaign is already registered, whether contracts are ever assigned, the business-name and contractor-license questions (`research/compliance-questions-for-joey.md`), the county list, the main phone number, reviews, GoHighLevel access, the domain. A lawyer should look at how seller financing and lease options are described.
 
-## Next: after Checkpoint 36 (read this first; the two sections below it are OLDER plans, kept for reference)
+## Next: after Checkpoint 42 (read this first; the two sections below it are OLDER plans, kept for reference)
 
-**Context.** Jeremy leaves town on Oct 22 (no return date given) and talks to Joey this weekend about the Google profile. Checkpoint 36 is the last thing that goes live until he can commit again. The site stays `noindex`. Nothing waits in his folder; the notes of Checkpoint 38 wait in the cloud copy.
+**Context.** Jeremy came back on Oct 25 (8:31 PM) for about two hours and the site changed again: Checkpoints 39 to 42 (the Home diet and the net sheet note) are in his folder and he commits them himself (the messages are at the bottom of this file). Checkpoint 38 is on GitHub (`ce4cc62`); the live site shows Checkpoint 36 until he pushes. Joey has answered nothing yet (Jeremy, Oct 25: "Not yet"), so the new contact form (D17) and the real example deal (D18) still wait. The site stays `noindex`.
 
 **Start protocol (the first 10 minutes).**
-1. Ask where things stand in one line: did he push (Sync) the notes-only Checkpoint 37 (committed at 3:15 PM, commit `4b389e9`)? Copy the Checkpoint 38 notes into his folder first (SESSION_HANDOFF, PROJECT_STATUS, ROADMAP, CONTENT_CLAIMS, research/questions-for-joey.md, CHECKPOINT.json), then the message at the bottom of this file applies. Checkpoint 36 itself is live and was checked on Oct 22 at about 3:00 PM. If his computer is on, stage `.git/logs/HEAD` from his folder and read the newest line; otherwise fetch the live pages with a cache-busting query.
-2. Re-check the live site once at the start (only while his computer is on and the pane is shown; nothing typed, nothing sent; the Oct 22 results are in the paragraph at the top and in PROJECT_STATUS): all 8 pages carry `css/site.css?v=45` and `js/site.js?v=23`; the real form (Home's contact section and Contact) shows, fills its card edge to edge and does not scroll sideways at 375, 743 and 1440 px wide (emulate with the pane's resize tool, then put the pane back to "desktop"; press a key first, because the page holds itself at the top until a visitor touches it); the break-even line shows in Home's answer box and "Print my numbers" opens the print box (do not print); and a wrong address such as `/GLP-Home-Options/nope` shows our 404 page (or GitHub's plain one: write down which). Record what you see in `PROJECT_STATUS.md` under Checkpoint 36, the way Checkpoint 35's live check was recorded.
+1. Ask where things stand in one line: did he commit and push (Sync) Checkpoints 39 to 42? If his computer is on, stage `.git/logs/HEAD` from his folder and read the newest lines (or use `gh api repos/jsglisson3/GLP-Home-Options/commits?per_page=5`); the last commit known on Oct 25 is `ce4cc62` (Checkpoint 38). If his folder does not match the latest checkpoint, compare by checksum (ignore line endings) before copying anything.
+2. Re-check the live site once at the start (only while his computer is on and the pane is shown; nothing typed, nothing sent; the Oct 22 results are in the paragraph at the top and in PROJECT_STATUS): all 8 pages carry `css/site.css?v=47` and `js/site.js?v=24`; Home is about 16,300 px tall on a phone 390 px wide; the net sheet's note shows when the cash offer is typed as 2550000 (our own calculator, not the form: type it, press Tab, then put 255,000 back) and the green answer comes before the two sheets at 390 px; the real form (Home's contact section and Contact) shows, fills its card edge to edge and does not scroll sideways at 375, 743 and 1440 px wide (emulate with the pane's resize tool, then put the pane back to "desktop"; press a key first, because the page holds itself at the top until a visitor touches it); the break-even line shows in Home's answer box and "Print my numbers" opens the print box (do not print); and a wrong address such as `/GLP-Home-Options/nope` shows our 404 page (or GitHub's plain one: write down which). Record what you see in `PROJECT_STATUS.md` under Checkpoint 42, the way Checkpoint 36's live check was recorded.
 3. If the form's edges look wrong live, the fix is one rule: delete the `.ghl iframe{...}` rule marked FORM-TRIM in `css/site.css` (details in `research/ghl-form-style.md`), rebuild, and run `python3 tools/form-test.py --long`.
 
 **Then, in this order (each is Jeremy's call; all are in `ROADMAP.md`, "Proposed plan v3"):**
 1. **A new contact form (D17; Jeremy, Oct 22, 3:08 PM: leave the current form alone, build a new one later; he talks to Joey):** the plan, the two routes, the measurements and four questions for Joey are at the top of `research/ghl-form-style.md` and the end of `research/questions-for-joey.md`. Do not edit the existing form: it also serves Joey's current site.
-2. **The calculator's default example (D18; Jeremy, Oct 22, 3:17 PM: "make them somthing that makes GLP Home make like the easy win"):** do not make up a flattering example. Get one real recent deal from Joey (question 24, end of `research/questions-for-joey.md`), make it the default, and add a guard for silly numbers. The list of places to change is in `PROJECT_STATUS.md`, Checkpoint 38.
+2. **The calculator's default example (D18; Jeremy, Oct 22, 3:17 PM: "make them somthing that makes GLP Home make like the easy win"):** do not make up a flattering example. Get one real recent deal from Joey (question 24, end of `research/questions-for-joey.md`), make it the default (the guard for silly numbers is done: Checkpoint 42). The list of places to change is in `PROJECT_STATUS.md`, Checkpoint 38.
 3. **What Joey says this weekend:** the Google profile (D15), which main phone number is right ((423) 451-5707 or (423) 401-6779), license and brokerage, whether a text campaign is already registered, where the photos came from (rows 42 to 47 in `CONTENT_CLAIMS.md`, the kitchen-table photo first), and real reviews. The question list is `research/questions-for-joey.md` (Round 2, items 13 to 23).
 4. **D12** (move the internal notes out of the public repo before `noindex` comes off), **D13** (the trust pack: how an offer is set and how GLP earns; what happens after "yes"; what to ask any buyer), **D16 (a)** (the net sheet's fairness pass) and **(c)** (a plainer name than "net sheet"). The last two need Joey.
 5. **Needs GoHighLevel access** (Jeremy or Joey; **Jeremy decided on Oct 22 at 3:08 PM to leave the current form alone, so everything in this item now applies to a copy of the form or a new one, not to the form on Joey's existing site**): the form's inner look (the button says "Button"; fonts; a doubled consent sentence; `research/ghl-form-custom.css` is ready to paste), the Privacy and Terms links inside the consent text (they point at glphomeoptions.com), and **one real test lead from a real phone** (needs Jeremy's OK; it also settles the Cloudflare "Error: 600010" seen when the form was opened alone in the pane).
 6. **People checks:** a reading test with 3 to 5 readers aged 60 or older; a real-phone pass (iPhone and Android); an attorney's look (`research/compliance-questions-for-joey.md`).
-7. **Home is still long** (about 22 phone screens): D7, D8 and D10 (the Home diet) wait for his answer.
+7. **Home is shorter but still long** (16,309 px on a phone, about 20 screens, after the Oct 25 diet: How it works is a slim strip, one About band, six FAQ questions): D7 (a separate numbers page), D8 and D10 are still parked.
 8. **His to-dos:** try the start-at-top fix on his own phone (a private tab, opened from a text, also with `#numbers`; `?scrolldebug` on the end if it starts mid-page); send Joey the text from `research/questions-for-joey.md`; the photo-files call (about 40 pictures carry a hidden "Content Credentials" tag; say the word and I make a zip of plain copies); the 16 raw photos in `research/photos/incoming/` that were committed before the ignore rule (they are public; deleting them from the repo only stops new views); and whether to delete `Facebook.mhtml` (`.gitignore` keeps `.mhtml` files out of the repo).
 
 ## Older plan (done): the overnight run of Oct 21 to 22 (Jeremy was asleep; nothing went live until he committed in the morning)
@@ -204,11 +206,58 @@ python3 -m http.server 8000                     # preview at http://localhost:80
 
 ## Suggested commit messages (Jeremy)
 
-Checkpoints 12 to 37 are committed (Checkpoint 36 at 2:58 PM, commit `0a2cad1`; Checkpoint 37, notes only, at 3:15 PM, commit `4b389e9`; check that it was pushed with Sync). **Checkpoint 38, notes only (the calculator's default numbers), on its own:**
+Checkpoints 12 to 38 are committed (Checkpoint 36 at 2:58 PM, commit `0a2cad1`; Checkpoint 37, notes only, at 3:15 PM, commit `4b389e9`; Checkpoint 38, notes only, at 3:39 PM, commit `ce4cc62`, message "bunch of new things"). **Checkpoint 39, the Home diet, cut 1 of 3 ("How it works" becomes a slim strip), on its own:**
 
-Notes: calculator default example (D18): plan for one real deal from Joey, guard for silly numbers
+Home: "How it works" becomes a slim strip (cut 1 of 3)
 
-- SESSION_HANDOFF, PROJECT_STATUS, ROADMAP and CONTENT_CLAIMS record the 3:17 PM request about the default numbers and why nothing changed; research/questions-for-joey.md has question 24; CHECKPOINT.json is #38
-- No page, style or script changed
+- Home's How it works section (photo, heading, lede, three long steps) is now one slim strip: the same heading and three short steps; the footer and menu links to #how still work
+- Phone: the section goes from 1,248 px to 513 px (Home 18,267 to 17,533); laptop: 891 px to 438 px (Home 12,216 to 11,763)
+- The kitchen-table photo is no longer on any page (the file is kept)
+- CSS v46 (new rules only; every page's stylesheet link changes); notes and CHECKPOINT.json are #39
+
+**Checkpoint 40, the Home diet, cut 2 of 3 (one "Meet Joey & Ethan" band), on its own (commit Checkpoint 39 first):**
+
+Home: one slim "Meet Joey & Ethan" band instead of the riverfront band and the "Guides, not gurus" panel (cut 2 of 3)
+
+- The riverfront photo band and the About GLP panel on Home become one band: "We live and work in Chattanooga, same as you.", one short lede, the Meet Joey & Ethan button and both portraits
+- The About page keeps its riverfront band, its heading and the longer story
+- Phone: the two sections go from 1,672 px to 728 px (Home 17,533 to 16,589); laptop: 1,413 px to 550 px (Home 11,763 to 10,900)
+- No style change; notes and CHECKPOINT.json are #40
+
+**Checkpoint 41, the Home diet, cut 3 of 3 (the FAQ from 9 to 6 questions), on its own (commit Checkpoints 39 and 40 first):**
+
+Home: the FAQ goes from 9 questions to 6 (cut 3 of 3)
+
+- Dropped from Home's list: the seller financing / lease options question, "Can you help me figure out where to go next?" and "Do you build homes too?"; the same ideas stay in Home's options strip, its story and the Now building band, and the Options page keeps its own seller financing and lease option answer
+- The Contact page's three questions are unchanged, and the FAQPage data on Home follows the list
+- FAQ section: 1,142 px to 884 px on a laptop, 1,548 px to 1,268 px on a phone (Home 10,642 and 16,309 px; 12,216 and 18,267 before the diet)
+- No style change; notes and CHECKPOINT.json are #41
+
+**If you commit Checkpoints 39, 40 and 41 together, one message:**
+
+Home: shorter by about 11 percent on a phone and 13 percent on a laptop (the Home diet, cuts 1 to 3)
+
+- How it works becomes a slim three-step strip
+- The riverfront band and the About GLP panel become one slim "Meet Joey & Ethan" band (the About page is unchanged)
+- The Home FAQ goes from 9 questions to 6; Contact's three are unchanged
+- Phone: 18,267 px to 16,309 px; laptop: 12,216 px to 10,642 px. No style change; notes and CHECKPOINT.json are #41
+
+**Checkpoint 42, part C (the net sheet note, the answer first on phones, one lone word fixed), on its own (commit Checkpoints 39 to 41 first):**
+
+Net sheet: a "Worth a second look" note for numbers that look like typos, and the answer first on phones and tablets (part C)
+
+- Above the answer, a calm note appears when the cash offer and the sale price are very far apart, the mortgage is far above the sale price, the listing costs top half the sale price, or a number is left blank; it never changes a number or the answer
+- On a phone or tablet the green answer and the two buttons now come before the two sheets; wide screens and the printed page keep the old order
+- Your options: "short-term financial trouble." no longer ends on a lone word on a small phone
+- netsheet-test.py checks the note and the order; CSS v47, JS v24; notes and CHECKPOINT.json are #42
+
+**If you commit Checkpoints 39 to 42 together, one message:**
+
+Home: about 11 percent shorter on a phone and 13 percent on a laptop; net sheet checks for typos and leads with the answer on phones (the Home diet and part C)
+
+- How it works becomes a slim three-step strip; the riverfront band and the About GLP panel become one slim "Meet Joey & Ethan" band; the Home FAQ goes from 9 questions to 6 (Contact's three are unchanged)
+- The net sheet shows a "Worth a second look" note when a number looks like a typo (it never changes a number or the answer), and on a phone or tablet the answer and the two buttons come before the two sheets
+- Your options: one lone word fixed on a small phone
+- Phone: 18,267 px to 16,309 px; laptop: 12,216 px to 10,642 px. CSS v47, JS v24; notes and CHECKPOINT.json are #42
 
 (Each new checkpoint adds its bullets here.)

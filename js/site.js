@@ -235,11 +235,42 @@
         });
       }
     };
+    /* Worth a second look (Checkpoint 42): a calm note above the answer when the numbers look like a typo (an extra or missing digit).
+       It only adds a line. It never changes a number or the verdict. It waits for a pause in the typing (a second) or for the person to leave
+       the field (a third of a second, so a tap on a button that is already under the finger is never lost to the page moving), and it clears
+       the moment the numbers look sensible again. A blank price or offer is only mentioned once the person leaves the field. */
+    var checkBox = el('check-note'), checkText = el('check-text'), checkTimer = 0;
+    var lookAgain = function (done) {
+      var payoff = num('payoff'), price = num('price'), offer = num('offer');
+      var costs = price * num('comm') / 100 + price * num('close') / 100 + num('repairs') + num('carry') * num('months');
+      if (price <= 0 || offer <= 0) return done ? 'Add a sale price and a cash offer, and the comparison below will make sense.' : '';
+      if (offer > price * 1.5 || offer < price * 0.25) return 'The cash offer (' + usd(offer) + ') and the sale price (' + usd(price) + ') are very far apart. Check for an extra or missing digit. If they\u2019re right, ignore this note.';
+      if (payoff > price * 1.5) return 'The mortgage owed (' + usd(payoff) + ') is far above the sale price (' + usd(price) + '). Check for an extra or missing digit. If they\u2019re right, ignore this note.';
+      if (costs > price * 0.5) return 'The costs of listing add up to ' + usd(costs) + ', more than half the sale price. Check the amounts under \u201cChange the costs we assumed.\u201d If they\u2019re right, ignore this note.';
+      return '';
+    };
+    var showCheck = function (done) {
+      clearTimeout(checkTimer);
+      if (!checkBox || !checkText) return;
+      var m = lookAgain(done);
+      if (m) { checkText.textContent = m; checkBox.hidden = false; } else { checkText.textContent = ''; checkBox.hidden = true; }
+    };
+    var checkSoon = function () {
+      if (!checkBox) return;
+      clearTimeout(checkTimer);
+      if (!lookAgain(false)) { checkText.textContent = ''; checkBox.hidden = true; return; }
+      checkTimer = setTimeout(function () { showCheck(false); }, 1000);
+    };
     $$('#calc input').forEach(function (inp) {
       inp.addEventListener('input', calc);
+      inp.addEventListener('input', checkSoon);
       inp.addEventListener('blur', function () {
         if (inp.parentElement.classList.contains('pct')) return;
         var v = num(inp.id); inp.value = Math.round(v).toLocaleString('en-US');
+      });
+      inp.addEventListener('blur', function () {   // a moment's wait: if the person is tapping a button, the note must not slide it out from under the tap
+        clearTimeout(checkTimer);
+        checkTimer = setTimeout(function () { showCheck(true); }, 300);
       });
     });
     calc();
@@ -251,7 +282,7 @@
       var rootEl = doc.documentElement, undo = function () { rootEl.classList.remove('print-sheet'); };
       window.addEventListener('afterprint', undo);
       pbtn.addEventListener('click', function () {
-        calc();
+        calc(); showCheck(true);
         var pd = el('p-date'); if (pd) pd.textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         rootEl.classList.add('print-sheet');
         try { window.print(); } finally { setTimeout(undo, 60000); }   // afterprint cleans up as usual; the timer covers a phone that never sends it

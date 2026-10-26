@@ -43,7 +43,7 @@ PHONE_TEL, PHONE_SMS, PHONE = "tel:+14234515707", "sms:+14234515707", "(423) 451
 EMAIL = "info@glphomeoptions.com"
 BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 FORM_ID = "c36UOOc2pkosxfvRfjZJ"
-CSS_V, JS_V = 45, 23
+CSS_V, JS_V = 47, 24
 HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-1200.jpg 1200w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
@@ -129,14 +129,8 @@ FAQ = {
          "If your home is ready to move into and you aren't in a hurry, listing on the open market usually brings in the most money. We'll tell you plainly if that's your best move."),
         ("What if I want to keep my home but I'm struggling?",
          "We can help you think through refinancing, renting the property out, or other ways to get past short-term financial trouble so you can stay."),
-        ("Do you offer seller financing or lease options?",
-         'Yes. If the usual paths don\'t fit your situation, we can look at other setups together, like seller financing (you carry the loan instead of a bank) or a lease option (a buyer rents first and can choose to buy later). <a href="options.html#creative">See how they work.</a>'),
-        ("Can you help me figure out where to go next?",
-         "Often, yes. In a recent sale the owners needed a place to move, so we worked around their timeline and helped them find a rental."),
         ("What areas do you serve?",
          "We work in Chattanooga and the surrounding counties, generally within about an hour of the city, in Tennessee and Georgia. We're based in Hixson. Not sure whether your address is in our area? Call or text us and we'll tell you."),
-        ("Do you build homes too?",
-         'Yes. We build affordable new homes in Chattanooga for first-time buyers and families. Ask us what\'s coming up next. <a href="[[new-homes-href]]">See what we\'re building.</a>'),
     ],
     "options": [
         ("What does “as-is” mean?",
