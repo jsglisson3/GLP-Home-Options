@@ -22,8 +22,10 @@ import threading
 
 from playwright.sync_api import sync_playwright
 
+import _site  # noqa: E402  (finds the pages)
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ALL = ["index", "options", "about", "work", "new-homes", "contact", "privacy-policy", "terms-of-service"]
+ALL = _site.page_slugs(include_404=False)   # every page in the folder, found by tools/_site.py
 WIDTHS = [(1440, False), (390, True)]
 
 

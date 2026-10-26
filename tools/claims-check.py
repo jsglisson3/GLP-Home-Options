@@ -28,6 +28,8 @@ HARD = [
     ("rating", r"\b(rated|ratings?|stars?)\b|aggregateRating|reviewCount|ratingValue"),
     ("testimonial", r"\btestimonials?\b"),
     ("customer reviews", r"\b(customer|client|seller|buyer|google|5-star|five-star|verified) reviews?\b"),
+    ("rating shown", r"\b\d(?:\.\d)? on (?:google|facebook)\b"),   # "4.9 on Google": a number about us that a visitor will believe
+    ("review count", r"\b\d[\d,]*\s+(?:google |facebook )?reviews?\b"),
     ("guarantee", r"\bguarantee[ds]?\b"),
     ("superlative", r"#\s?1\b|\bnumber (?:one|1)\b|\btop[- ]rated\b|\bbest[- ](?:in|of)\b|\bleading\b|\bpremier\b|\bmost trusted\b"),
     ("years / founding", r"\byears? (?:of experience|in business|in the business)\b|\bsince (?:19|20)\d\d\b|\bestablished\b|\bfounded (?:in|on)\b"),

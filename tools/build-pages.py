@@ -16,6 +16,9 @@ Where things live
 
 Tokens you can use inside tools/pages/*.html
   [[herobg]] [[crumbs]] [[fb-button]]        shared bits
+  [[phone]] [[tel]] [[sms]] [[email]] [[address]]   the business details, written once at the top of this file (never type them into a page)
+  [[proof]] (alone on its line)   the "What homeowners say" band: nothing until tools/reviews_data.py holds real facts
+  [[review-url]] [[newtab]]   the review page only (built when tools/reviews_data.py has a Google review link)
   [[contact-href]] [[home]] [[new-homes-href]] [[fb]]   links that depend on which page you are on
   [[faq home]] [[faq options]] ...           FAQ list (also feeds the FAQPage structured data, so they can never drift apart)
   [[cta options]] ...                        the closing call-to-action band
@@ -24,6 +27,7 @@ Tokens you can use inside tools/pages/*.html
 """
 import html
 import json
+import os
 import pathlib
 import re
 import sys
@@ -34,16 +38,34 @@ TOOLS = ROOT / "tools"
 sys.path.insert(0, str(TOOLS))
 import gallery_data as GAL  # noqa: E402
 import legal_text as LEGAL  # noqa: E402
+import reviews_data as REV  # noqa: E402
 
-# ------------------------------------------------------------------ site facts (change them here, once)
-SITE = "https://jsglisson3.github.io/GLP-Home-Options/"   # the preview address. Swap for the real domain at launch.
-REAL = "https://glphomeoptions.com"
+# Real review facts live in tools/reviews_data.py (empty today). If they break a rule the site is not built, so a wrong rating can never be published.
+_rv = REV.problems()
+if _rv:
+    sys.exit("tools/reviews_data.py breaks a rule:\n  - " + "\n  - ".join(_rv))
+
+# ------------------------------------------------------------------ THE LAUNCH SWITCH (one line) and site facts (change them here, once)
+#   LIVE = False  PREVIEW (today). The github.io address. Every page says noindex, nofollow. No canonical tag, no sitemap.xml, no robots.txt, no CNAME.
+#   LIVE = True   LAUNCH. The real domain. noindex is gone, every page names its own address (canonical), and sitemap.xml, robots.txt and CNAME are written.
+# Do not flip it on its own: follow research/launch-checklist.md (domain, Search Console, Google Business Profile, redirects, a way back).
+# `python3 tools/seo-check.py` builds the live version in a scratch folder and tests both states without touching the saved pages.
+LIVE = False
+if os.environ.get("GLP_BUILD"):   # only tools/seo-check.py and a test copy set this, to build either state in a scratch folder
+    if os.environ["GLP_BUILD"] not in ("live", "preview"):
+        sys.exit('GLP_BUILD must be exactly "live" or "preview" (or not set at all), not ' + repr(os.environ["GLP_BUILD"]))
+    LIVE = os.environ["GLP_BUILD"] == "live"
+PREVIEW = "https://jsglisson3.github.io/GLP-Home-Options/"   # the preview address (a sub-path of github.io)
+REAL = "https://glphomeoptions.com"                           # the real domain, no trailing slash
+SITE = (REAL + "/") if LIVE else PREVIEW                      # every address a page writes about itself starts here
 FB = "https://www.facebook.com/profile.php?id=61588492362641"
 PHONE_TEL, PHONE_SMS, PHONE = "tel:+14234515707", "sms:+14234515707", "(423) 451-5707"
 EMAIL = "info@glphomeoptions.com"
+PHONE_LD = "+{}-{}-{}-{}".format(PHONE_TEL[5], PHONE_TEL[6:9], PHONE_TEL[9:12], PHONE_TEL[12:])   # "+1-423-451-5707" for structured data, from PHONE_TEL
+ADDRESS = "PO Box 55, Hixson, TN"   # the one public address line (footer, Contact page, print sheet, Privacy page); the Google listing must show the same business details. Joey decides what goes here (see research/launch-checklist.md, decision 3).
 BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 FORM_ID = "c36UOOc2pkosxfvRfjZJ"
-CSS_V, JS_V = 47, 24
+CSS_V, JS_V = 48, 24
 HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-1200.jpg 1200w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
@@ -56,14 +78,13 @@ NEWTAB = '<span class="vh"> (opens in a new tab)</span>'
 PAGES = [
     dict(slug="index", file="index.html", crumb=None, ghl=True, preload=["images/joey-ethan-bridge.jpg"],
          title="GLP Home Options | Real Home Options for Chattanooga Homeowners",
-         desc="Joey and Ethan help Chattanooga homeowners compare their options: sell with no repairs in as little as 7 days, list for the best price, "
-              "keep the home, or look at other options like seller financing and lease options. Local, with no pressure. Call or text (423) 451-5707.",
+         desc=f"Joey and Ethan help Chattanooga homeowners compare every option: sell with no repairs in as little as 7 days, list, or keep the home. Call {PHONE}.",
          og_title="GLP Home Options | Real home options. Clear next steps.",
          og_desc="Sell with no repairs, list for the best price, or keep it. Joey and Ethan lay out the real numbers in plain English. No pressure, just solutions.",
-         ld=["business", "faq:home"]),
+         ld=["business", "website", "faq:home"]),
     dict(slug="options", file="options.html", crumb="Your options", preload=[],
          title="Your Home Options in Chattanooga | GLP Home Options",
-         desc="Sell directly with no repairs in 7–14 days, list with an agent, keep your home, or look at seller financing and lease options. Every Chattanooga option side by side, in plain English.",
+         desc="Sell directly with no repairs in 7–14 days, list with an agent, keep your home, or look at seller financing. See every option side by side in plain English.",
          og_title="Every option for your home, side by side | GLP Home Options",
          og_desc="Sell with no repairs, list for the best price, keep the home, or find another way. What each path costs, how long it takes, and who it fits.",
          ld=["faq:options", "crumbs"]),
@@ -81,13 +102,13 @@ PAGES = [
          ld=["crumbs"]),
     dict(slug="new-homes", file="new-homes.html", crumb="New homes", preload=["images/build-exterior.jpg"],
          title="Affordable New Homes in Chattanooga | GLP Home Options",
-         desc="A new home we're building in Chattanooga for first-time buyers and families: 3 bed, 2 bath on 0.6+ acres, priced in the mid $200s. Want to see it before it's listed? Ask us.",
+         desc="A new home we're building in Chattanooga: 3 bed, 2 bath on 0.6+ acres, priced in the mid $200s. Want to see it before it's listed? Ask us.",
          og_title="Affordable new homes, built right here | GLP Home Options",
          og_desc="3 bed, 2 bath on 0.6+ acres in Chattanooga, priced in the mid $200s. Want to see it before it's listed? Ask us.",
          ld=["faq:homes", "crumbs"]),
     dict(slug="contact", file="contact.html", crumb="Contact", ghl=True, preload=[],
          title="Contact Us: Call, Text, or Send Details | GLP Home Options",
-         desc="Call or text (423) 451-5707, email, book a call, or send a few details. Joey or Ethan will get back to you. No pressure, no obligation.",
+         desc=f"Call or text {PHONE}, email, book a call, or send a few details. Joey or Ethan will get back to you. No pressure, no obligation.",
          og_title="Let's talk about your home | GLP Home Options",
          og_desc="Call, text, email, or send a few details. You'll talk to Joey or Ethan. No pressure, no scripts.",
          ld=["business", "crumbs"]),
@@ -106,11 +127,22 @@ LEGAL_PAGES = [
 # The "page not found" page. GitHub Pages shows 404.html for ANY address that does not exist, at any depth (/GLP-Home-Options/a/b/c), so
 # its links and files are written from the site's root (see absolutize()). Like the legal pages it has no share card.
 EXTRA_PAGES = [
-    dict(slug="404", file="404.html", crumb=None, ghl=False, legal=True, preload=[], ld=[],
+    dict(slug="404", file="404.html", crumb=None, ghl=False, legal=True, preload=[], ld=[], noindex=True,
          title="Page not found | GLP Home Options",
-         desc="That page isn't here. Start from the home page, or call or text (423) 451-5707 and we'll help.",
+         desc=f"That page isn't here. Start from the home page, or call or text {PHONE} and we'll help.",
          og_title="", og_desc=""),
 ]
+
+# Pages that exist only when real facts exist. The review page ("Share your experience") is built once a Google review link is typed into
+# tools/reviews_data.py; until then there is no review.html at all. It is kept out of search (noindex, even in the launch build), out of the menu and
+# out of sitemap.xml: it is the page a thank-you card or a text points to, not a page to find through search.
+UTILITY_PAGES = []
+if REV.GOOGLE_REVIEW_URL:
+    UTILITY_PAGES.append(dict(slug="review", file="review.html", crumb=None, ghl=False, legal=True, preload=[], ld=[], noindex=True,
+                              title="Share your experience | GLP Home Options",
+                              desc="Thank you for letting Joey and Ethan help. If you would like to, you can share your honest experience on Google. It takes about two minutes.",
+                              og_title="", og_desc=""))
+OPTIONAL_PAGES = ("review.html",)   # a build deletes these when the facts that justify them are gone, so no stale page stays behind
 
 # ------------------------------------------------------------------ FAQ text (the visible list and the structured data both come from here)
 LINK_FB = f'<a href="{FB}" target="_blank" rel="noopener">our Facebook page{NEWTAB}</a>'
@@ -205,6 +237,17 @@ def is_home(pg):
     return pg["slug"] == "index"
 
 
+def page_url(pg):
+    """The address a page names as its own (canonical tag, share card, sitemap, structured data).
+
+    Live: the real domain with no ".html" (/about, /options, /contact ...). Those are the addresses the old site used, every host serves them,
+    and Cloudflare Pages even redirects the ".html" form to this one, so a canonical that kept ".html" would fight the host there.
+    Preview: the github.io address with its ".html", as before. (Links inside the site keep ".html" so the pages also open from a plain folder.)"""
+    if is_home(pg):
+        return SITE
+    return SITE + (pg["file"][:-len(".html")] if LIVE else pg["file"])
+
+
 def home_href(pg):
     return "#top" if is_home(pg) else "index.html"
 
@@ -219,9 +262,16 @@ def contact_href(pg):
 
 # ------------------------------------------------------------------ shared pieces
 def head(pg):
-    url = SITE if is_home(pg) else SITE + pg["file"]
-    real = REAL + "/" + ("" if is_home(pg) else pg["file"])
-    pre = "".join(f'<link rel="preload" href="{u}" as="image" fetchpriority="high"{HERO_SET if u.endswith("joey-ethan-bridge.jpg") else ""}>\n' for u in pg["preload"][:1])
+    url = page_url(pg)
+    if not LIVE:
+        # PREVIEW: nothing here may be indexed, and no page names an address of its own yet
+        index_tags = ('<!-- PREVIEW build (LIVE = False in tools/build-pages.py). At launch set LIVE = True and rebuild: noindex goes and the canonical comes. '
+                      'See research/launch-checklist.md. -->\n<meta name="robots" content="noindex, nofollow">\n')
+    elif pg.get("noindex"):
+        index_tags = '<meta name="robots" content="noindex">\n'   # utility pages (page not found, review links) stay out of search even when live
+    else:
+        index_tags = f'<link rel="canonical" href="{url}">\n'      # live: no robots tag at all means "index, follow"
+    pre ="".join(f'<link rel="preload" href="{u}" as="image" fetchpriority="high"{HERO_SET if u.endswith("joey-ethan-bridge.jpg") else ""}>\n' for u in pg["preload"][:1])
     ital = "" if pg["legal"] else '<link rel="preload" href="fonts/fraunces-latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>\n'
     og = ""
     if not pg["legal"]:
@@ -243,10 +293,9 @@ def head(pg):
 <title>{html.escape(pg['title'])}</title>
 <meta name="description" content="{html.escape(pg['desc'], quote=True)}">
 <meta name="theme-color" content="#2d4855">
-<!-- DRAFT: delete this noindex line, and un-comment the canonical below, when the site goes live on the real domain -->
-<meta name="robots" content="noindex, nofollow">
-<!-- <link rel="canonical" href="{real}"> -->
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+{index_tags}<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96.png">
 <link rel="icon" type="image/png" sizes="512x512" href="images/favicon-512.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 {og}<link rel="preload" href="fonts/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -261,27 +310,47 @@ def strip_tags(t):
     return html.unescape(t).strip()
 
 
+def address_ld():
+    """The structured-data address, written from ADDRESS so the visible line and the markup can never disagree.
+    Understands "PO Box 55, Hixson, TN" and "123 Main St, Hixson, TN 37343"; any other shape stops the build until this function is taught it."""
+    m = re.fullmatch(r"(?:(?:PO|P\.O\.) Box (\d+)|(.+?)), ([A-Za-z .'-]+), ([A-Z]{2})(?: (\d{5}))?", ADDRESS)
+    if not m:
+        sys.exit(f"ADDRESS {ADDRESS!r} has a shape the structured data cannot be written from; teach address_ld() in tools/build-pages.py about it")
+    box, street, city, state, zip_code = m.groups()
+    out = {"@type": "PostalAddress"}
+    out.update({"postOfficeBoxNumber": box} if box else {"streetAddress": street})
+    out.update({"addressLocality": city, "addressRegion": state})
+    if zip_code:
+        out["postalCode"] = zip_code
+    out["addressCountry"] = "US"
+    return out
+
+
 def ld_blocks(pg):
     out = []
     for key in pg["ld"]:
         if key == "business":
             out.append({
-                "@context": "https://schema.org", "@type": "LocalBusiness", "name": "GLP Home Options", "legalName": "GL Partners LLC",
+                "@context": "https://schema.org", "@type": "LocalBusiness", "@id": SITE + "#business", "name": "GLP Home Options", "legalName": "GL Partners LLC",
                 "description": "Chattanooga home options: sell directly with no repairs, list with an agent, keep your home, or another arrangement like seller financing or a lease option. Plus affordable new homes.",
-                "telephone": "+1-423-451-5707", "email": EMAIL, "url": REAL,
+                "telephone": PHONE_LD, "email": EMAIL, "url": SITE,
                 "image": SITE + "images/joey-ethan-bridge.jpg", "logo": SITE + "images/glp-mark.png",
-                "address": {"@type": "PostalAddress", "postOfficeBoxNumber": "55", "addressLocality": "Hixson", "addressRegion": "TN", "addressCountry": "US"},
+                "address": address_ld(),
                 "areaServed": [{"@type": "City", "name": "Chattanooga, TN"}, "Counties within about an hour of Chattanooga, in Tennessee and Georgia"],
                 "founder": [{"@type": "Person", "name": "Joey"}, {"@type": "Person", "name": "Ethan"}],
-                "sameAs": [FB]})
+                "sameAs": [FB] + ([REV.GOOGLE_PROFILE_URL] if REV.GOOGLE_PROFILE_URL else [])})
         elif key.startswith("faq:"):
             items = FAQ[key[4:]]
             out.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
                 {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(resolve_links(pg, a))}} for q, a in items]})
+        elif key == "website":
+            # Tells Google the site's name for the line above a result. Name and address only: nothing here a visitor cannot see.
+            out.append({"@context": "https://schema.org", "@type": "WebSite", "@id": SITE + "#website", "name": "GLP Home Options", "url": SITE,
+                        "publisher": {"@id": SITE + "#business"}})
         elif key == "crumbs":
             out.append({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-                {"@type": "ListItem", "position": 1, "name": "Home", "item": REAL + "/"},
-                {"@type": "ListItem", "position": 2, "name": pg["crumb"], "item": REAL + "/" + pg["file"]}]})
+                {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE},
+                {"@type": "ListItem", "position": 2, "name": pg["crumb"], "item": page_url(pg)}]})
     return out
 
 
@@ -399,7 +468,7 @@ def footer(pg):
       <h2>Contact</h2>
       <a href="{PHONE_TEL}">{PHONE}</a>
       <a href="mailto:{EMAIL}">{EMAIL}</a>
-      <span>PO Box 55, Hixson, TN</span>
+      <span>{ADDRESS}</span>
       <span>Serving Chattanooga &amp; surrounding counties</span>
     </div>
     <nav class="ftr-col" aria-label="Legal">
@@ -433,6 +502,51 @@ def herobg():
 def crumbs(pg):
     return (f'<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li>'
             f'<li><span aria-current="page">{pg["crumb"]}</span></li></ol></nav>')
+
+
+def proof_block(pg):
+    """The "What homeowners say" band: no markup at all until tools/reviews_data.py holds real facts (and, for the average and the public quotes,
+    at least MIN_SHOWN reviews). Plain words and plain links: no stars, and no review or rating data for search engines. The rules are in that file."""
+    nums = REV.shown_numbers()
+    quotes = [q for q in REV.QUOTES if nums or q["source"] == "Direct"][:3]   # public quotes only come with the numbers; at most three, newest first
+    if not nums and not quotes:
+        return ""
+    if nums:
+        rating, count, month = nums
+        eyebrow = "What homeowners say"
+        h2 = f'{rating:.1f} on Google, <span class="ital">from {count} review{"" if count == 1 else "s"}.</span>'
+        lede = (f'As of {month}. <a href="{html.escape(REV.GOOGLE_PROFILE_URL, quote=True)}" target="_blank" rel="noopener">'
+                f'Read every review on Google{NEWTAB}</a>.')
+    else:
+        eyebrow, h2, lede = "In their own words", 'Notes from <span class="ital">homeowners we helped.</span>', "Shared with the writers\u2019 permission."
+    label = {"Google": "Google", "Facebook": "Facebook", "Direct": "Sent to us"}
+    cards = []
+    for q in quotes:
+        who = ", ".join(x for x in (q.get("name", ""), q.get("place", "")) if x)
+        when = f'{label[q["source"]]}, {REV.month_label(q["month"])}'
+        by = html.escape(f"{who} \u00b7 {when}" if who else when)
+        cards.append(f'<li class="proof rv"><p class="q">&ldquo;{html.escape(q["text"], quote=False)}&rdquo;</p><p class="by">{by}</p></li>')
+    grid = ""
+    if cards:
+        grid = f'      <ul class="proofs n{len(cards)}" data-stagger>\n        ' + "\n        ".join(cards) + "\n      </ul>\n"
+    notes = []
+    g = sum(1 for q in quotes if q["source"] == "Google")
+    if g:
+        notes.append(f"A selection: {g} of our {REV.GOOGLE_COUNT} Google reviews, quoted exactly.")
+    if any(q["source"] == "Direct" for q in quotes):
+        notes.append("Notes marked \u201cSent to us\u201d were shared with the writer\u2019s permission.")
+    fine = f'      <p class="fine honest mid rv">{" ".join(notes)}</p>\n' if notes else ""
+    return f'''  <section class="sec sec-slim" id="reviews" aria-labelledby="reviews-h">
+    <div class="wrap">
+      <div class="head center rv">
+        <span class="eyebrow">{eyebrow}</span>
+        <h2 id="reviews-h">{h2}</h2>
+        <p class="lede">{lede}</p>
+      </div>
+{grid}{fine}    </div>
+  </section>
+
+'''
 
 
 def faq_list(pg, key):
@@ -565,6 +679,9 @@ def resolve_links(pg, text):
 
 
 def expand(pg, text):
+    block = proof_block(pg)   # "" until real review facts exist; then [[proof]], alone on its line, becomes the band (and its line vanishes when empty)
+    text = re.sub(r"^[ \t]*\[\[proof\]\][ \t]*\n", lambda m: block, text, flags=re.M)
+
     def sub(m):
         tok = m.group(1).strip()
         if tok == "herobg":
@@ -581,6 +698,18 @@ def expand(pg, text):
             return gallery(tok.split(" ", 1)[1])
         if tok == "phone":
             return PHONE
+        if tok == "tel":
+            return PHONE_TEL
+        if tok == "sms":
+            return PHONE_SMS
+        if tok == "email":
+            return EMAIL
+        if tok == "address":
+            return ADDRESS
+        if tok == "review-url":
+            return html.escape(REV.GOOGLE_REVIEW_URL, quote=True)
+        if tok == "newtab":
+            return NEWTAB
         if tok == "ask-people":
             return ask_people()
         if tok == "contact home":
@@ -732,6 +861,45 @@ def legal_main(d):
   </section>'''
 
 
+# Old addresses of the previous site that no longer have a page of their own: {old path: where it goes now}.
+# GitHub Pages cannot send a real "moved permanently" answer, so each one gets a small page that jumps straight to the new place (Google treats a
+# zero-second jump as permanent); hosts that can (Netlify, Cloudflare Pages) also read the _redirects file. Add a line here for any other old address.
+REDIRECTS = {"calculator": "/#netsheet"}
+SITE_FILES = ("sitemap.xml", "robots.txt", "CNAME", "_redirects") + tuple(f"{old}.html" for old in REDIRECTS)   # written only by a LIVE build; a preview build removes them
+
+
+def redirect_stub(target):
+    """A tiny page that sends the visitor (and Google) to `target`, a path on this site such as "/#netsheet"."""
+    return (f'<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+            f'<title>One moment | GLP Home Options</title>\n<link rel="canonical" href="{SITE}">\n'
+            f'<meta http-equiv="refresh" content="0; url={target}">\n<script>location.replace({json.dumps(target)})</script>\n</head>\n'
+            f'<body>\n<p>Taking you to the right page. If nothing happens, <a href="{target}">tap here</a>.</p>\n</body>\n</html>\n')
+
+
+def site_files():
+    """The small files only the launch needs, as {name: text}. Empty in a preview build.
+
+    sitemap.xml  every page that may be searched (not the page-not-found page or any page marked noindex), at the address it names as its own.
+                 No <lastmod>: a date that is wrong is worse than none, and Google treats it as optional.
+    robots.txt   everyone may crawl; says where the sitemap is. (A page is kept out of search with its noindex tag, never with a Disallow line:
+                 a crawler that may not fetch a page can never see the tag.)
+    CNAME        tells GitHub Pages which domain this site answers to. Without it the real domain would not open the site.
+    _redirects   the same moves as the stubs, in the form Netlify and Cloudflare Pages read (GitHub Pages ignores the file).
+    <old>.html   one stub per entry in REDIRECTS (see above).
+    """
+    if not LIVE:
+        return {}
+    urls = [page_url(p) for p in PAGES + LEGAL_PAGES + EXTRA_PAGES + UTILITY_PAGES if not p.get("noindex")]
+    sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+               + "".join(f"  <url><loc>{html.escape(u)}</loc></url>\n" for u in urls) + "</urlset>\n")
+    robots = f"User-agent: *\nAllow: /\n\nSitemap: {SITE}sitemap.xml\n"
+    files = {"sitemap.xml": sitemap, "robots.txt": robots, "CNAME": urlsplit(REAL).netloc + "\n",
+             "_redirects": "".join(f"/{old}  {new}  301\n" for old, new in REDIRECTS.items())}
+    for old, new in REDIRECTS.items():
+        files[f"{old}.html"] = redirect_stub(new)
+    return files
+
+
 def main():
     for pg in PAGES:
         src = (TOOLS / "pages" / f"{pg['slug']}.html").read_text(encoding="utf-8")
@@ -749,10 +917,37 @@ def main():
             sys.exit(f"{pg['file']}: unresolved tokens {left}")
         (ROOT / pg["file"]).write_text(out, encoding="utf-8")
         print("wrote", pg["file"], f"({len(out) // 1024} KB)")
-    for pg in LEGAL_PAGES:
-        out = nobreak(curly(render(pg, legal_main(pg["data"]))))
+    for pg in UTILITY_PAGES:
+        src = (TOOLS / "pages" / f"{pg['slug']}.html").read_text(encoding="utf-8")
+        out = nobreak(curly(render(pg, expand(pg, src))))
+        left = re.findall(r"\[\[[^\]]+\]\]", out)
+        if left:
+            sys.exit(f"{pg['file']}: unresolved tokens {left}")
         (ROOT / pg["file"]).write_text(out, encoding="utf-8")
         print("wrote", pg["file"], f"({len(out) // 1024} KB)")
+    built_names = {pg["file"] for pg in UTILITY_PAGES}
+    for name in OPTIONAL_PAGES:
+        if name not in built_names and (ROOT / name).exists():
+            (ROOT / name).unlink()   # the facts for this page were removed from tools/reviews_data.py
+            print("removed", name, "(its facts are gone from tools/reviews_data.py)")
+    for pg in LEGAL_PAGES:
+        out = nobreak(curly(render(pg, expand(pg, legal_main(pg["data"])))))   # expand() fills the business-detail tokens in the legal wording
+        left = re.findall(r"\[\[[^\]]+\]\]", out)
+        if left:
+            sys.exit(f"{pg['file']}: unresolved tokens {left}")
+        (ROOT / pg["file"]).write_text(out, encoding="utf-8")
+        print("wrote", pg["file"], f"({len(out) // 1024} KB)")
+    files = site_files()
+    for name in SITE_FILES:
+        path = ROOT / name
+        if name in files:
+            path.write_text(files[name], encoding="utf-8", newline="\n")
+            print("wrote", name)
+        elif path.exists():
+            path.unlink()   # a preview build never leaves a launch file behind (a CNAME would take the preview address offline)
+            print("removed", name, "(preview build)")
+    print(("LIVE build: the real domain" if LIVE else "PREVIEW build: every page says noindex")
+          + ("  (GLP_BUILD is set in this shell and overrides LIVE in this file)" if os.environ.get("GLP_BUILD") else ""))
 
 
 if __name__ == "__main__":

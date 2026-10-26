@@ -22,7 +22,7 @@ import _site  # lets the 404 page's /GLP-Home-Options/... addresses work on the 
 from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = ["index", "options", "about", "work", "new-homes", "contact", "privacy-policy", "terms-of-service", "404"]
+PAGES = _site.page_slugs()   # every page in the folder, found by tools/_site.py
 WIDTHS = [320, 360, 375, 390, 412, 600, 768, 1024, 1440]
 SIZES = ["", "150%", "200%"]
 

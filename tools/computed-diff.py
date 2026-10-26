@@ -12,7 +12,10 @@ import sys, threading, functools, http.server, socketserver, json
 from playwright.sync_api import sync_playwright
 if len(sys.argv) < 3: sys.exit(__doc__)
 A, B = sys.argv[1], sys.argv[2]
-pages = ["index", "options", "new-homes", "work", "about", "contact", "privacy-policy", "terms-of-service"]
+import _site  # finds the pages
+pages = [x for x in _site.page_slugs(A, include_404=False) if x in _site.page_slugs(B, include_404=False)]   # pages in BOTH folders; a page only one folder has is listed below
+only = sorted(set(_site.page_slugs(A, include_404=False)) ^ set(_site.page_slugs(B, include_404=False)))
+if only: print("NOT COMPARED (in only one folder):", ", ".join(only))
 widths = [(320, 700), (375, 812), (414, 896), (768, 1024), (1024, 768), (1280, 800), (1920, 1080)]
 socketserver.ThreadingTCPServer.allow_reuse_address = True
 class Q(http.server.SimpleHTTPRequestHandler):

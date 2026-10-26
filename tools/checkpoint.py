@@ -30,7 +30,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
 MANIFEST = ROOT / "CHECKPOINT.json"
 
-TEXT_GLOBS = ["*.html", "*.md", "css/*.css", "js/*.js", "tools/*.py", "tools/pages/*.html", "research/*.md", "research/*.css"]
+TEXT_GLOBS = ["*.html", "*.md", "*.xml", "*.txt", "CNAME", "css/*.css", "js/*.js", "tools/*.py", "tools/pages/*.html", "research/*.md", "research/*.css"]
 ASSET_GLOBS = ["images/**/*", "fonts/*", "research/photos/**/*", "research/*.jpg"]
 SPRITE = "tools/pages/_sprite.html"
 
@@ -105,7 +105,7 @@ def compare_to_manifest(builder):
     return problems
 
 
-def rebuild_matches():
+def rebuild_matches(builder):
     """Build the site in a scratch folder and compare with the saved root pages."""
     problems = []
     tmp = pathlib.Path(tempfile.mkdtemp(prefix="glp-rebuild-"))
@@ -124,6 +124,17 @@ def rebuild_matches():
                 problems.append(f"{p.name} is missing from the project (rebuild would create it)")
             elif p.read_bytes().replace(b"\r\n", b"\n") != saved.read_bytes().replace(b"\r\n", b"\n"):
                 problems.append(f"{p.name} differs from a fresh build (edited by hand, or the builder changed and pages were not rebuilt)")
+        for name in getattr(builder, "OPTIONAL_PAGES", ()):   # pages the builder writes only when real facts exist (review.html, from tools/reviews_data.py)
+            if (ROOT / name).exists() and not (tmp / name).exists():
+                problems.append(f"{name} is saved in the project but a fresh build would not make it (tools/reviews_data.py has no Google review link); "
+                                "run python tools/build-pages.py and it is removed")
+        for name in builder.SITE_FILES:   # the launch files: written only by a LIVE build, absent in a preview build
+            fresh, saved = tmp / name, ROOT / name
+            if fresh.exists() != saved.exists():
+                problems.append(f"{name} " + ("is missing from the project (a LIVE build writes it)" if fresh.exists() else
+                                              "should not exist in a preview build (run python tools/build-pages.py and it is removed)"))
+            elif fresh.exists() and fresh.read_bytes().replace(b"\r\n", b"\n") != saved.read_bytes().replace(b"\r\n", b"\n"):
+                problems.append(f"{name} differs from a fresh build")
         if problems:
             print("  PROBLEM: the saved pages are not what the builder produces:")
             for x in problems:
@@ -166,7 +177,7 @@ def verify():
     print("1. Files vs. the last checkpoint")
     problems = compare_to_manifest(builder)
     print("2. Generated pages vs. a fresh build")
-    problems += rebuild_matches()
+    problems += rebuild_matches(builder)
     print("3. Links, anchors, images, scripts")
     problems += links_ok()
     print("4. Git")
@@ -182,7 +193,7 @@ def verify():
 def write(label, force=False):
     builder = load_builder()
     print("Checking before recording a checkpoint...")
-    problems = rebuild_matches() + links_ok()
+    problems = rebuild_matches(builder) + links_ok()
     if problems and not force:
         print("\nNot recorded: fix the problems above first (or use --force if you know why).")
         return 1

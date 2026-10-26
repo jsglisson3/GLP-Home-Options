@@ -71,3 +71,23 @@ Also worth asking, because it changes the design: **what do you need to know bef
 The net sheet opens on an example we made up (a $300,000 home, a $255,000 cash offer, listing nets $112,000, the offer $105,000). Jeremy wants the opening example to show GLP as a real win. The only honest way to do that is to use a real one.
 
 24. **Can you give me one real recent deal, with the numbers rounded so nobody can be identified?** What the home would have listed for, what repairs it needed, how long listing would likely have taken, what you offered, and what the seller would have netted by listing instead. Ideally the September closing, if those sellers are comfortable with it. We would use it as the example the calculator opens with, so it is true, and callers are not surprised by a real offer.
+
+## Added Oct 26, overnight: the Google profile and reviews (for Jeremy's talk with Joey; not sent)
+
+Jeremy asked how a site like this gets found on Google, with homeowners coming to Joey instead of Joey chasing them. The overnight research (the private report *Local search plan for home buyers*) says the Google Business Profile and real reviews matter more than anything on the website, and that the website's job is to be ready, consistent and honest the day Joey decides. **Nothing has been started** (ROADMAP D15 keeps the profile on hold) and nothing will be until Jeremy and Joey decide. These answers let it be done carefully, once. The main phone number (item 6) and the towns and counties (item 3 of the short text above) are also needed and are already asked there. Why each answer matters: `gbp-setup-sheet.md`; how reviews are asked for, and what is not allowed: `review-kit.md`.
+
+25. **Is there already a Google listing for GLP, GL Partners or either of you?** Search the name on Google and on Google Maps, in a private window. If a box, a map pin or reviews show up, do you know who made it, and which Google login manages it? If nothing shows up, that is a fine answer.
+26. **Where is the business really based, and what may be public?** Is there a real place where people can meet you, or do you work from home and go to the homeowner? Google does not accept a PO box as the business address. A business that goes to its customers can hide its address and list the towns it serves instead. Would you be comfortable with that, or would you rather wait on the profile? *(Also item 18. This decides what the site, the listing and every directory say.)*
+27. **What is the business called on paper?** Is "GLP Home Options" registered as a business name of GL Partners LLC, or is it just what you go by? If you are not sure, your accountant or the state's business records will know. *(The name on the profile should match the name you use everywhere, and Google compares it with real documents.)*
+28. **Who could leave an honest review, and about how many closings do you have in a normal month?** The September sellers if they are comfortable, a buyer, a title company, an agent you worked with. Nothing offered in return: no gifts, no discounts. A few closings a year means reviews arrive slowly, which is normal, and the plan is built for that.
+29. **Whose Google login should own the profile?** A login that you and Jeremy can both get into, not tied to one person's personal email, with a phone number and an email you can both reach.
+
+### Round 3, short text (copy, paste, send when Jeremy decides; not sent)
+
+> Hey Joey, one more batch, this time about Google, so people can find you without you chasing them. Quick answers are fine, and nothing is being set up yet:
+>
+> 1. If you search "GLP Home Options" on Google or Google Maps, does a business box or a map pin show up? Do you know who made it, and which Google login it's under?
+> 2. Do you want your home address kept private, with the listing saying "we come to you" and naming the towns you serve? Or is there a real office or meeting place we could use? (Google doesn't accept a PO box.)
+> 3. Is "GLP Home Options" a registered business name of GL Partners LLC, or just what you go by? If you're not sure, your accountant would know.
+> 4. After a closing, who would be happy to leave an honest Google review? (Nothing in return, Google doesn't allow it.) About how many closings do you do in a normal month?
+> 5. Whose Google login should own the profile, so you and I can both get into it?

@@ -32,7 +32,7 @@ class T(socketserver.ThreadingTCPServer):
 srv = T(("127.0.0.1", 0), functools.partial(H, directory=folder)); port = srv.server_address[1]
 threading.Thread(target=srv.serve_forever, daemon=True).start()
 base = f"http://127.0.0.1:{port}/"
-PAGES = ["index.html", "options.html", "new-homes.html", "work.html", "about.html", "contact.html", "privacy-policy.html", "terms-of-service.html", "404.html"]
+PAGES = _site.page_files()   # every page in the folder, found by tools/_site.py
 STATE = """() => { const b = document.querySelector('.mobile-bar'); if (!b) return null; const r = b.getBoundingClientRect(), cs = getComputedStyle(b);
   return {auto: b.classList.contains('auto'), on: b.classList.contains('on'), shown: cs.display !== 'none' && cs.visibility === 'visible' && r.top < innerHeight - 1 && r.bottom > 1,
           js: document.documentElement.classList.contains('js'), ready: !!window.__glpReady}; }"""

@@ -54,8 +54,8 @@ PRIVACY = {
          ["<p>We may update this policy from time to time. When we do, we will post the new version on this page and change "
           "the date at the top.</p>"]),
         ("9. Contact us",
-         ["<p>Questions or concerns about this policy? Email <a href=\"mailto:info@glphomeoptions.com\">info@glphomeoptions.com</a>. "
-          "Mailing address: GLP Home Options (Legal entity: GL Partners LLC), PO Box 55, Hixson, TN.</p>"]),
+         ["<p>Questions or concerns about this policy? Email <a href=\"mailto:[[email]]\">[[email]]</a>. "
+          "Mailing address: GLP Home Options (Legal entity: GL Partners LLC), [[address]].</p>"]),
     ],
 }
 
@@ -98,6 +98,6 @@ TERMS = {
          ["<p>These terms are governed by the laws of the State of Tennessee. You submit to the exclusive jurisdiction of the "
           "courts located there.</p>"]),
         ("10. Questions",
-         ["<p>Questions about these terms? Email <a href=\"mailto:info@glphomeoptions.com\">info@glphomeoptions.com</a>.</p>"]),
+         ["<p>Questions about these terms? Email <a href=\"mailto:[[email]]\">[[email]]</a>.</p>"]),
     ],
 }

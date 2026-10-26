@@ -14,7 +14,7 @@ import _site  # lets the 404 page's /GLP-Home-Options/... addresses work on the 
 from playwright.sync_api import sync_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = sys.argv[1:] or ["index.html", "options.html", "about.html", "work.html", "new-homes.html", "contact.html", "privacy-policy.html", "terms-of-service.html", "404.html"]
+PAGES = sys.argv[1:] or _site.page_files()   # every page in the folder, found by tools/_site.py
 class Quiet(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *a, **k): pass
 srv = socketserver.TCPServer(("127.0.0.1", 0), functools.partial(Quiet, directory=str(ROOT)))

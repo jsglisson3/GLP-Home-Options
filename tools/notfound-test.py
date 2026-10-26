@@ -16,10 +16,10 @@ If SITE in tools/build-pages.py changes to the real domain (BASE "/"), this test
 import functools, http.server, mimetypes, os, pathlib, re, threading
 from urllib.parse import unquote, urlsplit
 from playwright.sync_api import sync_playwright
+import _site  # reads the builder's launch switch and gives SITE and BASE ("/GLP-Home-Options/" in preview, "/" when live)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SITE = re.search(r'^SITE = "([^"]+)"', (ROOT / "tools" / "build-pages.py").read_text(encoding="utf-8"), re.M).group(1)
-BASE = urlsplit(SITE).path or "/"
+SITE, BASE = _site.SITE, _site.BASE
 
 
 class GH(http.server.BaseHTTPRequestHandler):

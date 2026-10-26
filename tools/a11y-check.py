@@ -18,7 +18,7 @@ import _site  # lets the 404 page's /GLP-Home-Options/... addresses work on the 
 from playwright.async_api import async_playwright
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = sys.argv[1:] or ["index.html", "options.html", "about.html", "work.html", "new-homes.html", "contact.html", "privacy-policy.html", "terms-of-service.html", "404.html"]
+PAGES = sys.argv[1:] or _site.page_files()   # every page in the folder, found by tools/_site.py
 OUT = pathlib.Path(tempfile.mkdtemp(prefix="glp-check-"))
 AXE_PATH = pathlib.Path("node_modules/axe-core/axe.min.js")
 AXE = AXE_PATH.read_text()

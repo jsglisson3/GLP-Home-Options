@@ -17,7 +17,7 @@ from playwright.sync_api import sync_playwright
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SHOTS = sys.argv[1] if len(sys.argv) > 1 else None
 if SHOTS: os.makedirs(SHOTS, exist_ok=True)
-PAGES = ["index", "options", "about", "work", "new-homes", "contact", "privacy-policy", "terms-of-service", "404"]
+PAGES = _site.page_slugs()   # every page in the folder, found by tools/_site.py
 # (label, width, height, touch)
 SIZES = [("w600", 600, 900, True), ("w700", 700, 900, True), ("w768", 768, 1024, True), ("w820", 820, 1180, True), ("w900", 900, 1100, False),
          ("w1024", 1024, 768, True), ("w1180", 1180, 820, True), ("w1280", 1280, 800, False),

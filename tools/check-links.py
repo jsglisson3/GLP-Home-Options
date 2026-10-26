@@ -14,10 +14,11 @@ import sys
 from html.parser import HTMLParser
 from urllib.parse import unquote, urlsplit
 
+import _site  # reads the builder's launch switch and gives SITE and BASE ("/GLP-Home-Options/" in preview, "/" when live)
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = sorted(p for p in ROOT.glob("*.html"))
-SITE = re.search(r'^SITE = "([^"]+)"', (ROOT / "tools" / "build-pages.py").read_text(encoding="utf-8"), re.M).group(1)
-BASE = urlsplit(SITE).path or "/"
+SITE, BASE = _site.SITE, _site.BASE
 
 
 def local(path):
@@ -71,6 +72,10 @@ for name, s in scans.items():
         if u.path and rel is None:
             problems.append(f"{name}: link '{href}' points outside the site folder {BASE}")
             continue
+        if u.path and rel == "":   # a root-absolute link to the front door ("/" on the real domain) is the home page, not "this page"
+            rel = "index.html"
+        elif rel and "." not in rel.rsplit("/", 1)[-1] and (ROOT / (rel + ".html")).exists():   # "/about" finds about.html, as on every host
+            rel += ".html"
         if rel and not rel.endswith(".html"):   # a link to a file, such as the larger version of a photo
             if not (ROOT / rel).exists():
                 problems.append(f"{name}: link to missing file '{href}'")

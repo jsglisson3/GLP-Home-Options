@@ -748,6 +748,12 @@ html:not(.js) .ghl-slow-alt button,html:not(.js) .ghl-slow-alt .dot{display:none
 .proof{display:grid;gap:14px;align-content:start;justify-items:start;padding:22px;padding:clamp(22px,2.6vw,32px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-1)}
 .proof h3{font-size:1.16rem}
 @media (max-width:56.25em){.proofs{grid-template-columns:minmax(0,1fr)}}
+/* "What homeowners say" (built only from real facts in tools/reviews_data.py): the same white cards as the proofs above, with a quote and a byline.
+   One quote sits centered at a readable width, two share the row, three fill it; on a phone they stack (the rule above). */
+.proof .q{margin:0;font-size:1.06rem;line-height:1.6;color:var(--ink)}
+.proof .by{margin:0;font-size:.92rem;color:var(--muted)}
+@media (min-width:56.3em){.proofs.n1{grid-template-columns:minmax(0,640px);justify-content:center}.proofs.n2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:56.3em){.fine.honest.mid{max-width:46rem;margin-left:auto;margin-right:auto;text-align:center}}   /* the note under centered cards sits centered; on a phone it stays left-aligned, which reads better in a narrow column */
 .legal-line{margin-top:20px;margin-top:clamp(20px,3vw,32px);text-align:center;font-size:.92rem;color:var(--muted)}
 
 /* ---------- New homes ---------- */

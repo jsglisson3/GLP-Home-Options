@@ -20,7 +20,7 @@ class Quiet(http.server.SimpleHTTPRequestHandler):
 srv = socketserver.TCPServer(("127.0.0.1", 0), functools.partial(Quiet, directory=str(ROOT)))
 BASE = f"http://127.0.0.1:{srv.server_address[1]}/"
 threading.Thread(target=srv.serve_forever, daemon=True).start()
-PAGES = ["index.html", "options.html", "about.html", "work.html", "new-homes.html", "contact.html", "privacy-policy.html", "terms-of-service.html", "404.html"]
+PAGES = _site.page_files()   # every page in the folder, found by tools/_site.py
 fails = []
 def check(name, ok, detail=""):
     print(("ok    " if ok else "FAIL  ") + name + (("  " + str(detail)) if detail != "" else ""))
