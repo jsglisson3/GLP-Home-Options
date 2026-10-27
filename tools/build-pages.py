@@ -75,7 +75,7 @@ BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 # form services and Zapier-style catch-hooks expect). Both go straight out with no permission check first, so the receiving end only has to allow this site (CORS).
 FORM_ENDPOINT = ""
 FORM_FORMAT = "json"
-CSS_V, JS_V = 51, 26
+CSS_V, JS_V = 52, 26
 HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-1200.jpg 1200w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
@@ -782,7 +782,7 @@ def lead_form(pg, page=False):
 def contact_section(pg, page=False):
     if page:
         top = f'''{crumbs(pg)}
-          <h1 id="contact-h">Let's talk about your home. <span class="ital">No pressure, no scripts.</span></h1>'''
+          <h1 id="contact-h">Let's talk. <span class="ital">No pressure, no scripts.</span></h1>'''
     else:
         top = '''<h2 id="contact-h">Want to talk it through? <span class="ital">Call or text Joey or Ethan.</span></h2>'''
     # On the Contact page the H1 sits directly above these two headings, so they are H2s there
@@ -801,6 +801,14 @@ def contact_section(pg, page=False):
           <li><span class="num" aria-hidden="true">3</span>You decide what's best for you.</li>
         </ol>
       </div>'''
+    # Checkpoint 48: on the Contact page at desktop width the left column ended about 690 px above the bottom of the form; the photo of the two people
+    # a visitor will talk to fills it (the same photo and words as the Home hero, nothing new claimed). Phones and tablets never download it (hidden
+    # there and marked lazy); on a computer it sits near the first screen, so the browser fetches it with the page.
+    photo = '''
+      <figure class="contact-photo rv">
+        <img src="images/joey-ethan-bridge.jpg" srcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-1200.jpg 1200w" sizes="(min-width:60.0625em) 540px, 1px" alt="Joey and Ethan, co-founders of GLP Home Options, smiling on the Walnut Street Bridge in Chattanooga" width="800" height="636" loading="lazy" decoding="async">
+        <figcaption><b>Joey &amp; Ethan</b><span>Co-founders, Hixson, TN</span></figcaption>
+      </figure>''' if page else ""
     return f'''<section class="contact{" contact-page" if page else ""}" id="contact" aria-labelledby="contact-h">
     <div class="contact-bg" aria-hidden="true"><canvas class="topo" data-tone="light"></canvas></div>
     <div class="wrap contact-grid">
@@ -815,7 +823,7 @@ def contact_section(pg, page=False):
 
       {reach(page, "more")}
 
-{next_steps}
+{next_steps}{photo}
     </div>
   </section>'''
 

@@ -17,10 +17,15 @@
   --text:#3d5560;
   --muted:#4a626d;
   --line:#dce6e6; --line-2:#cbd8d8;
-  --grad:linear-gradient(135deg,#2d4855 0%,#37625c 52%,#3c7a66 100%);
-  --sh-1:0 1px 2px rgba(26,50,61,.05),0 6px 18px rgba(26,50,61,.06);
-  --sh-2:0 2px 4px rgba(26,50,61,.05),0 14px 34px rgba(26,50,61,.10);
-  --sh-3:0 4px 10px rgba(26,50,61,.06),0 28px 60px rgba(26,50,61,.16);
+  --edge:#7b8d94;   /* the line round a box you type in or tick (Checkpoint 48: shared by the net sheet and the contact form), 3.4:1 on white */
+  /* Checkpoint 48 (flat surfaces): a card is one tone step from the ground it sits on, with no outline and no shadow. --card is that tone: cream on a white
+     band, white on a cream band (set below). Shadows are kept only for things that really float: the header once you scroll, the phone menu, the call bar
+     and the photo viewer. The three old shadow steps resolve to none; the dark bands are one flat deep teal (the middle of the old gradient). */
+  --card:var(--cream-100);
+  --band:#2b5155;
+  --sh-1:none;
+  --sh-2:none;
+  --sh-3:none;
   --r-s:12px; --r-m:20px; --r-l:28px;
   --f:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --f-serif:"Fraunces",Georgia,"Times New Roman",serif;
@@ -40,6 +45,21 @@ p,dd,dt,figcaption,blockquote{text-wrap:pretty}
 li,summary,th,td{text-wrap:balance}
 h1{font-size:2.35rem;font-size:clamp(2.35rem,4.7vw,4.2rem);line-height:1.02;letter-spacing:-.04em;font-weight:800}
 h2{font-size:2.05rem;font-size:clamp(2.05rem,4.5vw,3.5rem);line-height:1.04;letter-spacing:-.035em;font-weight:800}
+/* Checkpoint 48: on a wide screen a section title stops at 48px (it was 56) and a title that sits in a half-width column stops at about 42px, so every title holds two lines from 981 to 2560px (measured on all nine pages) */
+@media (min-width:61.3125em){
+  h2{font-size:3rem;font-size:clamp(2.05rem,2.6vw + 1rem,3rem)}
+  .story-copy h2,.about-copy h2,.build-copy h2,.contact-grid h2,.why h2{font-size:2.6rem;font-size:clamp(2rem,1.6vw + 1rem,2.6rem)}
+  .story-copy h2 .ital.ital,.about-copy h2 .ital.ital,.build-copy h2 .ital.ital,.contact-grid h2 .ital.ital,.why h2 .ital.ital,.opt-side h2 .ital.ital,.pano h2 .ital.ital{display:inline}   /* in a narrow column the second sentence follows on the same line instead of starting its own */
+}
+/* Checkpoint 48: from 901 to 980px these sections already sit in two columns (Contact's from 961px), so their titles take the half-column size there too; they ran to three or four lines. With it, no title on the nine pages runs past two lines from 901 to 2560px (measured) */
+@media (min-width:56.3125em) and (max-width:61.25em){
+  .story-copy h2,.about-copy h2,.build-copy h2,.how-copy h2{font-size:1.9rem;font-size:clamp(1.875rem,1.6vw + 1rem,2.6rem)}
+  .story-copy h2 .ital.ital,.about-copy h2 .ital.ital,.build-copy h2 .ital.ital,.how-copy h2 .ital.ital{display:inline}
+}
+@media (min-width:60.0625em) and (max-width:61.25em){
+  .contact-grid h2{font-size:1.9rem;font-size:clamp(1.875rem,1.6vw + 1rem,2.6rem)}
+  .contact-grid h2 .ital.ital{display:inline}
+}
 h3,.h3{font-size:1.3rem;line-height:1.2;letter-spacing:-.02em;font-weight:700}
 p{margin:0}
 a{color:inherit}
@@ -51,6 +71,7 @@ h2 .ital.ital{display:block;font:inherit;letter-spacing:inherit;color:inherit}
 h3 .ital.ital{font:inherit;letter-spacing:inherit;color:inherit}
 .h1 .dot{margin-left:-.07em}
 .lede{font-size:1.06rem;font-size:clamp(1.06rem,1.4vw,1.2rem);line-height:1.65;color:var(--text);max-width:62ch}
+@media (min-width:43.8125em){.lede{max-width:46ch}.paths-more{max-width:36rem}}   /* about 68 characters a line on a computer (Checkpoint 48; 62ch ran 97, because a "ch" in this typeface is narrower than an average letter) */
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
 .nb{white-space:nowrap}
 .nb.ph{display:inline-block;max-width:100%;white-space:normal}   /* the phone number: one piece that moves to the next line whole; only if even a full line is too narrow for it (a small phone with the text blown up) does it wrap, at its one space, rather than run off the screen */
@@ -71,21 +92,20 @@ main:focus{outline:none}
 .skip:focus{top:calc(12px + env(safe-area-inset-top,0px));transform:none;outline-color:#fff}
 
 .wrap{width:100%;max-width:var(--maxw);margin-left:auto;margin-right:auto;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-left:max(clamp(20px,4vw,48px),env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-right:max(clamp(20px,4vw,48px),env(safe-area-inset-right,0px))}
-.sec{position:relative;padding-top:76px;padding-bottom:76px;padding-block:clamp(76px,8vw,112px)}
+.sec{position:relative;padding-top:76px;padding-bottom:76px;padding-block:clamp(76px,6vw,88px)}
 .sec-cream{background:var(--cream-100)}
-.head{display:grid;gap:18px;max-width:780px;margin-bottom:40px;margin-bottom:clamp(40px,6vw,72px)}
+.sec-cream,.hero,.phero,.after-hero,.doc-hero,.ftr{--card:#fff}
+.head{display:grid;gap:18px;max-width:780px;margin-bottom:40px;margin-bottom:clamp(40px,6vw,48px)}
 .head.center{max-width:980px;margin-left:auto;margin-right:auto;margin-inline:auto;text-align:center;justify-items:center}
 /* Checkpoint 47: labels above headings were cut; the few left carry a fact (a dated closing, the net sheet's name, a status), so they read as a plain line, not a capital tag */
-.eyebrow{display:inline-flex;align-items:center;gap:12px;font:700 .95rem/1.3 var(--f);color:var(--green-700)}
 
 /* ---------- Buttons ---------- */
 .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;border:1.5px solid transparent;font:700 1rem/1 var(--f);text-decoration:none;cursor:pointer;transition:transform .2s ease,box-shadow .25s ease,background .25s ease,border-color .25s ease,color .25s ease;-webkit-tap-highlight-color:transparent}
-.btn:hover{transform:translateY(-2px)}
-.btn:active{transform:translateY(0) scale(.985)}
-.btn-primary{background:linear-gradient(135deg,#3a7a66,#316656);color:#fff;box-shadow:0 4px 14px rgba(49,102,86,.22),inset 0 1px 0 rgba(255,255,255,.14)}
-.btn-primary:hover{background:linear-gradient(135deg,#34705d,#2a5a4c);box-shadow:0 8px 20px rgba(49,102,86,.28),inset 0 1px 0 rgba(255,255,255,.14)}
-.btn-ghost{background:#fff;color:var(--navy-700);border-color:var(--navy-200)}
-.btn-ghost:hover{border-color:var(--navy-700);background:var(--cream-100);box-shadow:var(--sh-1)}
+.btn:active{transform:scale(.985)}
+.btn-primary{background:var(--green-700);color:#fff}
+.btn-primary:hover{background:var(--green-800)}
+.btn-ghost{background:var(--navy-100);color:var(--navy-800)}
+.btn-ghost:hover{background:var(--navy-200)}
 .btn-lg{min-height:60px;padding:0 34px;font-size:1.06rem}
 .btn-sm{min-height:46px;padding:0 22px;font-size:.95rem}
 .btn .i{width:1.15em;height:1.15em;transition:transform .25s ease}
@@ -96,7 +116,7 @@ main:focus{outline:none}
 .hdr{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.74);-webkit-backdrop-filter:saturate(1.8) blur(16px);backdrop-filter:saturate(1.8) blur(16px);transition:background .3s ease,box-shadow .3s ease}
 .hdr.scrolled{background:rgba(255,255,255,.95);box-shadow:0 1px 0 var(--line),0 10px 30px rgba(26,50,61,.06)}
 /* every page: at the top the header takes the hero's cream, so there is no seam; it turns to white glass once you scroll */
-body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
+body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:var(--cream-100)}
 /* constant header height: the old shrink-on-scroll pulled the whole page up by 14px the moment you started to scroll */
 .hdr-row{display:flex;align-items:center;gap:18px;min-height:80px}
 .brand{display:inline-flex;flex:none;align-items:center;gap:12px;text-decoration:none;min-height:44px;color:var(--navy-700)}
@@ -139,18 +159,17 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 /* Checkpoint 47: no fade-in on scroll; content is simply there (the hero headline keeps the one entrance). The .rv class stays as a harmless hook. */
 
 /* ---------- Hero ---------- */
-.hero{position:relative;isolation:isolate;overflow:hidden;padding:34px 0 calc(var(--pull) + 80px);padding:clamp(34px,5vw,76px) 0 calc(var(--pull) + clamp(80px,9vw,130px))}
+.hero{position:relative;isolation:isolate;overflow:hidden;padding:34px 0 calc(var(--pull) + 80px);padding:clamp(34px,4vw,56px) 0 calc(var(--pull) + clamp(80px,7vw,100px))}
 /* D2 (approved; extended by Jeremy): cream is the site's one tint. Every hero, every alternate section and the footer use it; the cool mist and mint tints are retired */
-.hero-bg{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;z-index:-1;background:linear-gradient(180deg,#fdfbf6 0%,var(--cream) 55%,#efe8d8 100%)}
+.hero-bg{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;z-index:-1;background:var(--cream-100)}
 .topo{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;width:100%;height:100%;pointer-events:none}
-.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:150px;height:clamp(150px,18vw,270px);display:block}
+.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:150px;height:clamp(150px,16vw,200px);display:block}
 .ridge path{will-change:transform}
 .ridge .r1{fill:rgba(60,122,102,.15);transform:translate3d(0,calc(var(--p,0) * -26px),0)}
 .ridge .r2{fill:rgba(45,72,85,.10);transform:translate3d(0,calc(var(--p,0) * -14px),0)}
 .ridge .r3{fill:var(--cream-100)}
-.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);gap:28px;gap:clamp(28px,5vw,72px);align-items:center}
+.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.14fr) minmax(0,.86fr);gap:28px;gap:clamp(28px,4vw,56px);align-items:center}
 .hero-copy{display:grid;gap:26px;align-content:center;justify-items:start}
-.live{position:relative;display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--green-500);flex:none}
 .h1 .w{display:inline-block;animation:rise .95s cubic-bezier(.2,.75,.2,1) both;animation-delay:calc(var(--i) * 80ms + .1s)}
 .h1 .ital{font-size:1.02em;line-height:1.1}
 @keyframes rise{from{opacity:0;transform:translateY(.5em)}to{opacity:1;transform:none}}
@@ -159,8 +178,8 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .micro .i{color:var(--green-600)}
 
 .hero-visual{position:relative;width:min(100%,540px);margin-left:auto;margin-right:auto;margin-inline:auto;padding:6px 0 26px}
-.gable{position:relative;margin:0;aspect-ratio:560/620;filter:drop-shadow(0 32px 40px rgba(26,50,61,.22))}
-.gable .g1{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;background:var(--grad);clip-path:url(#gable)}
+.gable{position:relative;margin:0;aspect-ratio:560/620}
+.gable .g1{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;background:var(--green-700);clip-path:url(#gable)}
 .gable .g2{position:absolute;top:7px;right:7px;bottom:7px;left:7px;inset:7px;background:#fff;clip-path:url(#gable)}
 .gable .g3{position:absolute;top:14px;right:14px;bottom:14px;left:14px;inset:14px;overflow:hidden;clip-path:url(#gable);background:var(--navy-100)}
 /* keep the line above; the shade below grounds the photo and the name plate */
@@ -168,22 +187,21 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .gable .g3::after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;inset:0;background:linear-gradient(180deg,rgba(26,50,61,0) 58%,rgba(26,50,61,.20) 100%);pointer-events:none}
 .gable-cap{position:absolute;right:11%;bottom:5.5%;display:grid;gap:2px;padding:10px 16px;border-radius:14px;background:#fff;box-shadow:var(--sh-2);text-align:left}
 .gable-cap b{font:800 .98rem/1.1 var(--f);color:var(--navy-800)}
-.gable-cap span{font:700 .8rem/1.2 var(--f);color:var(--green-700)}
+.gable-cap span{font:700 .82rem/1.2 var(--f);color:var(--green-700)}
 
 /* ---------- Home hero: photo caption ----------
    The floating tags were removed (Jeremy, Oct 21): they sat on top of the photo and repeated what the numbers strip says. The photo carries one quiet name plate. */
 .hero .gable-cap{right:20px;bottom:28px;padding:9px 14px;border-radius:12px}
 .hero .gable-cap b{font-size:.95rem}
-.hero .gable-cap span{font-size:.8rem}
+.hero .gable-cap span{font-size:.82rem}
 
 /* staging: a still pool of light behind the photo lifts it off the cream */
-.hero .hero-visual::before{content:"";position:absolute;z-index:-1;top:-8%;right:-16%;bottom:-4%;left:-16%;inset:-8% -16% -4%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.9),rgba(255,255,255,.5) 48%,rgba(255,255,255,0) 74%);pointer-events:none}
+.hero .hero-visual::before{display:none;content:"";position:absolute;z-index:-1;top:-8%;right:-16%;bottom:-4%;left:-16%;inset:-8% -16% -4%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.9),rgba(255,255,255,.5) 48%,rgba(255,255,255,0) 74%);pointer-events:none}
 
 
 /* a calm entrance: copy rises in order and the photo settles (switched off by reduced motion) */
 @keyframes enter{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @keyframes enter-photo{from{opacity:0;transform:translateY(26px) scale(.975)}to{opacity:1;transform:none}}
-.hero .hero-copy>.hero-eyebrow{animation:enter .7s cubic-bezier(.2,.7,.2,1) both}
 .hero .hero-copy>.lede{animation:enter .75s cubic-bezier(.2,.7,.2,1) .42s both}
 .hero .hero-copy>.cta-row{animation:enter .7s cubic-bezier(.2,.7,.2,1) .5s both}
 .hero .hero-copy>.micro{animation:enter .7s cubic-bezier(.2,.7,.2,1) .58s both}
@@ -198,7 +216,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
   .gable-cap{right:9%;bottom:4%;padding:8px 12px}
   .cta-row .btn-lg{width:100%}
 }
-@media (min-width:61.3125em){.hero{padding-bottom:calc(var(--pull) + 36px);padding-bottom:calc(var(--pull) + clamp(36px,4.2vw,64px))}}  /* room under the people for the hills (--pull) */
+@media (min-width:61.3125em){.hero{padding-bottom:calc(var(--pull) + 36px);padding-bottom:calc(var(--pull) + clamp(16px,118px - 8vw,36px))}}  /* room under the people for the hills (--pull); Checkpoint 48: 36px of room at 1024 tapering to 16px from 1280, measured 24 to 40px clear of the text from 981 to 2560px */
 @media (max-width:32.5em){
   .hero-copy{gap:20px}
   .hero{padding-top:24px}
@@ -218,12 +236,11 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 /* phones: Joey and Ethan's faces in the very first screen (the photo itself sits below the fold) */
 .hero-people{display:none}
 .hero-people .avs{display:flex;flex:none}
-.hero-people img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2.5px solid #fff;box-shadow:var(--sh-1);background:var(--navy-100)}
+.hero-people img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2.5px solid #fff;background:var(--navy-100)}
 .hero-people img+img{margin-left:-14px}
 .hero-people b{display:block;font:800 .95rem/1.15 var(--f);color:var(--navy-800)}
-.hero-people small{display:block;margin-top:2px;font:700 .76rem/1.25 var(--f);letter-spacing:.02em;color:var(--green-700)}
+.hero-people small{display:block;margin-top:2px;font:700 .82rem/1.25 var(--f);letter-spacing:.02em;color:var(--green-700)}
 @media (max-width:47.9375em){
-  .hero .hero-copy>.hero-eyebrow{display:none}
   .hero .hero-copy>.hero-people{display:inline-flex;align-items:center;gap:12px;max-width:100%;padding:0;animation:enter .7s cubic-bezier(.2,.7,.2,1) both}
 }
 /* tidy line breaks: balanced headline, no one-word last lines in the intro */
@@ -232,7 +249,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 
 /* ---------- Situations ---------- */
 .after-hero{position:relative;display:flow-root;background:var(--cream-100)}
-.situ{text-align:center;padding-top:28px;padding-top:clamp(28px,3.4vw,44px);padding-bottom:48px;padding-bottom:clamp(48px,6vw,80px)}
+.situ{text-align:center;padding-top:28px;padding-top:clamp(28px,3.4vw,36px);padding-bottom:48px;padding-bottom:clamp(48px,6vw,56px)}
 .situ-label{margin-bottom:20px;font:700 .95rem/1.3 var(--f);color:var(--muted)}
 .situ-row{display:flex;flex-wrap:wrap;gap:6px 28px;justify-content:center;list-style:none;margin:0;padding:0}
 /* Checkpoint 36: plain text with a small green icon, no pill, border or shadow. They are a list of situations, not buttons (review N15: the pills looked tappable and were not). */
@@ -240,13 +257,13 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .chip .i{color:var(--green-600)}
 
 /* ---------- Path cards ---------- */
-.tile{display:grid;place-items:center;width:56px;height:56px;border-radius:18px;background:var(--grad);color:#fff;box-shadow:0 10px 22px rgba(45,72,85,.24);flex:none}
+.tile{display:grid;place-items:center;width:56px;height:56px;border-radius:18px;background:var(--green-700);color:#fff;flex:none}
 .tile .i{width:26px;height:26px}
 .paths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;gap:clamp(16px,2vw,28px)}
-.path{position:relative;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:16px;padding:26px;padding:clamp(26px,3vw,36px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-1);transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s,border-color .4s,background .4s}
-.path:hover{transform:translateY(-6px);box-shadow:var(--sh-2);border-color:var(--green-200)}
+.path{position:relative;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:16px;padding:26px;padding:clamp(26px,3vw,32px);background:var(--card);border-radius:var(--r-l)}
+
 .path-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.time{padding:9px 14px;border-radius:999px;background:var(--green-50);border:1px solid var(--green-100);color:var(--green-800);font:750 .82rem/1 var(--f);white-space:nowrap}
+.time{padding:9px 14px;border-radius:999px;background:var(--green-100);color:var(--green-800);font:750 .82rem/1 var(--f);white-space:nowrap}
 .bestfor{color:var(--text)}
 .bestfor b{color:var(--ink)}
 .checks{display:grid;gap:12px;align-content:start;list-style:none;margin:0;padding:0}
@@ -254,7 +271,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .checks .i{width:24px;height:24px;padding:5px;border-radius:50%;background:var(--green-100);color:var(--green-700);stroke-width:3}
 .more{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:4px;font-weight:750;color:var(--green-700);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px}
 .more:hover{color:var(--green-800);text-decoration-thickness:2.5px}
-.paths-more{max-width:640px;margin:28px auto 0;margin-top:clamp(28px,4vw,40px);color:var(--text)}
+.paths-more{max-width:640px;margin:28px auto 0;margin-top:clamp(28px,4vw,36px);color:var(--text)}
 .paths-more a{display:inline-block;max-width:100%;font-weight:700;color:var(--green-700);text-underline-offset:4px}   /* moves to the next line whole; wraps inside only if a full line is too narrow (big text) */
 @media (min-width:61.3125em){.paths-more{max-width:64ch;text-align:center}}   /* the same step as the three cards (.paths) */
 @supports (grid-template-rows:subgrid){
@@ -265,25 +282,29 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 }
 @media (max-width:61.25em){
   .paths{grid-template-columns:minmax(0,1fr);max-width:640px;margin-left:auto;margin-right:auto;margin-inline:auto}
-  .path:hover{transform:none}
+}
+/* on a computer the time each path takes leads its card, set large (Checkpoint 48; it was a small pill and the three cards read alike) */
+@media screen and (min-width:61.3125em){
+  .path .time{padding:0;border-radius:0;background:none;color:var(--green-700);font:800 2.3rem/1.05 var(--f);font-size:clamp(2.05rem,2.5vw,2.5rem);letter-spacing:-.035em;white-space:normal}
+  .path h3{font-size:1.3rem;font-size:clamp(1.22rem,1.4vw,1.4rem)}
 }
 
 /* ---------- Story ---------- */
-.story{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:40px;gap:clamp(40px,6vw,92px);align-items:start}
+.story{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:40px;gap:clamp(40px,5vw,72px);align-items:start}
 .story-photo{position:sticky;top:116px;margin:0;width:100%;max-width:520px;justify-self:center}
-.story-photo img{position:relative;display:block;width:100%;aspect-ratio:800/897;object-fit:cover;border-radius:var(--r-l);box-shadow:var(--sh-3)}
-.plate{position:absolute;top:20px;right:-20px;bottom:-20px;left:20px;inset:20px -20px -20px 20px;border-radius:var(--r-l);background:var(--grad);transform:rotate(2.5deg);opacity:.92}
+.story-photo img{position:relative;display:block;width:100%;aspect-ratio:800/897;object-fit:cover;border-radius:var(--r-l)}
+.plate{position:absolute;top:20px;right:-20px;bottom:-20px;left:20px;inset:20px -20px -20px 20px;border-radius:var(--r-l);background:var(--green-700);transform:rotate(2.5deg);opacity:.92}
 @media (max-width:56.25em){.plate{top:16px;right:-8px;bottom:-16px;left:8px;inset:16px -8px -16px 8px;transform:rotate(1.8deg)}.stamp{left:-6px}}
 .stamp{position:absolute;left:-14px;top:26px;display:inline-flex;align-items:center;gap:9px;padding:11px 17px;border-radius:14px;background:#fff;color:var(--navy-800);font:700 .85rem/1.25 var(--f);box-shadow:var(--sh-2)}
 .stamp .i{color:var(--green-600)}
-.story-copy{display:grid;gap:22px;gap:clamp(22px,3vw,32px)}
+.story-copy{display:grid;gap:22px;gap:clamp(22px,3vw,30px)}
 .story-copy .head{margin-bottom:0}
-.num{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--grad);color:#fff;font:800 1rem/1 var(--f);flex:none;box-shadow:0 8px 18px rgba(45,72,85,.25)}
+.num{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--green-700);color:#fff;font:800 1rem/1 var(--f);flex:none}
 .beats{display:grid;gap:20px;list-style:none;margin:0;padding:0}
 .beats li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:start}
 .beats b{display:block;font-size:1.07rem;color:var(--ink)}
-.pull{position:relative;margin:0;padding:26px 30px 26px 36px;border-radius:var(--r-m);background:#fff;border:1px solid var(--line);box-shadow:var(--sh-1)}
-.pull::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:5px;border-radius:0 5px 5px 0;background:var(--grad)}
+.pull{position:relative;margin:0;padding:26px 30px 26px 36px;border-radius:var(--r-m);background:var(--card)}
+.pull::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:5px;border-radius:0 5px 5px 0;background:var(--green-700)}
 .pull p{font:italic 500 1.22rem/1.38 var(--f-serif);font:italic 500 clamp(1.22rem,2.1vw,1.55rem)/1.38 var(--f-serif);letter-spacing:-.01em;color:var(--navy-800)}
 .pull cite{display:block;margin-top:14px;font:700 .9rem/1.3 var(--f);font-style:normal;color:var(--green-700)}
 @media (max-width:56.25em){.story{grid-template-columns:minmax(0,1fr)}.story-photo{position:relative;top:0;max-width:440px}}
@@ -298,12 +319,12 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .step{position:relative;display:grid;grid-template-columns:56px minmax(0,1fr);gap:22px}
 .step .num{width:56px;height:56px;font-size:1.2rem}
 .step h3{margin:4px 0 8px}
-.step:not(:last-child)::before{content:"";position:absolute;left:27px;top:64px;bottom:-30px;width:2px;border-radius:2px;background:linear-gradient(var(--green-300),var(--navy-200));transform-origin:top}
+.step:not(:last-child)::before{content:"";position:absolute;left:27px;top:64px;bottom:-30px;width:2px;border-radius:2px;background:var(--green-200);transform-origin:top}
 .step.in::before{animation:draw .9s .35s ease backwards}
 @keyframes draw{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 @media (max-width:56.25em){.how{grid-template-columns:minmax(0,1fr)}.how-photo{max-width:400px}}
 /* ---------- How it works on Home, slim strip (Checkpoint 39). Additive: the About page still uses .how, .how-photo and .gable-sm, and Options still uses .steps. ---------- */
-.sec-slim{padding-top:52px;padding-bottom:52px;padding-block:clamp(52px,6vw,88px)}
+.sec-slim{padding-top:52px;padding-bottom:52px;padding-block:clamp(52px,6vw,68px)}
 .flow .head{gap:14px;margin-bottom:24px;margin-bottom:clamp(24px,3vw,36px)}
 .flow h2{font-size:1.75rem;font-size:clamp(1.75rem,3.2vw,2.5rem)}
 .flow-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;gap:clamp(18px,4vw,56px);list-style:none;margin:0;padding:0}
@@ -312,16 +333,16 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 @media (max-width:56.25em){.flow-steps{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- Compare table ---------- */
-.table-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-2);overflow:hidden}
+/* Checkpoint 48: a flat white sheet on the cream (no outline, no shadow); the rows are told apart by a faint tone on every other row, and our column is one green band under a solid green head */
+.table-card{background:#fff;border-radius:var(--r-l);overflow:hidden}
 .table-scroll{overflow-x:auto}
 .cmp{width:100%;min-width:640px;border-collapse:separate;border-spacing:0;font-size:1rem}
-.cmp th,.cmp td{padding:20px 28px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
-.cmp thead th{font:800 .95rem/1.2 var(--f);color:var(--navy-800);background:var(--cream-100);padding-top:24px;padding-bottom:24px;padding-block:24px}
-.cmp thead th.us{background:var(--grad);color:#fff}
-.us-badge{display:inline-block;margin-right:10px;padding:5px 9px;border-radius:7px;background:rgba(255,255,255,.2);font:800 .7rem/1 var(--f);letter-spacing:.12em}
+.cmp th,.cmp td{padding:20px 28px;text-align:left;vertical-align:top}
+.cmp thead th{font:800 1rem/1.25 var(--f);color:var(--navy-800);background:#fff;padding-top:24px;padding-bottom:20px}
+.cmp thead th.us{background:var(--green-800);color:#fff}
 .cmp tbody th{width:24%;font-weight:750;color:var(--navy-800)}
 .cmp td.us{background:var(--green-50);font-weight:650;color:var(--navy-800)}
-.cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
+@media (min-width:43.8125em){.cmp tbody tr:nth-child(odd)>*{background:#fbf8f1}.cmp tbody tr:nth-child(odd)>td.us{background:#e8f2ed}}
 .fine{margin-top:16px;font-size:.88rem;color:var(--muted)}
 /* Checkpoint 36 (review N25): the two plainest sentences on the site ("The trade: ..." and "A real offer depends on the home...") are read at body size, not as fine print */
 .fine.honest{font-size:1rem;font-size:clamp(1rem,.96rem + .2vw,1.0625rem);color:var(--text)}
@@ -335,34 +356,34 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
   .cmp th,.cmp td{border-bottom:0}
   .cmp tbody th{width:auto;padding:16px 20px 6px;font:750 1rem/1.25 var(--f);color:var(--navy-800)}   /* the row's subject, so it reads as a small heading above the two labelled answers */
   .cmp td{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:8px 20px}
-  .cmp td::before{content:attr(data-label);font:700 .76rem/1.6 var(--f);color:var(--muted)}
+  .cmp td::before{content:attr(data-label);font:700 .82rem/1.6 var(--f);color:var(--muted)}
   .cmp td.us{background:var(--green-50);margin:2px 12px;padding:10px 8px;border-radius:12px}
   .cmp td.us::before{color:var(--green-700)}
 }
 
 /* ---------- Net sheet ---------- */
-.netsheet-head{margin-top:64px;margin-top:clamp(64px,8vw,112px)}
+.netsheet-head{margin-top:64px;margin-top:clamp(64px,6vw,88px)}
 .net{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:18px;gap:clamp(18px,2.4vw,28px);align-items:start}
-.panel{min-width:0;padding:22px;padding:clamp(22px,3vw,36px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-1)}
+.panel{min-width:0;padding:22px;padding:clamp(22px,3vw,36px);background:var(--card);border-radius:var(--r-l)}
 .panel h3{margin-bottom:6px}
 .panel .sub{margin-bottom:22px;font-size:.95rem;color:var(--muted)}
-.example-tag{display:inline-block;margin-left:8px;padding:6px 10px;border-radius:7px;background:var(--green-100);color:var(--green-800);font:700 .8rem/1.25 var(--f);vertical-align:middle}
+.example-tag{display:inline-block;margin-left:8px;padding:6px 10px;border-radius:7px;background:var(--green-100);color:var(--green-800);font:700 .82rem/1.25 var(--f);vertical-align:middle}
 .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.fieldset-label{grid-column:1/-1;margin-top:8px;padding-top:18px;border-top:1px solid var(--line);font:700 .85rem/1.25 var(--f);color:var(--green-700)}
+.fieldset-label{grid-column:1/-1;margin-top:8px;padding-top:14px;font:700 .85rem/1.25 var(--f);color:var(--green-700)}
 .fieldset-label:first-child{margin-top:0;padding-top:0;border-top:0}
 .field{display:grid;gap:7px;align-content:start}
 .field.full{grid-column:1/-1}
 .field label{font-weight:700;font-size:.9rem;color:var(--ink)}
-.hint{font-size:.8rem;color:var(--muted)}
+.hint{font-size:.82rem;color:var(--muted)}
 .input{position:relative;display:flex;align-items:center}
 .input span{position:absolute;font:600 .98rem/1 var(--f);color:var(--muted);pointer-events:none}
 .input .pre{left:15px}
 .input .post{right:15px}
-.input input{width:100%;min-height:52px;padding:14px 14px 14px 32px;border:1.5px solid var(--line-2);border-radius:14px;background:#fbfdfc;color:var(--ink);font:650 1.02rem/1 var(--f);font-variant-numeric:tabular-nums;transition:border-color .2s,box-shadow .2s,background .2s}
+.input input{width:100%;min-height:52px;padding:14px 14px 14px 32px;border:1.5px solid var(--edge);border-radius:14px;background:#fff;color:var(--ink);font:650 1.02rem/1 var(--f);font-variant-numeric:tabular-nums;transition:border-color .2s,box-shadow .2s,background .2s}
 .input.pct input{padding-left:15px;padding-right:38px}
-.input input:hover{border-color:var(--navy-300)}
+.input input:hover{border-color:var(--navy-700)}
 .input input:focus{outline:none;border-color:var(--green-600);background:#fff;box-shadow:0 0 0 4px rgba(60,122,102,.16)}
-.costs-more{margin-top:18px;padding-top:4px;border-top:1px solid var(--line)}
+.costs-more{margin-top:12px}
 .costs-more summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;cursor:pointer;list-style:none;font:700 .95rem/1.3 var(--f);color:var(--green-800)}
 .costs-more summary::-webkit-details-marker{display:none}
 .costs-more summary::after{content:"";flex:none;width:9px;height:9px;margin-right:4px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .2s}
@@ -372,34 +393,38 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .panel>.fine{margin-top:16px}
 .results{display:grid;gap:18px}
 .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.sheet{min-width:0;padding:20px;border:1px solid var(--line);border-radius:var(--r-m);background:#fbfdfc}
-.sheet-us{background:var(--green-50);border-color:var(--green-200)}
+.sheet{min-width:0;padding:20px;border-radius:var(--r-m);background:var(--cream-100)}
+.sheet-us{background:var(--green-50)}
 .sheet h4{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0 0 14px;font:800 1rem/1.2 var(--f);color:var(--ink)}
-.sheet h4 small{font:700 .74rem/1 var(--f);color:var(--muted)}
+.sheet h4 small{font:700 .82rem/1 var(--f);color:var(--muted)}
 .sheet dl{display:grid;grid-template-columns:minmax(0,1fr);gap:9px;margin:0;font-size:.92rem}
 .sheet dl div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px}
 .sheet dt{flex:1 1 min-content;color:var(--muted)}
 .sheet dd{margin:0 0 0 auto;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:650;color:var(--ink)}
-.sheet .total{margin-top:4px;padding-top:12px;border-top:2px solid var(--navy-700)}
+/* the bottom line of each statement: a thick rule (the sum line) and the biggest number in the section */
+.sheet .total{align-items:baseline;margin-top:6px;padding-top:12px;border-top:3px solid var(--navy-800)}
+.sheet-us .total{border-top-color:var(--green-700)}
 .sheet .total dt{font-weight:800;color:var(--ink)}
-.sheet .total dd{font-size:1.28rem;font-weight:800;letter-spacing:-.02em}
+.sheet .total dd{font-size:1.6rem;font-weight:800;line-height:1.1;letter-spacing:-.03em}
+.sheet-us .total dd{color:var(--green-700)}
+/* the two bars on the Options page's small example (Checkpoint 48: flat colors; the net sheet itself has no bars since Checkpoint 14) */
 .bars{display:grid;gap:11px}
 .bar{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:12px;align-items:center;font-size:.86rem;font-weight:650;color:var(--muted)}
 .bar .track{height:14px;border-radius:8px;background:var(--navy-100);overflow:hidden}
 .bar .fill{height:100%;border-radius:8px;background:var(--navy-500);transition:width .5s cubic-bezier(.2,.7,.2,1)}
-.bar.direct .fill{background:linear-gradient(90deg,#3c7a66,#4e9279)}
+.bar.direct .fill{background:var(--green-600)}
 .bar .v{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:750}
 @media (max-width:26.25em){.bar{grid-template-columns:62px minmax(0,1fr)}.bar .v{grid-column:2}}
-.verdict{position:relative;overflow:hidden;display:grid;gap:8px;padding:22px 24px;border-radius:var(--r-m);background:var(--grad);color:#fff}
+.verdict{position:relative;overflow:hidden;display:grid;gap:8px;padding:22px 24px;border-radius:var(--r-m);background:var(--green-800);color:#fff}   /* one flat deep green (Checkpoint 48; it was a gradient) */
 .verdict .big{font:800 1.4rem/1.15 var(--f);font:800 clamp(1.4rem,2.6vw,1.95rem)/1.15 var(--f);letter-spacing:-.025em;color:#fff}
 .verdict .big span{color:#c4ecda}
 .verdict p{color:rgba(255,255,255,.92);font-size:.94rem}
-.verdict .breakeven{margin-top:4px;padding-top:14px;border-top:1px solid rgba(255,255,255,.28);color:#fff}
-.verdict .breakeven strong{font-weight:800;color:#fff}   /* white, not the mint of the headline: mint on the green end of the gradient is under 4.5:1 at this size */
+.verdict .breakeven{margin-top:6px;padding:14px 16px;border-radius:var(--r-s);background:var(--green-700);color:#fff}   /* the break-even line sits in its own slightly lighter green box (it had a thin rule above it) */
+.verdict .breakeven strong{font-weight:800;color:#fff}
 .res-actions{display:flex;flex-wrap:wrap;gap:12px}
 .res-actions .btn{flex:1 1 auto}
 /* Worth a second look (Checkpoint 42): a calm note above the answer when the numbers look like a typo. It never changes the numbers. */
-.check-note{margin:0;padding:14px 18px 14px 22px;border:1px solid #e4d8b8;border-radius:var(--r-s);background:var(--cream-100);box-shadow:inset 4px 0 0 #b7791f;color:var(--ink);font-size:.94rem;line-height:1.5;text-wrap:pretty}
+.check-note{margin:0;padding:14px 18px 14px 22px;border-radius:var(--r-s);background:var(--cream-100);box-shadow:inset 4px 0 0 #b7791f;color:var(--ink);font-size:.94rem;line-height:1.5;text-wrap:pretty}
 .check-note b{font-weight:800}
 /* When the sheet stacks under the form (a phone or a tablet), the answer comes first and the detail follows. Wide screens and the printed page keep the original order. */
 @media screen and (max-width:63.5em){.results .check-note{order:-3}.results .verdict{order:-2}.results .res-actions{order:-1}}
@@ -407,8 +432,43 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .js .print-btn{display:inline-flex}
 .print-only{display:none}
 @media (max-width:63.5em){.net{grid-template-columns:minmax(0,1fr)}}
-/* tablets held sideways and small laptops (about 1017 to 1100px at the normal text size): the two sheets sit side by side in a narrow panel, so the results panel and the sheets give up a little padding and every number stays inside its card (Checkpoint 28) */
-@media (min-width:63.5625em) and (max-width:68.75em){.panel.results{padding-left:22px;padding-right:22px}.sheet{padding-left:16px;padding-right:16px}}
+/* Checkpoint 48: on a wide screen (1017px and up at the normal text size) the net sheet is one statement on one white sheet, read top to bottom like the
+   paper a title company hands a seller: the numbers you type at its head, the two paths side by side, each ending in what you keep (the biggest numbers
+   in the section, on one line), then the answer in one deep green band. Phones and tablets keep their own order (the answer first). */
+@media screen and (min-width:63.5625em){
+  .net{grid-template-columns:minmax(0,1fr);gap:32px;gap:clamp(28px,2.8vw,40px);padding:32px;padding:clamp(28px,3.4vw,48px);background:#fff;border-radius:var(--r-l)}
+  .net>.panel{padding:0;background:none;border:0;border-radius:0;box-shadow:none}
+  #calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,25rem);column-gap:40px;column-gap:clamp(24px,4vw,64px);align-items:start}
+  #calc>h3,#calc>.sub{grid-column:1}
+  #calc>.fine.honest{grid-column:2;grid-row:1/3;justify-self:end;max-width:26rem;margin:2px 0 0}
+  #calc>.fields,#calc>.costs-more{grid-column:1/-1}
+  #calc .fields{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 24px}
+  #calc .field.full{grid-column:auto}
+  .input input{min-height:56px;font-size:1.15rem}
+  .costs-more summary{justify-content:flex-start}
+  .results{gap:20px;gap:clamp(18px,1.8vw,24px)}
+  .cols{gap:20px;gap:clamp(16px,2vw,28px)}
+  .sheet{padding:24px;padding:clamp(22px,2.4vw,32px)}
+  .sheet h4{margin-bottom:18px;font-size:1.2rem}
+  .sheet h4 small{font-size:.86rem}
+  .sheet dl{gap:12px;font-size:1.02rem}
+  .sheet .total{margin-top:10px;padding-top:16px}
+  .sheet .total dt{font-size:1.08rem}
+  .sheet .total dd{font-size:2.2rem;font-size:clamp(2.1rem,3.1vw,3rem);line-height:1;letter-spacing:-.035em}
+  .results .verdict{row-gap:10px;padding:28px 32px;padding:clamp(24px,2.6vw,36px) clamp(24px,3vw,40px)}
+  .results .verdict .big{font-size:1.8rem;font-size:clamp(1.6rem,2.3vw,2.15rem);text-wrap:balance}
+  .results .verdict #verdict-sub{font-size:1rem;line-height:1.6;max-width:66ch}
+  .results .verdict .breakeven{margin-top:8px;padding:16px 20px;font-size:1.02rem;line-height:1.5}
+  .res-actions .btn{flex:0 0 auto}
+  .results>.fine{margin-top:0}
+}
+/* from about 1150px the net sheet's break-even line moves beside the answer, in its own lighter green box (the Options mini-sheet keeps one column) */
+@media screen and (min-width:72em){
+  .results .verdict{grid-template-columns:minmax(0,2fr) minmax(0,1fr);column-gap:40px;column-gap:clamp(28px,3.4vw,48px);align-items:center}
+  .results .verdict .big,.results .verdict #verdict-sub{grid-column:1}
+  .results .verdict .breakeven{grid-column:2;grid-row:1/3;margin:0;padding:20px 22px}
+}
+@media screen and (min-width:77.5625em){#calc .costs-more .fields{grid-template-columns:repeat(5,minmax(0,1fr))}}
 @media (max-width:32.5em){.fields{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:32.75em){.cols{grid-template-columns:minmax(0,1fr)}}
 
@@ -417,15 +477,21 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .pano>img{position:absolute;left:0;top:-6%;width:100%;height:112%;object-fit:cover;object-position:62% 45%;z-index:-2}
 .pano::before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(33,57,69,.95) 0%,rgba(40,66,79,.84) 42%,rgba(45,72,85,.08) 78%),linear-gradient(0deg,rgba(35,57,72,.55),rgba(35,57,72,0) 50%)}
 .pano h2{color:#fff;max-width:15ch;font-size:2.1rem;font-size:clamp(2.1rem,4.8vw,3.8rem);margin:16px 0}
+@media (min-width:61.3125em){.pano h2{max-width:22ch;font-size:3.25rem;font-size:clamp(2.1rem,3.4vw,3.25rem)}}
 .pano .lede{color:rgba(255,255,255,.94);max-width:42ch}
 @media (max-width:43.75em){
   .pano{min-height:520px}
   .pano::before{background:linear-gradient(0deg,rgba(33,55,69,.95) 0%,rgba(40,66,79,.84) 55%,rgba(45,72,85,.2) 100%)}
   .pano>img{object-position:74% 50%}
 }
+/* tablets: the shade comes up from the bottom as on a phone, so the heading can run wider and keep to two lines (Checkpoint 48; it was three at 768px) */
+@media (min-width:43.8125em) and (max-width:61.25em){
+  .pano::before{background:linear-gradient(0deg,rgba(33,55,69,.95) 0%,rgba(40,66,79,.84) 55%,rgba(45,72,85,.2) 100%)}
+  .pano h2{max-width:none}
+}
 
 /* ---------- About ---------- */
-.about{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;gap:clamp(40px,6vw,96px);align-items:start}
+.about{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;gap:clamp(40px,5vw,72px);align-items:start}
 .about-copy .head{margin-bottom:24px;margin-bottom:clamp(24px,3vw,36px)}
 .about-copy>.cta-row{margin-top:26px;margin-top:clamp(22px,3vw,30px)}
 .motto{font-size:2.6rem;font-size:clamp(2.6rem,6vw,4.6rem);letter-spacing:-.04em}
@@ -435,9 +501,9 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .founder+.founder{margin-top:44px}
 .founder img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
 .founder:hover img{transform:scale(1.04)}
-.founder figcaption{position:absolute;left:12px;right:12px;bottom:12px;display:grid;gap:3px;padding:14px 18px;border-radius:16px;background:rgba(255,255,255,.93);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.founder figcaption{position:absolute;left:12px;right:12px;bottom:12px;display:grid;gap:3px;padding:14px 18px;border-radius:16px;background:#fff}
 .founder figcaption b{font:800 1.2rem/1.1 var(--f);letter-spacing:-.02em;color:var(--navy-800)}
-.founder figcaption span{font:700 .8rem/1.2 var(--f);color:var(--green-700)}
+.founder figcaption span{font:700 .82rem/1.2 var(--f);color:var(--green-700)}
 .about-side{position:sticky;top:112px;display:grid;gap:22px;gap:clamp(22px,3vw,34px)}
 @media (max-width:56.25em){.about{grid-template-columns:minmax(0,1fr)}.about-side{position:static;max-width:560px;margin-left:auto;margin-right:auto;margin-inline:auto;width:100%}}
 
@@ -445,12 +511,11 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .build{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:40px;gap:clamp(40px,6vw,88px);align-items:center}
 .build-copy{display:grid;gap:22px;gap:clamp(22px,3vw,30px)}
 .build-copy .head{margin-bottom:0}
-.spec{display:grid;gap:18px;padding:22px;padding:clamp(22px,3vw,30px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-1)}
-.spec-tag{display:inline-flex;align-items:center;gap:11px;font:700 .88rem/1.25 var(--f);color:var(--green-700)}
+.spec{display:grid;gap:18px;padding:22px;padding:clamp(22px,3vw,30px);background:var(--card);border-radius:var(--r-l)}
 .spec-grid{display:flex;flex-wrap:wrap;gap:14px 18px;gap:14px clamp(18px,3vw,34px);margin:0}
 .spec-grid div{display:grid;gap:5px}
 .spec-grid dd{order:-1;margin:0;font:800 1.6rem/1 var(--f);font:800 clamp(1.6rem,3vw,2.2rem)/1 var(--f);letter-spacing:-.035em;color:var(--navy-700);white-space:nowrap}
-.spec-grid dt{font:700 .8rem/1.25 var(--f);color:var(--muted)}
+.spec-grid dt{font:700 .82rem/1.25 var(--f);color:var(--muted)}
 .spec p{font-size:.97rem}
 @media (max-width:32.5em){.spec-grid{display:flex;flex-wrap:wrap;gap:14px 18px}.spec-grid div{flex:1 1 calc(50% - 9px)}.spec-grid dd{font-size:min(1.6rem,25.6px,calc((100vw - 104px)/10))}}
 /* Home "now building" card (Checkpoint 29). In the narrower column beside the photos (901 to 1199px) the four numbers used to run under the photos; now they form a tidy 2 x 2 block that wraps with bigger text. From 1200px up they sit in one row as before. */
@@ -462,27 +527,27 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .mosaic img{display:block;width:100%;height:100%;aspect-ratio:4/3;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
 .mosaic figure:first-child img{aspect-ratio:16/10;object-position:50% 70%}
 .mosaic figure:hover img{transform:scale(1.045)}
-.mosaic figcaption{position:absolute;left:12px;bottom:12px;padding:8px 13px;border-radius:10px;background:rgba(255,255,255,.93);font:750 .78rem/1 var(--f);color:var(--navy-800)}
+.mosaic figcaption{position:absolute;left:12px;bottom:12px;padding:8px 13px;border-radius:10px;background:rgba(255,255,255,.93);font:750 .82rem/1 var(--f);color:var(--navy-800)}
 @media (max-width:56.25em){.build{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- FAQ ---------- */
-.faq-grid{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.3fr);gap:36px;gap:clamp(36px,6vw,96px);align-items:start}
+.faq-grid{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.3fr);gap:36px;gap:clamp(36px,5vw,72px);align-items:start}
 .faq-side{position:sticky;top:112px;display:grid;gap:18px}
 .faq-side .lede a{font-weight:750;color:var(--green-700);text-underline-offset:4px}
+@media (min-width:56.3125em){.faq-side h2{font-size:2.3rem;font-size:clamp(2.05rem,2.9vw,2.5rem)}.faq-side h2 .ital.ital{display:inline}}   /* "Straight answers." on one line beside the questions (Checkpoint 48; it was two one-word lines) */
 .faq{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
-.faq details{background:#fff;border:1px solid var(--line);border-radius:var(--r-m);transition:border-color .25s,box-shadow .25s}
-.faq details:hover{border-color:var(--green-300)}
-.faq details[open]{border-color:var(--green-300);box-shadow:var(--sh-2)}
+.faq details{background:var(--card);border-radius:var(--r-m)}
+.faq summary:hover{color:var(--green-700)}
 .faq summary{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:68px;padding:18px 24px;cursor:pointer;list-style:none;font:750 1.08rem/1.35 var(--f);color:var(--ink)}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"";flex:none;width:36px;height:36px;border-radius:50%;background:var(--green-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23366554' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center/18px no-repeat;border:1px solid var(--green-100);transition:transform .3s ease,background-color .3s}
+.faq summary::after{content:"";flex:none;width:36px;height:36px;border-radius:50%;background:var(--green-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23366554' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center/18px no-repeat;transition:transform .3s ease,background-color .3s}
 .faq details[open] summary::after{transform:rotate(135deg);background-color:var(--green-100)}
 .faq details p{padding:0 76px 24px 24px;max-width:70ch}
 .faq details p a{color:var(--green-700);font-weight:700;text-underline-offset:3px}
 @media (max-width:56.25em){.faq-grid{grid-template-columns:minmax(0,1fr)}.faq-side{position:static}.faq details p{padding-right:24px}}
 
 /* ---------- Contact ---------- */
-.contact{position:relative;isolation:isolate;overflow:hidden;padding-top:76px;padding-bottom:76px;padding-block:clamp(76px,10vw,132px);color:#fff;background:linear-gradient(135deg,#25404d 0%,#2b5155 50%,#336b59 100%)}
+.contact{position:relative;isolation:isolate;overflow:hidden;padding-top:76px;padding-bottom:76px;padding-block:clamp(76px,10vw,96px);color:#fff;background:var(--band)}
 .contact-bg{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;z-index:-1}
 .contact h2{color:#fff}
 .contact .ital{color:#c4ecda}
@@ -499,14 +564,32 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
   .reach-more{grid-column:1;grid-row:3}
   .next{grid-column:1;grid-row:4}
 }
+/* Contact page (Checkpoint 48): the page title runs across both columns, so it holds two lines (beside the form it took four) */
+@media (min-width:60.0625em){
+  .contact-page .contact-grid{grid-template-rows:auto auto auto auto 1fr}
+  .contact-page .contact-top{grid-column:1/-1;margin-bottom:12px}
+  .contact-page .form-card{grid-row:2/span 4}
+  .contact-page .reach-main{grid-row:2}
+  .contact-page .reach-more{grid-row:3}
+  .contact-page .next{grid-row:4}
+}
+/* the photo of Joey and Ethan under the steps, on the Contact page at desktop width only (Checkpoint 48) */
+.contact-photo{display:none}
+@media (min-width:60.0625em){
+  .contact-page .contact-photo{display:block;position:relative;grid-column:1;grid-row:5;margin:36px 0 0;margin-top:clamp(32px,3.4vw,44px)}
+  .contact-photo img{display:block;width:100%;height:auto;aspect-ratio:800/636;object-fit:cover;border-radius:var(--r-l);background:rgba(255,255,255,.1)}
+  .contact-photo figcaption{position:absolute;left:16px;bottom:16px;display:grid;gap:2px;padding:9px 14px;border-radius:12px;background:#fff;color:var(--navy-800)}
+  .contact-photo figcaption b{font:800 .95rem/1.1 var(--f)}
+  .contact-photo figcaption span{font:700 .82rem/1.2 var(--f);color:var(--green-700)}
+}
 @media (max-width:60em){.next-home{display:none}}   /* Checkpoint 47: on Home it repeats How it works, so phones skip it; beside the form on wide screens it keeps the column from ending early */
 .reach{display:grid;gap:12px;margin-top:26px;margin-top:clamp(26px,3vw,36px)}
 @media (min-width:60.0625em){.reach-more{margin-top:12px}}   /* beside the form the two groups of tiles read as one list */
-.reach-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;min-height:70px;padding:13px 16px;border-radius:20px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.24);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;text-decoration:none;transition:background .25s,transform .25s,border-color .25s}
-.reach-item:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
+.reach-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;min-height:70px;padding:13px 16px;border-radius:20px;background:rgba(255,255,255,.1);color:#fff;text-decoration:none;transition:background .25s}
+.reach-item:hover{background:rgba(255,255,255,.18)}
 .reach-item .ico{display:grid;place-items:center;width:46px;height:46px;border-radius:15px;background:rgba(255,255,255,.18)}
 .reach-item .ico .i{width:22px;height:22px}
-.txt small{display:block;font:700 .8rem/1.3 var(--f);color:rgba(255,255,255,.82)}
+.txt small{display:block;font:700 .82rem/1.3 var(--f);color:rgba(255,255,255,.82)}
 .txt b{display:block;font:750 1.2rem/1.25 var(--f);letter-spacing:-.01em}
 .txt b.sm{font-size:1.04rem;overflow-wrap:anywhere}
 @media (max-width:27.5em){
@@ -524,14 +607,14 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .next ol{display:grid;gap:12px;list-style:none;margin:0;padding:0}
 .next li{display:flex;align-items:center;gap:14px;font-weight:650;color:rgba(255,255,255,.95)}
 .next .num{width:34px;height:34px;font-size:.88rem;background:#fff;color:var(--navy-800);box-shadow:none}
-.form-card{padding:24px;padding:clamp(24px,3vw,38px);border-radius:var(--r-l);background:#fff;color:var(--text);box-shadow:0 22px 56px rgba(10,28,36,.3)}
+.form-card{padding:24px;padding:clamp(24px,3vw,38px);border-radius:var(--r-l);background:#fff;color:var(--text)}
 @media (max-width:60em){.form-card{margin-top:28px;margin-top:clamp(28px,5vw,40px)}}   /* one column: the card sits under the heading */
 .form-who{display:flex;align-items:center;gap:12px;margin:0 0 16px}
 .form-who .avs{display:flex;flex:none}
-.form-who img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2.5px solid #fff;box-shadow:var(--sh-1);background:var(--navy-100)}
+.form-who img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2.5px solid #fff;background:var(--navy-100)}
 .form-who img+img{margin-left:-14px}
 .form-who b{display:block;font:800 .95rem/1.15 var(--f);color:var(--navy-800)}
-.form-who small{display:block;margin-top:2px;font:700 .8rem/1.25 var(--f);letter-spacing:.02em;color:var(--green-700)}
+.form-who small{display:block;margin-top:2px;font:700 .82rem/1.25 var(--f);letter-spacing:.02em;color:var(--green-700)}
 .form-who .loc{white-space:nowrap}
 .form-who.ask-people{margin:0}
 .form-who.ask-people b{font-size:1rem}
@@ -546,7 +629,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .lf-wrap{display:none}
 .js .lf-wrap{display:block}
 .js .lf-nojs,html:not(.js) .form-alt{display:none}
-.lf-nojs{padding:30px 22px 22px;border:1.5px solid var(--line);border-radius:var(--r-m);background:var(--green-50);text-align:center}
+.lf-nojs{padding:30px 22px 22px;border-radius:var(--r-m);background:var(--green-50);text-align:center}
 .lf-nojs-h{font:800 1.2rem/1.3 var(--f);letter-spacing:-.01em;color:var(--ink)}
 .lf-nojs-p{margin:8px auto 20px;max-width:32ch;color:var(--text)}
 .lf-nojs-btns{display:grid;gap:12px;max-width:340px;margin:0 auto}
@@ -554,7 +637,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .lf-nojs-alt{margin-top:14px;font-size:.95rem}
 .lf-nojs-alt a{display:inline-block;padding:10px 4px;color:var(--green-700);font-weight:700}
 
-.lf{--err:#a4271f;--err-line:#c2473a;--err-bg:#fff6f4;--edge:#7b8d94;display:grid;gap:22px}   /* --edge: the line round a box or tick you press, 3.4:1 on white, so it can be seen in sunlight and by tired eyes */
+.lf{--err:#a4271f;--err-line:#c2473a;--err-bg:#fff6f4;display:grid;gap:22px}   /* --edge (in :root): the line round a box or tick you press, 3.4:1 on white, so it can be seen in sunlight and by tired eyes */
 .lf [hidden],.lf-wrap [hidden]{display:none!important}
 .lf-head .sub{margin:0}
 .lf fieldset{min-width:0;margin:0;padding:0;border:0}
@@ -600,20 +683,20 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 }
 
 /* the optional extras: closed until asked for, so the form starts short */
-.lf-more{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.lf-more{margin-top:-6px}   /* no rules above and below (Checkpoint 48); space sets it apart */
 .lf-more summary{display:flex;align-items:center;gap:12px;min-height:58px;cursor:pointer;list-style:none;font:700 .98rem/1.3 var(--f);color:var(--green-800)}
 .lf-more summary::-webkit-details-marker{display:none}
-.lf-more summary::before{content:"";flex:none;width:28px;height:28px;border:1px solid var(--green-200);border-radius:50%;background:linear-gradient(currentColor,currentColor) center/12px 2px no-repeat,linear-gradient(currentColor,currentColor) center/2px 12px no-repeat,var(--green-50);color:var(--green-800)}
-.lf-more[open] summary::before{background:linear-gradient(currentColor,currentColor) center/12px 2px no-repeat,var(--green-50)}
+.lf-more summary::before{content:"";flex:none;width:28px;height:28px;border-radius:50%;background:linear-gradient(currentColor,currentColor) center/12px 2px no-repeat,linear-gradient(currentColor,currentColor) center/2px 12px no-repeat,var(--green-100);color:var(--green-800)}
+.lf-more[open] summary::before{background:linear-gradient(currentColor,currentColor) center/12px 2px no-repeat,var(--green-100)}
 .lf-more summary .lf-opt{margin-left:auto;font-size:.85rem}
 .lf-more summary:focus-visible{outline:3px solid var(--navy-700);outline-offset:2px;border-radius:8px}
 .lf-more-body{display:grid;gap:22px;padding:6px 0 24px}
 
 /* the text-message boxes: Joey's exact wording, unticked, separate from each other and from everything else */
 .lf-consent legend{margin-bottom:10px}
-.lf-checks{padding:4px 16px;border:1.5px solid var(--line);border-radius:14px;background:#fbfdfc}
+.lf-checks{padding:4px 18px;border-radius:14px;background:var(--cream-100)}   /* a filled box, no outline (Checkpoint 48) */
 .check{display:grid;grid-template-columns:26px minmax(0,1fr);gap:14px;align-items:start;margin:0;padding:14px 0;font-size:.86rem;line-height:1.55;color:var(--muted);cursor:pointer}
-.check+.check{border-top:1px solid var(--line)}
+.check+.check{padding-top:4px}
 .check input{-webkit-appearance:none;appearance:none;width:26px;height:26px;margin:0;border:1.5px solid var(--edge);border-radius:8px;background:#fff center/17px no-repeat;cursor:pointer;transition:border-color .2s,background-color .2s}
 .check input:checked{border-color:var(--green-600);background-color:var(--green-600);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E")}
 .check input:focus-visible{outline:3px solid var(--navy-700);outline-offset:3px}
@@ -640,7 +723,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .lf-lede a{color:var(--green-700);font-weight:700}
 .lf-msgbox{width:100%}
 .lf-msg-l{margin:0 0 6px;font:700 .85rem/1.2 var(--f);color:var(--green-700)}
-.lf-msg{margin:0;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--cream-100);color:var(--ink);font:500 .95rem/1.55 var(--f);white-space:pre-wrap;overflow-wrap:anywhere;-webkit-user-select:text;user-select:text}
+.lf-msg{margin:0;padding:14px 16px;border-radius:14px;background:var(--cream-100);color:var(--ink);font:500 .95rem/1.55 var(--f);white-space:pre-wrap;overflow-wrap:anywhere;-webkit-user-select:text;user-select:text}
 .lf-actions{display:grid;gap:12px;width:100%}
 .lf-actions .btn{width:100%}
 .lf-mini{display:flex;flex-wrap:wrap;gap:4px 20px;margin:0;padding:0;list-style:none}
@@ -653,11 +736,11 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
   .check input{-webkit-appearance:auto;appearance:auto;forced-color-adjust:auto}
   .pill input:checked+span{border-width:3px}
 }
-.form-alt{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
+.form-alt{margin-top:22px;font-size:.9rem;color:var(--muted)}
 .form-alt a{color:var(--green-700);font-weight:700}
 
 /* ---------- Footer ---------- */
-.ftr{background:var(--cream-100);border-top:1px solid var(--line);padding-top:52px;padding-top:clamp(52px,6vw,84px)}
+.ftr{background:var(--cream-100);padding-top:52px;padding-top:clamp(52px,4.5vw,64px)}
 .ftr-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:28px;gap:clamp(28px,4vw,56px)}
 .ftr-brand{display:grid;gap:18px;align-content:start;justify-items:start;max-width:360px}
 .ftr-brand p{font-size:.96rem;color:var(--muted)}
@@ -669,7 +752,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .ftr-col a:hover{color:var(--green-700);text-decoration:underline;text-underline-offset:4px}
 .ftr-col span{padding:6px 0;color:var(--muted)}
 @media (pointer:coarse){.ftr-col a{min-height:44px}}
-.ftr-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;margin-top:36px;margin-top:clamp(36px,5vw,56px);padding-top:26px;padding-bottom:calc(26px + env(safe-area-inset-bottom,0px));padding-block:26px calc(26px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);font-size:.86rem;color:var(--muted)}
+.ftr-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;margin-top:36px;margin-top:clamp(36px,5vw,44px);padding-top:26px;padding-bottom:calc(26px + env(safe-area-inset-bottom,0px));padding-block:26px calc(26px + env(safe-area-inset-bottom,0px));font-size:.86rem;color:var(--muted)}
 /* The footer folds from four columns to two below 62em (992px at the normal text size; wider when text is bigger) and to one below 30em (480px), so the email address never runs into the next column. A link that is still too wide wraps instead of sticking out (Checkpoint 28). */
 @media (max-width:62em){.ftr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ftr-brand{grid-column:1/-1;max-width:none}.ftr-col a{max-width:100%;overflow-wrap:anywhere}}
 @media (max-width:30em){.ftr-grid{grid-template-columns:minmax(0,1fr)}}
@@ -677,11 +760,11 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 /* ---------- Mobile action bar ---------- */
 .mobile-bar{display:none}
 @media (max-width:47.5em){
-  .mobile-bar{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.55fr);gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:70;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:rgba(255,255,255,.95);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);box-shadow:0 -10px 30px rgba(26,50,61,.10)}
+  .mobile-bar{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.55fr);gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:70;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:#fff;box-shadow:0 -10px 30px rgba(26,50,61,.10)}
   .mobile-bar a{display:flex;flex-wrap:wrap;align-items:center;align-content:center;justify-content:center;gap:2px 8px;min-height:50px;border-radius:999px;font:750 min(.98rem,18.8px)/1.1 var(--f);text-align:center;text-decoration:none}
   .mb-call{background:var(--navy-700);color:#fff}
   .mb-text{border:1.5px solid var(--navy-700);color:var(--navy-700);background:#fff}
-  .mb-go{background:linear-gradient(135deg,#3a7a66,#316656);color:#fff;box-shadow:0 6px 16px rgba(49,102,86,.3)}
+  .mb-go{background:var(--green-700);color:#fff}
   body{padding-bottom:calc(4.75rem + env(safe-area-inset-bottom,0px))}
   /* With JS the bar slides in once the hero buttons have scrolled away, and steps aside while the form is on screen. Without JS it simply stays put. */
   /* Until the page's script has run, keep the bar tucked away so it never shows for a moment and then slides off (Checkpoint 30). If the script fails, the "js" class is taken off the page and the bar simply stays visible. */
@@ -696,17 +779,17 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 }
 
 /* ---------- Legal pages ---------- */
-.doc-hero{position:relative;isolation:isolate;overflow:hidden;padding:48px 0 40px;padding:clamp(48px,7vw,96px) 0 clamp(40px,5vw,64px);background:linear-gradient(180deg,#fdfbf6,var(--cream))}
+.doc-hero{position:relative;isolation:isolate;overflow:hidden;padding:48px 0 40px;padding:clamp(48px,7vw,72px) 0 clamp(40px,5vw,56px);background:var(--cream-100)}
 .doc-hero h1{font-size:2.1rem;font-size:clamp(2.1rem,4.4vw,3.2rem)}
 .doc-hero .lede{margin-top:16px}
-.doc{padding-top:32px;padding-bottom:72px;padding-block:clamp(32px,5vw,64px) clamp(72px,9vw,120px)}
-.doc-card{max-width:860px;margin-left:auto;margin-right:auto;margin-inline:auto;padding:26px;padding:clamp(26px,5vw,56px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-2)}
+.doc{padding-top:32px;padding-bottom:72px;padding-block:clamp(32px,5vw,48px) clamp(72px,9vw,96px)}
+.doc-card{max-width:860px;margin-left:auto;margin-right:auto;margin-inline:auto;padding:26px;padding:clamp(26px,5vw,56px);background:var(--card);border-radius:var(--r-l)}
 .doc-card h2{margin:28px 0 12px;margin:clamp(28px,4vw,40px) 0 12px;font-size:1.25rem;font-size:clamp(1.25rem,2.2vw,1.55rem);letter-spacing:-.02em}
 .doc-card h2:first-child{margin-top:0}
 .doc-card p+p{margin-top:12px}
 .doc-card ul{margin:12px 0 0;padding-left:1.2em;display:grid;gap:8px}
 .doc-card a{color:var(--green-700);font-weight:700;text-underline-offset:3px}
-.doc-note{margin-top:28px;padding:18px 20px;border-radius:var(--r-m);background:var(--green-50);border:1px solid var(--green-100);font-size:.92rem;color:var(--text)}
+.doc-note{margin-top:28px;padding:18px 20px;border-radius:var(--r-m);background:var(--green-50);font-size:.92rem;color:var(--text)}
 
 /* ================================================================
    Multi-page additions: Facebook logo, inner-page hero, option
@@ -719,12 +802,13 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .hdr-fb .fb-logo{width:28px;height:28px}
 .hdr-fb:hover{background:var(--cream-100)}
 @media (min-width:77.5625em){.hdr-fb{display:grid}}
-.fb-btn{display:inline-flex;align-items:center;gap:12px;min-height:56px;padding:9px 22px 9px 11px;border-radius:999px;background:#fff;border:1.5px solid var(--line);box-shadow:var(--sh-1);color:var(--navy-800);text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .2s}
+.fb-btn{display:inline-flex;align-items:center;gap:12px;min-height:56px;padding:9px 22px 9px 11px;border-radius:999px;background:var(--card);color:var(--navy-800);text-decoration:none;transition:background .2s}
 .fb-btn .fb-logo{width:36px;height:36px}
 .fb-btn b{display:block;font:750 .98rem/1.2 var(--f)}
-.fb-btn small{display:block;font:600 .8rem/1.3 var(--f);color:var(--muted)}
-.fb-btn:hover{border-color:#0866ff;box-shadow:var(--sh-2);transform:translateY(-2px)}
-.mnav-fb{display:flex;align-items:center;gap:14px;min-height:64px;margin-top:14px;padding:10px 16px 10px 12px;border-radius:18px;background:var(--cream-100);border:1px solid var(--line);color:var(--navy-800);text-decoration:none}
+.fb-btn small{display:block;font:600 .82rem/1.3 var(--f);color:var(--muted)}
+.fb-btn:hover{background:var(--navy-100)}
+.proof .fb-btn{background:var(--cream-100)}
+.mnav-fb{display:flex;align-items:center;gap:14px;min-height:64px;margin-top:14px;padding:10px 16px 10px 12px;border-radius:18px;background:var(--cream-100);color:var(--navy-800);text-decoration:none}
 .mnav-fb .fb-logo{width:38px;height:38px}
 .mnav-fb b{display:block;font:750 1rem/1.2 var(--f)}
 .mnav-fb small{display:block;font:600 .82rem/1.3 var(--f);color:var(--muted)}
@@ -738,20 +822,22 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 @media (pointer:coarse){.crumbs a{min-width:44px;min-height:44px}}
 .crumbs a:hover{color:var(--green-700);text-decoration:underline;text-underline-offset:3px}
 .crumbs [aria-current]{color:var(--navy-800);font-weight:700}
-.phero{position:relative;isolation:isolate;overflow:hidden;padding:18px 0 92px;padding:clamp(18px,3vw,40px) 0 clamp(92px,11vw,156px)}
-.phero .ridge{height:90px;height:clamp(90px,11vw,160px)}
+.phero{position:relative;isolation:isolate;overflow:hidden;padding:18px 0 92px;padding:clamp(18px,3vw,40px) 0 clamp(92px,9vw,124px)}
+.phero .ridge{height:90px;height:clamp(90px,9vw,128px)}
 .phero .ridge .r3{fill:#fff}
 .phero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:28px;gap:clamp(28px,5vw,72px);align-items:center}
 .phero-copy{display:grid;gap:22px;justify-items:start;align-content:center}
 .phero h1{font-size:2.2rem;font-size:clamp(2.2rem,4.5vw,3.8rem)}
+@media (min-width:61.3125em){.phero h1{font-size:3.25rem;font-size:clamp(2.2rem,3.6vw,3.25rem)}.phero-grid{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}}   /* two lines for every page title on a wide screen */
 .phero h1 .ital{line-height:1.12}
 .phero-visual{position:relative;width:100%;max-width:520px;justify-self:center;padding-bottom:20px}
+@media (min-width:61.3125em){.phero-build .phero-visual{padding-bottom:0}}   /* New homes: its photo column is the taller one, so the 20px under it made this hero end 15px lower than the others */
 @media (max-width:61.25em){.phero-grid{grid-template-columns:minmax(0,1fr)}.phero-visual{max-width:480px;justify-self:start}.phero-about .phero-visual{justify-self:center}}
 .go-i{width:1.2em;height:1.2em;color:var(--green-700);transition:transform .25s}
-.jump{display:grid;gap:10px;padding:14px;border-radius:var(--r-l);background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid #fff;box-shadow:var(--sh-3)}
+.jump{display:grid;gap:10px}
 .jump-label{padding:6px 8px 2px;font:700 .85rem/1.25 var(--f);color:var(--muted)}
-.jump a,.explore a{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;min-height:68px;padding:10px 16px 10px 10px;border-radius:18px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--navy-800);transition:border-color .2s,transform .25s,box-shadow .25s}
-.jump a:hover{border-color:var(--green-400);transform:translateX(3px);box-shadow:var(--sh-1)}
+.jump a,.explore a{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;min-height:68px;padding:10px 16px 10px 10px;border-radius:18px;background:var(--card);text-decoration:none;color:var(--navy-800);transition:background .2s}
+.jump a:hover,.explore a:hover{background:var(--green-50)}
 .jump a:hover .go-i,.explore a:hover .go-i{transform:translateX(4px)}
 .jump .tile,.explore .tile{width:46px;height:46px;border-radius:15px}
 .jump .tile .i,.explore .tile .i{width:22px;height:22px}
@@ -759,13 +845,14 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .jump small,.explore small{display:block;margin-top:3px;font-size:.88rem;line-height:1.35;color:var(--muted)}
 
 /* ---------- Option sections ---------- */
-.opt-sec{padding-top:56px;padding-bottom:56px;padding-block:clamp(56px,7vw,96px)}
-.opt{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:32px;gap:clamp(32px,5vw,80px);align-items:start}
+.opt-sec{padding-top:56px;padding-bottom:56px;padding-block:clamp(56px,7vw,80px)}
+.opt{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:32px;gap:clamp(32px,5vw,80px);align-items:start}
 .opt-side{position:sticky;top:112px;display:grid;gap:20px;align-content:start;justify-items:start}
 .opt-top{display:flex;align-items:center;gap:14px}
 .opt-side h2{font-size:1.95rem;font-size:clamp(1.95rem,3.3vw,2.8rem)}
+@media (min-width:61.3125em){.opt-side h2{font-size:2.4rem;font-size:clamp(2rem,1.2vw + 1rem,2.4rem)}}
 .opt-body{display:grid;gap:16px;gap:clamp(16px,2vw,22px)}
-.opt-card{padding:22px;padding:clamp(22px,3vw,34px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-1)}
+.opt-card{padding:22px;padding:clamp(22px,2.4vw,30px);background:var(--card);border-radius:var(--r-l)}
 .opt-card>h3{margin-bottom:20px;font-size:1.15rem}
 .opt-card .beats{gap:20px}
 .opt-card .beats div span{display:block;margin-top:2px;font-size:.97rem}
@@ -773,7 +860,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .opt-card>h3:not(:first-child){margin-top:28px}
 .opt-card .steps-line{margin:-6px 0 0;font-size:.98rem}
 .facts{display:grid;margin:0}
-.facts div{display:flex;justify-content:space-between;gap:24px;padding:13px 0;border-bottom:1px solid var(--line)}
+.facts div{display:flex;justify-content:space-between;gap:24px;padding:9px 0}   /* no rules between the rows (Checkpoint 48) */
 .facts div:first-child{padding-top:0}
 .facts div:last-child{padding-bottom:0;border-bottom:0}
 .facts dt{color:var(--muted)}
@@ -782,20 +869,21 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .facts-stack dt{font-weight:800;color:var(--navy-800)}
 .facts-stack dd{text-align:left;font-weight:500;color:var(--text)}
 .opt-fit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;gap:clamp(16px,2vw,22px)}
-.fit{padding:22px;padding:clamp(22px,2.6vw,30px);border-radius:var(--r-l);border:1px solid var(--line);background:#fff;box-shadow:var(--sh-1)}
-.fit-yes{background:linear-gradient(180deg,var(--green-50),#fff 70%);border-color:var(--green-200)}
+#keep .opt-fit,#creative .opt-fit{align-items:start}   /* a one-reason card is as tall as its words, not stretched to match the three-reason card beside it */
+.fit{padding:22px;padding:clamp(22px,2.6vw,30px);border-radius:var(--r-l);background:var(--card)}
+.fit-yes{background:var(--green-50)}
 .fit h3{margin-bottom:16px;font-size:1.08rem}
 .checks.nos .i{background:var(--navy-100);color:var(--navy-600)}
 @media (max-width:61.25em){.opt{grid-template-columns:minmax(0,1fr)}.opt-side{position:static}}
 @media (max-width:38.75em){.opt-fit{grid-template-columns:minmax(0,1fr)}.facts div{flex-direction:column;gap:2px}.facts dd{text-align:left}}
 .numband{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:32px;gap:clamp(32px,5vw,80px);align-items:center}
 .numband .head{margin-bottom:28px}
-.mini-sheet{display:grid;gap:18px;padding:22px;padding:clamp(22px,3vw,34px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-2)}
+.mini-sheet{display:grid;gap:18px;padding:22px;padding:clamp(22px,3vw,34px);background:var(--card);border-radius:var(--r-l)}
 .mini-sheet h3{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
 .mini-sheet .example-tag{margin-left:0}
 .mini-sheet .fine{margin-top:0}
 @media (max-width:56.25em){.numband{grid-template-columns:minmax(0,1fr)}}
-.sec-link{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:28px;margin-top:clamp(28px,4vw,44px)}
+.sec-link{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:28px;margin-top:clamp(28px,4vw,36px)}
 
 /* ---------- About ---------- */
 .phero-about .founders{max-width:460px;margin-left:auto;margin-right:auto;margin-inline:auto}
@@ -804,17 +892,17 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .duo{display:grid;grid-template-columns:minmax(0,.9fr) auto minmax(0,1.1fr);gap:12px;gap:clamp(12px,2vw,22px);align-items:center}
 .duo-col{display:grid;gap:12px;align-content:start}
 .duo-label{font:700 .85rem/1.2 var(--f);color:var(--muted)}
-.duo-card{padding:15px 18px;border-radius:18px;border:1.5px dashed var(--navy-300);background:var(--cream-100);color:var(--navy-600);font-weight:750;line-height:1.3}
+.duo-card{padding:15px 18px;border-radius:18px;background:var(--cream-100);color:var(--navy-600);font-weight:750;line-height:1.3}   /* the two answers people hear: plain cream; our options below are green (Checkpoint 48: the dashed outline is gone) */
 .duo-card small{display:block;margin-top:3px;font-weight:500;font-size:.88rem;color:var(--muted)}
-.duo-card.us{border:1px solid var(--green-200);background:linear-gradient(135deg,var(--green-50),#fff);color:var(--navy-800);box-shadow:var(--sh-1)}
-.duo-arrow{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--grad);color:#fff;box-shadow:0 8px 18px rgba(45,72,85,.25)}
+.duo-card.us{background:var(--green-100);color:var(--navy-800)}
+.duo-arrow{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--green-700);color:#fff}
 @media (max-width:61.25em){.why{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:38.75em){.duo{grid-template-columns:minmax(0,1fr)}.duo-arrow{justify-self:center;transform:rotate(90deg)}}
 .beliefs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;gap:clamp(14px,2vw,24px);list-style:none;margin:0;padding:0}
 .beliefs.three{grid-template-columns:repeat(3,minmax(0,1fr))}
 .beliefs.two{grid-template-columns:repeat(2,minmax(0,1fr));max-width:860px;margin-left:auto;margin-right:auto}
-.belief{display:grid;gap:14px;align-content:start;justify-items:start;padding:22px;padding:clamp(22px,2.4vw,30px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-1);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s}
-.belief:hover{transform:translateY(-5px);box-shadow:var(--sh-2);border-color:var(--green-200)}
+.belief{display:grid;gap:14px;align-content:start;justify-items:start;padding:22px;padding:clamp(22px,2.4vw,30px);background:var(--card);border-radius:var(--r-l)}
+
 .belief h3{font-size:1.14rem}
 .belief p{font-size:.97rem;line-height:1.55}
 .belief .addr{font-weight:650;color:var(--navy-800)}
@@ -827,12 +915,13 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .case{display:grid;margin:0;padding:0;list-style:none}
 .case li{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:18px;padding-bottom:26px}
 .case li:last-child{padding-bottom:0}
-.case li:not(:last-child)::before{content:"";position:absolute;left:21px;top:52px;bottom:6px;width:2px;border-radius:2px;background:linear-gradient(var(--green-300),var(--navy-200))}
+.case li:not(:last-child)::before{content:"";position:absolute;left:21px;top:52px;bottom:6px;width:2px;border-radius:2px;background:var(--green-200)}
 .case-label{display:block;margin:4px 0 6px;font:700 .82rem/1.25 var(--f);color:var(--green-700)}
 .case p{font-size:1.02rem}
 .proofs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;gap:clamp(14px,2vw,24px);list-style:none;margin:0;padding:0}
-.proof{display:grid;gap:14px;align-content:start;justify-items:start;padding:22px;padding:clamp(22px,2.6vw,32px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-1)}
+.proof{display:grid;gap:14px;align-content:start;justify-items:start;padding:22px;padding:clamp(22px,2.6vw,32px);background:var(--card);border-radius:var(--r-l)}
 .proof h3{font-size:1.16rem}
+@media (min-width:43.8125em){.fit h3,.belief h3,.proof h3{font-size:1.15rem}}   /* one card-title size (Checkpoint 48; it was four sizes within 1.3px) */
 @media (max-width:56.25em){.proofs{grid-template-columns:minmax(0,1fr)}}
 /* "What homeowners say" (built only from real facts in tools/reviews_data.py): the same white cards as the proofs above, with a quote and a byline.
    One quote sits centered at a readable width, two share the row, three fill it; on a phone they stack (the rule above). */
@@ -854,7 +943,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .gallery figure{position:relative;margin:0;overflow:hidden;border-radius:var(--r-m);background:var(--navy-100);box-shadow:var(--sh-2)}
 .gallery img{display:block;width:100%;height:100%;aspect-ratio:4/3;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
 .gallery figure:hover img{transform:scale(1.045)}
-.gallery figcaption{position:absolute;left:12px;bottom:12px;padding:8px 13px;border-radius:10px;background:rgba(255,255,255,.93);font:750 .78rem/1 var(--f);color:var(--navy-800)}
+.gallery figcaption{position:absolute;left:12px;bottom:12px;padding:8px 13px;border-radius:10px;background:rgba(255,255,255,.93);font:750 .82rem/1 var(--f);color:var(--navy-800)}
 .gallery .g-a{grid-column:span 7}.gallery .g-b{grid-column:span 5}.gallery .g-c{grid-column:span 5}.gallery .g-d{grid-column:span 7}
 @media (max-width:47.5em){.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery .g-a,.gallery .g-d{grid-column:1/-1}.gallery .g-b,.gallery .g-c{grid-column:span 1}}
 .follow{margin-top:18px;margin-top:clamp(18px,2.4vw,28px);text-align:center;font-size:.95rem}
@@ -875,15 +964,27 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .work-rows .work-item{margin:0}
 @media (min-width:35em){.work-grid.work-rows{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:61.25em){.work-grid.work-rows{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* no lone photo on the last row (Checkpoint 48): with two across, an odd one out takes the full width; with three across,
+   a leftover one makes the last row four smaller photos and a leftover two share the last row */
+@media (min-width:35em) and (max-width:61.2499em){.work-rows .work-item:last-child:nth-child(odd){grid-column:1/-1}}
+@media (min-width:61.25em){
+  .work-grid.work-rows{grid-template-columns:repeat(12,minmax(0,1fr))}
+  .work-rows .work-item{grid-column:span 4}
+  .work-rows .work-item:first-child:nth-last-child(4),
+  .work-rows .work-item:first-child:nth-last-child(3n+1)~.work-item:nth-last-child(-n+4){grid-column:span 3}
+  .work-rows .work-item:first-child:nth-last-child(3n+2)~.work-item:nth-last-child(-n+2){grid-column:span 6}
+}
 .work-item figure{position:relative;margin:0;overflow:hidden;border-radius:var(--r-m);background:var(--navy-100);box-shadow:var(--sh-2)}
 .work-item a{display:block;border-radius:var(--r-m);cursor:zoom-in}
 .work-item img{display:block;width:100%;height:auto;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
 .work-item a:hover img{transform:scale(1.04)}
-.work-item figcaption{position:absolute;left:12px;bottom:12px;max-width:calc(100% - 24px);padding:8px 13px;border-radius:10px;background:rgba(255,255,255,.93);font:750 .78rem/1.25 var(--f);color:var(--navy-800);pointer-events:none}
+.work-item figcaption{position:absolute;left:12px;bottom:12px;max-width:calc(100% - 24px);padding:8px 13px;border-radius:10px;background:rgba(255,255,255,.93);font:750 .82rem/1.25 var(--f);color:var(--navy-800);pointer-events:none}
 .work-closed{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:28px;gap:clamp(28px,5vw,80px);align-items:center}
 .work-closed .work-grid{columns:1;width:100%;max-width:440px;justify-self:center}
 .work-closed .head{margin-bottom:24px}
 @media (max-width:47.5em){.work-closed{grid-template-columns:minmax(0,1fr)}}
+/* Checkpoint 48: from 760px the two closing photos sit side by side beside the words (stacked, they made a section 1,061px tall around three lines of copy) */
+@media (min-width:47.5625em){.work-closed{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;gap:clamp(28px,4vw,64px)}.work-closed .work-grid{columns:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;gap:clamp(12px,1.6vw,18px);max-width:none;align-items:start}.work-closed .work-item{margin:0}}
 html.lb-open{overflow:hidden}
 .lb{position:fixed;top:0;right:0;bottom:0;left:0;inset:0;margin:0;padding:0;width:100%;height:100%;max-width:none;max-height:none;border:0;background:transparent;color:#fff}
 .lb::backdrop{background:rgba(12,28,36,.95)}
@@ -920,34 +1021,50 @@ html.lb-open{overflow:hidden}
 .contact .crumbs a,.contact .crumbs [aria-current]{color:#fff}
 .contact .crumbs li+li::before{color:rgba(255,255,255,.65)}
 .contact h1{color:#fff;font-size:2.2rem;font-size:clamp(2.2rem,4.5vw,3.7rem)}
+@media (min-width:61.3125em){.contact h1{font-size:3.25rem;font-size:clamp(2.2rem,3.6vw,3.25rem)}.contact h1 .ital{line-height:1.12}}   /* the same size as the other page titles (Checkpoint 48) */
 .explore{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;gap:clamp(12px,1.6vw,20px);list-style:none;margin:0;padding:0}
 .explore a{min-height:88px;padding:16px 20px 16px 16px;border-radius:var(--r-m);box-shadow:var(--sh-1)}
-.explore a:hover{border-color:var(--green-400);transform:translateY(-3px);box-shadow:var(--sh-2)}
+
 @media (max-width:56.25em){.explore{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- Closing call-to-action band ---------- */
-.cta-band{position:relative;isolation:isolate;overflow:hidden;padding-top:64px;padding-bottom:64px;padding-block:clamp(64px,8vw,104px);color:#fff;background:linear-gradient(135deg,#25404d 0%,#2b5155 50%,#336b59 100%)}
+.cta-band{position:relative;isolation:isolate;overflow:hidden;padding-top:64px;padding-bottom:64px;padding-block:clamp(64px,6vw,84px);color:#fff;background:var(--band)}
 .cta-bg{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;z-index:-1}
 .cta-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:28px;gap:clamp(28px,5vw,72px);align-items:center}
 .cta-band h2{margin:0 0 16px;color:#fff;font-size:1.9rem;font-size:clamp(1.9rem,3.8vw,3rem)}
 .cta-band .lede{color:rgba(255,255,255,.96)}
+/* Checkpoint 48, phone headlines (Jeremy said yes on the morning of Oct 27): on a phone, titles are about 17% smaller (a section title 27px instead of 33px). With seven shorter headlines this keeps every title to two lines from 375 to 520px on all nine pages (measured); tablets and computers are unchanged. */
+@media (max-width:32.5em){
+  h2{font-size:1.7rem}
+  .pano h2{font-size:1.8rem}
+  .opt-side h2{font-size:1.6rem}
+  .phero h1,.contact h1{font-size:1.95rem}
+  .cta-band h2{font-size:1.65rem}
+}
 .cta-actions{display:grid;gap:12px}
 /* Photo strip on Home (Checkpoint 47; Jeremy, Oct 27: "don't be afraid to add a carousel"). The same photos as Our work. It never moves by itself:
    swipe on a phone; Previous/Next (added by js/site.js) or the arrow keys on a computer. Photos keep their own shape: each is as tall as the strip.
    The first photo lines up with the page's text column and the strip runs to the right edge, so the next photo peeks in as a hint to swipe. */
-.work-band{color:#fff;background:linear-gradient(135deg,#25404d 0%,#2b5155 50%,#336b59 100%);--car-pad:calc(max(0px,(100% - var(--maxw)) / 2) + max(clamp(20px,4vw,48px),env(safe-area-inset-left,0px)))}
+.work-band{color:#fff;background:var(--band);--car-pad:calc(max(0px,(100% - var(--maxw)) / 2) + max(clamp(20px,4vw,48px),env(safe-area-inset-left,0px)))}
 .work-band h2{color:#fff}
 .work-band .lede{color:rgba(255,255,255,.94)}
-.car-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 24px;margin-bottom:28px;margin-bottom:clamp(28px,3.4vw,40px)}
+.car-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 24px;margin-bottom:28px;margin-bottom:clamp(28px,3.4vw,32px)}
 .car-head .head{margin-bottom:0}
+/* on a computer the heading, its sentence and the arrows share one row across the page (Checkpoint 48; the middle of the row was empty) */
+@media screen and (min-width:61.3125em){
+  .car-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr) auto;column-gap:40px;column-gap:clamp(32px,4vw,64px);align-items:end}
+  .car-head .head{display:contents}
+  .car-head h2{margin:0}
+  .car-head .lede{max-width:44ch;margin:0;padding-bottom:6px}
+}
 .car-ctrl{display:flex;gap:12px}
 .car-ctrl[hidden]{display:none}
-.car-btn{display:grid;place-items:center;width:52px;height:52px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.12);color:#fff;cursor:pointer;transition:background .2s,border-color .2s,opacity .2s}
+.car-btn{display:grid;place-items:center;width:52px;height:52px;padding:0;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;cursor:pointer;transition:background .2s,opacity .2s}   /* filled, no outline (Checkpoint 48) */
 .car-btn .i{width:22px;height:22px}
 .car-prev .i{transform:rotate(180deg)}
-.car-btn:hover{background:rgba(255,255,255,.24);border-color:#fff}
+.car-btn:hover{background:rgba(255,255,255,.3)}
 .car-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.car-btn[aria-disabled="true"]{cursor:default;background:transparent;border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.42)}   /* dims the button, not its focus ring */
+.car-btn[aria-disabled="true"]{cursor:default;background:rgba(255,255,255,.06);color:rgba(255,255,255,.42)}   /* dims the button, not its focus ring */
 .car-track{overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-left:var(--car-pad);scroll-padding-right:var(--car-pad);scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.45) transparent;padding-bottom:16px}
 .car-track:focus-visible{outline:3px solid #fff;outline-offset:-3px}
 .car-list{display:flex;gap:16px;width:max-content;margin:0;padding:0 var(--car-pad);list-style:none}
@@ -956,8 +1073,8 @@ html.lb-open{overflow:hidden}
 .car-slide figure{width:min-content;margin:0}   /* as wide as its photo: a long caption wraps instead of widening the slide (big text) */
 .car-slide img{display:block;width:auto;max-width:none;height:240px;height:min(clamp(240px,28vw,340px),calc((100vw - 40px) * .74));border-radius:18px;background:rgba(255,255,255,.1)}
 .car-slide figcaption{margin-top:10px;font-size:.95rem;font-weight:600;color:rgba(255,255,255,.92)}
-.car-foot{margin-top:24px;margin-top:clamp(24px,3vw,36px)}
-.btn-light{background:#fff;color:var(--navy-800);box-shadow:0 12px 28px rgba(10,28,36,.28)}
+.car-foot{margin-top:24px;margin-top:clamp(24px,3vw,28px)}
+.btn-light{background:#fff;color:var(--navy-800)}
 .btn-light:hover{background:var(--green-50)}
 .btn-outline-light{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.6)}
 .btn-outline-light:hover{background:rgba(255,255,255,.2);border-color:#fff}
@@ -983,7 +1100,7 @@ html.lb-open{overflow:hidden}
   html.print-sheet .skip,html.print-sheet .hdr,html.print-sheet .mnav,html.print-sheet .mobile-bar,html.print-sheet .ftr,
   html.print-sheet main>:not(#numbers),
   html.print-sheet #numbers .wrap>:not(.print-brand):not(.netsheet-head):not(.net),
-  html.print-sheet .netsheet-head .lede,html.print-sheet .netsheet-head .eyebrow,
+  html.print-sheet .netsheet-head .lede,
   html.print-sheet #calc,html.print-sheet .res-actions{display:none!important}
   html.print-sheet,html.print-sheet body{background:#fff!important;color:#111}
   html.print-sheet body{padding:0!important}   /* the strip kept clear for the phone call bar would push the last line onto a second page */
@@ -1013,7 +1130,7 @@ html.lb-open{overflow:hidden}
   html.print-sheet .verdict .big,html.print-sheet .verdict .big span,html.print-sheet .verdict p,html.print-sheet .verdict .breakeven,html.print-sheet .verdict .breakeven strong{color:#111!important}
   html.print-sheet .verdict .big{font-size:17pt}
   html.print-sheet .verdict p{font-size:10.5pt}
-  html.print-sheet .verdict .breakeven{border-top:.75pt solid #777}
+  html.print-sheet .verdict .breakeven{margin:2pt 0 0;padding:5pt 0 0;border-top:.75pt solid #777;border-radius:0;background:none!important}
   html.print-sheet .panel.results>.fine{margin:0;font-size:9.5pt;color:#444}
   html.print-sheet .print-contact{margin:12pt 0 0;padding-top:8pt;border-top:.75pt solid #777;font-size:10.5pt;line-height:1.5;color:#111}
 }
@@ -1021,10 +1138,9 @@ html.lb-open{overflow:hidden}
 /* Phone legibility floor (Checkpoint 19; Checkpoint 47 made the small labels sentence case and set their floor at .82rem): small labels, photo captions, compare-table labels and form hints no smaller than about 13px (.8 to .82rem).
    Phones only; desktop sizes are unchanged. The HOME OPTIONS line inside the logo is a lockup and keeps its size. */
 @media (max-width:43.75em){
-  .gable-cap span,.hero .gable-cap span{font-size:.8rem}
-  .us-badge,.example-tag,.founder figcaption span,.spec-grid dt,.txt small,.sheet h4 small{font-size:.82rem}   /* only labels that are smaller than this on wide screens; the rest keep their own size */
-  .hero-people small,.cmp td::before,.mosaic figcaption,.gallery figcaption,.work-item figcaption,.hint{font-size:.82rem}
-  .eyebrow{line-height:1.3}   /* a label that wraps to two lines (New homes at 320px) no longer sits cramped */
+  .gable-cap span,.hero .gable-cap span{font-size:.82rem}
+  .founder figcaption span,.spec-grid dt,.txt small{font-size:.82rem}   /* only labels that are smaller than this on wide screens; the rest keep their own size */
+  .hero-people small,.cmp td::before,.mosaic figcaption,.gallery figcaption,.work-item figcaption{font-size:.82rem}
 }
 
 /* ---------- Older browsers (Checkpoint 32) ----------

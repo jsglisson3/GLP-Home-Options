@@ -16,7 +16,8 @@ It opens the cost fields, types sets of numbers and checks, to the dollar:
      or offer (only once the person leaves the field); it waits for a pause in typing, clears the moment the numbers make sense, stays hidden for
      every ordinary case, never changes a number or the answer, and prints with the sheet when it is showing;
   5. the order on a phone or tablet (the sheet stacks under the form): the note (if showing), then the answer, then the two buttons, then the two
-     sheets, then the fine print. Wide screens keep the two sheets above the answer.
+     sheets, then the fine print. Wide screens (Checkpoint 48: one statement) put the numbers you type across the top, the two sheets side by side
+     under them, and keep the two sheets above the answer.
 Run it after ANY change to calc() in js/site.js, to the net sheet markup, or to the print rules. Prints FAILS 0 when everything matches.
 Needs Playwright with Chromium, and pdftotext/pdfinfo (poppler) for the printed-page checks.
 """
@@ -425,27 +426,32 @@ try:
         def order(w):
             pg.set_viewport_size({'width': w, 'height': 900})
             return pg.evaluate("""()=>{const t=s=>{const e=document.querySelector(s); return e&&e.getClientRects().length?Math.round(e.getBoundingClientRect().top+scrollY):null};
+              const sh=[...document.querySelectorAll('.results .sheet')].map(e=>e.getBoundingClientRect()), f=document.getElementById('calc').getBoundingClientRect();
               return {note:t('#check-note'), verdict:t('.results .verdict'), actions:t('.results .res-actions'), cols:t('.results .cols'), fine:t('.results > .fine'),
-                      tracks:getComputedStyle(document.querySelector('.net')).gridTemplateColumns.split(' ').length, sw:document.documentElement.scrollWidth, iw:innerWidth}}""")
+                      tracks:getComputedStyle(document.querySelector('.net')).gridTemplateColumns.split(' ').length, sw:document.documentElement.scrollWidth, iw:innerWidth,
+                      formBottom:Math.round(f.bottom+scrollY), sheetTops:sh.map(r=>Math.round(r.top+scrollY)), sheetLefts:sh.map(r=>Math.round(r.left)),
+                      fields:[...document.querySelectorAll('#calc > .fields > .field')].map(e=>Math.round(e.getBoundingClientRect().top+scrollY))}}""")
         for w in (320, 390, 768, 1016):
             o = order(w)
             check(o['tracks'] == 1, f'{w}px: the sheet should be stacked under the form: {o}')
             check(o['verdict'] < o['actions'] < o['cols'] < o['fine'], f'{w}px: the answer, then the buttons, then the two sheets, then the fine print: {o}')
             check(o['sw'] <= o['iw'], f'{w}px: sideways scroll {o}')
-        for w in (1017, 1100, 1440):
+        for w in (1017, 1100, 1440, 1920):
             o = order(w)
-            check(o['tracks'] == 2, f'{w}px: the sheet should sit beside the form: {o}')
+            check(o['formBottom'] <= o['cols'], f'{w}px: the numbers you type should sit across the top, above the two sheets: {o}')
+            check(len(set(o['fields'])) == 1 and len(o['fields']) == 3, f'{w}px: the three boxes should sit in one row: {o}')
+            check(len(o['sheetTops']) == 2 and o['sheetTops'][0] == o['sheetTops'][1] and o['sheetLefts'][0] < o['sheetLefts'][1], f'{w}px: the two sheets should sit side by side, listing on the left: {o}')
             check(o['cols'] < o['verdict'] < o['actions'] < o['fine'], f'{w}px: wide screens keep the two sheets above the answer: {o}')
         fill_all(pg, dict(base, offer=2550000))
         settle('#offer')
-        for w in (320, 390, 768, 1016, 1017, 1100, 1440):
+        for w in (320, 390, 768, 1016, 1017, 1100, 1440, 1920):
             o = order(w)
             check(o['note'] is not None and o['note'] < o['verdict'] and o['note'] < o['cols'], f'{w}px: the note should sit above the answer and the sheets: {o}')
             check(o['sw'] <= o['iw'], f'{w}px: sideways scroll with the note showing {o}')
         fill_all(pg, base)
         settle('#offer')
         pg.set_viewport_size({'width': 1440, 'height': 900})
-        print('order: answer first on a phone and tablet (320 to 1016px), two sheets first on wide screens (1017px and up), note above both')
+        print('order: answer first on a phone and tablet (320 to 1016px); on wide screens (1017px and up) the three boxes in a row on top, the two sheets side by side, then the answer; note above both')
 
         # ---- screen layout of the new line and the two buttons, no sideways scroll
         for w in (1440, 1024, 768, 390, 320):

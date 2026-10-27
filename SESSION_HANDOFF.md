@@ -3,7 +3,48 @@
 <!-- morning:start -->
 ## Good morning, Jeremy. Read this first.
 
-**Update, Oct 26, about 11:15 PM: Checkpoint 47 is in your folder, tested, and waiting for you to commit it. The whole site was reviewed with the two UI/UX skills you installed and simplified, and Home has the photo carousel you asked for.** The review, with what changed and why: `research/site-review-2026-10-27.md`. In short:
+**Update, Oct 27, morning: Checkpoint 48 is in your folder, tested, with the shorter phone headlines you said yes to. Commit it with the message at the bottom (no AI trailers).** You asked for three things: less white space on desktop, harder use of the skills, and a net sheet that wows. The full report, in the 8-part format your brief asked for, is `research/site-review-2026-10-27b.md`. In short:
+
+- **The net sheet** (Home, "What would you actually walk away with?") is one white sheet on a computer. It reads top to bottom:
+  1. your three numbers across the top;
+  2. the two results side by side, with "You keep" set large (up to 48 px);
+  3. the answer in one deep green band, with the break-even line beside it.
+
+  Phones keep the answer-first order. No number, default, sum or word changed.
+- **Less white space on computers.**
+  - Sections have up to 88 px above and below (was 112), and headings 48 px under them (was 72).
+  - Every page is shorter at 1440 px wide: Home by 734 px, Our work by 1,239 px, Our story by 720 px.
+  - Phones keep their spacing.
+- **A flat, calmer look.**
+  - Cards are a change of tone, not a box with a line and a shadow.
+  - No gradients, and the buttons are flat.
+  - The small labels above headings are all gone.
+  - Headings never run past two lines on a computer.
+  - Nothing meant to be read is under about 13 px.
+- **Smaller things.**
+  - Home's three paths lead with how long each takes.
+  - The carousel's heading and arrows share one row.
+  - Our work never leaves a photo alone on the last row.
+  - The Contact page shows Joey and Ethan's photo beside the form on a computer.
+  - The net sheet's number boxes have a clearer edge. The old one was too faint for the accessibility guideline.
+  - Shorter phone headlines (your yes this morning): seven headlines are shorter and phone titles are about 17% smaller, so none runs past two lines on a phone 375 px or wider. The list is in the report, section 3.
+- **Checks.**
+  - All 19 test tools pass. They cover links, claims, the net sheet's sums and print layout, the form, accessibility (0 violations), 11 widths and 200% text.
+  - The design skill's inspector found 64 must-fix problems on the six main pages before and 15 after; its warnings went from 48 to 34. What is left is mostly "not enough motion" (we keep no autoplay on purpose), false alarms, and two pages waiting for Joey's photos. By the skill's own strict rule the score stays capped while any remain, and the report says so plainly.
+- **Not tested:** real phones, Safari, Firefox and a screen reader.
+- **Your call.**
+  1. Three small changes to details you approved earlier. Each is easy to undo.
+     - The hero's cream is flat instead of a soft gradient.
+     - The name plates on photos are solid white instead of frosted.
+     - The three dark bands are one deep teal, `#2b5155`, the middle of the old gradient.
+  2. Still open from Checkpoint 47: drop the Home comparison table, and fold New homes into Our work. I recommend keeping both.
+
+**What I need from you:**
+1. Look at the before and after pictures in the thread.
+2. Commit Checkpoint 48.
+3. Open Home on your phone and on a computer.
+
+**Update, Oct 26, about 11:15 PM (done: you committed and pushed Checkpoint 47 that night as `b6d767e`): Checkpoint 47 was in your folder, tested, and waiting for you to commit it. The whole site was reviewed with the two UI/UX skills you installed and simplified, and Home has the photo carousel you asked for.** The review, with what changed and why: `research/site-review-2026-10-27.md`. In short:
 
 - **Calmer pages.** The small capital labels above headings are gone (six that carry a fact stay, in plain sentence case). The green italic line is in each page's main title only. Nothing fades in as you scroll. Buttons lost their arrows, and text links are underlined. The decorative icon squares on cards are gone. Every small label uses one plain style.
 - **Home repeats itself less.** The FAQ's own call and email box is gone (the FAQ intro now carries the phone number). "What happens next?" no longer shows on phones (it repeated How it works). There is one button under the option cards instead of three, and the closing story ends with one button.
@@ -112,6 +153,8 @@
 
 ## Where the project is
 
+- **Checkpoint 48 (Oct 27, overnight in the cloud while Jeremy's computer was off; CSS v52, JS v26): tighter desktop, the net sheet's "one statement" layout and flat surfaces, plus shorter phone headlines (Jeremy's yes on the morning of Oct 27).** The review, in the 8-part format of Jeremy's brief, with the priority list, the inspector counts and what was not tested: `research/site-review-2026-10-27b.md`. Design notes: `DESIGN_SYSTEM.md`, "Checkpoint 48". Claims: `CONTENT_CLAIMS.md` row 66 (words moved or removed, no new claim). It was delivered as a zip in the thread and, if his computer was on, copied into his folder; see the newest message in the thread for which.
+- **Checkpoint 47 (CSS v51, JS v26) is live:** Jeremy committed and pushed it on the night of Oct 26 as `b6d767e` (on top of `6a9a499`, Checkpoint 46), before Checkpoint 48 started. `CHECKPOINT.json` for #48 names `b6d767e` as the head it was written on (set by hand: the cloud copy's own `.git` still stops at `6a9a499`).
 - **Checkpoint 46 (Oct 26, 8:05 AM to about 11:10 AM; CSS v49, JS v25) is in Jeremy's folder, not yet committed: the contact form is the site's own, and every button that leads to it carries the visitor's choice.** Native form on Home and Contact (`js/form.js`, `tools/form_text.py`, the `lf-` rules in `css/site.css`); the GoHighLevel frame and its loader are gone. Nothing receives the form yet: the main button reads "Get my message ready" and the visitor's own text or email app sends the message, and the page says nothing has been sent yet. `FORM_ENDPOINT` in `tools/build-pages.py` is the one line that connects a receiver (`research/form-wiring.md`). Joey's consent wording is unchanged. 287 form checks and the whole older suite FAILS 0; two independent reviews triaged. Not verified: real phones, a real receiver, a screen reader. The site stays `noindex`; nothing was sent, contacted or created. Details: `PROJECT_STATUS.md`, Checkpoint 46.
 - **Checkpoint 44 (overnight Oct 25 to 26; CSS v48, JS v24) is live (Jeremy's `5b87922`, 7:49 AM Oct 26) and checked on the live site (Checkpoint 45; the Checkpoint 45 notes are on GitHub as `4332e4b`).** Before it: Jeremy's `421bd72` push (Checkpoints 39 to 42) plus the Checkpoint 43 notes (`af96d24`). Checkpoint 44 changes no visible page: it adds the search foundation (one `LIVE` switch in `tools/build-pages.py`, `tools/seo-check.py`, one set of contact facts, page-head fixes) and a dormant review path with its Google profile kit (`tools/reviews_data.py`, `tools/reviews-check.py`, `research/review-kit.md`, `research/gbp-setup-sheet.md`, `research/launch-checklist.md`, `research/hosting-decision.md`). The site stays `noindex`; nothing is public; nobody was contacted and no account was made. Details: `PROJECT_STATUS.md`, Checkpoint 44.
 - **Live site = Jeremy's 2:58 PM push (commit `0a2cad1`), Checkpoints through 36 (CSS v45, JS v23); I checked all 8 pages, a wrong address, the real form, the break-even line and Print after it.** Before it, his 1:07 PM push (through 35, CSS v44, JS v22), his 11:26 AM push (Checkpoints through 34, CSS v43, JS v21), and before that: his 8:31 AM push (`44c3574`, "final push before work", Checkpoints through 30, CSS v42). He pushed 19 to 27 at 8:02 AM (`47f1181`), 28 and 29 at 8:08 AM (`cceb576`) and 30 at 8:31 AM; after each push I opened the live site in the built-in browser and found all 8 pages and the files they use with the right versions (38 files at the last check). Earlier pushes: 11:05 PM ("big push", `9d79ab4`, Checkpoint 12), 11:30 (13), 11:45 (14), 11:50, 11:54 and 12:07 AM (`2135005`, 15 to 18). The site is at https://jsglisson3.github.io/GLP-Home-Options/ (`noindex`).
@@ -131,13 +174,48 @@
 - **Waiting on Jeremy:** the start-at-top fix has been live since his 12:07 AM push; try it on his phone in a new private tab (so no old copy is cached): open the link from a text (also one that ends in `#numbers`), reload, and open it from a bookmark. If anything still starts mid-page, text himself the link with `?scrolldebug` on the end (`.../GLP-Home-Options/?scrolldebug`), open it and send a screenshot of the green box. Get Joey to add him to GoHighLevel or paste the CSS himself; answers to D7 to D16 (`ROADMAP.md`, "Proposed plan v2" and "Proposed plan v3"); sending the Joey text (`research/questions-for-joey.md`); whether to delete `Facebook.mhtml`.
 - **Waiting on Joey:** the photo confirmations (rows 42 to 46), photo and video originals, the SOLD-photo people and title company, every claim tagged **J**, license or brokerage (his videos say "New Listing coming soon"), whether a text campaign is already registered, whether contracts are ever assigned, the business-name and contractor-license questions (`research/compliance-questions-for-joey.md`), the county list, the main phone number, reviews, GoHighLevel access, the domain. A lawyer should look at how seller financing and lease options are described.
 
+## Next: after Checkpoint 48 (read this first; the list after it, "after Checkpoint 46", still holds for the form, Joey's answers and the receiving end)
+
+**Context.** On Oct 26 at about 11:20 PM, Jeremy asked for three things:
+- less white space on desktop;
+- harder use of the design skills;
+- a net sheet that "wows".
+
+His premium brief is the standard for design work. Checkpoint 48 is the result, built overnight; the report is `research/site-review-2026-10-27b.md`.
+
+**Start protocol.**
+1. Did he commit Checkpoint 48?
+   - If his computer is on, stage `.git/logs/HEAD` from his folder and read the newest lines. The newest commit seen so far is `b6d767e` (Checkpoint 47).
+   - If his folder does not match the latest checkpoint, compare by checksum (ignore line endings) before copying anything.
+2. Run `python3 tools/checkpoint.py`. It must be clean.
+3. After the push, look at the live site once, typing nothing:
+   - all pages link `css/site.css?v=52`;
+   - the net sheet at 1440 px shows the three boxes in a row, the two results side by side and the green answer band;
+   - nothing scrolls sideways at 390 or 1440 px.
+
+**Then, each is Jeremy's call:**
+1. **The three detail changes** in the report, section 2: flat hero cream, solid photo name plates, one dark teal. Undo any he does not like; each is a few lines in `css/site.css`.
+2. **The two Checkpoint 47 questions:** the Home comparison table, and New homes into Our work.
+3. **Real-device checks:** iPhone Safari, Android Chrome and Firefox.
+4. **If he wants more design work:**
+   - consolidate the font sizes (22 on Home);
+   - turn Our story's two rows of cards into a list set in large type;
+   - add a photo on Your options once Joey sends one.
+
+   Run the design-taste-frontend inspector before and after (`node <skill>/scripts/inspect.mjs <page>.html --out <dir>`; it needs a no-sandbox Chrome wrapper as `CHROME_PATH` when it runs as root).
+
+**Do not:**
+- bring back gradients, resting shadows, outlines or labels above headings without Jeremy's word;
+- let a desktop headline run past two lines (check 901 to 2560 px);
+- change the net sheet's numbers, method, words or name.
+
 ## Next: after Checkpoint 46 (read this first; the list after it, "after Checkpoint 44", still holds for the Google profile, reviews, hosting and the pages only Joey can supply)
 
 **Context.** On Oct 26 (8:03 AM) Jeremy asked for the contact form to be the best part of the site. Checkpoint 46 is the result: the site's own form, the buttons that lead to it, and a one-line switch for the receiving end. It is built and tested. What it needs now is people: a real phone, a receiving end, Joey's answers and an attorney.
 
 **Start protocol (the first 10 minutes).**
 1. One line: did he commit Checkpoint 46? The newest commit I have seen is `4332e4b` (the Checkpoint 45 notes). Run `git ls-remote https://github.com/jsglisson3/GLP-Home-Options.git HEAD`, or, if his computer is on, stage `.git/logs/HEAD` and read the newest lines. If his folder does not match the latest checkpoint, compare by checksum (ignore line endings) before copying anything.
-2. In the tree: `python3 tools/checkpoint.py` (clean), `python3 tools/seo-check.py` (FAILS 0), `python3 tools/reviews-check.py` (FAILS 0), and, from the folder that holds `node_modules/axe-core`, `python3 tools/form-test.py` (FAILS 0, 287 checks, about 90 seconds). They build in scratch folders and change nothing.
+2. In the tree: `python3 tools/checkpoint.py` (clean), `python3 tools/seo-check.py` (FAILS 0), `python3 tools/reviews-check.py` (FAILS 0), and, from the folder that holds `node_modules/axe-core`, `python3 tools/form-test.py` (FAILS 0, 289 checks since Checkpoint 48, about 90 seconds). They build in scratch folders and change nothing.
 3. After the push, look at the live site once (type nothing into the form and never press Send): all 8 pages link `css/site.css?v=49` and `js/site.js?v=25`; Home and Contact load `js/form.js?v=25` and show the form ("Thinking about selling, or not sure yet?") with the button "Get my message ready"; nothing is requested from `links.voiseai.com`; every page still says `noindex, nofollow`; no page scrolls sideways at 375, 390, 743 or 1440 px; Home is about the same height as before. Record it under Checkpoint 46 in `PROJECT_STATUS.md`.
 
 **Then, in this order (each is Jeremy's or Joey's call; nothing here is switched on by me):**
@@ -285,11 +363,23 @@ python3 -m http.server 8000                     # preview at http://localhost:80
 - **"Print my numbers" does nothing on someone's phone:** the page calls the browser's own print command; a browser that blocks it (some in-app browsers, such as a link opened inside another app) will ignore it. Opening the page in Safari or Chrome works. Printing the whole page with the browser's own Print still prints the whole page, as before.
 - **The AI's browser tab is hidden:** `requestAnimationFrame` never fires and computed styles can be stale mid-transition, so check with screenshots and synchronous scripts, not timers.
 - **Facebook:** our tools cannot fetch it (it refuses them) and we never sign in. Ask Joey or Jeremy for saved photos or video files.
-- **Our work photo groups:** photos of mixed shapes flow into columns; a group whose photos are all the same shape sits in rows (the builder decides). Seven same-shape Building photos leave one photo alone in the last row; a "More on Facebook" tile could fill it.
+- **Our work photo groups:** photos of mixed shapes flow into columns; a group whose photos are all the same shape sits in rows (the builder decides). Since Checkpoint 48 no photo sits alone in a last row: with two across an odd one out spans the row, with three across a leftover one makes the last row four photos and a leftover two share it (`.work-rows` in `css/site.css`).
 
 ## Suggested commit messages (Jeremy)
 
-**Checkpoint 47 (whole-site simplify and the Home photo carousel), to commit:**
+**Checkpoint 48 (tighter desktop, the net sheet redesign and flat surfaces), to commit:**
+
+Tighter desktop pages, a net sheet that leads with what you keep, and a flat, calmer look
+
+- Net sheet on computers: one sheet with your numbers across the top, the two results side by side with "You keep" set large, and the answer in one deep green band with the break-even line beside it; phones keep the answer-first order; no number, default, sum or word changed
+- Less white space on computers: section spacing up to 88 px (was 112) and 48 px under headings (was 72); every page is shorter at 1440 px (Home by 734 px, Our work by 1,239, Our story by 720); phone spacing unchanged
+- Flat surfaces: cards shown by tone instead of outlines and shadows, no gradients, flat buttons, glass only on the header, the dark bands one deep teal
+- Labels above headings removed; desktop headings at most two lines from 901 to 2560 px; nothing meant to be read under about 13 px; intro lines about 68 characters
+- Home's paths lead with the time each takes; the carousel's heading and arrows share one row; Our work never leaves a photo alone; Joey and Ethan's photo on the Contact page on computers; clearer edges on the net sheet's number boxes
+- Shorter phone headlines: seven headlines reworded and phone titles about 17% smaller up to 520 px, so no title runs past two lines from 375 px up
+- Review: research/site-review-2026-10-27b.md; the net sheet test now checks the new wide-screen layout; CSS v52, JS v26; notes and CHECKPOINT.json are #48
+
+**Checkpoint 47 (whole-site simplify and the Home photo carousel): committed and pushed by Jeremy on the night of Oct 26 as `b6d767e`.** Its message, kept for reference:
 
 A calmer, simpler site after a full UI/UX review, and a photo carousel on Home
 

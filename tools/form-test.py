@@ -729,14 +729,31 @@ with sync_playwright() as p:
           pos["top"]["bottom"] <= pos["main"]["top"] + 1 and pos["main"]["bottom"] <= pos["card"]["top"] + 1 and pos["card"]["bottom"] <= pos["more"]["top"] + 1 and pos["more"]["bottom"] <= pos["next"]["top"] + 1, short)
     top_card, top_name = pg.evaluate("window.scrollTo(0, 0); [document.querySelector('.form-card').getBoundingClientRect().top, document.getElementById('lf-name').getBoundingClientRect().top]")
     check("  on Contact the Call and Text tiles and the start of the form are on the first screen of a phone, and the first box is under two screens down", pos["main"]["bottom"] < 844 and top_card < 844 and top_name < 844 * 1.6, (round(top_card), round(top_name)))
+    check("  the photo of Joey and Ethan under the steps stays hidden on a phone (Checkpoint 48: computers only)",
+          pg.evaluate("(() => { const e = document.querySelector('.contact-photo'); return !!e && getComputedStyle(e).display === 'none'; })()"))
     ctx.close()
+    # Checkpoint 48: on the Contact page the heading runs across both columns (beside the form it took four lines), so there the form
+    # starts right under the heading, level with the Call and Text tiles, and the photo of Joey and Ethan sits under the steps.
+    # Home keeps the form level with the heading. Both keep the left column's order.
+    def left_column(pos):
+        return (pos["main"]["right"] <= pos["card"]["left"] and pos["more"]["right"] <= pos["card"]["left"] and pos["next"]["right"] <= pos["card"]["left"] and
+                pos["main"]["top"] >= pos["top"]["bottom"] and pos["more"]["top"] >= pos["main"]["bottom"] and pos["next"]["top"] >= pos["more"]["bottom"])
     ctx, pg, errs = ctx_page(b, 1440, 900)
     open_form(pg)
     pos = pg.evaluate(POS)
+    photo = pg.evaluate("(() => { const e = document.querySelector('.contact-photo'); if (!e || getComputedStyle(e).display === 'none') return null; const r = e.getBoundingClientRect(); return {left: r.left, right: r.right, top: r.top, bottom: r.bottom}; })()")
     short = {k: (round(v["left"]), round(v["top"])) for k, v in pos.items()}
-    check("computer: the form is in the right-hand column, level with the heading; Call/Text, Email/Book/Facebook and the steps are in the left column, in that order",
-          pos["card"]["left"] >= pos["top"]["right"] and abs(pos["card"]["top"] - pos["top"]["top"]) < 90 and pos["main"]["right"] <= pos["card"]["left"] and pos["more"]["right"] <= pos["card"]["left"] and pos["next"]["right"] <= pos["card"]["left"] and
-          pos["main"]["top"] >= pos["top"]["bottom"] and pos["more"]["top"] >= pos["main"]["bottom"] and pos["next"]["top"] >= pos["more"]["bottom"], short)
+    check("computer, Contact: the heading runs across the top; under it the form is in the right-hand column, level with the Call and Text tiles; Call/Text, Email/Book/Facebook, the steps and the photo are in the left column, in that order",
+          pos["top"]["right"] >= pos["card"]["right"] - 1 and pos["card"]["top"] >= pos["top"]["bottom"] and pos["card"]["top"] - pos["top"]["bottom"] < 60 and abs(pos["card"]["top"] - pos["main"]["top"]) < 90 and left_column(pos) and
+          photo is not None and photo["right"] <= pos["card"]["left"] and photo["top"] >= pos["next"]["bottom"], (short, photo and (round(photo["left"]), round(photo["top"]))))
+    ctx.close()
+    ctx, pg, errs = ctx_page(b, 1440, 900)
+    open_form(pg, "index.html")
+    pos = pg.evaluate(POS)
+    short = {k: (round(v["left"]), round(v["top"])) for k, v in pos.items()}
+    check("computer, Home: the form is in the right-hand column, level with the heading; Call/Text, Email/Book/Facebook and the steps are in the left column, in that order; no photo there",
+          pos["card"]["left"] >= pos["top"]["right"] and abs(pos["card"]["top"] - pos["top"]["top"]) < 90 and left_column(pos) and
+          pg.evaluate("!document.querySelector('.contact-photo')"), short)
     ctx.close()
 
     # ============================================================= 8. keyboard
