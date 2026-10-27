@@ -204,13 +204,16 @@
       el('r-payoff2').textContent = neg(payoff);
       el('r-netdirect').textContent = usd(netDirect);
       el('t-list').textContent = '~' + (Math.round(months * 10) / 10) + ' mo';
+      var mo = (Math.round(months * 10) / 10) + (Math.round(months * 10) === 10 ? ' month' : ' months'), wl = el('when-list');
+      if (wl) wl.textContent = 'If it sells for ' + usd(price) + ', in about ' + mo;
       var diff = netList - netDirect, v = el('verdict'), s = el('verdict-sub'), off = price - offer;
       if (Math.abs(diff) < 500) {
         v.innerHTML = 'About the <span>same</span> either way.';
         s.textContent = 'When the money is this close, speed, certainty, and skipping showings and repairs may decide it.';
       } else if (diff > 0) {
-        v.innerHTML = 'You\u2019d keep about <span>' + usd(diff) + '</span> more by listing.';
-        s.textContent = 'Selling direct gives that up, but you close in 7 to 14 days with no repairs, showings, or months of house payments and bills. The offer is ' + usd(off) + ' below the list price, but the gap in your pocket is smaller once costs come out.';
+        // Checkpoint 49: the same answer, told as the trade it is. Listing's extra money depends on the price, the repairs and the months all coming true.
+        v.innerHTML = 'About <span>' + usd(diff) + '</span> more by listing, if all goes to plan.';
+        s.textContent = 'The offer is ' + usd(off) + ' under the price, but only ' + usd(diff) + ' less in your pocket. And listing gets you that ' + usd(diff) + ' only if it sells for ' + usd(price) + (repairs > 0 ? ', needs no more than ' + usd(repairs) + ' of work' : '') + ' and closes in about ' + mo + '. Selling to us, it\u2019s ' + usd(netDirect) + ' in 7 to 14 days, as it is, with no showings.';
       } else {
         v.innerHTML = 'You\u2019d keep about <span>' + usd(-diff) + '</span> more by selling direct.';
         s.textContent = 'Once the commission, closing costs, repairs, and the cost of waiting come out, the direct offer leaves you ahead, and you close in 7 to 14 days.';
@@ -221,6 +224,13 @@
       if (bx) {
         if (price > 0 && be > 0 && be <= price) { bx.innerHTML = 'On these numbers, a cash offer above <strong>' + usd(be) + '</strong> keeps more in your pocket than listing.'; bx.hidden = false; }
         else { bx.textContent = ''; bx.hidden = true; }
+      }
+      // The other side of the same line (Checkpoint 49): the sale price listing needs to beat this offer, with the costs as typed.
+      // Listing keeps price x (1 - commission - closing) - repairs - cost of waiting - payoff; the offer keeps offer - payoff; equal at the price below.
+      var keepShare = 1 - comm - close, se = keepShare > 0 ? (offer + repairs + carryAmt) / keepShare : 0, sx = el('sell-even');
+      if (sx) {
+        if (price > 0 && offer > 0 && se > 0) { sx.innerHTML = 'Listing comes out ahead only if it sells for more than <strong>' + usd(se) + '</strong>' + (se < price ? ', ' + usd(price - se) + ' under your price.' : '.'); sx.hidden = false; }
+        else { sx.textContent = ''; sx.hidden = true; }
       }
       // The list of numbers that prints at the top of the printed page (the form itself does not print)
       var pin = el('p-inputs');
@@ -325,21 +335,40 @@
   }
 
   /* ---------- Photo strip (Home, Checkpoint 47): swipe on a phone; Previous/Next or the arrow keys on a computer. It never moves by itself. ----------
-     Without this script the strip still scrolls sideways and the buttons stay hidden. A button at the end of the strip is marked aria-disabled
-     (not disabled), so keyboard focus never jumps away from it. */
+     Without this script the strip still scrolls sideways (with its own scrollbar) and the count and buttons stay hidden. A button at the end of the
+     strip is marked aria-disabled (not disabled), so keyboard focus never jumps away from it. Checkpoint 49: Previous/Next move one photo at a time,
+     and the count ("3 of 8") and the thin progress line follow the strip however it is moved. */
   $$('[data-carousel]').forEach(function (car) {
     var track = $('.car-track', car), ctrl = $('.car-ctrl', car), prev = $('.car-prev', car), next = $('.car-next', car);
-    if (!track || !ctrl || !prev || !next) return;
+    var now = $('.car-now', car), bar = $('.car-bar span', car), slides = $$('.car-slide', car);
+    if (!track || !ctrl || !prev || !next || !slides.length) return;
     ctrl.hidden = false;
+    car.classList.add('car-on');
     var atStart = function () { return track.scrollLeft <= 2; };
     var atEnd = function () { return track.scrollLeft >= track.scrollWidth - track.clientWidth - 2; };
+    var pad = function () { return parseFloat(getComputedStyle(track).scrollPaddingLeft) || 0; };
+    // the photo whose left edge is nearest the strip's starting line (at the very end, the last photo)
+    var current = function () {
+      if (atEnd()) return slides.length - 1;
+      var line = track.getBoundingClientRect().left + pad(), best = 0, dist = Infinity;
+      slides.forEach(function (s, i) { var d = Math.abs(s.getBoundingClientRect().left - line); if (d < dist) { dist = d; best = i; } });
+      return best;
+    };
     var sync = function () {
       prev.setAttribute('aria-disabled', atStart() ? 'true' : 'false');
       next.setAttribute('aria-disabled', atEnd() ? 'true' : 'false');
+      if (now) now.textContent = current() + 1;
+      if (bar) {
+        var sw = track.scrollWidth || 1, w = Math.min(1, track.clientWidth / sw);
+        bar.style.setProperty('--car-w', (w * 100) + '%');
+        bar.style.setProperty('--car-x', (w < 1 ? (track.scrollLeft / (sw - track.clientWidth)) * ((1 - w) / w) * 100 : 0) + '%');
+      }
     };
     var step = function (dir) {
       if (dir < 0 ? atStart() : atEnd()) return;
-      track.scrollBy({ left: dir * Math.max(240, track.clientWidth * 0.8), behavior: reduce ? 'auto' : 'smooth' });
+      var i = Math.max(0, Math.min(slides.length - 1, current() + dir));
+      var left = slides[i].getBoundingClientRect().left - track.getBoundingClientRect().left - pad();
+      track.scrollBy({ left: left, behavior: reduce ? 'auto' : 'smooth' });
     };
     prev.addEventListener('click', function () { step(-1); });
     next.addEventListener('click', function () { step(1); });

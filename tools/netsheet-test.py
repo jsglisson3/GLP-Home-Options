@@ -168,6 +168,28 @@ try:
             meet += 1
         print(f'checked {meet} cases: break-even offer ties, +$600 wins direct by $600, -$600 wins listing by $600')
 
+        # ---- Checkpoint 49: the sale price listing needs. Typed in as the price (rounded to the dollar), the two totals meet within a dollar or two
+        # (the price is rounded, then multiplied by the commission and closing rates), and the line names the gap under the typed price
+        sev = 0
+        for c in cases + random_cases[:60]:
+            ks = 1 - c['comm'] / 100 - c['close'] / 100
+            if not (c['price'] > 0 and c['offer'] > 0 and ks > 0):
+                continue
+            se = (c['offer'] + c['repairs'] + c['carry'] * c['months']) / ks
+            if se <= 0:
+                continue
+            fill_all(pg, c)
+            got = pg.evaluate("()=>{const x=document.getElementById('sell-even'); return {h:x.hidden, s:(x.querySelector('strong')||{}).textContent||'', t:x.textContent}}")
+            check(not got['h'] and got['s'] == usd(se), f'sell-even line {c} -> {got} expected {usd(se)}')
+            check((usd(c['price'] - se) in got['t']) == (se < c['price']), f'sell-even names the gap only when listing needs less than the price: {got} {c}')
+            fill_all(pg, dict(c, price=int(round(se))))
+            r = read(pg)
+            check(abs(money(r['list']) - money(r['direct'])) <= 2, f'price = sell-even should tie: {c} -> {r["list"]} vs {r["direct"]}')
+            sev += 1
+        fill_all(pg, dict(cases[0], offer=0))
+        check(pg.evaluate("()=>document.getElementById('sell-even').hidden"), 'sell-even line hides with no cash offer')
+        print(f'checked {sev} cases: the sale price listing needs makes the two totals meet, and the line names the gap')
+
         # ---- the break-even number ignores the cash offer and the mortgage (it cannot depend on them)
         base = dict(cases[0])
         fill_all(pg, base)

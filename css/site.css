@@ -407,6 +407,10 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:var(--cream-100)
 .sheet .total dt{font-weight:800;color:var(--ink)}
 .sheet .total dd{font-size:1.6rem;font-weight:800;line-height:1.1;letter-spacing:-.03em}
 .sheet-us .total dd{color:var(--green-700)}
+/* Checkpoint 49: the cash column says why each cost is $0 (the reasons are the compare table's own words), and each "You keep" says when and on what condition */
+.sheet dt .ns-why{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;background:var(--green-100);font-size:.82rem;font-weight:700;line-height:1.35;color:var(--green-800);vertical-align:1px}
+.ns-when{margin:10px 0 0;font-size:.86rem;font-weight:650;color:var(--muted);text-align:right}
+.sheet-us .ns-when{color:var(--green-700)}
 /* the two bars on the Options page's small example (Checkpoint 48: flat colors; the net sheet itself has no bars since Checkpoint 14) */
 .bars{display:grid;gap:11px}
 .bar{display:grid;grid-template-columns:70px minmax(0,1fr) auto;gap:12px;align-items:center;font-size:.86rem;font-weight:650;color:var(--muted)}
@@ -421,6 +425,10 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:var(--cream-100)
 .verdict p{color:rgba(255,255,255,.92);font-size:.94rem}
 .verdict .breakeven{margin-top:6px;padding:14px 16px;border-radius:var(--r-s);background:var(--green-700);color:#fff}   /* the break-even line sits in its own slightly lighter green box (it had a thin rule above it) */
 .verdict .breakeven strong{font-weight:800;color:#fff}
+/* Checkpoint 49: two lines in the lighter box, the price listing needs and the offer that matches it */
+.ns-evens{display:grid;gap:10px}
+.ns-evens .breakeven{margin-top:0}
+.ns-evens .breakeven+.breakeven{margin-top:0}
 .res-actions{display:flex;flex-wrap:wrap;gap:12px}
 .res-actions .btn{flex:1 1 auto}
 /* Worth a second look (Checkpoint 42): a calm note above the answer when the numbers look like a typo. It never changes the numbers. */
@@ -466,7 +474,8 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:var(--cream-100)
 @media screen and (min-width:72em){
   .results .verdict{grid-template-columns:minmax(0,2fr) minmax(0,1fr);column-gap:40px;column-gap:clamp(28px,3.4vw,48px);align-items:center}
   .results .verdict .big,.results .verdict #verdict-sub{grid-column:1}
-  .results .verdict .breakeven{grid-column:2;grid-row:1/3;margin:0;padding:20px 22px}
+  .results .verdict .ns-evens{grid-column:2;grid-row:1/3}
+  .results .verdict .breakeven{margin:0;padding:18px 22px}
 }
 @media screen and (min-width:77.5625em){#calc .costs-more .fields{grid-template-columns:repeat(5,minmax(0,1fr))}}
 @media (max-width:32.5em){.fields{grid-template-columns:minmax(0,1fr)}}
@@ -1043,37 +1052,54 @@ html.lb-open{overflow:hidden}
 }
 .cta-actions{display:grid;gap:12px}
 /* Photo strip on Home (Checkpoint 47; Jeremy, Oct 27: "don't be afraid to add a carousel"). The same photos as Our work. It never moves by itself:
-   swipe on a phone; Previous/Next (added by js/site.js) or the arrow keys on a computer. Photos keep their own shape: each is as tall as the strip.
-   The first photo lines up with the page's text column and the strip runs to the right edge, so the next photo peeks in as a hint to swipe. */
-.work-band{color:#fff;background:var(--band);--car-pad:calc(max(0px,(100% - var(--maxw)) / 2) + max(clamp(20px,4vw,48px),env(safe-area-inset-left,0px)))}
-.work-band h2{color:#fff}
-.work-band .lede{color:rgba(255,255,255,.94)}
-.car-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 24px;margin-bottom:28px;margin-bottom:clamp(28px,3.4vw,32px)}
-.car-head .head{margin-bottom:0}
-/* on a computer the heading, its sentence and the arrows share one row across the page (Checkpoint 48; the middle of the row was empty) */
-@media screen and (min-width:61.3125em){
-  .car-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr) auto;column-gap:40px;column-gap:clamp(32px,4vw,64px);align-items:end}
-  .car-head .head{display:contents}
-  .car-head h2{margin:0}
-  .car-head .lede{max-width:44ch;margin:0;padding-bottom:6px}
-}
-.car-ctrl{display:flex;gap:12px}
+   swipe on a phone; Previous/Next (added by js/site.js) or the arrow keys on a computer.
+   Checkpoint 49 (Jeremy, Oct 27: "it looks trashy and just bolted on.. make this look classy"): it sits on the page's own white instead of a dark band,
+   every photo has the same upright frame, and a plain count ("3 of 8") with a thin progress line replaces the scrollbar. On a computer the
+   heading, count and buttons hold a left column and the photos run off the right edge; on a phone the photos come straight after the heading. */
+.work-band.sec{padding-top:24px;padding-top:clamp(16px,2vw,28px)}   /* it follows How it works on the same white, so the gap between them is that section's own bottom padding */
+.work-band{--car-gut:max(clamp(20px,4vw,48px),env(safe-area-inset-left,0px));--car-bleed:calc(max(0px,(100vw - var(--maxw)) / 2) + max(clamp(20px,4vw,48px),env(safe-area-inset-right,0px)));--car-h:min(calc((100vw - 2 * var(--car-gut) - 56px) * 1.25),440px);--car-gap:14px;overflow-x:clip}
+.car-wrap{display:grid;grid-template-columns:minmax(0,1fr)}
+.car-side{display:contents}
+.car-side .head{order:1;margin-bottom:28px;margin-bottom:clamp(24px,3vw,32px)}
+.car-track{order:2;margin:0 calc(-1 * var(--car-gut));overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--car-gut);scrollbar-width:thin;scrollbar-color:var(--navy-300) transparent;padding-bottom:12px}
+.car-ctrl{order:3;display:flex;align-items:center;gap:18px;margin-top:14px}
+.car-more{order:4;justify-self:start;margin-top:10px}
 .car-ctrl[hidden]{display:none}
-.car-btn{display:grid;place-items:center;width:52px;height:52px;padding:0;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;cursor:pointer;transition:background .2s,opacity .2s}   /* filled, no outline (Checkpoint 48) */
-.car-btn .i{width:22px;height:22px}
-.car-prev .i{transform:rotate(180deg)}
-.car-btn:hover{background:rgba(255,255,255,.3)}
-.car-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.car-btn[aria-disabled="true"]{cursor:default;background:rgba(255,255,255,.06);color:rgba(255,255,255,.42)}   /* dims the button, not its focus ring */
-.car-track{overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-left:var(--car-pad);scroll-padding-right:var(--car-pad);scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.45) transparent;padding-bottom:16px}
-.car-track:focus-visible{outline:3px solid #fff;outline-offset:-3px}
-.car-list{display:flex;gap:16px;width:max-content;margin:0;padding:0 var(--car-pad);list-style:none}
+.car-track:focus-visible{outline:3px solid var(--green-700);outline-offset:-3px;border-radius:var(--r-s)}
+.car-list{display:flex;gap:var(--car-gap);width:max-content;margin:0;padding:0 var(--car-gut);list-style:none}
 .car-slide{flex:none;scroll-snap-align:start}
 .car-slide:last-child{scroll-snap-align:end}   /* the very end is a stopping point too, so Next always reaches it */
-.car-slide figure{width:min-content;margin:0}   /* as wide as its photo: a long caption wraps instead of widening the slide (big text) */
-.car-slide img{display:block;width:auto;max-width:none;height:240px;height:min(clamp(240px,28vw,340px),calc((100vw - 40px) * .74));border-radius:18px;background:rgba(255,255,255,.1)}
-.car-slide figcaption{margin-top:10px;font-size:.95rem;font-weight:600;color:rgba(255,255,255,.92)}
-.car-foot{margin-top:24px;margin-top:clamp(24px,3vw,28px)}
+.car-slide figure{width:calc(var(--car-h) * .8);margin:0}   /* a long caption wraps instead of widening the slide (big text) */
+.car-slide img{display:block;width:100%;max-width:none;height:var(--car-h);object-fit:cover;object-position:50% 50%;border-radius:var(--r-s);background:var(--card)}
+.car-slide figcaption{margin-top:14px;font-size:.95rem;font-weight:650;line-height:1.4;color:var(--ink)}
+/* the count, the progress line and the buttons (only with JavaScript; without it the strip keeps its own scrollbar) */
+.car-on .car-track{scrollbar-width:none}
+.car-on .car-track::-webkit-scrollbar{display:none}
+.car-count{flex:none;display:flex;align-items:baseline;gap:5px;margin:0;font-variant-numeric:tabular-nums;color:var(--muted)}
+.car-now{font-size:1.25rem;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.car-of{font-size:.95rem;font-weight:600}
+.car-bar{position:relative;flex:1 1 auto;min-width:48px;height:3px;border-radius:3px;background:var(--navy-100);overflow:hidden}
+.car-bar span{position:absolute;inset:0 auto 0 0;width:var(--car-w,25%);border-radius:3px;background:var(--green-700);transform:translateX(var(--car-x,0%));transition:transform .2s ease-out}
+.car-btns{flex:none;display:flex;gap:10px}
+.car-btn{display:grid;place-items:center;width:48px;height:48px;padding:0;border-radius:50%;border:0;background:var(--navy-100);color:var(--navy-800);cursor:pointer;transition:background .2s,color .2s,transform .15s}
+.car-btn .i{width:20px;height:20px}
+.car-prev .i{transform:rotate(180deg)}
+.car-btn:hover{background:var(--navy-200)}
+.car-btn:active{transform:scale(.94)}
+.car-btn:focus-visible{outline:3px solid var(--green-700);outline-offset:3px}
+.car-btn[aria-disabled="true"]{cursor:default;background:var(--cream-100);color:var(--navy-300);transform:none}   /* dims the button, not its focus ring */
+/* on a computer: a left column (heading, sentence, then the count and buttons at the foot) and the photos running off the right edge of the page */
+@media screen and (min-width:61.3125em){
+  .work-band{--car-h:min(max(380px,31vw),500px);--car-gap:20px}
+  .car-wrap{grid-template-columns:minmax(0,4fr) minmax(0,8fr);column-gap:56px;column-gap:clamp(48px,5vw,80px)}
+  .car-side{display:flex;flex-direction:column;align-items:flex-start;padding-bottom:calc(1.4em + 26px)}   /* the foot lines up with the bottom of the photos, above their captions */
+  .car-side .head{order:0;margin-bottom:0}
+  .car-side .lede{max-width:30ch}
+  .car-ctrl{order:0;align-self:stretch;margin-top:auto;padding-top:32px}
+  .car-more{order:0;margin-top:18px}
+  .car-track{margin:0 calc(-1 * var(--car-bleed)) 0 0;scroll-padding-inline:0 var(--car-bleed)}
+  .car-list{padding:0 var(--car-bleed) 0 0}
+}
 .btn-light{background:#fff;color:var(--navy-800)}
 .btn-light:hover{background:var(--green-50)}
 .btn-outline-light{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.6)}
@@ -1132,6 +1158,12 @@ html.lb-open{overflow:hidden}
   html.print-sheet .verdict p{font-size:10.5pt}
   html.print-sheet .verdict .breakeven{margin:2pt 0 0;padding:5pt 0 0;border-top:.75pt solid #777;border-radius:0;background:none!important}
   html.print-sheet .panel.results>.fine{margin:0;font-size:9.5pt;color:#444}
+  /* Checkpoint 49: the reasons, the "when" lines and the second even line print as plain small text, so the sheet still fits one page */
+  html.print-sheet .sheet dt .ns-why{margin-left:4pt;padding:0;background:none;font-size:9pt;font-weight:600;color:#333}
+  html.print-sheet .ns-when{margin:3pt 0 0;font-size:9pt;color:#333!important}
+  html.print-sheet .ns-evens{gap:0}
+  html.print-sheet .verdict .ns-evens .breakeven+.breakeven{border-top:0;padding-top:1pt}
+  html.print-sheet .verdict #verdict-sub{font-size:10pt;line-height:1.35}
   html.print-sheet .print-contact{margin:12pt 0 0;padding-top:8pt;border-top:.75pt solid #777;font-size:10.5pt;line-height:1.5;color:#111}
 }
 

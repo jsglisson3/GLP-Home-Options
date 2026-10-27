@@ -3,6 +3,16 @@
 <!-- morning:start -->
 ## Good morning, Jeremy. Read this first.
 
+**Update, Oct 27, afternoon: Checkpoint 49 is two pieces of work merged on your word ("alighty guys lets merge our code", 15:33 UTC): the Home carousel redesign (your message at 13:16 UTC: "the carousel needs some love it looks trashy and just bolted on.. make this look classy") and the net sheet's new wording.** Before and after pictures of both were posted in their threads. In short:
+
+- **It belongs to the page now.** It sits on the same white as How it works, not on a dark band of its own, so it reads as "here is what that work looks like".
+- **One even row.** Every photo has the same upright frame (4:5) instead of eight photos of different widths. The frames trim the edges of the wide photos; the whole photo is still on Our work.
+- **A calmer frame around it.** On a computer the heading, a plain "1 of 8" count with a thin progress line, and the two buttons sit in a left column, and the photos run off the right edge of the page. On a phone the photos come right after the heading, with the count and buttons under them. "See all our work" is an underlined text link instead of a white pill.
+- **Same rules as before.** It never moves by itself; swipe on a phone, Previous/Next (now one photo at a time) or the arrow keys on a computer; without JavaScript it still scrolls and shows its own scrollbar. Same photos, alt text and captions; no new claim.
+- **Checks:** the whole suite; a new check, `tools/carousel-test.py`, at 320, 390, 1024, 1440 and 2560 px (count 1 to 8 and back, buttons dim at the ends, every frame the same size, no sideways page scroll, no JavaScript); the design inspector found no new problem from the carousel (its one complaint, "01 / 08" style numbers, was fixed by writing "1 of 8").
+- **The net sheet tells the trade, not a loss (no number, default or method changed).** The headline reads like "About $7,000 more by listing, if all goes to plan", with the offer gap and the pocket gap side by side; the green box adds the sale price listing needs to beat the offer; each $0 row in the "sell to us" column says why (No agent, We pay them, Sold as it is, No months of bills); each "You keep" says when the money comes. `CONTENT_CLAIMS.md` row 68. The real fix is the example numbers, which need Joey: `research/net-sheet-proposal-for-joey.md` (new file) has a text to paste to him.
+- **Not tested:** a real iPhone or Android swipe, Safari, Firefox, a screen reader.
+
 **Update, Oct 27, morning: Checkpoint 48 is in your folder, tested, with the shorter phone headlines you said yes to. Commit it with the message at the bottom (no AI trailers).** You asked for three things: less white space on desktop, harder use of the skills, and a net sheet that wows. The full report, in the 8-part format your brief asked for, is `research/site-review-2026-10-27b.md`. In short:
 
 - **The net sheet** (Home, "What would you actually walk away with?") is one white sheet on a computer. It reads top to bottom:
@@ -366,6 +376,18 @@ python3 -m http.server 8000                     # preview at http://localhost:80
 - **Our work photo groups:** photos of mixed shapes flow into columns; a group whose photos are all the same shape sits in rows (the builder decides). Since Checkpoint 48 no photo sits alone in a last row: with two across an odd one out spans the row, with three across a leftover one makes the last row four photos and a leftover two share it (`.work-rows` in `css/site.css`).
 
 ## Suggested commit messages (Jeremy)
+
+**Checkpoint 49 (the Home carousel redesign and the net sheet wording), to commit:**
+
+A classier photo carousel on Home, and a net sheet that shows the trade
+
+- The carousel sits on the page's own white instead of a dark band, straight after How it works
+- Every photo has the same upright frame, so the row reads as one even set; the whole photos stay on Our work
+- On computers the heading, a "1 of 8" count with a thin progress line and the two buttons sit in a left column, and the photos run off the right edge; on phones the count and buttons sit under the photos
+- Previous and Next move one photo at a time; "See all our work" is a text link; it still never moves by itself and works without JavaScript
+- Net sheet: the answer tells the trade (listing's extra money if all goes to plan, the price listing needs to beat the offer), each $0 cost on the cash side says why, and each "You keep" says when; no number, default or method changed (CONTENT_CLAIMS row 68)
+- New research/net-sheet-proposal-for-joey.md: the example numbers and two listing costs to ask Joey about
+- New check tools/carousel-test.py, and the net sheet test checks the new line; CSS v53, JS v27; notes and CHECKPOINT.json are #49
 
 **Checkpoint 48 (tighter desktop, the net sheet redesign and flat surfaces), to commit:**
 

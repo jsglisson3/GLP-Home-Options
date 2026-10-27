@@ -143,21 +143,29 @@
     </div>
   </section>
 
-  <!-- ============ OUR WORK: photo strip (Checkpoint 47). The same photos, alt text and captions as the Our work page (tools/gallery_data.py), so a
-       visitor sees real job sites early. It sits after How it works, not straight after the closing story, so it never reads as that same house. It never moves by itself: swipe on a phone, Previous/Next or the arrow keys on a computer. ============ -->
+  <!-- ============ OUR WORK: photo strip (Checkpoint 47; Checkpoint 49 redesign: Jeremy, Oct 27, "it looks trashy and just bolted on.. make this look classy").
+       The same photos, alt text and captions as the Our work page (tools/gallery_data.py), so a visitor sees real job sites early. It sits after How it works,
+       not straight after the closing story, so it never reads as that same house. It never moves by itself: swipe on a phone, Previous/Next or the arrow keys
+       on a computer. On a computer the heading, the count ("1 of 8") and the buttons sit in a left column and the photos run off the right edge of the page. ============ -->
   <section class="sec sec-slim work-band" id="work-strip" aria-labelledby="work-strip-h" data-carousel>
-    <div class="wrap car-head">
-      <div class="head">
-        <h2 id="work-strip-h">Before, during and after.</h2>
-        <p class="lede">Photos from our job sites, from first demo to the finished kitchen.</p>
+    <div class="wrap car-wrap">
+      <div class="car-side">
+        <div class="head">
+          <h2 id="work-strip-h">Before, during and after.</h2>
+          <p class="lede">Photos from our job sites, from first demo to the finished kitchen.</p>
+        </div>
+        <div class="car-ctrl" hidden>
+          <p class="car-count" aria-hidden="true"><span class="car-now">1</span><span class="car-of">of [[carousel-count renovating]]</span></p>
+          <div class="car-bar" aria-hidden="true"><span></span></div>
+          <div class="car-btns">
+            <button class="car-btn car-prev" type="button" aria-controls="car-renovating" aria-label="Previous photo"><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            <button class="car-btn car-next" type="button" aria-controls="car-renovating" aria-label="Next photo"><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </div>
+        </div>
+        <a class="more car-more" href="work.html">See all our work</a>
       </div>
-      <div class="car-ctrl" hidden>
-        <button class="car-btn car-prev" type="button" aria-controls="car-renovating" aria-label="Previous photos"><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-        <button class="car-btn car-next" type="button" aria-controls="car-renovating" aria-label="Next photos"><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-      </div>
+      [[carousel renovating]]
     </div>
-    [[carousel renovating]]
-    <div class="wrap car-foot"><a class="btn btn-light" href="work.html">See all our work</a></div>
   </section>
 
   <!-- ============ NUMBERS ============ -->
@@ -258,24 +266,29 @@
                 <div><dt>Cost of waiting</dt><dd id="r-carry"></dd></div>
                 <div class="total"><dt>You keep</dt><dd id="r-netlist"></dd></div>
               </dl>
+              <p class="ns-when" id="when-list">If it sells for that price, in about 2.5 months</p>
             </div>
             <div class="sheet sheet-us">
               <h4>If you sell to us <small>7–14 days</small></h4>
               <dl>
                 <div><dt>Cash offer</dt><dd id="r-offer"></dd></div>
                 <div><dt>Mortgage owed</dt><dd id="r-payoff2"></dd></div>
-                <div><dt>Commission</dt><dd>$0</dd></div>
-                <div><dt>Closing costs</dt><dd>$0</dd></div>
-                <div><dt>Repairs and prep</dt><dd>$0</dd></div>
-                <div><dt>Cost of waiting</dt><dd>$0</dd></div>
+                <div><dt>Commission <span class="ns-why">No agent</span></dt><dd>$0</dd></div>
+                <div><dt>Closing costs <span class="ns-why">We pay them</span></dt><dd>$0</dd></div>
+                <div><dt>Repairs and prep <span class="ns-why">Sold as it is</span></dt><dd>$0</dd></div>
+                <div><dt>Cost of waiting <span class="ns-why">No months of bills</span></dt><dd>$0</dd></div>
                 <div class="total"><dt>You keep</dt><dd id="r-netdirect"></dd></div>
               </dl>
+              <p class="ns-when">In 7 to 14 days, on your schedule</p>
             </div>
           </div>
           <div class="verdict">
             <div class="big" id="verdict"></div>
             <p id="verdict-sub"></p>
-            <p class="breakeven" id="breakeven" hidden></p>
+            <div class="ns-evens">
+              <p class="breakeven" id="sell-even" hidden></p>
+              <p class="breakeven" id="breakeven" hidden></p>
+            </div>
           </div>
           <div class="res-actions">
             <a class="btn btn-primary" href="#contact" data-topic="sell">Go over these numbers</a>

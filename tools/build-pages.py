@@ -25,6 +25,7 @@ Tokens you can use inside tools/pages/*.html
   [[cta options]] ...                        the closing call-to-action band
   [[gallery building]] [[gallery closed]]    a photo grid from tools/gallery_data.py (the Our work page)
   [[carousel renovating]]                     a sideways photo strip from the same photos (Home, Checkpoint 47)
+  [[carousel-count renovating]]               how many photos that strip holds (Checkpoint 49)
   [[contact home]] [[contact page]]          the contact section (reach tiles, next steps, form)
 """
 import html
@@ -75,7 +76,7 @@ BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 # form services and Zapier-style catch-hooks expect). Both go straight out with no permission check first, so the receiving end only has to allow this site (CORS).
 FORM_ENDPOINT = ""
 FORM_FORMAT = "json"
-CSS_V, JS_V = 52, 26
+CSS_V, JS_V = 53, 27
 HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-1200.jpg 1200w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
@@ -411,14 +412,20 @@ def gallery(group):
     return f'<ul class="work-grid{rows}" data-stagger>\n' + "\n".join(out) + "\n      </ul>"
 
 
+def carousel_items(group):
+    items = [g for g in GAL.GALLERY if g["group"] == group]
+    if not items:
+        sys.exit(f"carousel '{group}': no photos in tools/gallery_data.py")
+    return items
+
+
 def carousel(group):
     """A sideways photo strip for one group in tools/gallery_data.py (Home, Checkpoint 47; Jeremy, Oct 27: "don't be afraid to add a carousel").
     The same photos, alt text and captions as the Our work page, so nothing new is claimed. It never moves by itself: a visitor swipes it on a
     phone, or uses the Previous/Next buttons or the arrow keys on a computer. With no JavaScript the strip still scrolls sideways; the buttons
-    (added by js/site.js) stay hidden. Photos keep their own shape (no cropping): each one is as tall as the strip and as wide as it needs."""
-    items = [g for g in GAL.GALLERY if g["group"] == group]
-    if not items:
-        sys.exit(f"carousel '{group}': no photos in tools/gallery_data.py")
+    (added by js/site.js) stay hidden. Checkpoint 49: every photo sits in the same upright frame (4:5, filled, centred), so the strip reads as one
+    even row instead of eight photos of different widths; the whole photo is on the Our work page."""
+    items = carousel_items(group)
     out = []
     for g in items:
         w, h = image_size(g["img"])
@@ -855,6 +862,8 @@ def expand(pg, text):
             return cta_band(pg, tok.split(" ", 1)[1])
         if tok.startswith("gallery "):
             return gallery(tok.split(" ", 1)[1])
+        if tok.startswith("carousel-count "):
+            return str(len(carousel_items(tok.split(" ", 1)[1])))
         if tok.startswith("carousel "):
             return carousel(tok.split(" ", 1)[1])
         if tok == "phone":
