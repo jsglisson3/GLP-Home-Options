@@ -3,12 +3,12 @@
 
 Run:   python3 tools/safety-test.py        It must print  FAILS 0.
 It serves this folder on a throwaway port and opens every page in a phone-sized Chromium (touch on, outside requests blocked):
-  1. normal:            the script runs, the page keeps its "js" class, window.__glpReady is true, sections below the screen start hidden;
+  1. normal:            the script runs, the page keeps its "js" class, window.__glpReady is true, and nothing is hidden (Checkpoint 47 removed the scroll fade);
   2. script missing:    js/site.js fails to load  -> the "js" class is dropped at once and every section is visible;
   3. script crashes:    js/site.js throws on its first line -> after the 6 s safety timer in the head every section is visible;
   4. guard crashes:     history.scrollRestoration throws (the start-at-top guard fails) -> the rest of the script still runs
                         (menu button works, __glpReady is true);
-  5. Contact page:      its heading block is plain; the Call and Text tiles and the form card fade in from the stylesheet alone;
+  5. Contact page:      its heading block is plain; the Call and Text tiles and the form card are visible at once, with no fade (Checkpoint 47);
   6. form script:       js/form.js missing or crashing -> the form gives way to the call/text/email card (at once, or after the 6 s timer).
 """
 import functools, http.server, pathlib, socketserver, threading
@@ -54,7 +54,8 @@ with sync_playwright() as p:
         hidden = pg.evaluate(HIDDEN)
         check(f"{page}: normal load keeps the script's features (ready flag set, js class kept)", ready and pg.evaluate(JS_CLASS), (ready, pg.evaluate(JS_CLASS)))
         if page not in ("privacy-policy.html", "terms-of-service.html", "404.html"):
-            check(f"{page}: sections below the screen still wait to scroll into view", hidden > 0, hidden)
+            # Checkpoint 47 removed the fade-in on scroll (Jeremy, Oct 27: simplify), so a normal load now hides nothing at all
+            check(f"{page}: normal load hides nothing (no section waits to scroll into view)", hidden == 0, hidden)
         ctx.close()
 
         # 2. script missing: the js class goes at once, everything shows
@@ -86,8 +87,9 @@ with sync_playwright() as p:
     top = pg.evaluate("(() => { const e = document.querySelector('.contact-top'); return [e.className, getComputedStyle(e).opacity]; })()")
     check("Contact: the heading block is plain (no fade), so it paints with the page", top[0] == "contact-top" and top[1] == "1", top)
     vis = pg.evaluate("""() => ['.reach-item.rv:nth-child(1)', '.reach-item.rv:nth-child(2)', '.form-card'].map(s => {
-        const e = document.querySelector(s); return [s, e.classList.contains('in'), getComputedStyle(e).animationName]; })""")
-    check("Contact: Call tile, Text tile and form card fade in from the stylesheet alone", all(v[1] and v[2] == "reveal" for v in vis), vis)
+        const e = document.querySelector(s); return [s, getComputedStyle(e).opacity, getComputedStyle(e).animationName]; })""")
+    # Checkpoint 47: no fade at all; the tiles and the form card are fully visible from the first paint, script or not
+    check("Contact: Call tile, Text tile and form card are visible at once, with no fade", all(v[1] == "1" and v[2] == "none" for v in vis), vis)
     ctx.close()
 
     # 6. the form's own script (js/form.js) fails: the visitor must never be left with a form that cannot send, so the call/text/email card takes its place

@@ -24,6 +24,7 @@ Tokens you can use inside tools/pages/*.html
   [[faq home]] [[faq options]] ...           FAQ list (also feeds the FAQPage structured data, so they can never drift apart)
   [[cta options]] ...                        the closing call-to-action band
   [[gallery building]] [[gallery closed]]    a photo grid from tools/gallery_data.py (the Our work page)
+  [[carousel renovating]]                     a sideways photo strip from the same photos (Home, Checkpoint 47)
   [[contact home]] [[contact page]]          the contact section (reach tiles, next steps, form)
 """
 import html
@@ -74,7 +75,7 @@ BOOK = "https://links.voiseai.com/widget/booking/cM59fR3vJlAVRy08Depz"
 # form services and Zapier-style catch-hooks expect). Both go straight out with no permission check first, so the receiving end only has to allow this site (CORS).
 FORM_ENDPOINT = ""
 FORM_FORMAT = "json"
-CSS_V, JS_V = 49, 25
+CSS_V, JS_V = 51, 26
 HERO_SET = ' imagesrcset="images/joey-ethan-bridge.jpg 800w, images/joey-ethan-bridge-1200.jpg 1200w, images/joey-ethan-bridge-2x.jpg 1600w" imagesizes="(max-width:980px) 90vw, 460px"'
 # The construction business may get its own site. When it does, point this one link at it (header, footer, menu and
 # the "Now building" teasers all follow).
@@ -410,6 +411,24 @@ def gallery(group):
     return f'<ul class="work-grid{rows}" data-stagger>\n' + "\n".join(out) + "\n      </ul>"
 
 
+def carousel(group):
+    """A sideways photo strip for one group in tools/gallery_data.py (Home, Checkpoint 47; Jeremy, Oct 27: "don't be afraid to add a carousel").
+    The same photos, alt text and captions as the Our work page, so nothing new is claimed. It never moves by itself: a visitor swipes it on a
+    phone, or uses the Previous/Next buttons or the arrow keys on a computer. With no JavaScript the strip still scrolls sideways; the buttons
+    (added by js/site.js) stay hidden. Photos keep their own shape (no cropping): each one is as tall as the strip and as wide as it needs."""
+    items = [g for g in GAL.GALLERY if g["group"] == group]
+    if not items:
+        sys.exit(f"carousel '{group}': no photos in tools/gallery_data.py")
+    out = []
+    for g in items:
+        w, h = image_size(g["img"])
+        out.append(
+            f'          <li class="car-slide"><figure><img src="{g["img"]}" alt="{html.escape(g["alt"], quote=True)}" '
+            f'width="{w}" height="{h}" loading="lazy" decoding="async"><figcaption>{html.escape(g["caption"])}</figcaption></figure></li>')
+    return (f'<div class="car-track" id="car-{group}" role="region" aria-label="Photos from our job sites ({len(items)} photos, scroll sideways for more)" tabindex="0">\n'
+            f'        <ul class="car-list">\n' + "\n".join(out) + '\n        </ul>\n      </div>')
+
+
 def fb_button():
     return (f'<a class="fb-btn" href="{FB}" target="_blank" rel="noopener">{ICON("fb-logo", "fb-logo")}'
             f'<span><b>Follow us on Facebook</b><small>Recent closings and builds</small>{NEWTAB}</span></a>')
@@ -529,12 +548,11 @@ def proof_block(pg):
         return ""
     if nums:
         rating, count, month = nums
-        eyebrow = "What homeowners say"
         h2 = f'{rating:.1f} on Google, <span class="ital">from {count} review{"" if count == 1 else "s"}.</span>'
         lede = (f'As of {month}. <a href="{html.escape(REV.GOOGLE_PROFILE_URL, quote=True)}" target="_blank" rel="noopener">'
                 f'Read every review on Google{NEWTAB}</a>.')
     else:
-        eyebrow, h2, lede = "In their own words", 'Notes from <span class="ital">homeowners we helped.</span>', "Shared with the writers\u2019 permission."
+        h2, lede = 'Notes from <span class="ital">homeowners we helped.</span>', "Shared with the writers\u2019 permission."
     label = {"Google": "Google", "Facebook": "Facebook", "Direct": "Sent to us"}
     cards = []
     for q in quotes:
@@ -555,7 +573,6 @@ def proof_block(pg):
     return f'''  <section class="sec sec-slim" id="reviews" aria-labelledby="reviews-h">
     <div class="wrap">
       <div class="head center rv">
-        <span class="eyebrow">{eyebrow}</span>
         <h2 id="reviews-h">{h2}</h2>
         <p class="lede">{lede}</p>
       </div>
@@ -573,19 +590,18 @@ def faq_list(pg, key):
 
 
 def cta_band(pg, key):
-    eyebrow, h2, lede = CTAS[key]
+    _label, h2, lede = CTAS[key]   # the first value was the small label above the heading (removed at Checkpoint 47)
     label = CTA_LABEL.get(key, "Get my options")
     topic = CTA_TOPIC.get(key)   # the form opens with this choice already made
     return f'''<section class="cta-band" aria-labelledby="cta-h">
     <div class="cta-bg" aria-hidden="true"><canvas class="topo" data-tone="light"></canvas></div>
     <div class="wrap cta-grid">
       <div class="cta-copy rv">
-        <span class="eyebrow on-dark">{eyebrow}</span>
         <h2 id="cta-h">{h2}</h2>
         <p class="lede">{lede}</p>
       </div>
       <div class="cta-actions rv" data-d="1">
-        <a class="btn btn-light btn-lg" href="{contact_href(pg, topic)}"{f' data-topic="{topic}"' if topic else ""}>{label}{ICON("arrow")}</a>
+        <a class="btn btn-light btn-lg" href="{contact_href(pg, topic)}"{f' data-topic="{topic}"' if topic else ""}>{label}</a>
         <a class="btn btn-outline-light btn-lg" href="{PHONE_TEL}">{ICON("phone")}<span class="bl">Call or text {PHONE}</span></a>
         <p class="cta-note">No obligation, no spam. Your information is kept confidential.</p>
       </div>
@@ -604,10 +620,8 @@ def ask_people():
 def reach(page=False, part="main"):
     """The tiles for the other ways to reach us, in two groups: "main" is Call and Text (they sit right under the heading, because the heading and the first
     line say "call or text"), "more" is Email, Book a call and Facebook (they follow the form, or sit under the first group in the wide layout)."""
-    # On the Contact page the heading block (see contact_section) is plain, with no fade, so the first paragraph counts as painted
-    # the moment the page paints (a fading block counts only when its fade ends). The Call and Text tiles are on the first screen too:
-    # they are marked "in" (with the same stagger value the script would set) and fade in from the stylesheet alone instead of waiting
-    # for site.js. Elsewhere the script reveals the tiles on scroll.
+    # Since Checkpoint 47 nothing fades in (the .rv / "in" classes are kept only as harmless hooks), so every tile paints with the page.
+    # Before that, the Contact page's Call and Text tiles were marked "in" so they faded in from the stylesheet alone, without waiting for site.js.
     def tile(i):
         return f'class="reach-item rv in" style="--d:{i}"' if page and i < 2 else 'class="reach-item rv"'
     if part == "main":
@@ -716,7 +730,7 @@ def lead_form(pg, page=False):
               </div>
             </fieldset>
             <div class="lf-go">
-              <button class="btn btn-primary btn-lg lf-send" type="submit"><span class="lf-send-t">{send_label}</span>{ICON("arrow")}</button>
+              <button class="btn btn-primary btn-lg lf-send" type="submit"><span class="lf-send-t">{send_label}</span></button>
               <p class="lf-status vh" id="lf-status" role="status" aria-live="polite"></p>
               <p class="lf-note">No obligation, no spam. Your information is kept confidential.</p>
               <p class="lf-legal"><a href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy{NEWTAB}</a><span class="dot" aria-hidden="true"> · </span><a href="terms-of-service.html" target="_blank" rel="noopener">Terms of Service{NEWTAB}</a></p>
@@ -768,17 +782,25 @@ def lead_form(pg, page=False):
 def contact_section(pg, page=False):
     if page:
         top = f'''{crumbs(pg)}
-          <span class="eyebrow on-dark">Contact</span>
           <h1 id="contact-h">Let's talk about your home. <span class="ital">No pressure, no scripts.</span></h1>'''
     else:
-        top = '''<span class="eyebrow on-dark">Let's start a conversation</span>
-          <h2 id="contact-h">Want to talk it through? <span class="ital">Call or text Joey or Ethan.</span></h2>'''
+        top = '''<h2 id="contact-h">Want to talk it through? <span class="ital">Call or text Joey or Ethan.</span></h2>'''
     # On the Contact page the H1 sits directly above these two headings, so they are H2s there
     # (looks identical: the .h3 class carries the H3 styling). On the home page the section title is an H2, so H3 is right.
     hx = "h2" if page else "h3"
     # The order here is the reading order AND the tab order: heading, Call and Text (the heading and the first line say "call or text"), the form, then
     # Email, Book a call and Facebook, then what happens next. On a phone that is one column, so the form follows the two tiles at once instead of a full
     # screen of them; from 60em up the stylesheet puts the form in the right-hand column and the tiles and steps in the left.
+    # Checkpoint 47: on Home the three steps already appear higher up (How it works), so phones skip this list there (.next-home); on wide screens
+    # it stays beside the form so the left column does not end halfway down it
+    next_steps = f'''      <div class="next{"" if page else " next-home"} rv">
+        <{hx} class="h3">What happens next?</{hx}>
+        <ol>
+          <li><span class="num" aria-hidden="true">1</span>We talk through your situation.</li>
+          <li><span class="num" aria-hidden="true">2</span>We go over your options together.</li>
+          <li><span class="num" aria-hidden="true">3</span>You decide what's best for you.</li>
+        </ol>
+      </div>'''
     return f'''<section class="contact{" contact-page" if page else ""}" id="contact" aria-labelledby="contact-h">
     <div class="contact-bg" aria-hidden="true"><canvas class="topo" data-tone="light"></canvas></div>
     <div class="wrap contact-grid">
@@ -793,14 +815,7 @@ def contact_section(pg, page=False):
 
       {reach(page, "more")}
 
-      <div class="next rv">
-        <{hx} class="h3">What happens next?</{hx}>
-        <ol>
-          <li><span class="num" aria-hidden="true">1</span>We talk through your situation.</li>
-          <li><span class="num" aria-hidden="true">2</span>We go over your options together.</li>
-          <li><span class="num" aria-hidden="true">3</span>You decide what's best for you.</li>
-        </ol>
-      </div>
+{next_steps}
     </div>
   </section>'''
 
@@ -832,6 +847,8 @@ def expand(pg, text):
             return cta_band(pg, tok.split(" ", 1)[1])
         if tok.startswith("gallery "):
             return gallery(tok.split(" ", 1)[1])
+        if tok.startswith("carousel "):
+            return carousel(tok.split(" ", 1)[1])
         if tok == "phone":
             return PHONE
         if tok == "tel":
@@ -982,7 +999,6 @@ def legal_main(d):
     body = "\n".join("        <h2>{}</h2>\n".format(h) + "\n".join("        " + p for p in ps) for h, ps in d["sections"])
     return f'''  <section class="doc-hero">
     <div class="wrap">
-      <span class="eyebrow">Legal</span>
       <h1>{d['title']}</h1>
       <p class="lede">{d['lede']}</p>
     </div>

@@ -45,14 +45,17 @@ p{margin:0}
 a{color:inherit}
 b,strong{font-weight:700}
 .ital{font-family:var(--f-serif);font-style:italic;font-weight:500;letter-spacing:-.015em;color:var(--green-600);font-size:1.04em}
-h1 .ital,h2 .ital{display:block}
+h1 .ital{display:block}
+/* Checkpoint 47 (simplify): the italic accent is each page's one bold gesture, so it lives in the main title only; in section headings it reads as part of one plain sentence */
+h2 .ital.ital{display:block;font:inherit;letter-spacing:inherit;color:inherit}
+h3 .ital.ital{font:inherit;letter-spacing:inherit;color:inherit}
 .h1 .dot{margin-left:-.07em}
 .lede{font-size:1.06rem;font-size:clamp(1.06rem,1.4vw,1.2rem);line-height:1.65;color:var(--text);max-width:62ch}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
 .nb{white-space:nowrap}
 .nb.ph{display:inline-block;max-width:100%;white-space:normal}   /* the phone number: one piece that moves to the next line whole; only if even a full line is too narrow for it (a small phone with the text blown up) does it wrap, at its one space, rather than run off the screen */
 span.nb.ph{text-decoration:inherit}   /* an inline block does not pick up its parent link's underline by itself */
-/* A wrapper is a plain run of text, whatever rule styles the spans around it: `.opt-card .beats div span{display:block;font-size:.97rem}` and `.faq-card span{font-size:.9rem}` also reached a wrapper nested in such a span
+/* A wrapper is a plain run of text, whatever rule styles the spans around it: `.opt-card .beats div span{display:block;font-size:.97rem}` also reached a wrapper nested in such a span
    ("short-term" dropped onto its own line and shrank twice; the number in the FAQ card shrank). tools/nobreak-test.py (STYLE) fails if a wrapper is ever not inline, not the size of the text around it, or has its own margin or padding. */
 span.nb{display:inline!important;margin:0!important;padding:0!important;font-size:inherit!important;letter-spacing:inherit!important}
 span.nb.ph{display:inline-block!important}
@@ -68,15 +71,12 @@ main:focus{outline:none}
 .skip:focus{top:calc(12px + env(safe-area-inset-top,0px));transform:none;outline-color:#fff}
 
 .wrap{width:100%;max-width:var(--maxw);margin-left:auto;margin-right:auto;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-left:max(clamp(20px,4vw,48px),env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-right:max(clamp(20px,4vw,48px),env(safe-area-inset-right,0px))}
-.sec{position:relative;padding-top:76px;padding-bottom:76px;padding-block:clamp(76px,10vw,136px)}
+.sec{position:relative;padding-top:76px;padding-bottom:76px;padding-block:clamp(76px,8vw,112px)}
 .sec-cream{background:var(--cream-100)}
 .head{display:grid;gap:18px;max-width:780px;margin-bottom:40px;margin-bottom:clamp(40px,6vw,72px)}
 .head.center{max-width:980px;margin-left:auto;margin-right:auto;margin-inline:auto;text-align:center;justify-items:center}
-.eyebrow{display:inline-flex;align-items:center;gap:12px;font:800 .78rem/1 var(--f);letter-spacing:.16em;text-transform:uppercase;color:var(--green-700)}
-.eyebrow::before{content:"";width:30px;height:3px;border-radius:3px;background:var(--grad)}
-.eyebrow.on-dark{color:#e8f6ef}
-.contact .eyebrow.on-dark{color:#fff}
-.eyebrow.on-dark::before{background:linear-gradient(90deg,#fff,#9fc8b8)}
+/* Checkpoint 47: labels above headings were cut; the few left carry a fact (a dated closing, the net sheet's name, a status), so they read as a plain line, not a capital tag */
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font:700 .95rem/1.3 var(--f);color:var(--green-700)}
 
 /* ---------- Buttons ---------- */
 .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;border:1.5px solid transparent;font:700 1rem/1 var(--f);text-decoration:none;cursor:pointer;transition:transform .2s ease,box-shadow .25s ease,background .25s ease,border-color .25s ease,color .25s ease;-webkit-tap-highlight-color:transparent}
@@ -90,7 +90,6 @@ main:focus{outline:none}
 .btn-sm{min-height:46px;padding:0 22px;font-size:.95rem}
 .btn .i{width:1.15em;height:1.15em;transition:transform .25s ease}
 .btn .bl{text-align:center;line-height:1.25}   /* a label with the phone number in it (Checkpoint 36): one flex item, so "Call" and the number sit one space apart and, when the words wrap, the number stays whole (see .nb) */
-.btn:hover .i:last-child{transform:translateX(3px)}
 .cta-row{display:flex;flex-wrap:wrap;gap:14px}
 
 /* ---------- Header ---------- */
@@ -137,9 +136,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 @media (max-width:21.875em){.menu-btn{width:46px;padding:0;justify-content:center}.menu-btn span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}}
 
 /* ---------- Scroll reveal ---------- */
-@keyframes reveal{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
-.js .rv:not(.in){opacity:0}
-.js .rv.in{animation:reveal .85s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--d,0) * 90ms)}
+/* Checkpoint 47: no fade-in on scroll; content is simply there (the hero headline keeps the one entrance). The .rv class stays as a harmless hook. */
 
 /* ---------- Hero ---------- */
 .hero{position:relative;isolation:isolate;overflow:hidden;padding:34px 0 calc(var(--pull) + 80px);padding:clamp(34px,5vw,76px) 0 calc(var(--pull) + clamp(80px,9vw,130px))}
@@ -171,13 +168,13 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .gable .g3::after{content:"";position:absolute;top:0;right:0;bottom:0;left:0;inset:0;background:linear-gradient(180deg,rgba(26,50,61,0) 58%,rgba(26,50,61,.20) 100%);pointer-events:none}
 .gable-cap{position:absolute;right:11%;bottom:5.5%;display:grid;gap:2px;padding:10px 16px;border-radius:14px;background:#fff;box-shadow:var(--sh-2);text-align:left}
 .gable-cap b{font:800 .98rem/1.1 var(--f);color:var(--navy-800)}
-.gable-cap span{font:700 .68rem/1.2 var(--f);letter-spacing:.1em;text-transform:uppercase;color:var(--green-700)}
+.gable-cap span{font:700 .8rem/1.2 var(--f);color:var(--green-700)}
 
 /* ---------- Home hero: photo caption ----------
    The floating tags were removed (Jeremy, Oct 21): they sat on top of the photo and repeated what the numbers strip says. The photo carries one quiet name plate. */
 .hero .gable-cap{right:20px;bottom:28px;padding:9px 14px;border-radius:12px}
 .hero .gable-cap b{font-size:.95rem}
-.hero .gable-cap span{font-size:.64rem}
+.hero .gable-cap span{font-size:.8rem}
 
 /* staging: a still pool of light behind the photo lifts it off the cream */
 .hero .hero-visual::before{content:"";position:absolute;z-index:-1;top:-8%;right:-16%;bottom:-4%;left:-16%;inset:-8% -16% -4%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.9),rgba(255,255,255,.5) 48%,rgba(255,255,255,0) 74%);pointer-events:none}
@@ -215,7 +212,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 @media (min-width:61.3125em) and (max-width:68.75em){
   .hero .gable-cap{right:14px;padding:7px 11px}
   .hero .gable-cap b{font-size:.86rem}
-  .hero .gable-cap span{font-size:.58rem;letter-spacing:.08em}
+  .hero .gable-cap span{font-size:.7rem}
 }
 
 /* phones: Joey and Ethan's faces in the very first screen (the photo itself sits below the fold) */
@@ -236,7 +233,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 /* ---------- Situations ---------- */
 .after-hero{position:relative;display:flow-root;background:var(--cream-100)}
 .situ{text-align:center;padding-top:28px;padding-top:clamp(28px,3.4vw,44px);padding-bottom:48px;padding-bottom:clamp(48px,6vw,80px)}
-.situ-label{margin-bottom:20px;font:800 .78rem/1 var(--f);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.situ-label{margin-bottom:20px;font:700 .95rem/1.3 var(--f);color:var(--muted)}
 .situ-row{display:flex;flex-wrap:wrap;gap:6px 28px;justify-content:center;list-style:none;margin:0;padding:0}
 /* Checkpoint 36: plain text with a small green icon, no pill, border or shadow. They are a list of situations, not buttons (review N15: the pills looked tappable and were not). */
 .chip{display:inline-flex;align-items:center;gap:9px;padding:8px 0;font:650 .98rem/1.25 var(--f);color:var(--navy-700)}
@@ -255,13 +252,11 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .checks{display:grid;gap:12px;align-content:start;list-style:none;margin:0;padding:0}
 .checks li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;align-items:start;font-size:.98rem;line-height:1.5}
 .checks .i{width:24px;height:24px;padding:5px;border-radius:50%;background:var(--green-100);color:var(--green-700);stroke-width:3}
-.more{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:4px;font-weight:750;color:var(--green-700);text-decoration:none}
-.more .i{width:1.1em;height:1.1em;transition:transform .25s}
-.more:hover{text-decoration:underline;text-underline-offset:4px}
-.more:hover .i{transform:translateX(5px)}
-.also{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;gap:clamp(16px,2.4vw,28px);align-items:center;margin-top:24px;margin-top:clamp(24px,3vw,36px);padding:22px;padding:clamp(22px,3vw,32px);border-radius:var(--r-l);background:linear-gradient(135deg,var(--green-50),#fff);border:1.5px dashed var(--green-300)}
-.also h3{margin-bottom:6px}
-.also p{color:var(--text);max-width:64ch}
+.more{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:4px;font-weight:750;color:var(--green-700);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px}
+.more:hover{color:var(--green-800);text-decoration-thickness:2.5px}
+.paths-more{max-width:640px;margin:28px auto 0;margin-top:clamp(28px,4vw,40px);color:var(--text)}
+.paths-more a{display:inline-block;max-width:100%;font-weight:700;color:var(--green-700);text-underline-offset:4px}   /* moves to the next line whole; wraps inside only if a full line is too narrow (big text) */
+@media (min-width:61.3125em){.paths-more{max-width:64ch;text-align:center}}   /* the same step as the three cards (.paths) */
 @supports (grid-template-rows:subgrid){
   @media (min-width:61.3125em){
     .paths{grid-template-rows:auto auto auto 1fr auto;row-gap:0}
@@ -272,7 +267,6 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
   .paths{grid-template-columns:minmax(0,1fr);max-width:640px;margin-left:auto;margin-right:auto;margin-inline:auto}
   .path:hover{transform:none}
 }
-@media (max-width:45em){.also{grid-template-columns:minmax(0,1fr);justify-items:start}}
 
 /* ---------- Story ---------- */
 .story{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:40px;gap:clamp(40px,6vw,92px);align-items:start}
@@ -280,7 +274,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .story-photo img{position:relative;display:block;width:100%;aspect-ratio:800/897;object-fit:cover;border-radius:var(--r-l);box-shadow:var(--sh-3)}
 .plate{position:absolute;top:20px;right:-20px;bottom:-20px;left:20px;inset:20px -20px -20px 20px;border-radius:var(--r-l);background:var(--grad);transform:rotate(2.5deg);opacity:.92}
 @media (max-width:56.25em){.plate{top:16px;right:-8px;bottom:-16px;left:8px;inset:16px -8px -16px 8px;transform:rotate(1.8deg)}.stamp{left:-6px}}
-.stamp{position:absolute;left:-14px;top:26px;display:inline-flex;align-items:center;gap:9px;padding:11px 17px;border-radius:14px;background:#fff;color:var(--navy-800);font:800 .76rem/1 var(--f);letter-spacing:.09em;text-transform:uppercase;box-shadow:var(--sh-2)}
+.stamp{position:absolute;left:-14px;top:26px;display:inline-flex;align-items:center;gap:9px;padding:11px 17px;border-radius:14px;background:#fff;color:var(--navy-800);font:700 .85rem/1.25 var(--f);box-shadow:var(--sh-2)}
 .stamp .i{color:var(--green-600)}
 .story-copy{display:grid;gap:22px;gap:clamp(22px,3vw,32px)}
 .story-copy .head{margin-bottom:0}
@@ -291,7 +285,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .pull{position:relative;margin:0;padding:26px 30px 26px 36px;border-radius:var(--r-m);background:#fff;border:1px solid var(--line);box-shadow:var(--sh-1)}
 .pull::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:5px;border-radius:0 5px 5px 0;background:var(--grad)}
 .pull p{font:italic 500 1.22rem/1.38 var(--f-serif);font:italic 500 clamp(1.22rem,2.1vw,1.55rem)/1.38 var(--f-serif);letter-spacing:-.01em;color:var(--navy-800)}
-.pull cite{display:block;margin-top:14px;font:800 .76rem/1 var(--f);letter-spacing:.12em;text-transform:uppercase;font-style:normal;color:var(--green-700)}
+.pull cite{display:block;margin-top:14px;font:700 .9rem/1.3 var(--f);font-style:normal;color:var(--green-700)}
 @media (max-width:56.25em){.story{grid-template-columns:minmax(0,1fr)}.story-photo{position:relative;top:0;max-width:440px}}
 
 /* ---------- How it works ---------- */
@@ -339,7 +333,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
   .cmp tbody tr{border-bottom:1px solid var(--line);padding:4px 0 10px}
   .cmp tbody tr:last-child{border-bottom:0}
   .cmp th,.cmp td{border-bottom:0}
-  .cmp tbody th{width:auto;padding:16px 20px 6px;font:800 .78rem/1.2 var(--f);letter-spacing:.12em;text-transform:uppercase;color:var(--green-700)}
+  .cmp tbody th{width:auto;padding:16px 20px 6px;font:750 1rem/1.25 var(--f);color:var(--navy-800)}   /* the row's subject, so it reads as a small heading above the two labelled answers */
   .cmp td{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:8px 20px}
   .cmp td::before{content:attr(data-label);font:700 .76rem/1.6 var(--f);color:var(--muted)}
   .cmp td.us{background:var(--green-50);margin:2px 12px;padding:10px 8px;border-radius:12px}
@@ -352,9 +346,9 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .panel{min-width:0;padding:22px;padding:clamp(22px,3vw,36px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-1)}
 .panel h3{margin-bottom:6px}
 .panel .sub{margin-bottom:22px;font-size:.95rem;color:var(--muted)}
-.example-tag{display:inline-block;margin-left:8px;padding:6px 10px;border-radius:7px;background:var(--green-100);color:var(--green-800);font:800 .68rem/1 var(--f);letter-spacing:.1em;text-transform:uppercase;vertical-align:middle}
+.example-tag{display:inline-block;margin-left:8px;padding:6px 10px;border-radius:7px;background:var(--green-100);color:var(--green-800);font:700 .8rem/1.25 var(--f);vertical-align:middle}
 .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.fieldset-label{grid-column:1/-1;margin-top:8px;padding-top:18px;border-top:1px solid var(--line);font:800 .74rem/1 var(--f);letter-spacing:.14em;text-transform:uppercase;color:var(--green-700)}
+.fieldset-label{grid-column:1/-1;margin-top:8px;padding-top:18px;border-top:1px solid var(--line);font:700 .85rem/1.25 var(--f);color:var(--green-700)}
 .fieldset-label:first-child{margin-top:0;padding-top:0;border-top:0}
 .field{display:grid;gap:7px;align-content:start}
 .field.full{grid-column:1/-1}
@@ -422,9 +416,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .pano{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr);align-items:end;min-height:420px;min-height:clamp(420px,46vw,560px);padding-top:48px;padding-bottom:48px;padding-block:clamp(48px,6vw,84px);color:#fff;background:var(--navy-700)}
 .pano>img{position:absolute;left:0;top:-6%;width:100%;height:112%;object-fit:cover;object-position:62% 45%;z-index:-2}
 .pano::before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(33,57,69,.95) 0%,rgba(40,66,79,.84) 42%,rgba(45,72,85,.08) 78%),linear-gradient(0deg,rgba(35,57,72,.55),rgba(35,57,72,0) 50%)}
-.pano .eyebrow.on-dark{color:#e8f6ef}
 .pano h2{color:#fff;max-width:15ch;font-size:2.1rem;font-size:clamp(2.1rem,4.8vw,3.8rem);margin:16px 0}
-.pano .ital{color:#c4ecda}
 .pano .lede{color:rgba(255,255,255,.94);max-width:42ch}
 @media (max-width:43.75em){
   .pano{min-height:520px}
@@ -445,7 +437,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .founder:hover img{transform:scale(1.04)}
 .founder figcaption{position:absolute;left:12px;right:12px;bottom:12px;display:grid;gap:3px;padding:14px 18px;border-radius:16px;background:rgba(255,255,255,.93);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .founder figcaption b{font:800 1.2rem/1.1 var(--f);letter-spacing:-.02em;color:var(--navy-800)}
-.founder figcaption span{font:800 .68rem/1.2 var(--f);letter-spacing:.12em;text-transform:uppercase;color:var(--green-700)}
+.founder figcaption span{font:700 .8rem/1.2 var(--f);color:var(--green-700)}
 .about-side{position:sticky;top:112px;display:grid;gap:22px;gap:clamp(22px,3vw,34px)}
 @media (max-width:56.25em){.about{grid-template-columns:minmax(0,1fr)}.about-side{position:static;max-width:560px;margin-left:auto;margin-right:auto;margin-inline:auto;width:100%}}
 
@@ -454,11 +446,11 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .build-copy{display:grid;gap:22px;gap:clamp(22px,3vw,30px)}
 .build-copy .head{margin-bottom:0}
 .spec{display:grid;gap:18px;padding:22px;padding:clamp(22px,3vw,30px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-1)}
-.spec-tag{display:inline-flex;align-items:center;gap:11px;font:800 .78rem/1 var(--f);letter-spacing:.14em;text-transform:uppercase;color:var(--green-700)}
+.spec-tag{display:inline-flex;align-items:center;gap:11px;font:700 .88rem/1.25 var(--f);color:var(--green-700)}
 .spec-grid{display:flex;flex-wrap:wrap;gap:14px 18px;gap:14px clamp(18px,3vw,34px);margin:0}
 .spec-grid div{display:grid;gap:5px}
 .spec-grid dd{order:-1;margin:0;font:800 1.6rem/1 var(--f);font:800 clamp(1.6rem,3vw,2.2rem)/1 var(--f);letter-spacing:-.035em;color:var(--navy-700);white-space:nowrap}
-.spec-grid dt{font:800 .7rem/1 var(--f);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.spec-grid dt{font:700 .8rem/1.25 var(--f);color:var(--muted)}
 .spec p{font-size:.97rem}
 @media (max-width:32.5em){.spec-grid{display:flex;flex-wrap:wrap;gap:14px 18px}.spec-grid div{flex:1 1 calc(50% - 9px)}.spec-grid dd{font-size:min(1.6rem,25.6px,calc((100vw - 104px)/10))}}
 /* Home "now building" card (Checkpoint 29). In the narrower column beside the photos (901 to 1199px) the four numbers used to run under the photos; now they form a tidy 2 x 2 block that wraps with bigger text. From 1200px up they sit in one row as before. */
@@ -476,12 +468,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 /* ---------- FAQ ---------- */
 .faq-grid{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.3fr);gap:36px;gap:clamp(36px,6vw,96px);align-items:start}
 .faq-side{position:sticky;top:112px;display:grid;gap:18px}
-.faq-card{display:grid;gap:10px;margin-top:8px}
-.faq-card a{display:flex;align-items:center;gap:14px;min-height:60px;padding:12px 18px;border-radius:18px;background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--text);transition:border-color .2s,box-shadow .2s,transform .2s}
-.faq-card a:hover{border-color:var(--green-400);box-shadow:var(--sh-1);transform:translateY(-2px)}
-.faq-card .i{width:40px;height:40px;padding:10px;border-radius:13px;background:var(--grad);color:#fff}
-.faq-card span{display:grid;line-height:1.35;font-size:.9rem}
-.faq-card b{font-size:1.02rem;color:var(--ink);overflow-wrap:anywhere}
+.faq-side .lede a{font-weight:750;color:var(--green-700);text-underline-offset:4px}
 .faq{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
 .faq details{background:#fff;border:1px solid var(--line);border-radius:var(--r-m);transition:border-color .25s,box-shadow .25s}
 .faq details:hover{border-color:var(--green-300)}
@@ -503,7 +490,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 /* The page order is: heading, Call and Text, the form, Email / Book / Facebook, what happens next (Checkpoint 46). One column on a phone, so the form follows
    the two tiles at once. From 60em up the form takes the right-hand column and runs down beside the four other parts. */
 .contact-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr);align-items:start}
-.contact-top .eyebrow{margin-bottom:18px}
+.contact-top .crumbs{margin-bottom:22px}
 @media (min-width:60.0625em){
   .contact-grid{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);grid-template-rows:auto auto auto 1fr;column-gap:36px;column-gap:clamp(36px,6vw,88px)}
   .contact-top{grid-column:1;grid-row:1}
@@ -512,13 +499,14 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
   .reach-more{grid-column:1;grid-row:3}
   .next{grid-column:1;grid-row:4}
 }
+@media (max-width:60em){.next-home{display:none}}   /* Checkpoint 47: on Home it repeats How it works, so phones skip it; beside the form on wide screens it keeps the column from ending early */
 .reach{display:grid;gap:12px;margin-top:26px;margin-top:clamp(26px,3vw,36px)}
 @media (min-width:60.0625em){.reach-more{margin-top:12px}}   /* beside the form the two groups of tiles read as one list */
 .reach-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;min-height:70px;padding:13px 16px;border-radius:20px;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.24);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;text-decoration:none;transition:background .25s,transform .25s,border-color .25s}
 .reach-item:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
 .reach-item .ico{display:grid;place-items:center;width:46px;height:46px;border-radius:15px;background:rgba(255,255,255,.18)}
 .reach-item .ico .i{width:22px;height:22px}
-.txt small{display:block;font:800 .7rem/1.3 var(--f);letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.txt small{display:block;font:700 .8rem/1.3 var(--f);color:rgba(255,255,255,.82)}
 .txt b{display:block;font:750 1.2rem/1.25 var(--f);letter-spacing:-.01em}
 .txt b.sm{font-size:1.04rem;overflow-wrap:anywhere}
 @media (max-width:27.5em){
@@ -651,7 +639,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .lf-lede{margin:0;max-width:46ch;color:var(--text)}
 .lf-lede a{color:var(--green-700);font-weight:700}
 .lf-msgbox{width:100%}
-.lf-msg-l{margin:0 0 6px;font:800 .76rem/1.2 var(--f);letter-spacing:.12em;text-transform:uppercase;color:var(--green-700)}
+.lf-msg-l{margin:0 0 6px;font:700 .85rem/1.2 var(--f);color:var(--green-700)}
 .lf-msg{margin:0;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--cream-100);color:var(--ink);font:500 .95rem/1.55 var(--f);white-space:pre-wrap;overflow-wrap:anywhere;-webkit-user-select:text;user-select:text}
 .lf-actions{display:grid;gap:12px;width:100%}
 .lf-actions .btn{width:100%}
@@ -676,7 +664,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .fb{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-weight:700;color:var(--green-700);text-decoration:none}
 .fb:hover{text-decoration:underline;text-underline-offset:4px}
 .ftr-col{display:grid;grid-template-columns:minmax(min-content,max-content);gap:2px;align-content:start;font-size:.96rem}
-.ftr-col h2{margin-bottom:10px;font:800 .76rem/1 var(--f);letter-spacing:.15em;text-transform:uppercase;color:var(--navy-700)}
+.ftr-col h2{margin-bottom:10px;font:750 1rem/1.25 var(--f);color:var(--navy-800)}
 .ftr-col a{display:inline-flex;align-items:center;width:fit-content;min-width:44px;min-height:36px;color:var(--text);text-decoration:none;transition:color .2s}
 .ftr-col a:hover{color:var(--green-700);text-decoration:underline;text-underline-offset:4px}
 .ftr-col span{padding:6px 0;color:var(--muted)}
@@ -709,7 +697,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 
 /* ---------- Legal pages ---------- */
 .doc-hero{position:relative;isolation:isolate;overflow:hidden;padding:48px 0 40px;padding:clamp(48px,7vw,96px) 0 clamp(40px,5vw,64px);background:linear-gradient(180deg,#fdfbf6,var(--cream))}
-.doc-hero h1{margin-top:18px;font-size:2.1rem;font-size:clamp(2.1rem,4.4vw,3.2rem)}
+.doc-hero h1{font-size:2.1rem;font-size:clamp(2.1rem,4.4vw,3.2rem)}
 .doc-hero .lede{margin-top:16px}
 .doc{padding-top:32px;padding-bottom:72px;padding-block:clamp(32px,5vw,64px) clamp(72px,9vw,120px)}
 .doc-card{max-width:860px;margin-left:auto;margin-right:auto;margin-inline:auto;padding:26px;padding:clamp(26px,5vw,56px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-2)}
@@ -761,7 +749,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 @media (max-width:61.25em){.phero-grid{grid-template-columns:minmax(0,1fr)}.phero-visual{max-width:480px;justify-self:start}.phero-about .phero-visual{justify-self:center}}
 .go-i{width:1.2em;height:1.2em;color:var(--green-700);transition:transform .25s}
 .jump{display:grid;gap:10px;padding:14px;border-radius:var(--r-l);background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid #fff;box-shadow:var(--sh-3)}
-.jump-label{padding:6px 8px 2px;font:800 .74rem/1 var(--f);letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.jump-label{padding:6px 8px 2px;font:700 .85rem/1.25 var(--f);color:var(--muted)}
 .jump a,.explore a{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;min-height:68px;padding:10px 16px 10px 10px;border-radius:18px;border:1px solid var(--line);background:#fff;text-decoration:none;color:var(--navy-800);transition:border-color .2s,transform .25s,box-shadow .25s}
 .jump a:hover{border-color:var(--green-400);transform:translateX(3px);box-shadow:var(--sh-1)}
 .jump a:hover .go-i,.explore a:hover .go-i{transform:translateX(4px)}
@@ -815,7 +803,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .why .head{margin-bottom:24px}
 .duo{display:grid;grid-template-columns:minmax(0,.9fr) auto minmax(0,1.1fr);gap:12px;gap:clamp(12px,2vw,22px);align-items:center}
 .duo-col{display:grid;gap:12px;align-content:start}
-.duo-label{font:800 .74rem/1.2 var(--f);letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.duo-label{font:700 .85rem/1.2 var(--f);color:var(--muted)}
 .duo-card{padding:15px 18px;border-radius:18px;border:1.5px dashed var(--navy-300);background:var(--cream-100);color:var(--navy-600);font-weight:750;line-height:1.3}
 .duo-card small{display:block;margin-top:3px;font-weight:500;font-size:.88rem;color:var(--muted)}
 .duo-card.us{border:1px solid var(--green-200);background:linear-gradient(135deg,var(--green-50),#fff);color:var(--navy-800);box-shadow:var(--sh-1)}
@@ -840,7 +828,7 @@ body:has(.hero,.phero,.doc-hero) .hdr:not(.scrolled){background:#fdfbf6}
 .case li{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);gap:18px;padding-bottom:26px}
 .case li:last-child{padding-bottom:0}
 .case li:not(:last-child)::before{content:"";position:absolute;left:21px;top:52px;bottom:6px;width:2px;border-radius:2px;background:linear-gradient(var(--green-300),var(--navy-200))}
-.case-label{display:block;margin:4px 0 6px;font:800 .72rem/1 var(--f);letter-spacing:.14em;text-transform:uppercase;color:var(--green-700)}
+.case-label{display:block;margin:4px 0 6px;font:700 .82rem/1.25 var(--f);color:var(--green-700)}
 .case p{font-size:1.02rem}
 .proofs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;gap:clamp(14px,2vw,24px);list-style:none;margin:0;padding:0}
 .proof{display:grid;gap:14px;align-content:start;justify-items:start;padding:22px;padding:clamp(22px,2.6vw,32px);background:#fff;border:1px solid var(--line);border-radius:var(--r-l);box-shadow:var(--sh-1)}
@@ -928,7 +916,6 @@ html.lb-open{overflow:hidden}
 
 /* ---------- Contact page ---------- */
 .contact-page{padding-top:26px;padding-top:clamp(26px,4vw,52px)}
-.contact-copy .crumbs{margin-bottom:6px}
 .contact .crumbs{color:rgba(255,255,255,.9)}
 .contact .crumbs a,.contact .crumbs [aria-current]{color:#fff}
 .contact .crumbs li+li::before{color:rgba(255,255,255,.65)}
@@ -942,11 +929,34 @@ html.lb-open{overflow:hidden}
 .cta-band{position:relative;isolation:isolate;overflow:hidden;padding-top:64px;padding-bottom:64px;padding-block:clamp(64px,8vw,104px);color:#fff;background:linear-gradient(135deg,#25404d 0%,#2b5155 50%,#336b59 100%)}
 .cta-bg{position:absolute;top:0;right:0;bottom:0;left:0;inset:0;z-index:-1}
 .cta-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:28px;gap:clamp(28px,5vw,72px);align-items:center}
-.cta-band .eyebrow.on-dark{color:#fff}
-.cta-band h2{margin:16px 0;color:#fff;font-size:1.9rem;font-size:clamp(1.9rem,3.8vw,3rem)}
-.cta-band .ital{color:#c4ecda}
+.cta-band h2{margin:0 0 16px;color:#fff;font-size:1.9rem;font-size:clamp(1.9rem,3.8vw,3rem)}
 .cta-band .lede{color:rgba(255,255,255,.96)}
 .cta-actions{display:grid;gap:12px}
+/* Photo strip on Home (Checkpoint 47; Jeremy, Oct 27: "don't be afraid to add a carousel"). The same photos as Our work. It never moves by itself:
+   swipe on a phone; Previous/Next (added by js/site.js) or the arrow keys on a computer. Photos keep their own shape: each is as tall as the strip.
+   The first photo lines up with the page's text column and the strip runs to the right edge, so the next photo peeks in as a hint to swipe. */
+.work-band{color:#fff;background:linear-gradient(135deg,#25404d 0%,#2b5155 50%,#336b59 100%);--car-pad:calc(max(0px,(100% - var(--maxw)) / 2) + max(clamp(20px,4vw,48px),env(safe-area-inset-left,0px)))}
+.work-band h2{color:#fff}
+.work-band .lede{color:rgba(255,255,255,.94)}
+.car-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 24px;margin-bottom:28px;margin-bottom:clamp(28px,3.4vw,40px)}
+.car-head .head{margin-bottom:0}
+.car-ctrl{display:flex;gap:12px}
+.car-ctrl[hidden]{display:none}
+.car-btn{display:grid;place-items:center;width:52px;height:52px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.12);color:#fff;cursor:pointer;transition:background .2s,border-color .2s,opacity .2s}
+.car-btn .i{width:22px;height:22px}
+.car-prev .i{transform:rotate(180deg)}
+.car-btn:hover{background:rgba(255,255,255,.24);border-color:#fff}
+.car-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.car-btn[aria-disabled="true"]{cursor:default;background:transparent;border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.42)}   /* dims the button, not its focus ring */
+.car-track{overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-left:var(--car-pad);scroll-padding-right:var(--car-pad);scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.45) transparent;padding-bottom:16px}
+.car-track:focus-visible{outline:3px solid #fff;outline-offset:-3px}
+.car-list{display:flex;gap:16px;width:max-content;margin:0;padding:0 var(--car-pad);list-style:none}
+.car-slide{flex:none;scroll-snap-align:start}
+.car-slide:last-child{scroll-snap-align:end}   /* the very end is a stopping point too, so Next always reaches it */
+.car-slide figure{width:min-content;margin:0}   /* as wide as its photo: a long caption wraps instead of widening the slide (big text) */
+.car-slide img{display:block;width:auto;max-width:none;height:240px;height:min(clamp(240px,28vw,340px),calc((100vw - 40px) * .74));border-radius:18px;background:rgba(255,255,255,.1)}
+.car-slide figcaption{margin-top:10px;font-size:.95rem;font-weight:600;color:rgba(255,255,255,.92)}
+.car-foot{margin-top:24px;margin-top:clamp(24px,3vw,36px)}
 .btn-light{background:#fff;color:var(--navy-800);box-shadow:0 12px 28px rgba(10,28,36,.28)}
 .btn-light:hover{background:var(--green-50)}
 .btn-outline-light{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.6)}
@@ -962,11 +972,10 @@ html.lb-open{overflow:hidden}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .js .rv:not(.in){opacity:1}
   .ridge path{transform:none!important}
 }
 
-@media print{.js .rv:not(.in){opacity:1!important}.hdr,.mobile-bar{display:none!important}}
+@media print{.hdr,.mobile-bar{display:none!important}}
 
 /* Print my numbers (Checkpoint 36). The button on the net sheet adds html.print-sheet just before it opens the print box, so only the net sheet goes to paper:
    the numbers typed in, the two sheets, the answer, one line to reach us. Nothing here depends on background colors (printers drop them by default), so the green answer box prints as dark text in a ruled box. */
@@ -1009,11 +1018,11 @@ html.lb-open{overflow:hidden}
   html.print-sheet .print-contact{margin:12pt 0 0;padding-top:8pt;border-top:.75pt solid #777;font-size:10.5pt;line-height:1.5;color:#111}
 }
 
-/* Phone legibility floor (Checkpoint 19): small capital labels and short notes no smaller than about 12px (.76 to .78rem); photo captions, compare-table labels and form hints no smaller than 13px (.82rem).
+/* Phone legibility floor (Checkpoint 19; Checkpoint 47 made the small labels sentence case and set their floor at .82rem): small labels, photo captions, compare-table labels and form hints no smaller than about 13px (.8 to .82rem).
    Phones only; desktop sizes are unchanged. The HOME OPTIONS line inside the logo is a lockup and keeps its size. */
 @media (max-width:43.75em){
-  .gable-cap span,.hero .gable-cap span{font-size:.76rem;letter-spacing:.07em}
-  .us-badge,.example-tag,.founder figcaption span,.spec-grid dt,.txt small,.case-label,.fieldset-label,.sheet h4 small,.jump-label,.duo-label,.stamp,.pull cite,.ftr-col h2{font-size:.78rem}
+  .gable-cap span,.hero .gable-cap span{font-size:.8rem}
+  .us-badge,.example-tag,.founder figcaption span,.spec-grid dt,.txt small,.sheet h4 small{font-size:.82rem}   /* only labels that are smaller than this on wide screens; the rest keep their own size */
   .hero-people small,.cmp td::before,.mosaic figcaption,.gallery figcaption,.work-item figcaption,.hint{font-size:.82rem}
   .eyebrow{line-height:1.3}   /* a label that wraps to two lines (New homes at 320px) no longer sits cramped */
 }

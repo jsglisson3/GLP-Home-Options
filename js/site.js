@@ -324,6 +324,32 @@
     var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(redraw, 150); });
   }
 
+  /* ---------- Photo strip (Home, Checkpoint 47): swipe on a phone; Previous/Next or the arrow keys on a computer. It never moves by itself. ----------
+     Without this script the strip still scrolls sideways and the buttons stay hidden. A button at the end of the strip is marked aria-disabled
+     (not disabled), so keyboard focus never jumps away from it. */
+  $$('[data-carousel]').forEach(function (car) {
+    var track = $('.car-track', car), ctrl = $('.car-ctrl', car), prev = $('.car-prev', car), next = $('.car-next', car);
+    if (!track || !ctrl || !prev || !next) return;
+    ctrl.hidden = false;
+    var atStart = function () { return track.scrollLeft <= 2; };
+    var atEnd = function () { return track.scrollLeft >= track.scrollWidth - track.clientWidth - 2; };
+    var sync = function () {
+      prev.setAttribute('aria-disabled', atStart() ? 'true' : 'false');
+      next.setAttribute('aria-disabled', atEnd() ? 'true' : 'false');
+    };
+    var step = function (dir) {
+      if (dir < 0 ? atStart() : atEnd()) return;
+      track.scrollBy({ left: dir * Math.max(240, track.clientWidth * 0.8), behavior: reduce ? 'auto' : 'smooth' });
+    };
+    prev.addEventListener('click', function () { step(-1); });
+    next.addEventListener('click', function () { step(1); });
+    var raf = 0;
+    track.addEventListener('scroll', function () { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, { passive: true });
+    window.addEventListener('resize', sync);
+    window.addEventListener('load', sync);
+    sync();
+  });
+
   /* The contact form is its own file, js/form.js (Checkpoint 46); only Home and Contact load it. */
 
   window.__glpReady = true;   // the page's own safety timer (in the head) checks this: if it is missing after 6 s, every section is shown

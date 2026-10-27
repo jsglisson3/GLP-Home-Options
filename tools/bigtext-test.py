@@ -76,9 +76,12 @@ JS = r"""() => {
   const over = document.documentElement.scrollWidth - vw;
   if (over > 0) probs.push('sideways scroll of ' + over + ' px');
   const past = [];
+  // content inside a sideways scroller (the Home photo carousel, Checkpoint 47) is meant to run past the edge: the scroller clips it, and the
+  // scroller's own box, and the page as a whole ("sideways scroll" above), are still checked
+  const inScroller = e => !!(e.parentElement && e.parentElement.closest('.car-track'));   // only the carousel: other scrollers (the compare table) must still fit
   document.querySelectorAll('body *').forEach(e => {
     const cs = getComputedStyle(e); if (cs.display === 'none' || cs.visibility === 'hidden') return;
-    if (e.closest(skipThese)) return;
+    if (e.closest(skipThese) || inScroller(e)) return;
     const r = e.getBoundingClientRect(); if (r.width === 0 || r.height === 0) return;
     if (r.right > vw + 1 || r.left < -1) past.push(label(e) + ' ' + Math.round(r.left) + '..' + Math.round(r.right));
   });

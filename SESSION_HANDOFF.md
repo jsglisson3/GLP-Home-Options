@@ -3,6 +3,20 @@
 <!-- morning:start -->
 ## Good morning, Jeremy. Read this first.
 
+**Update, Oct 26, about 11:15 PM: Checkpoint 47 is in your folder, tested, and waiting for you to commit it. The whole site was reviewed with the two UI/UX skills you installed and simplified, and Home has the photo carousel you asked for.** The review, with what changed and why: `research/site-review-2026-10-27.md`. In short:
+
+- **Calmer pages.** The small capital labels above headings are gone (six that carry a fact stay, in plain sentence case). The green italic line is in each page's main title only. Nothing fades in as you scroll. Buttons lost their arrows, and text links are underlined. The decorative icon squares on cards are gone. Every small label uses one plain style.
+- **Home repeats itself less.** The FAQ's own call and email box is gone (the FAQ intro now carries the phone number). "What happens next?" no longer shows on phones (it repeated How it works). There is one button under the option cards instead of three, and the closing story ends with one button.
+- **The carousel:** "Before, during and after." sits after How it works (not right after the closing story, so the photos never read as that house). It has the 8 renovation photos, with the same captions as Our work, and "See all our work". Visitors swipe it on a phone, or use the Previous and Next buttons or the arrow keys on a computer. It never moves by itself, and it still works with JavaScript off. Those 8 photos still wait for Joey to confirm they are his projects (CONTENT_CLAIMS row 43). They are now on the busiest page, so his answer matters more.
+- **Heights:** Home is 16,786 px on a phone (was 17,037; 16,073 without the 713 px carousel). Every other page is shorter.
+- **Checks:** the whole test suite passes, including the form (287 checks), the net sheet, accessibility (0 violations), big text and wide screens. Three tests were updated because they described the old fade-ins, or did not know about a sideways photo strip. Three fresh reviewers then checked the code, the screenshots and the rules, and a skeptic re-checked each finding. No rule was broken, and every finding was fixed.
+- **Not tested:** a real iPhone or Android swipe on the carousel, Safari and Firefox, and a screen reader.
+- **Two small things that were already there before this checkpoint (not changed, same on the old site):** at the most extreme text setting tested (page text at 200%), the footer runs about 33 px past the edge on a 1024 px tablet, and on a 320 px phone the full stop after "options" in the Home headline drops to its own line. The "Closed · September 2026" badge on the closing photo also wraps onto two lines at that size, as it did before. Ordinary phones and text sizes are fine. Worth a small fix later.
+- **Your call (nothing changed):** whether to drop the comparison table on Home (the net sheet below it makes the same point), and whether to fold New homes into Our work. I recommend keeping both.
+
+**What I need from you:** commit Checkpoint 47 with the message at the bottom (no AI trailers), then look at Home on your phone and swipe the carousel.
+
+
 **Update, Oct 26, about 11:10 AM: Checkpoint 46 is in your folder, tested, and waiting for you to commit it. The contact form is ours now, and every button that leads to it was rewritten. Read this first.** You asked at 8:03 AM for about three hours on the form and the buttons that refer to it, with the back end later. What you will see:
 
 - **GoHighLevel's frame is gone** from Home and Contact. A form built into the page, in the site's own look, takes its place: the question "Thinking about selling, or not sure yet?", four tap-to-choose topic buttons, **only name and phone required**, one fold for "email, your address, or a note", Joey's two text-message boxes with his wording exactly as it was (unticked, optional), and one big green button. No page loads anything from `links.voiseai.com` any more.
@@ -274,6 +288,16 @@ python3 -m http.server 8000                     # preview at http://localhost:80
 - **Our work photo groups:** photos of mixed shapes flow into columns; a group whose photos are all the same shape sits in rows (the builder decides). Seven same-shape Building photos leave one photo alone in the last row; a "More on Facebook" tile could fill it.
 
 ## Suggested commit messages (Jeremy)
+
+**Checkpoint 47 (whole-site simplify and the Home photo carousel), to commit:**
+
+A calmer, simpler site after a full UI/UX review, and a photo carousel on Home
+
+- Labels above headings removed (six that carry a fact stay, sentence case); the italic accent only in each page's main title; no fade-in on scroll; no arrows on buttons or text links (links underlined); decorative icon squares gone; one plain style for every small label
+- Home: the FAQ's call/email box and the repeated "What happens next?" (phones) are gone, one button under the option cards, one button after the closing story; FAQ intros carry the phone number
+- New: "Before, during and after." photo carousel on Home (the 8 renovation photos and captions from Our work; swipe, buttons or arrow keys; never moves by itself; works without JavaScript)
+- Wide-screen section spacing a little tighter; every page except Home is shorter
+- Review and reasons: research/site-review-2026-10-27.md; three tests updated for the removed fade-ins and the carousel's sideways strip; CSS v51, JS v26; notes and CHECKPOINT.json are #47
 
 **Checkpoint 46 (the contact form and the buttons that lead to it), to commit:**
 
