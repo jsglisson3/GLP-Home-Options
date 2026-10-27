@@ -3,6 +3,16 @@
 <!-- morning:start -->
 ## Good morning, Jeremy. Read this first.
 
+**Update, Oct 27, afternoon (after Checkpoint 49): Checkpoint 50 makes the cash sale the net sheet's selling point.** Your feedback on the live Checkpoint 49 (15:53 UTC): "this makes it seems like i shouldnt sell to joey and ethan .. make it seem like a selling point big dog". No number, default, sum or the name changed (those wait for Joey). What changed:
+
+- **The answer leads with the cash sale.** It reads: "On these numbers, selling to us puts $105,000 in your pocket in 7 to 14 days." Under that: "You might keep about $7,000 more by listing, but only if it sells for $300,000, needs no more than $8,000 of work and closes in about 2.5 months. About 4 more months on the market would wipe that out." When the cash sale keeps more or it's about even, the headline says so.
+- **"If you sell to us" is now the first sheet.** Under it is a "What you skip" list: showings, repairs and staging, months of bills, and waiting on a buyer's loan.
+- **Under the listing sheet, "What can shrink this number".** It prices each extra month (−$1,800) and each 1% off the price (−$2,745) from the visitor's own numbers. It also lists inspection repair requests and a buyer's loan falling through.
+- **The honest limit.** With the example figures, listing still keeps $7,000 more, because those figures are our guesses. The real fix is Joey's numbers: `research/net-sheet-proposal-for-joey.md` has a text to paste to him.
+- **Checks.** `tools/netsheet-test.py` passes, and it now reads the whole answer box. The rest of the suite passes too. The two new lists stay off the printed page, so it still fits on one page. Not tested: real phones, Safari, Firefox.
+- **Also in this checkpoint:** your yes at 16:23 UTC ("looks good merge everything") keeps the three Checkpoint 48 detail changes: the flat hero cream, the solid photo name plates and one dark teal.
+- **Commit message:** `Checkpoint 50: the net sheet leads with what selling to Joey and Ethan gives you`
+
 **Update, Oct 27, afternoon: Checkpoint 49 is two pieces of work merged on your word ("alighty guys lets merge our code", 15:33 UTC): the Home carousel redesign (your message at 13:16 UTC: "the carousel needs some love it looks trashy and just bolted on.. make this look classy") and the net sheet's new wording.** Before and after pictures of both were posted in their threads. In short:
 
 - **It belongs to the page now.** It sits on the same white as How it works, not on a dark band of its own, so it reads as "here is what that work looks like".
@@ -194,17 +204,17 @@
 His premium brief is the standard for design work. Checkpoint 48 is the result, built overnight; the report is `research/site-review-2026-10-27b.md`.
 
 **Start protocol.**
-1. Did he commit Checkpoint 48?
-   - If his computer is on, stage `.git/logs/HEAD` from his folder and read the newest lines. The newest commit seen so far is `b6d767e` (Checkpoint 47).
+1. Did he commit Checkpoint 50? **Checkpoint 48 is pushed as `195b454` and Checkpoint 49 as `99244e6`.** CP48 was checked against his `.git/index` (159 of 159 files match by hash), and the live pages show the seven new phone headlines and still say noindex.
+   - If his computer is on, stage `.git/logs/HEAD` from his folder and read the newest lines, or run `git ls-remote https://github.com/jsglisson3/GLP-Home-Options.git HEAD`.
    - If his folder does not match the latest checkpoint, compare by checksum (ignore line endings) before copying anything.
 2. Run `python3 tools/checkpoint.py`. It must be clean.
 3. After the push, look at the live site once, typing nothing:
-   - all pages link `css/site.css?v=52`;
+   - all pages link `css/site.css?v=54`;
    - the net sheet at 1440 px shows the three boxes in a row, the two results side by side and the green answer band;
    - nothing scrolls sideways at 390 or 1440 px.
 
 **Then, each is Jeremy's call:**
-1. **The three detail changes** in the report, section 2: flat hero cream, solid photo name plates, one dark teal. Undo any he does not like; each is a few lines in `css/site.css`.
+1. ~~**The three detail changes** (flat hero cream, solid photo name plates, one dark teal)~~ **Approved and kept:** Jeremy, 16:23 UTC Oct 27, "looks good merge everything".
 2. **The two Checkpoint 47 questions:** the Home comparison table, and New homes into Our work.
 3. **Real-device checks:** iPhone Safari, Android Chrome and Firefox.
 4. **If he wants more design work:**

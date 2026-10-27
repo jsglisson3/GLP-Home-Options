@@ -4,6 +4,8 @@ Jeremy, Oct 27, looking at the net sheet: "make this make sense for a potential 
 
 **What changed now (Checkpoint 49, no number changed):** the answer tells the trade instead of a loss. It says "About $7,000 more by listing, if all goes to plan", shows that the offer is $45,000 under the price but only $7,000 less in the pocket, and adds "Listing comes out ahead only if it sells for more than $292,350, $7,650 under your price." The cash column says why each cost is $0. See `CONTENT_CLAIMS.md` row 68.
 
+**Then Checkpoint 50 (same day; Jeremy: "make it seem like a selling point"):** the answer's headline now leads with the cash sale ("On these numbers, selling to us puts $105,000 in your pocket in 7 to 14 days"). The cash sheet comes first with "What you skip", and the listing sheet shows "What can shrink this number". See `CONTENT_CLAIMS.md` row 69. Listing still wins by $7,000 at these example figures, which is why the numbers below matter most. One more question for Joey: does he ever buy with a loan, or with a contingency that could hold up closing? The sheet now says "no buyer's loan to wait on".
+
 **What still needs Joey:** the figures themselves. They are our invented example (rows 6 and 38), and the project rule is that the net sheet's defaults, method and name don't change without him. These are the choices, best first.
 
 ## 1. One real recent deal as the example (already asked: question 24)

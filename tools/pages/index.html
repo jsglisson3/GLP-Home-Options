@@ -255,19 +255,6 @@
         <div class="panel results rv" aria-live="polite">
           <p class="check-note" id="check-note" hidden><b>Worth a second look.</b> <span id="check-text"></span></p>
           <div class="cols">
-            <div class="sheet">
-              <h4>If you list <small id="t-list">~2.5 mo</small></h4>
-              <dl>
-                <div><dt>Sale price</dt><dd id="r-price"></dd></div>
-                <div><dt>Mortgage owed</dt><dd id="r-payoff1"></dd></div>
-                <div><dt>Commission</dt><dd id="r-comm"></dd></div>
-                <div><dt>Closing costs</dt><dd id="r-close"></dd></div>
-                <div><dt>Repairs and prep</dt><dd id="r-repairs"></dd></div>
-                <div><dt>Cost of waiting</dt><dd id="r-carry"></dd></div>
-                <div class="total"><dt>You keep</dt><dd id="r-netlist"></dd></div>
-              </dl>
-              <p class="ns-when" id="when-list">If it sells for that price, in about 2.5 months</p>
-            </div>
             <div class="sheet sheet-us">
               <h4>If you sell to us <small>7–14 days</small></h4>
               <dl>
@@ -280,6 +267,37 @@
                 <div class="total"><dt>You keep</dt><dd id="r-netdirect"></dd></div>
               </dl>
               <p class="ns-when">In 7 to 14 days, on your schedule</p>
+              <div class="ns-risk ns-skip">
+                <p>What you skip</p>
+                <ul>
+                  <li><span>Showings and open houses (just one visit)</span></li>
+                  <li><span>Repairs, cleanup and staging</span></li>
+                  <li><span>Months of house payments and bills</span></li>
+                  <li><span>Waiting on a buyer&rsquo;s loan</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="sheet">
+              <h4>If you list <small id="t-list">~2.5 mo</small></h4>
+              <dl>
+                <div><dt>Sale price</dt><dd id="r-price"></dd></div>
+                <div><dt>Mortgage owed</dt><dd id="r-payoff1"></dd></div>
+                <div><dt>Commission</dt><dd id="r-comm"></dd></div>
+                <div><dt>Closing costs</dt><dd id="r-close"></dd></div>
+                <div><dt>Repairs and prep</dt><dd id="r-repairs"></dd></div>
+                <div><dt>Cost of waiting</dt><dd id="r-carry"></dd></div>
+                <div class="total"><dt>You keep</dt><dd id="r-netlist"></dd></div>
+              </dl>
+              <p class="ns-when" id="when-list">If it sells for that price, in about 2.5 months</p>
+              <div class="ns-risk">
+                <p>What can shrink this number</p>
+                <ul>
+                  <li><span>Each extra month on the market</span> <b id="r-permonth"></b></li>
+                  <li><span>Each 1% off the price</span> <b id="r-perpct"></b></li>
+                  <li><span>Repairs the buyer asks for after the inspection</span></li>
+                  <li><span>A buyer whose loan falls through, and starting over</span></li>
+                </ul>
+              </div>
             </div>
           </div>
           <div class="verdict">

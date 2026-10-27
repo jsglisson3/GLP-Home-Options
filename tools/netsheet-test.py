@@ -92,7 +92,8 @@ def fill_all(pg, c):
 
 def read(pg):
     return pg.evaluate("""()=>{const g=id=>document.getElementById(id);
-      return {list:g('r-netlist').textContent, direct:g('r-netdirect').textContent, verdict:g('verdict').textContent,
+      return {list:g('r-netlist').textContent, direct:g('r-netdirect').textContent, verdict:document.querySelector('.results .verdict').textContent.replace(/\s+/g,' ').trim(),   // the whole answer box (Checkpoint 50: the headline leads with the cash sale, the difference is in the line under it)
+              
               be:g('breakeven').textContent, beHidden:g('breakeven').hidden,
               beVisible:g('breakeven').getClientRects().length>0, beStrong:(g('breakeven').querySelector('strong')||{}).textContent||''}}""")
 
@@ -158,7 +159,7 @@ try:
             fill_all(pg, c2)
             r = read(pg)
             check(r['list'] == r['direct'], f'offer = break-even should tie: {c2} -> {r["list"]} vs {r["direct"]}')
-            check(r['verdict'].startswith('About the same'), f'offer = break-even should say about the same: {r["verdict"]!r}')
+            check(r['verdict'].startswith('About the same money'), f'offer = break-even should say about the same: {r["verdict"]!r}')
             fill_all(pg, dict(c, offer=int(round(be)) + 600))
             r = read(pg)
             check('selling direct' in r['verdict'] and '$600' in r['verdict'], f'$600 above break-even should favor selling direct by $600: {r["verdict"]!r} {c}')

@@ -207,17 +207,22 @@
       var mo = (Math.round(months * 10) / 10) + (Math.round(months * 10) === 10 ? ' month' : ' months'), wl = el('when-list');
       if (wl) wl.textContent = 'If it sells for ' + usd(price) + ', in about ' + mo;
       var diff = netList - netDirect, v = el('verdict'), s = el('verdict-sub'), off = price - offer;
+      // Checkpoint 50: the answer leads with what selling to us gives, then says plainly what listing might add and what it depends on. Same sums, same verdict.
       if (Math.abs(diff) < 500) {
-        v.innerHTML = 'About the <span>same</span> either way.';
+        v.innerHTML = 'About the <span>same</span> money, and selling to us is done in 7 to 14 days.';
         s.textContent = 'When the money is this close, speed, certainty, and skipping showings and repairs may decide it.';
       } else if (diff > 0) {
-        // Checkpoint 49: the same answer, told as the trade it is. Listing's extra money depends on the price, the repairs and the months all coming true.
-        v.innerHTML = 'About <span>' + usd(diff) + '</span> more by listing, if all goes to plan.';
-        s.textContent = 'The offer is ' + usd(off) + ' under the price, but only ' + usd(diff) + ' less in your pocket. And listing gets you that ' + usd(diff) + ' only if it sells for ' + usd(price) + (repairs > 0 ? ', needs no more than ' + usd(repairs) + ' of work' : '') + ' and closes in about ' + mo + '. Selling to us, it\u2019s ' + usd(netDirect) + ' in 7 to 14 days, as it is, with no showings.';
+        var wipe = carry > 0 ? Math.max(0.5, Math.round(diff / carry * 2) / 2) : 0;   // to the nearest half month
+        v.innerHTML = 'On these numbers, selling to us puts <span>' + usd(netDirect) + '</span> in your pocket in 7 to 14 days.';
+        s.textContent = 'You might keep about ' + usd(diff) + ' more by listing, but only if it sells for ' + usd(price) + (repairs > 0 ? ', needs no more than ' + usd(repairs) + ' of work' : '') + ' and closes in about ' + mo + '.' + (wipe > 0 ? ' About ' + wipe + ' more month' + (wipe === 1 ? '' : 's') + ' on the market would wipe that out.' : '') + ' Selling to us, there are no repairs, no showings and no buyer\u2019s loan to wait on.';
       } else {
-        v.innerHTML = 'You\u2019d keep about <span>' + usd(-diff) + '</span> more by selling direct.';
-        s.textContent = 'Once the commission, closing costs, repairs, and the cost of waiting come out, the direct offer leaves you ahead, and you close in 7 to 14 days.';
+        v.innerHTML = 'On these numbers, selling to us puts <span>' + usd(-diff) + ' more</span> in your pocket, in 7 to 14 days.';
+        s.textContent = 'Once the commission, closing costs, repairs, and the cost of waiting come out, selling direct leaves you ahead, and you close in 7 to 14 days.';
       }
+      // What can shrink the listing number (Checkpoint 50): one more month of the bills typed in, and 1% off the price after commission and closing costs
+      var pm = el('r-permonth'), pp = el('r-perpct');
+      if (pm) pm.textContent = neg(carry);
+      if (pp) pp.textContent = neg(price * 0.01 * (1 - comm - close));
       // Break-even (Checkpoint 36): the cash offer that leaves the same in your pocket as listing. Listing keeps price - payoff - costs; a direct sale keeps offer - payoff;
       // the mortgage cancels, so they are equal when offer = price - commission - closing costs - repairs - cost of waiting.
       var be = price - commAmt - closeAmt - repairs - carryAmt, bx = el('breakeven');
