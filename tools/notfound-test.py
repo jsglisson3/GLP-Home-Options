@@ -7,7 +7,7 @@ It starts a small server that behaves like GitHub Pages for a project site: file
 Then, for several missing addresses (shallow, deep, a missing folder, a mistyped page), in a real browser it checks:
   - the status is 404 and the page is the friendly one (title, headline, noindex, the way to the home page and the phone number);
   - the stylesheet, script, fonts, logo and icons all load from the right place (this is what breaks when links are relative);
-  - every link on it leads to a real page (status 200), including the five page links and the call, text and Facebook links being well formed;
+  - every link on it leads to a real page (status 200), including the five page links and the call, text, Facebook and Google profile links being well formed;
   - the header, the page and the phone bar look right (no sideways scroll at 320, 390, 768 and 1440 px, a visible headline, visible icons);
   - clicking "Go to the home page" really lands on the home page;
   - the page runs its script without errors and makes no failed requests.
@@ -16,6 +16,7 @@ If SITE in tools/build-pages.py changes to the real domain (BASE "/"), this test
 import functools, http.server, mimetypes, os, pathlib, re, threading
 from urllib.parse import unquote, urlsplit
 from playwright.sync_api import sync_playwright
+import reviews_data as REV  # the Google Business Profile link, the one other outside link the footer may carry
 import _site  # reads the builder's launch switch and gives SITE and BASE ("/GLP-Home-Options/" in preview, "/" when live)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -137,7 +138,7 @@ try:
                 check(re.fullmatch(r'(tel|sms):\+1423\d{7}|mailto:[^@\s]+@[^@\s]+', raw) is not None, f'contact link looks wrong: {raw}')
                 continue
             if raw.startswith('https://'):
-                check(raw.startswith('https://www.facebook.com/'), f'unexpected outside link {raw}')
+                check(raw.startswith('https://www.facebook.com/') or (REV.GOOGLE_PROFILE_URL and raw == REV.GOOGLE_PROFILE_URL), f'unexpected outside link {raw}')
                 continue
             u = urlsplit(absu)
             key = u.path

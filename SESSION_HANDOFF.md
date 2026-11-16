@@ -3,6 +3,14 @@
 <!-- morning:start -->
 ## Good morning, Jeremy. Read this first.
 
+**Update, Oct 28, evening: Checkpoint 51 links Joey's new Google Business Profile.** You forwarded his screenshot ("make sure and add this"). What changed:
+
+- **"See us on Google"** in the footer's Contact column on every page, a tile after "Find us on Facebook" on Contact and Home's contact section, and Home's FAQ answer "How do I know GLP is legit?" now ends "...on our work page, our Facebook page and our Google Business Profile."
+- **The link is a stand-in** until you send the profile's own share link: Google Maps' documented search link for "GLP Home Options". Paste the real one into `GOOGLE_PROFILE_URL` in `tools/reviews_data.py` and run `python3 tools/build-pages.py`. (The review-request link, Read reviews > Ask for reviews, goes in `GOOGLE_REVIEW_URL` and switches on the thank-you page.)
+- **Not shown, on purpose:** the 5.0 and "1 review" (the site shows a rating only from 5 real reviews up), the hours and the profile photo (need Joey's hours and the file).
+- **For Joey:** the profile's phone is (423) 618-3112 but the site says (423) 451-5707. Nothing on the site was changed. The profile's category "Real estate agency" is the one `research/gbp-setup-sheet.md` warns can imply a brokerage.
+- **Commit message:** `Checkpoint 51: link the Google Business Profile`
+
 **Update, Oct 27, afternoon (after Checkpoint 49): Checkpoint 50 makes the cash sale the net sheet's selling point.** Your feedback on the live Checkpoint 49 (15:53 UTC): "this makes it seems like i shouldnt sell to joey and ethan .. make it seem like a selling point big dog". No number, default, sum or the name changed (those wait for Joey). What changed:
 
 - **The answer leads with the cash sale.** It reads: "On these numbers, selling to us puts $105,000 in your pocket in 7 to 14 days." Under that: "You might keep about $7,000 more by listing, but only if it sells for $300,000, needs no more than $8,000 of work and closes in about 2.5 months. About 4 more months on the market would wipe that out." When the cash sale keeps more or it's about even, the headline says so.

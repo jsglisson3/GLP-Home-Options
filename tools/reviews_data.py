@@ -1,6 +1,9 @@
 """Real review facts. The ONE place they go. Everything here is EMPTY on purpose.
 
-GLP Home Options has no Google listing and no reviews yet (the Facebook page says "Not yet rated, 0 reviews"). Until a real value is typed here:
+Oct 28, 2026: GLP Home Options now has a verified Google Business Profile (Joey's screenshot: "Real estate agency", 5.0 from 1 Google review,
+phone (423) 618-3112). GOOGLE_PROFILE_URL below makes the site link to it (footer, Contact page, Home FAQ). The rating and the count are NOT typed
+in: one review is under MIN_SHOWN, so nothing about the rating would show anyway, and its writer is not known yet (an owner's or relative's review
+is never shown as a customer's). Until a real value is typed here:
   - no review page is built, and no review link, rating, count or quote appears anywhere on the site;
   - nothing about reviews is added to the search data (Google shows no stars for a business's own reviews, so that markup could only add risk).
 
@@ -27,8 +30,11 @@ from urllib.parse import urlsplit
 # it as https://g.page/r/ABC123xyz/review but Google's own pages do not show its shape, so test it on a phone first. While this is empty, no review page is built.
 GOOGLE_REVIEW_URL = ""
 
-# The public listing: what "Read every review on Google" opens, and a link that tells search engines this site and that listing are the same business.
-GOOGLE_PROFILE_URL = ""
+# The public listing: what "See us on Google" and "Read every review on Google" open, and a link that tells search engines this site and that listing
+# are the same business. Paste the profile's own share link here (Google Maps > the listing > Share > Copy link, usually https://maps.app.goo.gl/...).
+# Until Jeremy or Joey sends it, this is Google Maps' documented search link for the business name, which opens the same listing; a search link is
+# kept out of the search data (sameAs), because it is not the listing's own address.
+GOOGLE_PROFILE_URL = "https://www.google.com/maps/search/?api=1&query=GLP+Home+Options"
 
 # The average and the number of Google reviews, EXACTLY as the public listing shows them today (for example 4.9 and 14), and the day you read them.
 GOOGLE_RATING = None

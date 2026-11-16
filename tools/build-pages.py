@@ -156,13 +156,18 @@ OPTIONAL_PAGES = ("review.html",)   # a build deletes these when the facts that 
 
 # ------------------------------------------------------------------ FAQ text (the visible list and the structured data both come from here)
 LINK_FB = f'<a href="{FB}" target="_blank" rel="noopener">our Facebook page{NEWTAB}</a>'
+# The Google Business Profile (verified Oct 2026). Linked from the footer, the Contact page and the "legit?" FAQ answer only while
+# tools/reviews_data.py holds the link. No rating, count or stars are shown with it (one review is under MIN_SHOWN).
+GBP = REV.GOOGLE_PROFILE_URL
+GBP_IS_SEARCH = "/maps/search/" in GBP   # the stand-in search link until the profile's own share link is pasted in
+LINK_GBP = f'<a href="{html.escape(GBP, quote=True)}" target="_blank" rel="noopener">our Google Business Profile{NEWTAB}</a>' if GBP else ""
 FAQ = {
     "home": [
         ("Do I have to sell to you if I reach out?",
          "No. The first conversation is free and there's no obligation. We'll show you every realistic option, including listing with an agent or keeping the home, and you decide what's right."),
         ("How do I know GLP is legit?",
          f'Fair question. You deal directly with Joey or Ethan, and you can reach us anytime at <a href="{PHONE_TEL}">{PHONE}</a> or <a href="mailto:{EMAIL}">{EMAIL}</a>. '
-         f'You can see our recent closing and the home we\'re building on <a href="work.html">our work page</a> and {LINK_FB}. And you\'re always free to have your own attorney or title company review anything before you sign.'),
+         f'You can see our recent closing and the home we\'re building on <a href="work.html">our work page</a>{f", {LINK_FB} and {LINK_GBP}" if GBP else f" and {LINK_FB}"}. And you\'re always free to have your own attorney or title company review anything before you sign.'),
         ("How fast can you close, and what does it cost me?",
          "As little as 7 days, and usually 7 to 14. You pick the closing date, so if you need more time to move, that works too. "
          "We buy the house as it is, so there are no repairs, no cleaning, and no showings, just one visit so we can see the home. "
@@ -356,7 +361,7 @@ def ld_blocks(pg):
                 "address": address_ld(),
                 "areaServed": [{"@type": "City", "name": "Chattanooga, TN"}, "Counties within about an hour of Chattanooga, in Tennessee and Georgia"],
                 "founder": [{"@type": "Person", "name": "Joey"}, {"@type": "Person", "name": "Ethan"}],
-                "sameAs": [FB] + ([REV.GOOGLE_PROFILE_URL] if REV.GOOGLE_PROFILE_URL else [])})
+                "sameAs": [FB] + ([GBP] if GBP and not GBP_IS_SEARCH else [])})
         elif key.startswith("faq:"):
             items = FAQ[key[4:]]
             out.append({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
@@ -441,6 +446,13 @@ def fb_button():
             f'<span><b>Follow us on Facebook</b><small>Recent closings and builds</small>{NEWTAB}</span></a>')
 
 
+def gbp_link():
+    """The footer's plain link to the Google Business Profile (nothing while there is no link on file)."""
+    if not GBP:
+        return ""
+    return f'<a href="{html.escape(GBP, quote=True)}" target="_blank" rel="noopener">See us on Google{NEWTAB}</a>\n      '
+
+
 def brand(pg, lazy=False):
     la = ' loading="lazy"' if lazy else ""
     return (f'<a class="brand" href="{home_href(pg)}"><img src="images/glp-mark.png" alt="" width="240" height="132"{la}>'
@@ -510,7 +522,7 @@ def footer(pg):
       <h2>Contact</h2>
       <a href="{PHONE_TEL}">{PHONE}</a>
       <a href="mailto:{EMAIL}">{EMAIL}</a>
-      <span>{ADDRESS}</span>
+      {gbp_link()}<span>{ADDRESS}</span>
       <span>Serving Chattanooga &amp; surrounding counties</span>
     </div>
     <nav class="ftr-col" aria-label="Legal">
@@ -654,8 +666,19 @@ def reach(page=False, part="main"):
           <a class="reach-item rv" href="{FB}" target="_blank" rel="noopener">
             <span class="ico" aria-hidden="true">{ICON("fb-logo", "fb-logo")}</span>
             <span class="txt"><small>Recent closings and builds</small><b class="sm">Find us on Facebook{NEWTAB}</b></span><span class="go" aria-hidden="true">Visit</span>
-          </a>
+          </a>{gbp_tile()}
         </div>'''
+
+
+def gbp_tile():
+    """The Contact tile for the Google Business Profile, after Facebook (nothing while there is no link on file)."""
+    if not GBP:
+        return ""
+    return f'''
+          <a class="reach-item rv" href="{html.escape(GBP, quote=True)}" target="_blank" rel="noopener">
+            <span class="ico" aria-hidden="true">{ICON("pin")}</span>
+            <span class="txt"><small>Our Google Business Profile</small><b class="sm">See us on Google{NEWTAB}</b></span><span class="go" aria-hidden="true">Visit</span>
+          </a>'''
 
 
 def lead_form(pg, page=False):

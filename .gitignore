@@ -17,3 +17,6 @@ research/private/
 # Python's compiled cache; never part of the site.
 __pycache__/
 *.pyc
+
+# Private properties log (street addresses). Meant to live outside this folder; ignored here so it can never be committed to the public repo.
+GLP-private/
